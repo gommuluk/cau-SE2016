@@ -1,6 +1,7 @@
 # 2016 Software Engineering :: Simple Merge Program
 [![npm](https://img.shields.io/npm/l/express.svg)](MIT License)
 
+
 ## 팀원 명단
 멤버  | 이름
 ------|--------

@@ -1,0 +1,134 @@
+.shadow-background {
+    -fx-padding: 5 5 5 5;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+}
+
+/*
+ Used to declare the definition of stage resize zone
+*/
+.dark-background{
+    -fx-background-color: #2D2D30;  /* avoid mouse events in the middle*/
+    -fx-border-color: #39b29a;
+    -fx-border-width: 1px;
+    -fx-border-insets: 0;
+    -fx-effect: dropshadow(gaussian, #39B29A, 3, 0.3, 0.0, 0.0);
+}
+
+/*
+*	Menu button
+*/
+.decoration-button-menu{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("menu-hover.png");
+    -fx-background-repeat:no-repeat;
+}
+
+.decoration-button-menu:hover{
+    -fx-background-color: null;
+    -fx-background-image:url("menu.png");
+    -fx-background-repeat:no-repeat;
+}
+/*
+*	Minimize button
+*/
+.decoration-button-minimize{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("minimize.png");
+    -fx-background-repeat:no-repeat;
+}
+
+.decoration-button-minimize:hover{
+    -fx-background-color: null;
+    -fx-background-image:url("minimize-hover.png");
+    -fx-background-repeat:no-repeat;
+}
+/*
+*	Maximize button
+*/
+.decoration-button-maximize{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("maximize.png");
+    -fx-background-repeat:no-repeat;
+}
+.decoration-button-maximize:hover{
+    -fx-background-color: null;
+    -fx-background-image:url("maximize-hover.png");
+    -fx-background-repeat:no-repeat;
+}
+.decoration-button-restore{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("restore.png");
+    -fx-background-repeat:no-repeat;
+}
+.decoration-button-restore:hover{
+    -fx-background-color: null;
+    -fx-background-image:url("restore-hover.png");
+    -fx-background-repeat:no-repeat;
+}
+/*
+*	Close button
+*/
+.decoration-button-close{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("close.png");
+    -fx-background-repeat:no-repeat;
+}
+.decoration-button-close:hover{
+    -fx-background-color: null;
+    -fx-background-image:url("close-hover.png");
+    -fx-background-repeat:no-repeat;
+}
+
+/*
+*	Resize button
+*/
+.decoration-button-resize{
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("resizeSE.png");
+    -fx-background-repeat:no-repeat;
+}
+
+/* Status bar */
+.status-bar {
+    -fx-background-color: #39b29a;
+}
+
+.status-bar .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+
+/* Title bar */
+.dark-titlebar {
+
+}
+
+.dark-titlebar .label {
+    -fx-text-fill: #999999;
+    -fx-text-overrun: ellipsis;
+    -fx-font-size: 12px;
+    -fx-font-family: "맑은고딕";
+}
+
+/* Menu bar */
+.dark-menubar {
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-padding: -10 0 0 2;
+}
+
+.dark-menubar .label {
+    -fx-text-fill: white;
+}

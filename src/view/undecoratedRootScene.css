@@ -1,12 +1,9 @@
 .shadow-background {
-    -fx-padding: 5 5 5 5;
     -fx-alignment: center;
     -fx-background-color: transparent;
+    -fx-padding: 5 5 5 5;
 }
 
-/*
- Used to declare the definition of stage resize zone
-*/
 .dark-background{
     -fx-background-color: #2D2D30;  /* avoid mouse events in the middle*/
     -fx-border-color: #39b29a;

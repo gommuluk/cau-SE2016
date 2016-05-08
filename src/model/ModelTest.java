@@ -14,6 +14,7 @@ public class ModelTest {
 
     @Test
     public void fileReadTest() {
+        Model.getModel().readFiles("A.txt", "B.txt");
         assertNotNull(Model.fileA);
         assertNotNull(Model.fileB);
     }

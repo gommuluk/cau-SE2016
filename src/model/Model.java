@@ -12,11 +12,7 @@ public class Model {
     public static File fileB;
 
     private Model() {
-        Scanner input = new Scanner(System.in);
-        String fileAPath = input.next();
-        String fileBPath = input.next();
-        input.close();
-        readFiles(fileAPath, fileBPath);
+
     }
     public static Model getModel() {
        if(instance == null)

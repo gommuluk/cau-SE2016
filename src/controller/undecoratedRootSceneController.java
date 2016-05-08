@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,8 +27,11 @@ public class UndecoratedRootSceneController {
     private BoundingBox savedBounds = null;
     private Delta dragDelta;
 
-    private boolean isMaximized = false;
-    private boolean isDraggable = false;
+    private boolean draggableZoneX, draggableZoneY;
+    private boolean isMaximized = false, isDragging = false, initMinHeight = false, initMinWidth = false;
+
+    private final int RESIZE_MARGIN = 5;
+    private final double INIT_WIDTH = 850, INIT_HEIGHT = 650;
 
 
     // 생성자
@@ -141,5 +145,80 @@ public class UndecoratedRootSceneController {
             _minimize();
         }
     }
+
+
+    @FXML // 메인Pane에 마우스를 올렸을때의 액션
+    private void onMainPaneMouseOver(MouseEvent event){
+
+        if ( _isInDraggableZone(event) || isDragging || !isMaximized ) {
+            if (draggableZoneY) mainPane.setCursor(Cursor.S_RESIZE);
+            if (draggableZoneX) mainPane.setCursor(Cursor.E_RESIZE);
+
+        } else {
+            mainPane.setCursor(Cursor.DEFAULT);
+        }
+
+    }
+
+    @FXML // 메인Pane에서 마우스를 때었을때의 액션
+    private void onMainPaneMouseReleased(){
+        isDragging = false;
+        mainPane.setCursor(Cursor.DEFAULT);
+    }
+
+    @FXML // 메인Pane을 드래그했을때의 액션
+    private void onMainPaneDragged(MouseEvent event){
+
+        if (!isDragging || isMaximized) return;
+
+        if (draggableZoneY) {
+            double mousey = event.getScreenY();
+            double newHeight = mainWindow.getHeight() + (mousey - dragDelta.y);
+
+            if( newHeight >= INIT_HEIGHT ){
+                mainWindow.setHeight(newHeight);
+                dragDelta.y = mousey;
+            }
+        }
+
+        if (draggableZoneX) {
+            double mousex = event.getScreenX();
+            double newWidth = mainWindow.getWidth() + (mousex - dragDelta.x);
+
+            if( newWidth >= INIT_WIDTH ) {
+                mainWindow.setWidth(newWidth);
+                dragDelta.x = mousex;
+            }
+        }
+    }
+
+    @FXML // 메인Pane을 마우스로 롱-클릭했을때의 액션
+    private void onMainPanePressed(MouseEvent event){
+
+        if (!_isInDraggableZone(event)) return;
+
+        isDragging = true;
+
+        if (!initMinHeight) {
+            mainWindow.setMinHeight(mainPane.getHeight());
+            initMinHeight = true;
+        }
+
+        if (!initMinWidth) {
+            mainWindow.setMinWidth(mainPane.getWidth());
+            initMinWidth = true;
+        }
+
+        dragDelta.y = event.getScreenY();
+        dragDelta.x = event.getScreenX();
+    }
+
+    //TODO 리펙토링이 필요해 보이는 함수들?
+    private boolean _isInDraggableZone(MouseEvent event) {
+        draggableZoneY = (event.getY() > (mainPane.getHeight() - RESIZE_MARGIN));
+        draggableZoneX = (event.getX() > (mainPane.getWidth() - RESIZE_MARGIN));
+        return (draggableZoneY || draggableZoneX);
+    }
+
 
 }

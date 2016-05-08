@@ -6,17 +6,17 @@ import static org.junit.Assert.*;
 /**
  * Created by Elliad on 2016-05-08.
  */
-public class ModelTest {
+public class FileModelTest {
     @Test
     public void singletonTest() {
-        assertNotNull(Model.getModel());
+        assertNotNull(FileModel.getModel());
     }
 
     @Test
     public void fileReadTest() {
-        Model.getModel().readFiles("A.txt", "B.txt");
-        assertNotNull(Model.fileA);
-        assertNotNull(Model.fileB);
+        FileModel.getModel().readFiles("A.txt", "B.txt");
+        assertNotNull(FileModel.fileA);
+        assertNotNull(FileModel.fileB);
     }
 
     @Test

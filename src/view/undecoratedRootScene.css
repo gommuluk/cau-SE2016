@@ -1,16 +1,73 @@
+/* Scene Properties */
 .shadow-background {
     -fx-alignment: center;
     -fx-background-color: transparent;
     -fx-padding: 5 5 5 5;
 }
 
-.dark-background{
+.dark-background {
     -fx-background-color: #2D2D30;  /* avoid mouse events in the middle*/
     -fx-border-color: #39b29a;
     -fx-border-width: 1px;
     -fx-border-insets: 0;
     -fx-effect: dropshadow(gaussian, #39B29A, 3, 0.3, 0.0, 0.0);
 }
+
+/* TABS */
+.dark-tab {
+    -fx-background-color: #2D2D30;
+}
+
+.dark-tab *.tab-header-background {
+    -fx-background-color: #2D2D30;
+}
+
+.dark-tab .tab-pane {
+    -fx-tab-min-height: 20px;
+    -fx-tab-min-width:  95px;
+    -fx-background-color: transparent;
+}
+
+.dark-tab .tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 5 2 0 0; /* overriden as 5 2 0 0 */
+}
+
+.dark-tab .tab-pane:top > .tab-header-area > .tab-header-background {
+    -fx-background-insets: 0, 0 0 0 0, 0;
+}
+
+.dark-tab .tab {
+    -fx-background-color: #2D2D30;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.dark-tab .tab:selected {
+    -fx-background-color: #39B29A;
+    -fx-border-width: 0;
+}
+
+.dark-tab .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}
+
+.dark-tab .tab:hover {
+    -fx-background-color: #44d7ba;
+}
+
+.dark-tab .tab-label {
+    -fx-text-alignment: left;
+    -fx-text-fill: #FFFFFF;
+}
+
+.dark-tab .tab-content-area {
+    -fx-border-width: 3 0 0 0;
+    -fx-border-color: #39B29A;
+    -fx-background-color: -fx-control-inner-background;
+    -fx-padding: 0;
+}
+
 
 /*
 *	Menu button

@@ -28,13 +28,13 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
 
         // Stage Setting
-        this.primaryStage.setTitle("TEST!");
+        this.primaryStage.setTitle("Simple Merge - 소공 2팀");
         this.primaryStage.initStyle(StageStyle.TRANSPARENT);
         this.primaryStage.getIcons().add(new Image("file:res/icon.png"));
 
         // initialize
         _initUndecoratedRootScene();
-        _initTabPane();
+        //_initTabPane();
 
         // Stage Show!
         this.primaryStage.show();
@@ -80,6 +80,7 @@ public class Main extends Application {
 
             // Controller
             TabPaneController controller = loader.getController();
+
 
         } catch (IOException e) {
             e.printStackTrace();

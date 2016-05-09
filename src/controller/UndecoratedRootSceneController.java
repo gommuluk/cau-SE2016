@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.BoundingBox;
@@ -47,7 +48,9 @@ public class UndecoratedRootSceneController {
 
     @FXML // FXML이 로딩되면 불리는 콜백함수
     private void initialize(){
-        labelTitle.setText("TEST");
+        Platform.runLater(()->{
+            labelTitle.setText(mainWindow.getTitle());
+        });
     }
 
     @FXML // 최소화버튼액션

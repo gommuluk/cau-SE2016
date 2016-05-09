@@ -5,7 +5,6 @@ import controller.UndecoratedRootSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +29,7 @@ public class Main extends Application {
         // Stage Setting
         this.primaryStage.setTitle("TEST!");
         this.primaryStage.initStyle(StageStyle.TRANSPARENT);
-        this.primaryStage.getIcons().add(new Image("file:/view/icon.png"));
+        this.primaryStage.getIcons().add(new Image("file:res/icon.png"));
 
         // initialize
         _initUndecoratedRootScene();

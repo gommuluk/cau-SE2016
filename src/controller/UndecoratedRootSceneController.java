@@ -105,6 +105,7 @@ public class UndecoratedRootSceneController {
         mainWindow.setY(visualBounds.getMinY());
         mainWindow.setWidth(visualBounds.getWidth());
         mainWindow.setHeight(visualBounds.getHeight());
+
         isMaximized = true;
     }
 

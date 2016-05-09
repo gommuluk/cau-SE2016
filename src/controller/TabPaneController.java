@@ -44,12 +44,12 @@ public class TabPaneController {
     }
 
 
-    @FXML
+    @FXML // FXML 로딩이 완료되면 호출되는 콜백함수
     public void initialize(){
         _init();
     }
 
-    @FXML
+    @FXML // 탭을 드래그하기 시작하면 수행되는 액션
     private void onTabPaneDragDetected(MouseEvent event){
 
         if (event.getSource() instanceof TabPane) {
@@ -77,7 +77,7 @@ public class TabPaneController {
         event.consume();
     }
 
-    @FXML
+    @FXML // 탭을 드래그완료 했을때 수행되는 액션
     private void onTabPaneDragDone(DragEvent event){
         _openTabInStage(currentTab);
         tabPane.setCursor(Cursor.DEFAULT);

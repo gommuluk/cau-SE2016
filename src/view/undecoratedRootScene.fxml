@@ -19,9 +19,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane fx:id="shadowPane" styleClass="shadow-background" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UndecoratedRootSceneController">
-   <children>
-      <BorderPane fx:id="mainPane" layoutX="3.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1024.0" onMouseDragged="#onMainPaneDragged" onMouseMoved="#onMainPaneMouseOver" onMousePressed="#onMainPanePressed" onMouseReleased="#onMainPaneMouseReleased" styleClass="dark-background" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
+
+    <children>
+      <BorderPane fx:id="mainPane" layoutX="3.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1024.0" onMouseDragged="#onMainPaneDragged" onMouseMoved="#onMainPaneMouseOver" onMousePressed="#onMainPanePressed" onMouseReleased="#onMainPaneMouseReleased" styleClass="dark" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+          <top>
             <GridPane fx:id="controlPane" onMouseClicked="#onControlPaneClicked" onMouseDragged="#onControlPaneDragged" onMousePressed="#onControlPanePressed" BorderPane.alignment="CENTER">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -63,9 +65,6 @@
                            </effect>
                         </Label>
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
                   </AnchorPane>
                   <MenuBar id="menubar" styleClass="dark-menubar" stylesheets="@undecoratedRootScene.css" GridPane.rowIndex="1">
                     <menus>
@@ -89,15 +88,17 @@
                         <Insets />
                      </opaqueInsets>
                   </MenuBar>
-                  <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="dark-titlebar" stylesheets="@undecoratedRootScene.css" GridPane.rowIndex="2">
+                  <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="dark-toolbar" stylesheets="@undecoratedRootScene.css" GridPane.rowIndex="2">
                     <items>
-                      <Button mnemonicParsing="false" stylesheets="@undecoratedRootScene.css" text="Button" />
+                      <Button mnemonicParsing="false" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
+                        <Button mnemonicParsing="false" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css" />
                     </items>
                   </ToolBar>
                </children>
             </GridPane>
          </top>
-         <bottom>
+
+          <bottom>
             <AnchorPane fx:id="status_bar" maxHeight="25.0" styleClass="status-bar" stylesheets="@undecoratedRootScene.css" BorderPane.alignment="CENTER">
                <children>
                   <Label id="statusLabel" fx:id="status" prefHeight="25.0" styleClass="status-bar-label" stylesheets="@undecoratedRootScene.css" text="Status" AnchorPane.leftAnchor="5.0" />
@@ -105,6 +106,16 @@
                </children>
             </AnchorPane>
          </bottom>
+
+          <center>
+            <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0">
+                <children>
+                    <fx:include source="tabPane.fxml" fx:id="tabPane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                </children>
+            </AnchorPane>
+         </center>
+
       </BorderPane>
    </children>
+
 </AnchorPane>

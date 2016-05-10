@@ -110,7 +110,7 @@
           <center>
             <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0">
                 <children>
-                    <fx:include fx:id="tabPane" source="tabPane.fxml" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                    <fx:include fx:id="tabPane" source="tabPaneScene.fxml" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                 </children>
             </AnchorPane>
          </center>

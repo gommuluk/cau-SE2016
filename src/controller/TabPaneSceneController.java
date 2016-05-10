@@ -20,7 +20,7 @@ import java.util.*;
 /**
  * Created by SH on 2016-05-08.
  */
-public class TabPaneController {
+public class TabPaneSceneController {
 
     @FXML private TabPane tabPane;
 
@@ -32,7 +32,7 @@ public class TabPaneController {
 
 
     // 생성자
-    public TabPaneController(){
+    public TabPaneSceneController(){
         originalTabs = new ArrayList<>();
         stylesheets = new String[]{};
         tapTransferMap = new HashMap<>();

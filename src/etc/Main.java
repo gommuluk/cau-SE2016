@@ -1,6 +1,6 @@
 package etc;
 
-import controller.TabPaneController;
+import controller.TabPaneSceneController;
 import controller.UndecoratedRootSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -74,12 +73,12 @@ public class Main extends Application {
         try {
             // Load root Layout from fxml file
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/view/tabPane.fxml"));
+            loader.setLocation(Main.class.getResource("/view/tabPaneScene.fxml"));
 
             tabPane = loader.load();
 
             // Controller
-            TabPaneController controller = loader.getController();
+            TabPaneSceneController controller = loader.getController();
 
 
         } catch (IOException e) {

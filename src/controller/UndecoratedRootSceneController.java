@@ -233,5 +233,5 @@ public class UndecoratedRootSceneController {
         fileChooser.setTitle("Open Resource File");
         //fileChooser.showOpenDialog(stage);
     }
-    
+
 }

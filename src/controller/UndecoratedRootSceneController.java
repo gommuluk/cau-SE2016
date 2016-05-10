@@ -231,7 +231,6 @@ public class UndecoratedRootSceneController {
     private void onTBBtnFileOpenClicked(ActionEvent event){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        fileChooser.showOpenDialog(stage);
     }
 
 }

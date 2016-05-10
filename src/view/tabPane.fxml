@@ -9,16 +9,11 @@
    <children>
       <TabPane id="tabPane" fx:id="tabPane" onDragDetected="#onTabPaneDragDetected" onDragDone="#onTabPaneDragDone" styleClass="dark-tab" stylesheets="@undecoratedRootScene.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="test" stylesheets="@undecoratedRootScene.css" />
-            </content>
-          </Tab>
           <Tab text="시작">
                <content>
-                  <AnchorPane>
+                  <AnchorPane styleClass="dark-splitPane" stylesheets="@undecoratedRootScene.css">
                      <children>
-                        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />

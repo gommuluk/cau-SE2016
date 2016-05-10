@@ -216,3 +216,42 @@
 .dark-menubar .label {
     -fx-text-fill: white;
 }
+
+.dark-menubar .menu {
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+}
+
+.dark-menubar .menu:hover {
+    -fx-background-color: #3e3e40;
+}
+
+.dark-menubar .menu:pressed {
+    -fx-background-color: #1b1b1c;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-color: #333337;
+}
+
+.dark-menubar .menu:selected {
+    -fx-background-color: #1b1b1c;
+}
+
+.dark-menubar .menu:focused {
+    -fx-background-color: #1b1b1c;
+}
+
+.dark-menubar .menu-item {
+    -fx-background-color: #1b1b1c;
+}
+
+.dark-menubar .menu-item:hover {
+    -fx-background-color: #333334;
+}
+
+.dark-menubar .context-menu {
+    -fx-background-color: #1b1b1c;
+    -fx-border-width: 0 1 1 1;
+    -fx-border-color: #333337;
+    -fx-min-width: 150px;
+    -fx-padding: 2px;
+}

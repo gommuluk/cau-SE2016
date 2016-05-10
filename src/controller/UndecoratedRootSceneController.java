@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -228,7 +229,9 @@ public class UndecoratedRootSceneController {
 
     @FXML //TODO 나중에 (Toolbar)Pane을 나눠야 됩니다.
     private void onTBBtnFileOpenClicked(ActionEvent event){
-        System.out.println("오픈버튼을 눌렀다.");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.showOpenDialog(stage);
     }
 
 }

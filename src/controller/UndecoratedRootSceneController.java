@@ -2,6 +2,7 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Rectangle2D;
@@ -224,5 +225,10 @@ public class UndecoratedRootSceneController {
         return (draggableZoneY || draggableZoneX);
     }
 
+
+    @FXML //TODO 나중에 (Toolbar)Pane을 나눠야 됩니다.
+    private void onTBBtnFileOpenClicked(ActionEvent event){
+        System.out.println("오픈버튼을 눌렀다.");
+    }
 
 }

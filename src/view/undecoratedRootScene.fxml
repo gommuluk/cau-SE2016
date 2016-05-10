@@ -91,7 +91,7 @@
                   <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="dark-toolbar" stylesheets="@undecoratedRootScene.css" GridPane.rowIndex="2">
                     <items>
                       <Button mnemonicParsing="false" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
-                        <Button mnemonicParsing="false" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css" />
+                        <Button mnemonicParsing="false" onAction="#onTBBtnFileOpenClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css" />
                     </items>
                   </ToolBar>
                </children>
@@ -110,7 +110,7 @@
           <center>
             <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0">
                 <children>
-                    <fx:include source="tabPane.fxml" fx:id="tabPane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                    <fx:include fx:id="tabPane" source="tabPane.fxml" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                 </children>
             </AnchorPane>
          </center>

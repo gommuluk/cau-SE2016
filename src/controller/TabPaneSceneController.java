@@ -1,6 +1,7 @@
 package controller;
 
 import etc.MouseRobot;
+import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -8,8 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
@@ -23,11 +26,13 @@ import java.util.*;
 public class TabPaneSceneController {
 
     @FXML private TabPane tabPane;
+    @FXML private AnchorPane leftEditor, rightEditor;
 
     private Tab currentTab;
     private List<Tab> originalTabs;
     private Map<Integer, Tab> tapTransferMap;
     private String[] stylesheets;
+
     private boolean isAlwaysOnTop = true;
 
 
@@ -47,6 +52,7 @@ public class TabPaneSceneController {
     @FXML // FXML 로딩이 완료되면 호출되는 콜백함수
     public void initialize(){
         _init();
+        _syncEditorsScrollBar();
     }
 
     @FXML // 탭을 드래그하기 시작하면 수행되는 액션
@@ -95,6 +101,12 @@ public class TabPaneSceneController {
         tabPane.getTabs().stream().forEach(t -> {
             t.setClosable(false);
         });
+    }
+    private void _syncEditorsScrollBar(){
+        DoubleProperty left = ((TextArea)leftEditor.getChildren().get(1)).scrollTopProperty();
+        DoubleProperty right = ((TextArea)rightEditor.getChildren().get(1)).scrollTopProperty();
+
+        left.bindBidirectional(right);
     }
     private void _openTabInStage(final Tab tab) {
         if(tab == null) return;

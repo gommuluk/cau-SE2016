@@ -15,6 +15,7 @@ public class FileModelTest {
     @Test
     public void fileReadTest() {
         FileModel.getModel().readFiles("A.txt", "B.txt");
+        //assertArrayEquals(FileModel.fileA.);
         assertNotNull(FileModel.fileA);
         assertNotNull(FileModel.fileB);
     }

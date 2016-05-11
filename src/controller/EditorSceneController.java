@@ -6,7 +6,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.util.converter.DoubleStringConverter;
 
 /**
  * Created by SH on 2016-05-11.

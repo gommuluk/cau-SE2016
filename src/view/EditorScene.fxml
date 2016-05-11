@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,6 +10,13 @@
    <children>
       <ListView fx:id="listView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="One" />
+                  <String fx:value="Two" />
+                  <String fx:value="Three" />
+                  <String fx:value="Four" />
+                  <String fx:value="Five" />
+              </FXCollections>
           </items>
       </ListView>
       <TextArea fx:id="textArea" styleClass="dark-textarea" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

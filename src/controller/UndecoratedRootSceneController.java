@@ -226,12 +226,4 @@ public class UndecoratedRootSceneController {
         return (draggableZoneY || draggableZoneX);
     }
 
-
-    @FXML //TODO 나중에 (Toolbar)Pane을 나눠야 됩니다.
-    private void onTBBtnFileOpenClicked(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        //fileChooser.showOpenDialog(stage);
-    }
-
 }

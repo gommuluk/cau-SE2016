@@ -1,8 +1,12 @@
 package etc;
 
+import controller.ControlPaneSceneController;
 import controller.TabPaneSceneController;
 import controller.UndecoratedRootSceneController;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -18,7 +22,6 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private AnchorPane undecoratedRootScene, tabPane;
-    private Node undecoratedMainPane;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

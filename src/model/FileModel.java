@@ -25,10 +25,7 @@ public class FileModel {
         fileR= new File(fileRPath);
         try(Scanner in = new Scanner(new FileReader(fileRPath)))
         {
-            while(in.hasNextLine())
-            {
-                stringR+=in.nextLine();
-            }
+            stringR = in.useDelimiter("\\Z").next();
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();
@@ -40,11 +37,7 @@ public class FileModel {
         fileL = new File(fileLPath);
         try(Scanner in = new Scanner(new FileReader(fileLPath)))
         {
-            while(in.hasNextLine())
-            {
-                stringL+=in.nextLine();
-            }
-
+            stringL = in.useDelimiter("\\Z").next();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;

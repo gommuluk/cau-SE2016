@@ -15,10 +15,10 @@ public class FileModelTest {
     @Test
     public void fileReadTest() {
         String testR = "fdsa";
-        String testL = "asdf";
+        String testL = "asdf\nasdf";
         assertTrue(FileModel.getModel().readFileR("B.txt"));
         assertTrue(FileModel.getModel().readFileL("A.txt"));
-
+        System.out.print("Test : [" + FileModel.getModel().getStringL());
         assertArrayEquals(FileModel.getModel().getStringR().toCharArray(),testR.toCharArray());
         assertArrayEquals(FileModel.getModel().getStringL().toCharArray(),testL.toCharArray());
 

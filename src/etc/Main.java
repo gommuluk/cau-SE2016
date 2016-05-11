@@ -36,7 +36,6 @@ public class Main extends Application {
 
         // initialize
         _initUndecoratedRootScene();
-        //_initTabPane();
 
         // Stage Show!
         this.primaryStage.show();

@@ -13,7 +13,7 @@ public class TestModel {
     public BooleanProperty isActive = new SimpleBooleanProperty(false);
 
     public TestModel(){
-        
+
     }
 
     public void run(){

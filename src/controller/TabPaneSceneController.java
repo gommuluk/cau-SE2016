@@ -20,6 +20,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -159,7 +160,6 @@ public class TabPaneSceneController {
         stage.show();
     }
     @FXML //TODO 나중에 (Toolbar)Pane을 나눠야 됩니다.
-    //TODO TabPane으로 옮겨야 합니다.
     private void onTBBtnFileOpenClicked(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");

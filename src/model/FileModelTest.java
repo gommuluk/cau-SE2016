@@ -14,9 +14,14 @@ public class FileModelTest {
 
     @Test
     public void fileReadTest() {
-        FileModel.getModel().readFiles("A.txt", "B.txt");
-        assertNotNull(FileModel.fileA);
-        assertNotNull(FileModel.fileB);
+        String testR = "fdsa";
+        String testL = "asdf";
+        assertTrue(FileModel.getModel().readFileR("B.txt"));
+        assertTrue(FileModel.getModel().readFileL("A.txt"));
+
+        assertArrayEquals(FileModel.getModel().getStringR().toCharArray(),testR.toCharArray());
+        assertArrayEquals(FileModel.getModel().getStringL().toCharArray(),testL.toCharArray());
+
     }
 
     @Test

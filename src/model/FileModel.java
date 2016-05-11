@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.io.FileReader;
 /**
@@ -25,10 +26,7 @@ public class FileModel {
         fileR= new File(fileRPath);
         try(Scanner in = new Scanner(new FileReader(fileRPath)))
         {
-            while(in.hasNextLine())
-            {
-                stringR+=in.nextLine();
-            }
+            stringR = in.useDelimiter("\\Z").next();
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();
@@ -40,11 +38,7 @@ public class FileModel {
         fileL = new File(fileLPath);
         try(Scanner in = new Scanner(new FileReader(fileLPath)))
         {
-            while(in.hasNextLine())
-            {
-                stringL+=in.nextLine();
-            }
-
+            stringL = in.useDelimiter("\\Z").next();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
@@ -61,11 +55,25 @@ public class FileModel {
         return stringL;
     }
 
-    public void writeFiles() { // 파일명 받기 및 읽기
-
-
-
-
+    public boolean writeFileL(String fileLPath) { // 파일명 받기 및 읽기
+        try(  PrintWriter out = new PrintWriter(fileLPath) ){
+            out.print(stringL);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    public boolean writeFileR(String fileRPath) { // 파일명 받기 및 읽기
+        try(  PrintWriter out = new PrintWriter(fileRPath) ){
+            out.print(stringR);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }

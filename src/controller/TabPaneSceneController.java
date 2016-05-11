@@ -103,10 +103,14 @@ public class TabPaneSceneController {
         });
     }
     private void _syncEditorsScrollBar(){
-        DoubleProperty left = ((TextArea)leftEditor.getChildren().get(1)).scrollTopProperty();
-        DoubleProperty right = ((TextArea)rightEditor.getChildren().get(1)).scrollTopProperty();
+        DoubleProperty leftVerticalScroll = ((TextArea)leftEditor.getChildren().get(1)).scrollTopProperty();
+        DoubleProperty rightVerticalScroll = ((TextArea)rightEditor.getChildren().get(1)).scrollTopProperty();
 
-        left.bindBidirectional(right);
+        DoubleProperty leftHorizontalScroll = ((TextArea)leftEditor.getChildren().get(1)).scrollLeftProperty();
+        DoubleProperty rightHorizontalScroll = ((TextArea)rightEditor.getChildren().get(1)).scrollLeftProperty();
+
+        leftVerticalScroll.bindBidirectional(rightVerticalScroll);
+        leftHorizontalScroll.bindBidirectional(rightHorizontalScroll);
     }
     private void _openTabInStage(final Tab tab) {
         if(tab == null) return;

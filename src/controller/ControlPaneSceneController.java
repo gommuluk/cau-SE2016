@@ -56,7 +56,10 @@ public class ControlPaneSceneController implements Initializable {
 
     public void setModel(){
         TestModel t = new TestModel();
-        System.out.println(t.isActive);
         btnFileOpen.disableProperty().bind(t.isActive);
+
+        t.run();
+
+        System.out.println(t.isActive);
     }
 }

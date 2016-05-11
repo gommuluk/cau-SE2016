@@ -10,8 +10,32 @@ public class TestModel {
 
     public BooleanProperty isActive = new SimpleBooleanProperty(false);
 
+
     public TestModel(){
-        isActive.set(true);
+
+    }
+
+    public void run(){
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                int i = 0;
+
+                while(true) {
+                    if(i%2==0) isActive.set(false);
+                    else isActive.set(true);
+                    i++;
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
     }
 
 }

@@ -13,11 +13,34 @@ public class ControlPaneSceneController {
 
     }
 
-    @FXML //
+    @FXML // 비교 버튼이 클릭되었을 때의 동작
+    private void onBtnCompareClicked(ActionEvent event) {
+
+    }
+
+    @FXML // copy-to-right 버튼이 클릭되었을 때의 동작
+    private void onBtnCopyToRightClicked(ActionEvent event) {
+
+    }
+
+    @FXML // copy-to-left 버튼이 클릭되었을 때의 동작
+    private void onBtnCopyToLeftClicked(ActionEvent event) {
+
+    }
+
+    @FXML
     private void onTBBtnFileOpenClicked(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        //fileChooser.showOpenDialog(stage);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
+        //File selectedFile = fileChooser.showOpenDialog();
+        //if (selectedFile != null) {
+        //    mainStage.display(selectedFile);
+        //}
     }
 
 }

@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Delta;
 
+import java.awt.*;
+import java.io.File;
+
 /**
  * Created by SH on 2016-05-07.
  */

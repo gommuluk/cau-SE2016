@@ -2,6 +2,7 @@ package controller;
 
 import etc.MouseRobot;
 import javafx.beans.property.DoubleProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -15,9 +16,11 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Transform;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -156,5 +159,21 @@ public class TabPaneSceneController {
 
         stage.show();
     }
+
+    @FXML // 저장 버튼을 클릭했을 때의 동작
+    private void onTBBtnSaveClicked(ActionEvent event) {
+
+    }
+
+    @FXML // 불러오기 버튼을 클릭했을 때의 동작
+    private void onTBBtnLoadClicked(ActionEvent event) {
+
+    }
+
+    @FXML // 수정 버튼을 클릭햇을 때의 동작
+    private void onTBBtnEditClicked(ActionEvent event) {
+
+    }
+
 
 }

@@ -1,16 +1,26 @@
 package controller;
 
+import etc.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import model.TestModel;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by SH on 2016-05-12.
  */
-public class ControlPaneSceneController {
+public class ControlPaneSceneController implements Initializable {
 
-    private void initialize(){
+    @FXML private Button btnFileOpen;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.setModel();
     }
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
@@ -41,6 +51,12 @@ public class ControlPaneSceneController {
         //if (selectedFile != null) {
         //    mainStage.display(selectedFile);
         //}
+
     }
 
+    public void setModel(){
+        TestModel t = new TestModel();
+        System.out.println(t.isActive);
+        btnFileOpen.disableProperty().bind(t.isActive);
+    }
 }

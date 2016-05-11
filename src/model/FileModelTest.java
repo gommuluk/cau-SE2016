@@ -14,10 +14,8 @@ public class FileModelTest {
 
     @Test
     public void fileReadTest() {
-        FileModel.getModel().readFiles("A.txt", "B.txt");
-        //assertArrayEquals(FileModel.fileA.);
-        assertTrue(FileModel.fileA.exists());
-        assertTrue(FileModel.fileB.exists());
+        assertTrue(FileModel.getModel().readFileR("B.txt"));
+        assertTrue(FileModel.getModel().readFileR("A.txt"));
     }
 
     @Test

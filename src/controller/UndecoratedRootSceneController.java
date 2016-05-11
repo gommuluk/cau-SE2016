@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Delta;
 
+import java.awt.*;
 import java.io.File;
 
 /**
@@ -228,4 +229,18 @@ public class UndecoratedRootSceneController {
         return (draggableZoneY || draggableZoneX);
     }
 
+    @FXML // 비교 버튼이 클릭되었을 때의 동작
+    private void onBtnCompareClicked(ActionEvent event) {
+
+    }
+
+    @FXML // copy-to-right 버튼이 클릭되었을 때의 동작
+    private void onBtnCopyToRightClicked(ActionEvent event) {
+
+    }
+
+    @FXML // copy-to-left 버튼이 클릭되었을 때의 동작
+    private void onBtnCopyToLeftClicked(ActionEvent event) {
+
+    }
 }

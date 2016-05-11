@@ -174,4 +174,20 @@ public class TabPaneSceneController {
         //}
     }
 
+    @FXML // 저장 버튼을 클릭했을 때의 동작
+    private void onTBBtnSaveClicked(ActionEvent event) {
+
+    }
+
+    @FXML // 불러오기 버튼을 클릭했을 때의 동작
+    private void onTBBtnLoadClicked(ActionEvent event) {
+
+    }
+
+    @FXML // 수정 버튼을 클릭햇을 때의 동작
+    private void onTBBtnEditClicked(ActionEvent event) {
+
+    }
+
+
 }

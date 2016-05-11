@@ -2,6 +2,8 @@ package model;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Created by SH on 2016-05-12.
@@ -10,9 +12,8 @@ public class TestModel {
 
     public BooleanProperty isActive = new SimpleBooleanProperty(false);
 
-
     public TestModel(){
-
+        
     }
 
     public void run(){
@@ -27,6 +28,7 @@ public class TestModel {
                     if(i%2==0) isActive.set(false);
                     else isActive.set(true);
                     i++;
+
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {

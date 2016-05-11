@@ -243,4 +243,19 @@ public class UndecoratedRootSceneController {
     private void onBtnCopyToLeftClicked(ActionEvent event) {
 
     }
+
+    @FXML //TODO 나중에 (Toolbar)Pane을 나눠야 됩니다.
+    private void onTBBtnFileOpenClicked(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
+        //File selectedFile = fileChooser.showOpenDialog();
+        //if (selectedFile != null) {
+        //    mainStage.display(selectedFile);
+        //}
+    }
 }

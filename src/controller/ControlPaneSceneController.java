@@ -1,11 +1,9 @@
 package controller;
 
-import etc.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.TestModel;
@@ -20,7 +18,6 @@ import java.util.ResourceBundle;
 public class ControlPaneSceneController implements Initializable {
 
     @FXML private Button btnFileOpen;
-    @FXML private GridPane controlPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

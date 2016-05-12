@@ -9,7 +9,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.TestModel;
-
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,9 +56,6 @@ public class ControlPaneSceneController implements Initializable {
 
         File selectedFile = fileChooser.showOpenDialog(s);
 
-        //if (selectedFile != null) {
-        //    mainStage.display(selectedFile);
-        //}
 
     }
 

@@ -11,10 +11,14 @@ import java.io.FileReader;
  */
 public class FileModel {
 
-    private static File file;
-    private static ArrayList<String> stringArrayList = new ArrayList<String>();
+    private File file; //로드하고있는 파일
+    private ArrayList<String> stringArrayList = new ArrayList<String>();//데이터를 줄 단위로 저장하는 arraylist
+    private String statusString; //현재 파일을 읽는지 로드중인지 그런 상태를 표시하는 문장
 
-
+    public FileModel()
+    {
+        statusString = "Ready(No file is loaded)";
+    }
 
 
     public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
@@ -32,6 +36,7 @@ public class FileModel {
             e.printStackTrace();
             return false;
         }
+        statusString = "File Loaded Successfully";
         return true;
     }
 
@@ -53,7 +58,13 @@ public class FileModel {
             e.printStackTrace();
             return false;
         }
+        statusString = "File Written successfully";
         return true;
     }
+    public String getStatus()
+    {
+        return statusString;
+    }
+
 
 }

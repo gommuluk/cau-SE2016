@@ -1,14 +1,8 @@
 package etc;
 
-import controller.ControlPaneSceneController;
-import controller.TabPaneSceneController;
 import controller.UndecoratedRootSceneController;
 import javafx.application.Application;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -21,7 +15,6 @@ import java.io.IOException;
 public class Main extends Application {
 
     private Stage primaryStage;
-    private AnchorPane undecoratedRootScene, tabPane;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -49,6 +42,8 @@ public class Main extends Application {
     private void _initUndecoratedRootScene(){
 
         try {
+            AnchorPane undecoratedRootScene;
+
             // Load root Layout from fxml file
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/view/undecoratedRootScene.fxml"));
@@ -58,30 +53,7 @@ public class Main extends Application {
             Scene scene = new Scene(undecoratedRootScene);
             scene.setFill(Color.TRANSPARENT);
 
-            // Controller
-            UndecoratedRootSceneController controller = loader.getController();
-            controller.setStage(this.primaryStage);
-
             primaryStage.setScene(scene);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void _initTabPane(){
-
-        try {
-            // Load root Layout from fxml file
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/view/tabPaneScene.fxml"));
-
-            tabPane = loader.load();
-
-            // Controller
-            TabPaneSceneController controller = loader.getController();
-
 
         } catch (IOException e) {
             e.printStackTrace();

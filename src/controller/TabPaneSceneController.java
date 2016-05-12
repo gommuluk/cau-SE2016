@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
@@ -31,7 +32,7 @@ import java.util.*;
 public class TabPaneSceneController {
 
     @FXML private TabPane tabPane;
-    @FXML private AnchorPane leftEditor, rightEditor;
+    @FXML private BorderPane leftEditor, rightEditor;
 
     private Tab currentTab;
     private List<Tab> originalTabs;
@@ -108,11 +109,14 @@ public class TabPaneSceneController {
         });
     }
     private void _syncEditorsScrollBar(){
-        DoubleProperty leftVerticalScroll = ((TextArea)leftEditor.getChildren().get(1)).scrollTopProperty();
-        DoubleProperty rightVerticalScroll = ((TextArea)rightEditor.getChildren().get(1)).scrollTopProperty();
+        TextArea leftTextArea = (TextArea)((AnchorPane)leftEditor.getCenter()).getChildren().get(0);
+        TextArea rightTextArea = (TextArea)((AnchorPane)rightEditor.getCenter()).getChildren().get(0);
 
-        DoubleProperty leftHorizontalScroll = ((TextArea)leftEditor.getChildren().get(1)).scrollLeftProperty();
-        DoubleProperty rightHorizontalScroll = ((TextArea)rightEditor.getChildren().get(1)).scrollLeftProperty();
+        DoubleProperty leftVerticalScroll = leftTextArea.scrollTopProperty();
+        DoubleProperty rightVerticalScroll = rightTextArea.scrollTopProperty();
+
+        DoubleProperty leftHorizontalScroll = leftTextArea.scrollLeftProperty();
+        DoubleProperty rightHorizontalScroll = rightTextArea.scrollLeftProperty();
 
         leftVerticalScroll.bindBidirectional(rightVerticalScroll);
         leftHorizontalScroll.bindBidirectional(rightHorizontalScroll);
@@ -162,17 +166,13 @@ public class TabPaneSceneController {
         stage.show();
     }
 
+
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) {
 
     }
 
-    @FXML // 불러오기 버튼을 클릭했을 때의 동작
-    private void onTBBtnLoadClicked(ActionEvent event) {
-
-    }
-
-    @FXML // 수정 버튼을 클릭햇을 때의 동작
+    @FXML // 수정 버튼을 클릭했을 때의 동작
     private void onTBBtnEditClicked(ActionEvent event) {
 
     }

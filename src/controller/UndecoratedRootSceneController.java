@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
@@ -19,6 +20,8 @@ import model.Delta;
 
 import java.awt.*;
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by SH on 2016-05-07.
@@ -37,24 +40,21 @@ public class UndecoratedRootSceneController {
     private boolean isMaximized = false, isDragging = false, initMinHeight = false, initMinWidth = false;
 
     private final int RESIZE_MARGIN = 5;
-    private final double INIT_WIDTH = 850, INIT_HEIGHT = 650;
-
+    private double INIT_WIDTH, INIT_HEIGHT;
 
     // 생성자
     public UndecoratedRootSceneController(){
         this.dragDelta = new Delta();
     }
 
-    // setter
-    public void setStage(Stage s){
-        this.mainWindow = s;
-    }
-
-
     @FXML // FXML이 로딩되면 불리는 콜백함수
     private void initialize(){
-        Platform.runLater(()->{
+        Platform.runLater(()-> {
+            mainWindow = (Stage)shadowPane.getScene().getWindow();
+
             labelTitle.setText(mainWindow.getTitle());
+            INIT_HEIGHT = mainWindow.getHeight();
+            INIT_WIDTH = mainWindow.getWidth();
         });
     }
 
@@ -127,11 +127,8 @@ public class UndecoratedRootSceneController {
     @FXML // 컨트롤Pane을 클릭했을때의 액션
     private void onControlPaneClicked(MouseEvent event){
         if( event.getClickCount() == 2 ){
-
-            if( isMaximized )
-                _minimize();
-            else
-                _maximize();
+            if( isMaximized ) _minimize();
+            else _maximize();
 
             event.consume();
         }

@@ -4,7 +4,6 @@
     -fx-background-color: transparent;
     -fx-padding: 5 5 5 5;
 }
-
 .dark {
     -fx-background-color: #2D2D30;  /* avoid mouse events in the middle*/
     -fx-border-color: #39b29a;
@@ -18,50 +17,40 @@
 .dark-tab {
     -fx-background-color: #2D2D30;
 }
-
 .dark-tab *.tab-header-background {
     -fx-background-color: #2D2D30;
 }
-
 .dark-tab .tab-pane {
     -fx-tab-min-height: 20px;
     -fx-tab-min-width:  95px;
     -fx-background-color: transparent;
 }
-
 .dark-tab .tab-pane:top *.tab-header-area {
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 5 2 0 1; /* overriden as 5 2 0 0 */
 }
-
 .dark-tab .tab-pane:top > .tab-header-area > .tab-header-background {
     -fx-background-insets: 0, 0 0 0 0, 0;
 }
-
 .dark-tab .tab {
     -fx-background-color: #2D2D30;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
-
 .dark-tab .tab:selected {
     -fx-background-color: #39B29A;
     -fx-border-width: 0;
 }
-
 .dark-tab .tab:selected .focus-indicator {
     -fx-border-width: 0;
 }
-
 .dark-tab .tab:hover {
     -fx-background-color: #44d7ba;
 }
-
 .dark-tab .tab-label {
     -fx-text-alignment: left;
     -fx-text-fill: #FFFFFF;
 }
-
 .dark-tab .tab-content-area {
     -fx-border-width: 3 1 1 1;
     -fx-border-color: #39B29A #3F3F46 #3F3F46 #3F3F46;
@@ -74,7 +63,6 @@
 .dark-splitPane .split-pane {
     -fx-background-color: #28282B;
 }
-
 .dark-splitPane .split-pane:horizontal > .split-pane-divider {
     -fx-background-color: #2D2D30;
     -fx-border-width: 0 1 2 1;
@@ -82,14 +70,14 @@
     -fx-border-insets: 0 0 -3 0;
 }
 
+
 /* Toolbar */
-.dark .tool-bar:horizontal {
+.global-toolbar .tool-bar:horizontal {
     -fx-border-style: null;
     -fx-background-color: null;
-    -fx-padding: -10 0 0 10;
+    -fx-padding: -5 -3 0 10;
 }
-
-.dark .tool-bar .button {
+.global-toolbar .tool-bar .button {
     -fx-background-radius: 0;
     -fx-border-style: null;
     -fx-background-color: null;
@@ -125,9 +113,7 @@
 }
 
 
-/*
-*	Minimize button
-*/
+/* Control buttons */
 .decoration-button-minimize{
     -fx-background-radius: 0;
     -fx-border-style: null;
@@ -135,15 +121,11 @@
     -fx-background-image:url("minimize.png");
     -fx-background-repeat:no-repeat;
 }
-
 .decoration-button-minimize:hover{
     -fx-background-color: null;
     -fx-background-image:url("minimize-hover.png");
     -fx-background-repeat:no-repeat;
 }
-/*
-*	Maximize button
-*/
 .decoration-button-maximize{
     -fx-background-radius: 0;
     -fx-border-style: null;
@@ -168,9 +150,6 @@
     -fx-background-image:url("restore-hover.png");
     -fx-background-repeat:no-repeat;
 }
-/*
-*	Close button
-*/
 .decoration-button-close{
     -fx-background-radius: 0;
     -fx-border-style: null;
@@ -183,10 +162,6 @@
     -fx-background-image:url("close-hover.png");
     -fx-background-repeat:no-repeat;
 }
-
-/*
-*	Resize button
-*/
 .decoration-button-resize{
     -fx-border-style: null;
     -fx-background-color: null;
@@ -198,17 +173,13 @@
 .status-bar {
     -fx-background-color: #39b29a;
 }
-
 .status-bar .label {
     -fx-text-fill: #FFFFFF;
 }
 
 
 /* Title bar */
-.dark-titlebar {
-
-}
-
+.dark-titlebar {  }
 .dark-titlebar .label {
     -fx-text-fill: #999999;
     -fx-text-overrun: ellipsis;
@@ -220,7 +191,7 @@
 .dark-menubar {
     -fx-border-style: null;
     -fx-background-color: null;
-    -fx-padding: -10 0 2 2;
+    -fx-padding: -8 -3 2 2;
 }
 
 .dark-menubar .label {
@@ -268,7 +239,7 @@
 
 
 /* Editor (TextArea) */
-.dark-textarea {
+.editor {
     -fx-background-color: transparent;
     -fx-border-radius: 0;
     -fx-border-color: transparent;
@@ -278,15 +249,52 @@
     -fx-font-size: 14px;
     -fx-font-family: 'Gulim', 'Dotum';
 }
-
-.dark-textarea .text-area .scroll-pane {
+.editor-toolbar .text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+.editor-toolbar .text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.editor-toolbar .text-area .scroll-pane .content{
     -fx-background-color: transparent;
 }
 
-.dark-textarea .text-area .scroll-pane .viewport{
-    -fx-background-color: transparent;
+/* Editor (Toolbar) */
+.editor-toolbar .tool-bar:horizontal {
+    -fx-border-style: null;
+    -fx-background-color: #3F3F46;
+}
+.editor-toolbar .tool-bar .button {
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-min-width: 24px;
+    -fx-min-height: 24px;
+    -fx-padding: 2px;
+    -fx-background-repeat: no-repeat;
 }
 
-.dark-textarea .text-area .scroll-pane .content{
-    -fx-background-color: transparent;
+.editor-path-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+}
+
+.btnEdit {
+    -fx-background-image:url("btnEdit.png");
+}
+.btnEdit:disabled {
+    -fx-background-image:url("btnEditDisable.png");
+}
+.btnEdit:hover {
+    -fx-background-image:url("btnEdit-hover.png");
+}
+
+.btnFileOpen {
+    -fx-background-image:url("btnFileOpen.png");
+}
+.btnFileOpen:hover{
+    -fx-background-image:url("btnFileOpen-hover.png");
+}
+.btnFileOpen:disabled {
+    -fx-background-image:url("btnFileOpenDisable.png");
 }

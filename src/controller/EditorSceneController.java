@@ -8,10 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.FileModel;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by SH on 2016-05-11.
@@ -42,6 +45,11 @@ public class EditorSceneController {
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
 
         File selectedFile = fileChooser.showOpenDialog(s);
+        FileModel.getModel().readFileL(selectedFile.getPath());
+        ArrayList<String> strings = FileModel.getModel().getStringL();
+        for(String temp : strings) {
+            textArea.appendText(temp);
+        }
     }
 
 }

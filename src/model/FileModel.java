@@ -27,8 +27,7 @@ public class FileModel {
         fileR= new File(fileRPath);
         try(Scanner in = new Scanner(new FileReader(fileRPath)))
         {
-            while(in.hasNext())
-                stringR.add(in.next());
+            while(in.hasNext()) stringR.add(in.next() + "\n");
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();
@@ -40,8 +39,7 @@ public class FileModel {
         fileL = new File(fileLPath);
         try(Scanner in = new Scanner(new FileReader(fileLPath)))
         {
-            while(in.hasNext())
-            stringL.add(in.next());
+            while(in.hasNext()) stringL.add(in.next() + "\n");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;

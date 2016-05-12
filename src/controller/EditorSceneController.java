@@ -34,6 +34,7 @@ public class EditorSceneController {
 
     @FXML // 불러오기 버튼을 클릭했을 때의 동작
     private void onTBBtnLoadClicked(ActionEvent event) {
+        //File chooser code
         Stage s = (Stage)btnFileOpen.getScene().getWindow();
 
         FileChooser fileChooser = new FileChooser();
@@ -45,11 +46,14 @@ public class EditorSceneController {
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
 
         File selectedFile = fileChooser.showOpenDialog(s);
+
+        //Show text in Edit panel
+
         FileModel.getModel().readFileL(selectedFile.getPath());
+
         ArrayList<String> strings = FileModel.getModel().getStringL();
-        for(String temp : strings) {
-            textArea.appendText(temp);
-        }
+
+        for(String temp : strings) textArea.appendText(temp);
     }
 
 }

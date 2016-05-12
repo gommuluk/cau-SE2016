@@ -20,28 +20,40 @@ public class FileModelTest {
 
     @Test
     public void fileReadTest() {
-        String testString = "asdf\nasdf";
-        assertTrue(FileModel.getModel().readFile("A.txt"));
+        String testR = "fdsa";
+        String testL = "asdf\nasdf";
+        assertTrue(FileModel.getModel().readFileR("B.txt"));
+        assertTrue(FileModel.getModel().readFileL("A.txt"));
         //System.out.print("Test : [" + FileModel.getModel().getStringL());
-        assertArrayEquals(FileModel.getModel().getString().toCharArray(),testString.toCharArray());
+
+        //TODO 여기 테스트 수정 필요
+        //assertArrayEquals(FileModel.getModel().getStringR().,testR.toCharArray());
+        //assertArrayEquals(FileModel.getModel().getStringL().toCharArray(),testL.toCharArray());
+
     }
 
     @Test
     public void fileWriteTest() {
-        assertTrue(FileModel.getModel().writeFile("AA.txt"));
-
-        String testString = "asdf\nasdf";
-
-        String savedString = "";
+        assertTrue(FileModel.getModel().writeFileL("AA.txt"));
+        assertTrue(FileModel.getModel().writeFileR("BB.txt"));
+        String testR = "fdsa";
+        String testL = "asdf\nasdf";
+        String SavedR = "";
+        String SavedL = "";
         try(Scanner in = new Scanner(new FileReader("AA.txt")))
         {
-            savedString = in.useDelimiter("\\Z").next();
+            SavedL = in.useDelimiter("\\Z").next();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        assertArrayEquals(savedString.toCharArray(),testString.toCharArray());
-
+        try(Scanner in = new Scanner(new FileReader("BB.txt")))
+        {
+            SavedR = in.useDelimiter("\\Z").next();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertArrayEquals(SavedR.toCharArray(),testR.toCharArray());
+        assertArrayEquals(SavedL.toCharArray(),testL.toCharArray());
 
 
     }

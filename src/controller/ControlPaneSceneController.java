@@ -1,13 +1,13 @@
 package controller;
 
-import etc.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.TestModel;
-
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,7 +20,7 @@ public class ControlPaneSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.setModel();
+//        this.setModel();
     }
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
@@ -40,17 +40,7 @@ public class ControlPaneSceneController implements Initializable {
 
     @FXML
     private void onTBBtnFileOpenClicked(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                new FileChooser.ExtensionFilter("All Files", "*.*"));
-        //File selectedFile = fileChooser.showOpenDialog();
-        //if (selectedFile != null) {
-        //    mainStage.display(selectedFile);
-        //}
+
 
     }
 
@@ -58,8 +48,9 @@ public class ControlPaneSceneController implements Initializable {
         TestModel t = new TestModel();
         btnFileOpen.disableProperty().bind(t.isActive);
 
-        t.run();
 
+        t.run();
         System.out.println(t.isActive);
     }
+
 }

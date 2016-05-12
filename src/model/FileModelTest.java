@@ -15,11 +15,6 @@ import static org.junit.Assert.*;
  */
 public class FileModelTest {
     @Test
-    public void singletonTest() {
-        assertNotNull(FileModel.getModel());
-    }
-
-    @Test
     public void fileReadTest() {
         ArrayList<String> testArraylist = new ArrayList<String>();
         testArraylist.add("asdf\n");

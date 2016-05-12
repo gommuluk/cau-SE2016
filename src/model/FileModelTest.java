@@ -16,18 +16,20 @@ import static org.junit.Assert.*;
 public class FileModelTest {
     @Test
     public void fileReadTest() {
+        FileModel testFileModel = new FileModel();
         ArrayList<String> testArraylist = new ArrayList<String>();
         testArraylist.add("asdf\n");
         testArraylist.add("asdf");
-        assertTrue(FileModel.getModel().readFile("A.txt"));
-        assertEquals(FileModel.getModel().getStringArrayList(),testArraylist);
+        assertTrue(testFileModel.readFile("A.txt"));
+        assertEquals(testFileModel.getStringArrayList(),testArraylist);
 
 
     }
 
     @Test
     public void fileWriteTest() {
-        assertTrue(FileModel.getModel().writeFile("AA.txt"));
+        FileModel testFileModel = new FileModel();
+        assertTrue(testFileModel.writeFile("AA.txt"));
         ArrayList<String> testArraylist = new ArrayList<String>();
         try(Scanner in = new Scanner(new FileReader("AA.txt")))
         {
@@ -41,7 +43,21 @@ public class FileModelTest {
 
             e.printStackTrace();
         }
-        assertEquals(FileModel.getModel().getStringArrayList(),testArraylist);
+        assertEquals(testFileModel.getStringArrayList(),testArraylist);
 
     }
+    @Test
+    public void getStatusTest()
+    {
+        FileModel testFileModel = new FileModel();
+        String testStatus = "Ready(No file is loaded)";
+        assertEquals(testFileModel.getStatus(),testStatus);
+        assertTrue(testFileModel.readFile("A.txt"));
+        testStatus = "File Loaded Successfully";
+        assertEquals(testFileModel.getStatus(),testStatus);
+        testFileModel.writeFile("AA.txt");
+        testStatus = "File Written successfully";
+        assertEquals(testFileModel.getStatus(),testStatus);
+    }
+
 }

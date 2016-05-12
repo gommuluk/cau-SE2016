@@ -49,9 +49,9 @@ public class EditorSceneController {
 
         //Show text in Edit panel
 
-        FileModel.getModel().readFileL(selectedFile.getPath());
+        FileModel.getModel().readFile(selectedFile.getPath());
 
-        ArrayList<String> strings = FileModel.getModel().getStringL();
+        ArrayList<String> strings = FileModel.getModel().getStringArrayList();
 
         for(String temp : strings) textArea.appendText(temp);
     }

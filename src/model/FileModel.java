@@ -10,17 +10,12 @@ import java.io.FileReader;
  * Created by Elliad on 2016-05-08.
  */
 public class FileModel {
-    private static FileModel instance;
+
     private static File file;
     private static ArrayList<String> stringArrayList = new ArrayList<String>();
 
-    private FileModel() { // 기본 생성자
-    }
-    public static FileModel getModel() { // 1개의 객체를 유지하기 위한 싱글톤
-       if(instance == null)
-           instance = new FileModel();
-        return instance;
-    }
+
+
 
     public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
         file= new File(filePath);

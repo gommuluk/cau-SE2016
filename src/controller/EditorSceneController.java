@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.FileManager;
 import model.FileModel;
 
 import java.io.File;
@@ -49,9 +50,9 @@ public class EditorSceneController {
 
         //Show text in Edit panel
 
-        FileModel.getModel().readFile(selectedFile.getPath());
+        FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
 
-        ArrayList<String> strings = FileModel.getModel().getStringArrayList();
+        ArrayList<String> strings = FileManager.getFileManager().GetFileModelL().getStringArrayList();
 
         for(String temp : strings) textArea.appendText(temp);
     }

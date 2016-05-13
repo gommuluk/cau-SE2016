@@ -2,12 +2,10 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileReader;
+
 /**
  * Created by Elliad on 2016-05-08.
  */
@@ -48,8 +46,8 @@ public class FileModel {
     }
 
 
-    public boolean writeFile(String filePath) { // 파일명 받기 및 읽기
-        try(  PrintWriter out = new PrintWriter(filePath) ){
+    public boolean writeFile() { // 파일명 받기 및 읽기
+        try(  PrintWriter out = new PrintWriter(file.getPath()) ){
             String tstring ="";
             for (String i : stringArrayList) {
                 tstring+=i;
@@ -65,8 +63,8 @@ public class FileModel {
         return true;
     }
 
-    public SimpleStringProperty getStatus()
-    {
+    public SimpleStringProperty getStatus() {
+        //TODO SAFE GETTER로 만들기 위한 CLONE 필요
         return statusString;
     }
 

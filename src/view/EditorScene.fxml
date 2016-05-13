@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -18,25 +21,19 @@
                   <Label styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="FilePath" />
                </children></Pane>
             <Button fx:id="btnEdit" mnemonicParsing="false" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
-            <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnLoadClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnLoadClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css">
+               <tooltip>
+                  <Tooltip text="파일열기" />
+               </tooltip></Button>
          </items>
       </ToolBar>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="editor" stylesheets="@undecoratedRootScene.css" BorderPane.alignment="CENTER">
+      <AnchorPane styleClass="editor" stylesheets="@undecoratedRootScene.css" BorderPane.alignment="CENTER">
          <children>
-            <!--<ListView fx:id="listView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
-                <!--<items>-->
-                    <!--<FXCollections fx:factory="observableArrayList">-->
-                        <!--<String fx:value="One" />-->
-                        <!--<String fx:value="Two" />-->
-                        <!--<String fx:value="Three" />-->
-                        <!--<String fx:value="Four" />-->
-                        <!--<String fx:value="Five" />-->
-                    <!--</FXCollections>-->
-                <!--</items>-->
-            <!--</ListView>-->
-            <TextArea fx:id="textArea" styleClass="editor" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ListView fx:id="listView" styleClass="list-cell" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            </ListView>
+            <TextArea fx:id="textArea" onKeyPressed="#onTextAreaKeyPressed" styleClass="editor" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </center>

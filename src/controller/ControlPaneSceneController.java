@@ -38,11 +38,6 @@ public class ControlPaneSceneController implements Initializable {
 
     }
 
-    @FXML
-    private void onTBBtnFileOpenClicked(ActionEvent event) {
-
-
-    }
 
     public void setModel(){
         TestModel t = new TestModel();

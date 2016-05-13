@@ -44,7 +44,7 @@
       <ToolBar styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" GridPane.rowIndex="1">
          <items>
             <Button fx:id="btnEdit" mnemonicParsing="false" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
-            <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnFileOpenClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnFileOpen" mnemonicParsing="false" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css" />
          </items>
       </ToolBar>
    </children>

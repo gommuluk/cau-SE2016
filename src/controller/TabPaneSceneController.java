@@ -109,8 +109,8 @@ public class TabPaneSceneController {
         });
     }
     private void _syncEditorsScrollBar(){
-        TextArea leftTextArea = (TextArea)((AnchorPane)leftEditor.getCenter()).getChildren().get(0);
-        TextArea rightTextArea = (TextArea)((AnchorPane)rightEditor.getCenter()).getChildren().get(0);
+        TextArea leftTextArea = (TextArea)((AnchorPane)leftEditor.getCenter()).getChildren().get(1);
+        TextArea rightTextArea = (TextArea)((AnchorPane)rightEditor.getCenter()).getChildren().get(1);
 
         DoubleProperty leftVerticalScroll = leftTextArea.scrollTopProperty();
         DoubleProperty rightVerticalScroll = rightTextArea.scrollTopProperty();
@@ -164,17 +164,6 @@ public class TabPaneSceneController {
         });
 
         stage.show();
-    }
-
-
-    @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) {
-
-    }
-
-    @FXML // 수정 버튼을 클릭했을 때의 동작
-    private void onTBBtnEditClicked(ActionEvent event) {
-
     }
 
 

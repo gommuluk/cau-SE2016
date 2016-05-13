@@ -259,6 +259,23 @@
     -fx-background-color: transparent;
 }
 
+.editor-toolbar .list-cell {
+    -fx-cell-size: 17px;
+    -fx-font-size: 14px;
+    -fx-padding: 0;
+}
+
+.editor-toolbar .list-view {
+    -fx-padding: 4px;
+}
+
+.editor-toolbar .list-view .scroll-bar:vertical .increment-arrow,
+.editor-toolbar .list-view .scroll-bar:vertical .decrement-arrow,
+.editor-toolbar .list-view .scroll-bar:vertical .increment-button,
+.editor-toolbar .list-view .scroll-bar:vertical .decrement-button {
+    -fx-padding:0;
+}
+
 /* Editor (Toolbar) */
 .editor-toolbar .tool-bar:horizontal {
     -fx-border-style: null;

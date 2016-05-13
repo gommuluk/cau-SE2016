@@ -49,7 +49,7 @@ public class EditorSceneController {
         File selectedFile = fileChooser.showOpenDialog(s);
 
         //Show text in Edit panel
-
+        //TODO 불러오기 버튼이 속한 에딧패널이 좌측인지 우측인지 인지가능한 코드가 필요.
         FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
 
         ArrayList<String> strings = FileManager.getFileManager().GetFileModelL().getStringArrayList();

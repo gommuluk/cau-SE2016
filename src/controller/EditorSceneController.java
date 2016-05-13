@@ -69,7 +69,16 @@ public class EditorSceneController {
 
     @FXML // 수정 버튼을 클릭했을 때의 동작
     private void onTBBtnEditClicked(ActionEvent event) {
-
+        if(!textArea.isEditable()) {    // edit 모드로 진입
+            textArea.setEditable(true);
+            //TODO STATUS 갱신
+            //TODO 버튼 비활성화
+        }
+        else {                          // edit 모드 탈출
+            textArea.setEditable(false);
+            //TODO STATUS 갱신
+            //TODO 버튼 활성화
+        }
     }
 
 }

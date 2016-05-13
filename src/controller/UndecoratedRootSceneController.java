@@ -60,7 +60,9 @@ public class UndecoratedRootSceneController {
             INIT_HEIGHT = mainWindow.getHeight();
             INIT_WIDTH = mainWindow.getWidth();
 
+            // Status bind
             labelStatus.textProperty().bind(FileManager.getFileManager().GetFileModelL().getStatus());
+            labelStatus.textProperty().bind(FileManager.getFileManager().GetFileModelR().getStatus());
         });
 
     }

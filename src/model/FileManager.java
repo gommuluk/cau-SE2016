@@ -6,8 +6,8 @@ package model;
  */
 public class FileManager {
     private static FileManager instance;
-    private static FileModel FileModelL = new FileModel();
-    private static FileModel FileModelR = new FileModel();
+    private FileModel FileModelL = new FileModel();
+    private FileModel FileModelR = new FileModel();
     private FileManager(){}
 
     public static FileManager getFileManager() { // 1개의 객체를 유지하기 위한 싱글톤
@@ -16,11 +16,11 @@ public class FileManager {
         return instance;
     }
 
-    public static FileModel GetFileModelL()
+    public FileModel GetFileModelL()
     {
         return FileModelL;
     }
-    public static FileModel GetFileModelR()
+    public FileModel GetFileModelR()
     {
         return FileModelR;
     }

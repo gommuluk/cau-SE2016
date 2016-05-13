@@ -18,6 +18,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Delta;
+import model.FileManager;
+import model.FileModel;
 
 import java.awt.*;
 import java.io.File;
@@ -32,6 +34,7 @@ public class UndecoratedRootSceneController {
     @FXML private AnchorPane shadowPane;
     @FXML private BorderPane mainPane;
     @FXML private Label labelTitle;
+    @FXML private Label labelStatus;
 
     private Stage mainWindow = null;
     private BoundingBox savedBounds = null;
@@ -56,7 +59,10 @@ public class UndecoratedRootSceneController {
             labelTitle.setText(mainWindow.getTitle());
             INIT_HEIGHT = mainWindow.getHeight();
             INIT_WIDTH = mainWindow.getWidth();
+
+            labelStatus.textProperty().bind(FileManager.getFileManager().GetFileModelL().getStatus());
         });
+
     }
 
     @FXML // 최소화버튼액션

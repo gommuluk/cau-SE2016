@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
@@ -14,47 +15,49 @@ import static org.junit.Assert.*;
  */
 public class FileModelTest {
     @Test
-    public void singletonTest() {
-        assertNotNull(FileModel.getModel());
-    }
-
-    @Test
     public void fileReadTest() {
-        String testR = "fdsa";
-        String testL = "asdf\nasdf";
-        assertTrue(FileModel.getModel().readFileR("B.txt"));
-        assertTrue(FileModel.getModel().readFileL("A.txt"));
-        //System.out.print("Test : [" + FileModel.getModel().getStringL());
+        FileModel testFileModel = new FileModel();
+        ArrayList<String> testArraylist = new ArrayList<String>();
+        testArraylist.add("asdf\n");
+        testArraylist.add("asdf");
+        assertTrue(testFileModel.readFile("A.txt"));
+        assertEquals(testFileModel.getStringArrayList(),testArraylist);
 
-        //TODO 여기 테스트 수정 필요
-        //assertArrayEquals(FileModel.getModel().getStringR().,testR.toCharArray());
-        //assertArrayEquals(FileModel.getModel().getStringL().toCharArray(),testL.toCharArray());
 
     }
 
     @Test
     public void fileWriteTest() {
-        assertTrue(FileModel.getModel().writeFileL("AA.txt"));
-        assertTrue(FileModel.getModel().writeFileR("BB.txt"));
-        String testR = "fdsa";
-        String testL = "asdf\nasdf";
-        String SavedR = "";
-        String SavedL = "";
+        FileModel testFileModel = new FileModel();
+        assertTrue(testFileModel.writeFile("AA.txt"));
+        ArrayList<String> testArraylist = new ArrayList<String>();
         try(Scanner in = new Scanner(new FileReader("AA.txt")))
         {
-            SavedL = in.useDelimiter("\\Z").next();
+            String tempString = "";
+            while(in.hasNext()) {
+                tempString = in.next(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
+                if(in.hasNext()) tempString +="\n"; //다음 줄이 없을 때는 개행을 추가하지 않는다.
+                testArraylist.add(tempString);
+            }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try(Scanner in = new Scanner(new FileReader("BB.txt")))
-        {
-            SavedR = in.useDelimiter("\\Z").next();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        assertArrayEquals(SavedR.toCharArray(),testR.toCharArray());
-        assertArrayEquals(SavedL.toCharArray(),testL.toCharArray());
 
+            e.printStackTrace();
+        }
+        assertEquals(testFileModel.getStringArrayList(),testArraylist);
 
     }
+    @Test
+    public void getStatusTest()
+    {
+        FileModel testFileModel = new FileModel();
+        String testStatus = "Ready(No file is loaded)";
+        assertEquals(testFileModel.getStatus(),testStatus);
+        assertTrue(testFileModel.readFile("A.txt"));
+        testStatus = "File Loaded Successfully";
+        assertEquals(testFileModel.getStatus(),testStatus);
+        testFileModel.writeFile("AA.txt");
+        testStatus = "File Written successfully";
+        assertEquals(testFileModel.getStatus(),testStatus);
+    }
+
 }

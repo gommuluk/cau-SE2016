@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -10,73 +12,63 @@ import java.io.FileReader;
  * Created by Elliad on 2016-05-08.
  */
 public class FileModel {
-    private static FileModel instance;
-    private static File fileL;
-    private static File fileR;
-    private static ArrayList<String> stringL = new ArrayList<String>();
-    private static ArrayList<String> stringR = new ArrayList<String>();
-    private FileModel() { // 기본 생성자
-    }
-    public static FileModel getModel() { // 1개의 객체를 유지하기 위한 싱글톤
-       if(instance == null)
-           instance = new FileModel();
-        return instance;
+
+    private File file; //로드하고있는 파일
+    private ArrayList<String> stringArrayList = new ArrayList<String>();//데이터를 줄 단위로 저장하는 arraylist
+    private SimpleStringProperty statusString; //현재 파일을 읽는지 로드중인지 그런 상태를 표시하는 문장
+
+    public FileModel()
+    {
+        statusString = new SimpleStringProperty("Ready(No file is loaded)");
     }
 
-    public boolean readFileR(String fileRPath) { // 파일명 받기 및 읽기.
-        fileR= new File(fileRPath);
-        try(Scanner in = new Scanner(new FileReader(fileRPath)))
+
+    public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
+        file= new File(filePath);
+        try(Scanner in = new Scanner(new FileReader(filePath)))
         {
-            while(in.hasNext())
-                stringR.add(in.next());
+            String tempString = "";
+            while(in.hasNext()) {
+                tempString = in.next(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
+                if(in.hasNext()) tempString +="\n"; //다음 줄이 없을 때는 개행을 추가하지 않는다.
+                stringArrayList.add(tempString);
+            }
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();
             return false;
         }
+        statusString.set("File Loaded Successfully");
         return true;
     }
-    public boolean readFileL(String fileLPath) { // 파일명 받기 및 읽기.
-        fileL = new File(fileLPath);
-        try(Scanner in = new Scanner(new FileReader(fileLPath)))
-        {
-            while(in.hasNext())
-            stringL.add(in.next());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-    public ArrayList<String> getStringR()
+
+    public ArrayList<String> getStringArrayList()
     {
-        return stringR;
+        return stringArrayList;
     }
 
-    public ArrayList<String> getStringL()
-    {
-        return stringL;
-    }
 
-    public boolean writeFileL(String fileLPath) { // 파일명 받기 및 읽기
-        try(  PrintWriter out = new PrintWriter(fileLPath) ){
-            out.print(stringL);
+    public boolean writeFile(String filePath) { // 파일명 받기 및 읽기
+        try(  PrintWriter out = new PrintWriter(filePath) ){
+            String tstring ="";
+            for (String i : stringArrayList) {
+                tstring+=i;
+            }
+            out.print(tstring);
             out.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
         }
+
+        statusString.set("File Written successfully");
         return true;
     }
-    public boolean writeFileR(String fileRPath) { // 파일명 받기 및 읽기
-        try(  PrintWriter out = new PrintWriter(fileRPath) ){
-            out.print(stringR);
-            out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+
+    public SimpleStringProperty getStatus()
+    {
+        return statusString;
     }
+
 
 }

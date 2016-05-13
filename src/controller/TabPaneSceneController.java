@@ -166,5 +166,4 @@ public class TabPaneSceneController {
         stage.show();
     }
 
-
 }

@@ -36,25 +36,40 @@ public class EditorSceneController {
     @FXML // 불러오기 버튼을 클릭했을 때의 동작
     private void onTBBtnLoadClicked(ActionEvent event) {
         //File chooser code
-        Stage s = (Stage)btnFileOpen.getScene().getWindow();
+        try {
+            Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                new FileChooser.ExtensionFilter("All Files", "*.*"));
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
 
-        File selectedFile = fileChooser.showOpenDialog(s);
+            File selectedFile = fileChooser.showOpenDialog(s);
 
-        //Show text in Edit panel
-        //TODO 불러오기 버튼이 속한 에딧패널이 좌측인지 우측인지 인지가능한 코드가 필요.
-        FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
+            //Show text in Edit panel
+            //TODO 불러오기 버튼이 속한 에딧패널이 좌측인지 우측인지 인지가능한 코드가 필요.
+            FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
 
-        ArrayList<String> strings = FileManager.getFileManager().GetFileModelL().getStringArrayList();
+            ArrayList<String> strings = FileManager.getFileManager().GetFileModelL().getStringArrayList();
 
-        for(String temp : strings) textArea.appendText(temp);
+            for (String temp : strings) textArea.appendText(temp);
+        }
+        catch(Exception e) {
+
+        }
+    }
+
+    @FXML // 저장 버튼을 클릭했을 때의 동작
+    private void onTBBtnSaveClicked(ActionEvent event) {
+
+    }
+
+    @FXML // 수정 버튼을 클릭했을 때의 동작
+    private void onTBBtnEditClicked(ActionEvent event) {
+
     }
 
 }

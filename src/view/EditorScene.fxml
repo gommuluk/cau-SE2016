@@ -17,7 +17,7 @@
                <children>
                   <Label styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="FilePath" />
                </children></Pane>
-            <Button fx:id="btnEdit" mnemonicParsing="false" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#onTBBtnEditClicked" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
             <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnLoadClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css" />
          </items>
       </ToolBar>

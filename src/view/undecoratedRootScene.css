@@ -315,3 +315,13 @@
 .btnFileOpen:disabled {
     -fx-background-image:url("btnFileOpenDisable.png");
 }
+
+.btnFileSave {
+    -fx-background-image:url("btnFileSave.png");
+}
+.btnFileSave:hover{
+    -fx-background-image:url("btnFileSave-hover.png");
+}
+.btnFileOpen:disabled {
+    -fx-background-image:url("btnFileSaveDisable.png");
+}

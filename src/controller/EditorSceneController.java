@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 import model.FileManager;
 import model.FileModel;
 
+import javax.naming.NoPermissionException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -64,7 +66,15 @@ public class EditorSceneController {
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) {
+        try {
+            FileManager.getFileManager().GetFileModelL().writeFile(textArea.getText());
 
+        }
+        catch(Exception e) { // FileNotFound 등 다양한 Exception에 대한 처리.
+            // TODO 새 파일을 만들겠냐는 선택지 부여
+            // TODO 만들겠다고 하면 파일 생성
+            // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
+        }
     }
 
     @FXML // 수정 버튼을 클릭했을 때의 동작

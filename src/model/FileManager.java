@@ -17,11 +17,11 @@ public class FileManager {
         return instance;
     }
 
-    public FileModel GetFileModelL()
+    public FileModel getFileModelL()
     {
         return FileModelL;
     }
-    public FileModel GetFileModelR()
+    public FileModel getFileModelR()
     {
         return FileModelR;
     }

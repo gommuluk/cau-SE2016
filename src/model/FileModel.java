@@ -39,13 +39,20 @@ public class FileModel {
         statusString.set("File Loaded Successfully");
         return true;
     }
-
-    public ArrayList<String> getStringArrayList()
-    {
-        return stringArrayList;
+    @Override
+    public String toString() {
+        String ret = "";
+        for(String s : stringArrayList)
+            ret += s;
+        return ret;
     }
 
+    public void updateArrayList(String args) {
+        stringArrayList = new ArrayList<String>();
+        for(String s : args.split("\n"))
+            stringArrayList.add(s + "\n");
 
+    }
     public boolean writeFile() { // 파일명 받기 및 읽기
         try(  PrintWriter out = new PrintWriter(file.getPath()) ){
             String tstring ="";

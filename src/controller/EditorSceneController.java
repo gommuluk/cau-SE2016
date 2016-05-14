@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.FileManager;
 
+import javax.naming.NoPermissionException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,8 @@ public class EditorSceneController {
     @FXML private TextArea textArea;
     @FXML private ListView<String> listView;
     @FXML private Button btnFileOpen;
+    @FXML private Button btnEdit;
+    @FXML private Button btnFileSave;
 
     protected List<String> test = new ArrayList<>();
     protected ListProperty<String> listProperty = new SimpleListProperty<>();
@@ -69,11 +72,14 @@ public class EditorSceneController {
 
             //Show text in Edit panel
             //TODO 불러오기 버튼이 속한 에딧패널이 좌측인지 우측인지 인지가능한 코드가 필요.
-            FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
-
-            ArrayList<String> strings = FileManager.getFileManager().GetFileModelL().getStringArrayList();
-
-            for (String temp : strings) textArea.appendText(temp);
+            if(textArea.getParent().getParent().getId().equals("leftEditor")) {
+                FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
+                textArea.appendText(FileManager.getFileManager().GetFileModelL().toString());
+            }
+            else {
+                FileManager.getFileManager().GetFileModelR().readFile(selectedFile.getPath());
+                textArea.appendText(FileManager.getFileManager().GetFileModelR().toString());
+            }
         }
         catch(Exception e) {
 
@@ -83,31 +89,47 @@ public class EditorSceneController {
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) {
         try {
+            if(textArea.getParent().getParent().getId().equals("leftEditor")) {
+                String s = textArea.getText();
+                FileManager.getFileManager().GetFileModelL().updateArrayList(s);
+                FileManager.getFileManager().GetFileModelL().writeFile();
 
-            FileManager.getFileManager().GetFileModelL().writeFile(textArea.getText());
+            }
+            else {
+                String s = textArea.getText();
+                FileManager.getFileManager().GetFileModelR().updateArrayList(s);
+                FileManager.getFileManager().GetFileModelR().writeFile();
+
+            }
+
 
         }
+
         catch(Exception e) { // FileNotFound 등 Exception에 대한 처리.
             // TODO 새 파일을 만들겠냐는 선택지 부여
             // TODO 만들겠다고 하면 파일 생성
             // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
-
-
         }
     }
 
+
     @FXML // 수정 버튼을 클릭했을 때의 동작
-    private void onTBBtnEditClicked(ActionEvent event) {
+    private void  onTBBtnEditClicked(ActionEvent event) {
         if(!textArea.isEditable()) {    // edit 모드로 진입
             textArea.setEditable(true);
+
+            btnFileOpen.setDisable(true);
+            btnFileSave.setDisable(true);
             //TODO STATUS 갱신
-            //TODO 버튼 비활성화
         }
         else {                          // edit 모드 탈출
             textArea.setEditable(false);
+
+            btnFileOpen.setDisable(false);
+            btnFileSave.setDisable(false);
             //TODO STATUS 갱신
-            //TODO 버튼 활성화
         }
+
     }
 
     private void _syncEditorScrollWithHighlightList(){

@@ -5,6 +5,7 @@ package model;
  * Created by ano on 2016. 5. 13..
  */
 public class FileManager {
+
     private static FileManager instance;
     private FileModel FileModelL = new FileModel();
     private FileModel FileModelR = new FileModel();

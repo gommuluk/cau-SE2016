@@ -84,6 +84,7 @@ public class UndecoratedRootSceneController {
 
     }
 
+
     //TODO 리펙토링이 필요한 함수입니다.
     private void _minimize(){
         mainWindow.setX(savedBounds.getMinX());

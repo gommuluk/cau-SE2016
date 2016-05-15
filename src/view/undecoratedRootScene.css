@@ -297,12 +297,18 @@
 }
 
 .btnEdit {
+    -fx-background-color: transparent;
+    -fx-min-width: 24px;
     -fx-background-image:url("btnEdit.png");
+    -fx-border-width: 0;
 }
 .btnEdit:disabled {
     -fx-background-image:url("btnEditDisable.png");
 }
 .btnEdit:hover {
+    -fx-background-image:url("btnEdit-hover.png");
+}
+.btnEdit:selected{
     -fx-background-image:url("btnEdit-hover.png");
 }
 
@@ -322,6 +328,27 @@
 .btnFileSave:hover{
     -fx-background-image:url("btnFileSave-hover.png");
 }
-.btnFileOpen:disabled {
+.btnFileSave:disabled {
     -fx-background-image:url("btnFileSaveDisable.png");
 }
+
+.btnMergeLeft {
+    -fx-background-image:url("btnMergeLeft.png");
+}
+.btnMergeLeft:hover{
+    -fx-background-image:url("btnMergeLeft-hover.png");
+}
+.btnMergeLeft:disabled {
+    -fx-background-image:url("btnMergeLeftDisable.png");
+}
+
+.btnMergeRight {
+    -fx-background-image:url("btnMergeRight.png");
+}
+.btnMergeRight:hover{
+    -fx-background-image:url("btnMergeRight-hover.png");
+}
+.btnMergeRight:disabled {
+    -fx-background-image:url("btnMergeRightDisable.png");
+}
+

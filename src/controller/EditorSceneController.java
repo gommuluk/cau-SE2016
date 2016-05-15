@@ -7,17 +7,13 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.FileManager;
 
-import javax.naming.NoPermissionException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +25,8 @@ public class EditorSceneController {
 
     @FXML private TextArea textArea;
     @FXML private ListView<String> listView;
+    @FXML private ToggleButton btnEdit;
     @FXML private Button btnFileOpen;
-    @FXML private Button btnEdit;
     @FXML private Button btnFileSave;
 
     protected List<String> test = new ArrayList<>();

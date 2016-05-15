@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -29,7 +30,7 @@
                   <Tooltip text="파일열기" />
                </tooltip>
             </Button>
-            <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#onTBBtnEditClicked" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
+            <ToggleButton fx:id="btnEdit" mnemonicParsing="false" onAction="#onTBBtnEditClicked" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
          </items>
       </ToolBar>
    </top>

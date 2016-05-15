@@ -117,6 +117,10 @@ public class EditorSceneController {
             btnFileOpen.setDisable(true);
             btnFileSave.setDisable(true);
             //TODO STATUS 갱신
+            //TODO controlPane쪽 버튼 비활성화
+
+//            btnEdit.getParent().getParent().get
+
         }
         else {                          // edit 모드 탈출
             textArea.setEditable(false);
@@ -124,6 +128,7 @@ public class EditorSceneController {
             btnFileOpen.setDisable(false);
             btnFileSave.setDisable(false);
             //TODO STATUS 갱신
+            //TODO controlPane쪽 버튼 활성화
         }
 
     }

@@ -16,13 +16,13 @@
                       <children>
                         <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="300.0">
+                            <AnchorPane fx:id="leftSplit" minHeight="0.0" minWidth="300.0">
                                 <children>
                                     <fx:include fx:id="leftEditor" source="editorScene.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                 </children>
                             </AnchorPane>
 
-                            <AnchorPane minHeight="0.0" minWidth="300.0">
+                            <AnchorPane fx:id="rightSplit" minHeight="0.0" minWidth="300.0">
                                 <children>
                                     <fx:include fx:id="rightEditor" source="editorScene.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                 </children>

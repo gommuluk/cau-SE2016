@@ -21,6 +21,11 @@ public class FileModel {
     }
 
 
+    /**
+     * Plain Text 형식의 파일의 Path를 받아 내부 Text를 읽습니다.
+     * @param filePath 파일의 경로
+     * @return boolean 파일 읽기에 대한 성공 여부
+     */
     public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
         file= new File(filePath);
         try {
@@ -44,6 +49,11 @@ public class FileModel {
         statusString.set("File Loaded Successfully");
         return true;
     }
+
+    /**
+     * 읽어진 파일의 내용을 String의 형태로 반환합니다.
+     * @return String 읽어진 파일의 내용
+     */
     @Override
     public String toString() {
         String ret = "";
@@ -52,12 +62,21 @@ public class FileModel {
         return ret;
     }
 
+    /**
+     * 파일의 내용을 갱신합니다.
+     * @param args 갱신할 내용
+     */
     public void updateArrayList(String args) {
         stringArrayList = new ArrayList<String>();
         for(String s : args.split("\n"))
             stringArrayList.add(s + "\n");
-
     }
+
+    /**
+     * 파일을 현재 ArrayList의 내용으로 덮어씌웁니다.
+     * FileNotFoundException이 발생할 수 있습니다.
+     * @return boolean 파일 쓰기 성공 여부
+     */
     public boolean writeFile() { // 파일명 받기 및 읽기
         try(  PrintWriter out = new PrintWriter(file.getPath()) ){
             String tstring ="";
@@ -75,6 +94,10 @@ public class FileModel {
         return true;
     }
 
+    /**
+     * 현재 Model의 상태를 반환합니다.
+     * @return SimpleStringProperty 현재 Model의 상태
+     */
     public SimpleStringProperty getStatus() {
         //TODO SAFE GETTER로 만들기 위한 CLONE 필요
         return statusString;

@@ -23,19 +23,25 @@ public class FileModel {
 
     public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
         file= new File(filePath);
-        try(Scanner in = new Scanner(new FileReader(filePath)))
-        {
+        file.
+        try {
+            Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
             String tempString = "";
             while(in.hasNextLine()) {
                 tempString = in.nextLine(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
                 if(in.hasNextLine()) tempString +="\n"; //다음 줄이 없을 때는 개행을 추가하지 않는다.
                 stringArrayList.add(tempString);
             }
-        } catch (FileNotFoundException e) {
 
+            in.close();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+
         statusString.set("File Loaded Successfully");
         return true;
     }

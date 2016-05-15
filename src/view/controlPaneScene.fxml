@@ -45,6 +45,7 @@
          <items>
             <Button fx:id="btnMergeLeft" mnemonicParsing="false" styleClass="btnMergeLeft" stylesheets="@undecoratedRootScene.css" />
             <Button fx:id="btnMergeRight" mnemonicParsing="false" styleClass="btnMergeRight" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnCompare" mnemonicParsing="false" styleClass="btnCompare" stylesheets="@undecoratedRootScene.css" />
          </items>
       </ToolBar>
    </children>

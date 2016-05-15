@@ -352,3 +352,13 @@
     -fx-background-image:url("btnMergeRightDisable.png");
 }
 
+.btnCompare {
+    -fx-background-image:url("btnCompare.png");
+}
+.btnCompare:hover{
+    -fx-background-image:url("btnCompare-hover.png");
+}
+.btnCompare:disabled {
+    -fx-background-image:url("btnCompareDisable.png");
+}
+

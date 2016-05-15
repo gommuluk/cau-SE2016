@@ -3,7 +3,6 @@ package controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
@@ -63,12 +62,12 @@ public class ButtonController {
 
                                                                                                     //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             if(textArea.getParent().getParent().getId().equals("leftEditor")) {
-                FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
-                textArea.appendText(FileManager.getFileManager().GetFileModelL().toString());
+                FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
+                textArea.appendText(FileManager.getFileManager().getFileModelL().toString());
             }
             else {
-                FileManager.getFileManager().GetFileModelR().readFile(selectedFile.getPath());
-                textArea.appendText(FileManager.getFileManager().GetFileModelR().toString());
+                FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
+                textArea.appendText(FileManager.getFileManager().getFileModelR().toString());
             }
         }
         catch(Exception e) {                                                                        // TODO Exception 별 처리 필요.
@@ -84,14 +83,14 @@ public class ButtonController {
                                                                                                        파일 객체를 갱신하고, 파일에 덮어씌운다. */
             if(editorToolbarScene.getParent().getParent().getId().equals("leftEditor")) {
                 String s = textArea.getText();
-                FileManager.getFileManager().GetFileModelL().updateArrayList(s);
-                FileManager.getFileManager().GetFileModelL().writeFile();
+                FileManager.getFileManager().getFileModelL().updateArrayList(s);
+                FileManager.getFileManager().getFileModelL().writeFile();
 
             }
             else {
                 String s = textArea.getText();
-                FileManager.getFileManager().GetFileModelR().updateArrayList(s);
-                FileManager.getFileManager().GetFileModelR().writeFile();
+                FileManager.getFileManager().getFileModelR().updateArrayList(s);
+                FileManager.getFileManager().getFileModelR().writeFile();
 
             }
 

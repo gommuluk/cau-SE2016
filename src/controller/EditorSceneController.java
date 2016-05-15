@@ -28,7 +28,6 @@ public class EditorSceneController {
         Platform.runLater(()-> {
             _syncEditorScrollWithHighlightList();
             listView.itemsProperty().bind(listProperty);
-            test.add("enter");
         });
     }
 

@@ -1,5 +1,6 @@
 package model;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.io.*;
@@ -14,10 +15,12 @@ public class FileModel {
     private File file; //로드하고있는 파일
     private ArrayList<String> stringArrayList = new ArrayList<String>();//데이터를 줄 단위로 저장하는 arraylist
     private SimpleStringProperty statusString; //현재 파일을 읽는지 로드중인지 그런 상태를 표시하는 문장
+    private SimpleIntegerProperty lineCount; //ArrayList의 아이템갯수(라인 수)
 
     public FileModel()
     {
         statusString = new SimpleStringProperty("Ready(No file is loaded)");
+        lineCount = new SimpleIntegerProperty(stringArrayList.size());
     }
 
 
@@ -32,7 +35,9 @@ public class FileModel {
                 stringArrayList.add(tempString);
             }
 
+            lineCount.set(stringArrayList.size());
             in.close();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
@@ -66,6 +71,7 @@ public class FileModel {
             }
             out.print(tstring);
             out.close();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
@@ -78,6 +84,10 @@ public class FileModel {
     public SimpleStringProperty getStatus() {
         //TODO SAFE GETTER로 만들기 위한 CLONE 필요
         return statusString;
+    }
+
+    public SimpleIntegerProperty getLineCount(){
+        return lineCount;
     }
 
 

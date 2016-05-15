@@ -51,7 +51,7 @@ public class ButtonController {
             System.out.println(editorToolbarScene.getParent().getParent().getId());
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
-            FileChooser fileChooser = new FileChooser();
+            FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
             fileChooser.setTitle("Open Resource File");
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Text Files", "*.txt"),
@@ -61,8 +61,7 @@ public class ButtonController {
 
             File selectedFile = fileChooser.showOpenDialog(s);
 
-            //Show text in Edit panel
-            //TODO 불러오기 버튼이 속한 에딧패널이 좌측인지 우측인지 인지가능한 코드가 필요.
+                                                                                                    //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             if(textArea.getParent().getParent().getId().equals("leftEditor")) {
                 FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
                 textArea.appendText(FileManager.getFileManager().GetFileModelL().toString());
@@ -72,7 +71,7 @@ public class ButtonController {
                 textArea.appendText(FileManager.getFileManager().GetFileModelR().toString());
             }
         }
-        catch(Exception e) {
+        catch(Exception e) {                                                                        // TODO Exception 별 처리 필요.
 
         }
     }
@@ -80,6 +79,9 @@ public class ButtonController {
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) {
         try {
+                                                                                                    /* 저장 버튼이 속한 패널을 판단하고,
+                                                                                                       해당 패널의 Text를 읽어서
+                                                                                                       파일 객체를 갱신하고, 파일에 덮어씌운다. */
             if(editorToolbarScene.getParent().getParent().getId().equals("leftEditor")) {
                 String s = textArea.getText();
                 FileManager.getFileManager().GetFileModelL().updateArrayList(s);
@@ -101,6 +103,7 @@ public class ButtonController {
             // TODO 만들겠다고 하면 파일 생성
             // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
         }
+
     }
 
     @FXML // 수정 버튼을 클릭했을 때의 동작

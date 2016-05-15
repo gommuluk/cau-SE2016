@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="controlPane" styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControlPaneSceneController">
+<GridPane fx:id="controlPane" styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ButtonController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -43,9 +43,9 @@
       </MenuBar>
       <ToolBar styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" GridPane.rowIndex="1">
          <items>
-            <Button fx:id="btnMergeLeft" mnemonicParsing="false" styleClass="btnMergeLeft" stylesheets="@undecoratedRootScene.css" />
-            <Button fx:id="btnMergeRight" mnemonicParsing="false" styleClass="btnMergeRight" stylesheets="@undecoratedRootScene.css" />
-            <Button fx:id="btnCompare" mnemonicParsing="false" styleClass="btnCompare" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnMergeLeft" mnemonicParsing="false" onAction="#onBtnMergeToLeftClicked" styleClass="btnMergeLeft" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnMergeRight" mnemonicParsing="false" onAction="#onBtnMergeToRightClicked" styleClass="btnMergeRight" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnCompare" mnemonicParsing="false" onAction="#onBtnCompareClicked" styleClass="btnCompare" stylesheets="@undecoratedRootScene.css" />
          </items>
       </ToolBar>
    </children>

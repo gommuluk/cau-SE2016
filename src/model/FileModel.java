@@ -23,7 +23,6 @@ public class FileModel {
 
     public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
         file= new File(filePath);
-        file.
         try {
             Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
             String tempString = "";

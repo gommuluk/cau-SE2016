@@ -166,3 +166,31 @@ public class ButtonController {
     }
 
 }
+
+/*
+
+                경고창을 만드는 소스코드 예제
+                final Stage newStage = new Stage();
+                Group newRoot = new Group();
+                Scene scene = new Scene(newRoot, 300, 200);
+                newStage.setScene(scene);
+                newStage.show();
+
+                VBox vBox = new VBox();
+
+                Label newLabel = new Label();
+                newLabel.setText(newStage.toString());
+
+                Button btnClose = new Button("Close");
+                btnClose.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent t) {
+                        newStage.close();
+                    }
+                });
+
+                vBox.getChildren().addAll(newLabel, btnClose);
+                newRoot.getChildren().add(vBox);
+
+
+ */

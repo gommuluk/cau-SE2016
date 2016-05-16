@@ -63,6 +63,13 @@ public class FileModel {
     }
 
     /**
+     * 파일 내용을 저장하는 ArrayList의 Clone을 반환합니다.
+     * @return file에 내용에 대한 Arraylist의 clone
+     */
+    public ArrayList<String> getStringArrayList() {
+        return (ArrayList<String>) stringArrayList.clone();
+    }
+    /**
      * 파일의 내용을 갱신합니다.
      * @param args 갱신할 내용
      */

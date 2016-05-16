@@ -25,7 +25,7 @@ public class FileManager {
      * Left Editor에 할당된 File Model을 반환합니다.
      * @return FileModel 왼쪽 Editor에 할당된 FileModel
      */
-    public FileModel GetFileModelL()
+    public FileModel getFileModelL()
     {
         return FileModelL;
     }
@@ -34,7 +34,7 @@ public class FileManager {
      * Right Editor에 할당된 File Model을 반환합니다.
      * @return FileModel 오른쪽 Editor에 할당된 FileModel
      */
-    public FileModel GetFileModelR()
+    public FileModel getFileModelR()
     {
         return FileModelR;
     }

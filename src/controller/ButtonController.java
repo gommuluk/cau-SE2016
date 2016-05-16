@@ -3,7 +3,6 @@ package controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
@@ -14,6 +13,7 @@ import javafx.stage.Stage;
 import model.FileManager;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by SH on 2016-05-15.
@@ -63,12 +63,12 @@ public class ButtonController {
 
                                                                                                     //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             if(textArea.getParent().getParent().getId().equals("leftEditor")) {
-                FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
-                textArea.appendText(FileManager.getFileManager().GetFileModelL().toString());
+                FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
+                textArea.appendText(FileManager.getFileManager().getFileModelL().toString());
             }
             else {
-                FileManager.getFileManager().GetFileModelR().readFile(selectedFile.getPath());
-                textArea.appendText(FileManager.getFileManager().GetFileModelR().toString());
+                FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
+                textArea.appendText(FileManager.getFileManager().getFileModelR().toString());
             }
         }
         catch(Exception e) {                                                                        // TODO Exception 별 처리 필요.
@@ -84,14 +84,14 @@ public class ButtonController {
                                                                                                        파일 객체를 갱신하고, 파일에 덮어씌운다. */
             if(editorToolbarScene.getParent().getParent().getId().equals("leftEditor")) {
                 String s = textArea.getText();
-                FileManager.getFileManager().GetFileModelL().updateArrayList(s);
-                FileManager.getFileManager().GetFileModelL().writeFile();
+                FileManager.getFileManager().getFileModelL().updateArrayList(s);
+                FileManager.getFileManager().getFileModelL().writeFile();
 
             }
             else {
                 String s = textArea.getText();
-                FileManager.getFileManager().GetFileModelR().updateArrayList(s);
-                FileManager.getFileManager().GetFileModelR().writeFile();
+                FileManager.getFileManager().getFileModelR().updateArrayList(s);
+                FileManager.getFileManager().getFileModelR().writeFile();
 
             }
 
@@ -107,37 +107,49 @@ public class ButtonController {
     }
 
     @FXML // 수정 버튼을 클릭했을 때의 동작
+    //TODO 나머지 버튼들 활성화/비활성화 조절
     private void  onTBBtnEditClicked(ActionEvent event) {
         if(!textArea.isEditable()) {    // edit 모드로 진입
             textArea.setEditable(true);
 
             btnFileOpen.setDisable(true);
             btnFileSave.setDisable(true);
-            //TODO STATUS 갱신
+
         }
         else {                          // edit 모드 탈출
             textArea.setEditable(false);
 
             btnFileOpen.setDisable(false);
             btnFileSave.setDisable(false);
-            //TODO STATUS 갱신
+
         }
 
     }
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
     private void onBtnCompareClicked(ActionEvent event) {
+        ArrayList<String> leftList  = FileManager.getFileManager().getFileModelL().getStringArrayList();
+        ArrayList<String> rightList = FileManager.getFileManager().getFileModelR().getStringArrayList();
 
+        //TODO LCS 알고리즘을 사용하는 메서드
+        //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
+        //TODO 블럭에 속하는 line들을 highlight한다.
+        //TODO IsCompared를 true로 설정
     }
+
+    //TODO Merge
+    //어떤 블록이 선택되었는지 알아낼 수 있어야 한다.
 
     @FXML // merge-to-right 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToRightClicked(ActionEvent event) {
-
+        //TODO 위 컴페어 버튼처럼 왼쪽, 오른쪽 파일을 저장중인 리스트를 받아야 함.
+        //TODO 선택된 블럭 존재 여부에 따라 분기
+        //TODO 있다면 복사. 없다면 메서드 종료
     }
 
     @FXML // merge-to-left 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToLeftClicked(ActionEvent event) {
-
+        //TODO 위 컴페어 버튼처럼 왼쪽, 오른쪽 파일을 저장중인 리스트를 받아야 함.
     }
 
 }

@@ -83,12 +83,12 @@ Document title and Copyright styles
 */
 .clear {
     clear:both;
-    height:0px;
+    height:0;
     overflow:hidden;
 }
 .aboutLanguage {
     float:right;
-    padding:0px 21px;
+    padding:0 21px;
     font-size:11px;
     z-index:200;
     margin-top:-9px;

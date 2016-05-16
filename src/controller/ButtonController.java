@@ -107,12 +107,13 @@ public class ButtonController {
     }
 
     @FXML // 수정 버튼을 클릭했을 때의 동작
-    private void  onTBBtnEditClicked(ActionEvent event) {
+    private void onTBBtnEditClicked(ActionEvent event) {
         if(!textArea.isEditable()) {    // edit 모드로 진입
             textArea.setEditable(true);
-
             btnFileOpen.setDisable(true);
             btnFileSave.setDisable(true);
+
+            btnMergeLeft.setDisable(true);
             //TODO STATUS 갱신
         }
         else {                          // edit 모드 탈출
@@ -132,12 +133,12 @@ public class ButtonController {
 
     @FXML // merge-to-right 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToRightClicked(ActionEvent event) {
-
+        System.out.println("merge right");
     }
 
     @FXML // merge-to-left 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToLeftClicked(ActionEvent event) {
-
+        System.out.println("merge left");
     }
 
 }

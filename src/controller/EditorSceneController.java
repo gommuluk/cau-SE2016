@@ -1,16 +1,16 @@
 package controller;
 
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
+import model.FileManager;
+import model.FileModel;
+
 
 /**
  * Created by SH on 2016-05-11.
@@ -20,31 +20,87 @@ public class EditorSceneController {
     @FXML private TextArea textArea;
     @FXML private ListView<String> listView;
 
-    protected List<String> test = new ArrayList<>();
-    protected ListProperty<String> listProperty = new SimpleListProperty<>();
+    public EditorSceneController(){
+        FileManager.getFileManager().GetFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
+    }
 
     @FXML
     private void initialize(){
+
         Platform.runLater(()-> {
+
             _syncEditorScrollWithHighlightList();
-            listView.itemsProperty().bind(listProperty);
+            _syncEditorContentWithHighlightList();
+            _enableHighLights();
+
+            listView.scrollTo(0);
         });
     }
 
     @FXML // Editor에서 키보드입력이 있을 때의 동작
     private void onTextAreaKeyPressed(KeyEvent event){
         if( event.getCode().compareTo(KeyCode.ENTER) == 0 ){
-            test.add("enter");
-            listProperty.set(FXCollections.observableArrayList(test));
+            System.out.println("enter");
         }
     }
 
     private void _syncEditorScrollWithHighlightList(){
         // ListView와 TextArea의 스크롤을 동기화시킨다.
-        DoubleProperty textAreaScrollTo = textArea.scrollTopProperty();
+        ScrollBar textAreaScrollTo = (ScrollBar) textArea.lookup(".scroll-bar:vertical");
         ScrollBar listViewScrollTo = (ScrollBar) listView.lookup(".scroll-bar:vertical");
+        System.out.println(textAreaScrollTo.getValue());
+        System.out.println(listViewScrollTo.getValue());
 
-        textAreaScrollTo.bindBidirectional(listViewScrollTo.valueProperty());
+        //textAreaScrollTo.valueProperty().bindBidirectional(listViewScrollTo.valueProperty());
+        listViewScrollTo.valueProperty().bindBidirectional(textAreaScrollTo.valueProperty());
+    }
+
+    private void _syncEditorContentWithHighlightList(){
+        if( textArea.getParent().getParent().getId().contentEquals("leftEditor")) {
+            listView.itemsProperty().bind(FileManager.getFileManager().GetFileModelL().getListProperty());
+        } else {
+            listView.itemsProperty().bind(FileManager.getFileManager().GetFileModelR().getListProperty());
+        }
+    }
+
+    private void _enableHighLights(){
+
+        if( listView != null ) {
+
+            listView.setCellFactory(list -> new ListCell<String>() {
+                BooleanBinding invalid ;
+                {
+                    if( textArea.getParent().getParent().getId().contentEquals("leftEditor") ) {
+                        invalid = Bindings.createBooleanBinding(
+                                () -> FileManager.getFileManager().GetFileModelL().getList().contains(getIndex()),
+                                indexProperty(), itemProperty(), FileManager.getFileManager().GetFileModelL().getList()
+                        );
+
+                    } else {
+                        invalid = Bindings.createBooleanBinding(
+                                () -> FileManager.getFileManager().GetFileModelR().getList().contains(getIndex()),
+                                indexProperty(), itemProperty(), FileManager.getFileManager().GetFileModelR().getList()
+                        );
+                    }
+
+                    invalid.addListener((obs, wasInvalid, isNowInvalid) -> {
+                        if (isNowInvalid) {
+                            setStyle("-fx-background-color:yellowgreen;");
+                        } else {
+                            setStyle("");
+                        }
+                    });
+
+                }
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty ? null : item);
+                }
+            });
+        }
+
     }
 
 }

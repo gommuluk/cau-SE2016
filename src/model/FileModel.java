@@ -1,7 +1,10 @@
 package model;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,14 +16,16 @@ import java.util.Scanner;
 public class FileModel {
 
     private File file; //로드하고있는 파일
-    private ArrayList<String> stringArrayList = new ArrayList<String>();//데이터를 줄 단위로 저장하는 arraylist
+
+    private ArrayList<String> stringArrayList = new ArrayList<>();//데이터를 줄 단위로 저장하는 arraylist
+    protected ListProperty<String> listProperty = new SimpleListProperty<>();
+    ObservableList<Integer> diffList = FXCollections.observableArrayList();
+
     private SimpleStringProperty statusString; //현재 파일을 읽는지 로드중인지 그런 상태를 표시하는 문장
-    private SimpleIntegerProperty lineCount; //ArrayList의 아이템갯수(라인 수)
 
     public FileModel()
     {
         statusString = new SimpleStringProperty("Ready(No file is loaded)");
-        lineCount = new SimpleIntegerProperty(stringArrayList.size());
     }
 
 
@@ -31,17 +36,19 @@ public class FileModel {
      */
     public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
         file= new File(filePath);
+
         try {
             Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
             String tempString = "";
+
             while(in.hasNextLine()) {
                 tempString = in.nextLine(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
                 if(in.hasNextLine()) tempString +="\n"; //다음 줄이 없을 때는 개행을 추가하지 않는다.
                 stringArrayList.add(tempString);
             }
 
-            lineCount.set(stringArrayList.size());
             in.close();
+            listProperty.set(FXCollections.observableArrayList(stringArrayList));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -109,8 +116,12 @@ public class FileModel {
         return statusString;
     }
 
-    public SimpleIntegerProperty getLineCount(){
-        return lineCount;
+    public ListProperty<String> getListProperty(){
+        return listProperty;
+    }
+
+    public ObservableList<Integer> getList(){
+        return diffList;
     }
 
 

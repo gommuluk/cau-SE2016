@@ -131,10 +131,23 @@ public class ButtonController {
         ArrayList<String> leftList  = FileManager.getFileManager().getFileModelL().getStringArrayList();
         ArrayList<String> rightList = FileManager.getFileManager().getFileModelR().getStringArrayList();
 
-        //TODO LCS 알고리즘을 사용하는 메서드
-        //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
-        //TODO 블럭에 속하는 line들을 highlight한다.
-        //TODO IsCompared를 true로 설정
+        try{
+            //TODO LCS 알고리즘을 사용하는 메서드
+            //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
+            //TODO 블럭에 속하는 line들을 highlight한다.
+            //TODO IsCompared를 true로 설정
+
+
+
+        } catch(IndexOutOfBoundsException e){
+            // 두 파일 중 하나라도 없으면 생길만한 오류
+            //TODo 아무 일도 없게 하거나/경고창 띄워서 파일 로드 유도
+
+
+        } catch(Exception e){
+
+        }
+
     }
 
     //TODO Merge

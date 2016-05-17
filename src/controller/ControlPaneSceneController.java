@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.FileManager;
 import model.LeftEditorFileNotFoundException;
 import model.RightEditorFileNotFoundException;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -58,15 +61,42 @@ public class ControlPaneSceneController {
 
         catch(LeftEditorFileNotFoundException e){
             //TODo 아무 일도 없게 하거나/경고창 띄워서 파일 로드 유도
+            Stage s = (Stage) btnCompare.getScene().getWindow();
 
+            FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
 
+            File selectedFile = fileChooser.showOpenDialog(s);
+
+            //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
+            FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
+            textArea.appendText(FileManager.getFileManager().getFileModelL().toString());
         }
         catch(RightEditorFileNotFoundException e) {
+            Stage s = (Stage) btnCompare.getScene().getWindow();
 
+            FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
+
+            File selectedFile = fileChooser.showOpenDialog(s);
+
+            FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
+            textArea.appendText(FileManager.getFileManager().getFileModelR().toString());
         }
 
         catch(Exception e) {
-
+            e.printStackTrace();
+            //TODO 알수없는 예외에 대한 처리.
         }
 
     }

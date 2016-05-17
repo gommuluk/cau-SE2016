@@ -3,14 +3,11 @@ package controller;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.FileManager;
-import model.FileModel;
-
 
 /**
  * Created by SH on 2016-05-11.

@@ -1,19 +1,28 @@
 package controller;
 
+import com.sun.javafx.geom.BaseBounds;
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.jmx.MXNodeAlgorithm;
+import com.sun.javafx.jmx.MXNodeAlgorithmContext;
+import com.sun.javafx.sg.prism.NGNode;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleButton;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.scene.shape.Circle;
+import javafx.stage.*;
 import model.FileManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional; //
 
 /**
  * Created by SH on 2016-05-15.
@@ -77,18 +86,17 @@ public class ButtonController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) {
+    private void onTBBtnSaveClicked(ActionEvent event) throws IOException {
         try {
                                                                                                     /* 저장 버튼이 속한 패널을 판단하고,
                                                                                                        해당 패널의 Text를 읽어서
                                                                                                        파일 객체를 갱신하고, 파일에 덮어씌운다. */
-            if(editorToolbarScene.getParent().getParent().getId().equals("leftEditor")) {
+            if (editorToolbarScene.getParent().getParent().getId().equals("leftEditor")) {
                 String s = textArea.getText();
                 FileManager.getFileManager().getFileModelL().updateArrayList(s);
                 FileManager.getFileManager().getFileModelL().writeFile();
 
-            }
-            else {
+            } else {
                 String s = textArea.getText();
                 FileManager.getFileManager().getFileModelR().updateArrayList(s);
                 FileManager.getFileManager().getFileModelR().writeFile();
@@ -96,14 +104,85 @@ public class ButtonController {
             }
 
 
-        }
-
-        catch(Exception e) { // FileNotFound 등 Exception에 대한 처리.
+        } catch (Exception e) { // FileNotFound 등 Exception에 대한 처리.
             // TODO 새 파일을 만들겠냐는 선택지 부여
             // TODO 만들겠다고 하면 파일 생성
             // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
-        }
 
+
+//            Popup popup = new Popup();
+//            popup.setX(300);
+//            popup.setY(200);
+//            Label label = new Label();
+//            label.setText("hi");
+//            popup.getContent().addAll(new Circle(25,25,50));
+
+//            Stage s = (Stage) btnFileOpen.getScene().getWindow();
+
+
+
+//1)
+//            Alert alert = new Alert(AlertType.INFORMATION);
+//            alert.setTitle("Information Dialog");
+//            alert.setHeaderText("Look, an Information Dialog");
+//            alert.setContentText("I have a great message for you!");
+//
+//            alert.showAndWait();
+
+//2)
+//            Alert alert = new Alert(AlertType.CONFIRMATION);
+//            alert.setTitle("Confirmation Dialog");
+//            alert.setHeaderText("Look, a Confirmation Dialog");
+//            alert.setContentText("Are you ok with this?");
+//
+//            Optional<ButtonType> result = alert.showAndWait();
+//            if (result.get() == ButtonType.OK){
+//                // ... user chose OK
+//            } else {
+//                // ... user chose CANCEL or closed the dialog
+//            }
+
+            //3)
+//            Alert alert = new Alert(AlertType.CONFIRMATION);
+//            alert.setTitle("Confirmation Dialog with Custom Actions");
+//            alert.setHeaderText("Look, a Confirmation Dialog with Custom Actions");
+//            alert.setContentText("Choose your option.");
+//
+//            ButtonType buttonTypeOne = new ButtonType("One");
+//            ButtonType buttonTypeTwo = new ButtonType("Two");
+//            ButtonType buttonTypeThree = new ButtonType("Three");
+//            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+//
+//            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+//
+//            Optional<ButtonType> result = alert.showAndWait();
+//            if (result.get() == buttonTypeOne){
+//                // ... user chose "One"
+//            } else if (result.get() == buttonTypeTwo) {
+//                // ... user chose "Two"
+//            } else if (result.get() == buttonTypeThree) {
+//                // ... user chose "Three"
+//            } else {
+//                // ... user chose CANCEL or closed the dialog
+//            }
+
+
+
+
+//            Alert alert = new Alert(AlertType.ERROR, "content text");
+//                Alert a = new Alert(AlertType.INFORMATION);
+//                a.setTitle("My Title");
+//                a.setHeaderText("My Header Text");
+//                a.setResizable(true);
+//                String version = System.getProperty("java.version");
+//                String content = String.format("Java: %s.\nThis is a long text. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", version);
+//                a.setContentText(content);
+//                a.showAndWait();
+
+
+
+            System.out.println("nn");
+        }
     }
 
     @FXML // 수정 버튼을 클릭했을 때의 동작

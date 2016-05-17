@@ -128,7 +128,17 @@ public class ButtonController {
                 // TODO 새로운 파일 저장 시스템을 띄운다
                 // TODO 새 경로에 새 이름으로 저장
 
-            } else if (result.get() == buttonTypeNotSave) {
+               Stage s = (Stage) btnFileSave.getScene().getWindow();
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save File");
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("텍스트 문서(*.txt)", "*.txt"));
+                File file = fileChooser.showSaveDialog(s);
+
+
+
+
+
+                } else if (result.get() == buttonTypeNotSave) {
                 // TODO 진행을 취소..
             } else {
                 //취소->아무것도 하지 않음.

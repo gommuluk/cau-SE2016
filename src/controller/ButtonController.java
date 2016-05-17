@@ -113,7 +113,7 @@ public class ButtonController {
             textArea.setEditable(true);
             btnFileOpen.setDisable(true);
             btnFileSave.setDisable(true);
-            btnMergeLeft.setDisable(true);
+            ///btnMergeLeft.setDisable(true);
             //TODO STATUS 갱신
         }
         else {                          // edit 모드 탈출

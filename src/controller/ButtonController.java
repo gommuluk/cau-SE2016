@@ -5,6 +5,7 @@ import com.sun.javafx.geom.transform.BaseTransform;
 import com.sun.javafx.jmx.MXNodeAlgorithm;
 import com.sun.javafx.jmx.MXNodeAlgorithmContext;
 import com.sun.javafx.sg.prism.NGNode;
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -87,6 +88,8 @@ public class ButtonController {
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) throws IOException {
+
+        //TODO isEdited가 true인 경우, 버튼 활성화
         try {
                                                                                                     /* 저장 버튼이 속한 패널을 판단하고,
                                                                                                        해당 패널의 Text를 읽어서
@@ -103,19 +106,31 @@ public class ButtonController {
 
             }
 
-
         } catch (Exception e) { // FileNotFound 등 Exception에 대한 처리.
             // TODO 새 파일을 만들겠냐는 선택지 부여
             // TODO 만들겠다고 하면 파일 생성
             // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
+
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Simple Merge - 소공 2팀");
             alert.setHeaderText(null);
             alert.setContentText("변경 내용을 저장하시겠습니까?");
 
-            Optional<ButtonType> result = alert.showAndWait();
+            ButtonType buttonTypeSave = new ButtonType("저장");
+            ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
+            ButtonType buttonTypeCancle = new ButtonType("취소");
 
+            alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave, buttonTypeCancle);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeSave){
+
+            } else if (result.get() == buttonTypeNotSave) {
+
+            } else {
+                //취소->아무것도 하지 않음.
+            }
 
 
 
@@ -180,31 +195,3 @@ public class ButtonController {
     }
 
 }
-
-/*
-
-                경고창을 만드는 소스코드 예제
-                final Stage newStage = new Stage();
-                Group newRoot = new Group();
-                Scene scene = new Scene(newRoot, 300, 200);
-                newStage.setScene(scene);
-                newStage.show();
-
-                VBox vBox = new VBox();
-
-                Label newLabel = new Label();
-                newLabel.setText(newStage.toString());
-
-                Button btnClose = new Button("Close");
-                btnClose.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent t) {
-                        newStage.close();
-                    }
-                });
-
-                vBox.getChildren().addAll(newLabel, btnClose);
-                newRoot.getChildren().add(vBox);
-
-
- */

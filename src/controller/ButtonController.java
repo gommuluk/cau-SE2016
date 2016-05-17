@@ -1,31 +1,16 @@
 package controller;
 
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
 import javafx.stage.*;
 import model.FileManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional; //
 
@@ -99,12 +84,14 @@ public class ButtonController {
                                                                                                        해당 패널의 Text를 읽어서
                                                                                                        파일 객체를 갱신하고, 파일에 덮어씌운다. */
             if (editorToolbarScene.getParent().getParent().getId().equals("leftEditor")) {
+                //TODO isEdited 상태로 저장 여부 결정
                 String s = textArea.getText();
                 FileManager.getFileManager().getFileModelL().updateArrayList(s);
                 FileManager.getFileManager().getFileModelL().writeFile();
 
             } else {
                 String s = textArea.getText();
+                //TODO isEdited 상태로 저장 여부 결정
                 FileManager.getFileManager().getFileModelR().updateArrayList(s);
                 FileManager.getFileManager().getFileModelR().writeFile();
 

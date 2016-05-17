@@ -2,7 +2,6 @@ package model;
 
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;

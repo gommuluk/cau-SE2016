@@ -244,11 +244,19 @@
     -fx-border-radius: 0;
     -fx-border-color: transparent;
     -fx-border-width: 0;
+    /*-fx-font-smoothing-type: gray;*/
+}
 
-    -fx-text-fill: red;
+.editor-toolbar .text-area {
+    -fx-text-fill: black;
     -fx-font-size: 14px;
     -fx-font-family: 'Gulim', 'Dotum';
+    -fx-line-spacing: 12px;
+    -fx-padding: -2px;
+    -fx-border-color: yellow;
+    -fx-border-width: 1px;
 }
+
 .editor-toolbar .text-area .scroll-pane {
     -fx-background-color: transparent;
 }
@@ -262,11 +270,20 @@
 .editor-toolbar .list-cell {
     -fx-cell-size: 17px;
     -fx-font-size: 14px;
+    -fx-font-family: 'Gulim', 'Dotum';
+    -fx-line-spacing: 12px;
+    -fx-text-fill: transparent;
     -fx-padding: 0;
 }
 
+.editor-toolbar .list-cell:odd {
+    -fx-background-color: #EEEEEE;
+}
+
 .editor-toolbar .list-view {
-    -fx-padding: 4px;
+    -fx-border-width: 1px;
+    -fx-border-color: red;
+    -fx-padding: 1px;
 }
 
 .editor-toolbar .list-view .scroll-bar:vertical .increment-arrow,
@@ -275,6 +292,14 @@
 .editor-toolbar .list-view .scroll-bar:vertical .decrement-button {
     -fx-padding:0;
 }
+
+.editor-toolbar .list-view .scroll-bar:horizontal .increment-arrow,
+.editor-toolbar .list-view .scroll-bar:horizontal .decrement-arrow,
+.editor-toolbar .list-view .scroll-bar:horizontal .increment-button,
+.editor-toolbar .list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
 
 /* Editor (Toolbar) */
 .editor-toolbar .tool-bar:horizontal {
@@ -297,12 +322,18 @@
 }
 
 .btnEdit {
+    -fx-background-color: transparent;
+    -fx-min-width: 24px;
     -fx-background-image:url("btnEdit.png");
+    -fx-border-width: 0;
 }
 .btnEdit:disabled {
     -fx-background-image:url("btnEditDisable.png");
 }
 .btnEdit:hover {
+    -fx-background-image:url("btnEdit-hover.png");
+}
+.btnEdit:selected{
     -fx-background-image:url("btnEdit-hover.png");
 }
 
@@ -322,6 +353,37 @@
 .btnFileSave:hover{
     -fx-background-image:url("btnFileSave-hover.png");
 }
-.btnFileOpen:disabled {
+.btnFileSave:disabled {
     -fx-background-image:url("btnFileSaveDisable.png");
 }
+
+.btnMergeLeft {
+    -fx-background-image:url("btnMergeLeft.png");
+}
+.btnMergeLeft:hover{
+    -fx-background-image:url("btnMergeLeft-hover.png");
+}
+.btnMergeLeft:disabled {
+    -fx-background-image:url("btnMergeLeftDisable.png");
+}
+
+.btnMergeRight {
+    -fx-background-image:url("btnMergeRight.png");
+}
+.btnMergeRight:hover{
+    -fx-background-image:url("btnMergeRight-hover.png");
+}
+.btnMergeRight:disabled {
+    -fx-background-image:url("btnMergeRightDisable.png");
+}
+
+.btnCompare {
+    -fx-background-image:url("btnCompare.png");
+}
+.btnCompare:hover{
+    -fx-background-image:url("btnCompare-hover.png");
+}
+.btnCompare:disabled {
+    -fx-background-image:url("btnCompareDisable.png");
+}
+

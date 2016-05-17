@@ -2,29 +2,18 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.*;
-import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Delta;
 import model.FileManager;
-import model.FileModel;
-
-import java.awt.*;
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Created by SH on 2016-05-07.
@@ -61,8 +50,8 @@ public class UndecoratedRootSceneController {
             INIT_WIDTH = mainWindow.getWidth();
 
             // Status bind
-            labelStatus.textProperty().bindBidirectional(FileManager.getFileManager().GetFileModelL().getStatus());
-            labelStatus.textProperty().bindBidirectional(FileManager.getFileManager().GetFileModelR().getStatus());
+            labelStatus.textProperty().bindBidirectional(FileManager.getFileManager().getFileModelL().getStatus());
+            labelStatus.textProperty().bindBidirectional(FileManager.getFileManager().getFileModelR().getStatus());
         });
 
     }

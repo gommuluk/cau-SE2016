@@ -1,26 +1,16 @@
 package controller;
 
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import model.FileManager;
+import model.FileModel;
 
-import javax.naming.NoPermissionException;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by SH on 2016-05-11.
@@ -29,115 +19,88 @@ public class EditorSceneController {
 
     @FXML private TextArea textArea;
     @FXML private ListView<String> listView;
-    @FXML private Button btnFileOpen;
-    @FXML private Button btnEdit;
-    @FXML private Button btnFileSave;
-
-    protected List<String> test = new ArrayList<>();
-    protected ListProperty<String> listProperty = new SimpleListProperty<>();
+    private boolean isEdited;
+    public EditorSceneController(){
+        FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
+    }
 
     @FXML
     private void initialize(){
+
         Platform.runLater(()-> {
+
             _syncEditorScrollWithHighlightList();
-            listView.itemsProperty().bind(listProperty);
-            test.add("enter");
+            _syncEditorContentWithHighlightList();
+            _enableHighLights();
+
+            listView.scrollTo(0);
         });
     }
 
     @FXML // Editor에서 키보드입력이 있을 때의 동작
     private void onTextAreaKeyPressed(KeyEvent event){
         if( event.getCode().compareTo(KeyCode.ENTER) == 0 ){
-            test.add("enter");
-            listProperty.set(FXCollections.observableArrayList(test));
+            System.out.println("enter");
         }
-    }
-
-    @FXML // 불러오기 버튼을 클릭했을 때의 동작
-    private void onTBBtnLoadClicked(ActionEvent event) {
-        //File chooser code
-        try {
-            System.out.println(textArea.getParent().getParent().getId());
-            Stage s = (Stage) btnFileOpen.getScene().getWindow();
-
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Resource File");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                    new FileChooser.ExtensionFilter("All Files", "*.*"));
-
-            File selectedFile = fileChooser.showOpenDialog(s);
-
-            //Show text in Edit panel
-            //TODO 불러오기 버튼이 속한 에딧패널이 좌측인지 우측인지 인지가능한 코드가 필요.
-            if(textArea.getParent().getParent().getId().equals("leftEditor")) {
-                FileManager.getFileManager().GetFileModelL().readFile(selectedFile.getPath());
-                textArea.appendText(FileManager.getFileManager().GetFileModelL().toString());
-            }
-            else {
-                FileManager.getFileManager().GetFileModelR().readFile(selectedFile.getPath());
-                textArea.appendText(FileManager.getFileManager().GetFileModelR().toString());
-            }
-        }
-        catch(Exception e) {
-
-        }
-    }
-
-    @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) {
-        try {
-            if(textArea.getParent().getParent().getId().equals("leftEditor")) {
-                String s = textArea.getText();
-                FileManager.getFileManager().GetFileModelL().updateArrayList(s);
-                FileManager.getFileManager().GetFileModelL().writeFile();
-
-            }
-            else {
-                String s = textArea.getText();
-                FileManager.getFileManager().GetFileModelR().updateArrayList(s);
-                FileManager.getFileManager().GetFileModelR().writeFile();
-
-            }
-
-
-        }
-
-        catch(Exception e) { // FileNotFound 등 Exception에 대한 처리.
-            // TODO 새 파일을 만들겠냐는 선택지 부여
-            // TODO 만들겠다고 하면 파일 생성
-            // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
-        }
-    }
-
-
-    @FXML // 수정 버튼을 클릭했을 때의 동작
-    private void  onTBBtnEditClicked(ActionEvent event) {
-        if(!textArea.isEditable()) {    // edit 모드로 진입
-            textArea.setEditable(true);
-
-            btnFileOpen.setDisable(true);
-            btnFileSave.setDisable(true);
-            //TODO STATUS 갱신
-        }
-        else {                          // edit 모드 탈출
-            textArea.setEditable(false);
-
-            btnFileOpen.setDisable(false);
-            btnFileSave.setDisable(false);
-            //TODO STATUS 갱신
-        }
-
     }
 
     private void _syncEditorScrollWithHighlightList(){
         // ListView와 TextArea의 스크롤을 동기화시킨다.
-        DoubleProperty textAreaScrollTo = textArea.scrollTopProperty();
+        ScrollBar textAreaScrollTo = (ScrollBar) textArea.lookup(".scroll-bar:vertical");
         ScrollBar listViewScrollTo = (ScrollBar) listView.lookup(".scroll-bar:vertical");
+        System.out.println(textAreaScrollTo.getValue());
+        System.out.println(listViewScrollTo.getValue());
 
-        textAreaScrollTo.bindBidirectional(listViewScrollTo.valueProperty());
+        //textAreaScrollTo.valueProperty().bindBidirectional(listViewScrollTo.valueProperty());
+        listViewScrollTo.valueProperty().bindBidirectional(textAreaScrollTo.valueProperty());
+    }
+
+    private void _syncEditorContentWithHighlightList(){
+        if( textArea.getParent().getParent().getId().contentEquals("leftEditor")) {
+            listView.itemsProperty().bind(FileManager.getFileManager().getFileModelL().getListProperty());
+        } else {
+            listView.itemsProperty().bind(FileManager.getFileManager().getFileModelR().getListProperty());
+        }
+    }
+
+    private void _enableHighLights(){
+
+        if( listView != null ) {
+
+            listView.setCellFactory(list -> new ListCell<String>() {
+                BooleanBinding invalid ;
+                {
+                    if( textArea.getParent().getParent().getId().contentEquals("leftEditor") ) {
+                        invalid = Bindings.createBooleanBinding(
+                                () -> FileManager.getFileManager().getFileModelL().getList().contains(getIndex()),
+                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelL().getList()
+                        );
+
+                    } else {
+                        invalid = Bindings.createBooleanBinding(
+                                () -> FileManager.getFileManager().getFileModelR().getList().contains(getIndex()),
+                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelR().getList()
+                        );
+                    }
+
+                    invalid.addListener((obs, wasInvalid, isNowInvalid) -> {
+                        if (isNowInvalid) {
+                            setStyle("-fx-background-color:yellowgreen;");
+                        } else {
+                            setStyle("");
+                        }
+                    });
+
+                }
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty ? null : item);
+                }
+            });
+        }
+
     }
 
 }

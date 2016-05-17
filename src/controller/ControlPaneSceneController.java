@@ -6,7 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import model.FileManager;
+import model.LeftEditorFileNotFoundException;
+import model.RightEditorFileNotFoundException;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +22,6 @@ public class ControlPaneSceneController {
 
     @FXML private Button btnCompare, btnMergeLeft, btnMergeRight;
     @FXML private GridPane controlPane;
-
     private TextArea textArea;
 
     @FXML
@@ -33,17 +38,17 @@ public class ControlPaneSceneController {
         ArrayList<String> rightList;
         try{
             //TODO 파일 할당 여부를 보고 있다면 파일을 읽어오는 코드. 버튼 컨트롤러가 해체되어야 함.
-            /*
-            if(leftEditor.isFileExist) {
+
+            if(FileManager.getFileManager().getFileModelL().getFileExistFlag()) {
                 leftList  = FileManager.getFileManager().getFileModelL().getStringArrayList();
             }
             else throw new LeftEditorFileNotFoundException("Left files are not exist");
 
-            if(rightEditor.isFileExist) {
+            if(FileManager.getFileManager().getFileModelR().getFileExistFlag()) {
                 rightList = FileManager.getFileManager().getFileModelR().getStringArrayList();
             }
             else throw new RightEditorFileNotFoundException("Right files are not exist");
-            */
+
 
             //TODO LCS 알고리즘을 사용하는 메서드
             //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
@@ -53,20 +58,45 @@ public class ControlPaneSceneController {
 
 
         }
-        /*
+
         catch(LeftEditorFileNotFoundException e){
-            // 두 파일 중 하나라도 없으면 생길만한 오류
-
             //TODo 아무 일도 없게 하거나/경고창 띄워서 파일 로드 유도
+            Stage s = (Stage) btnCompare.getScene().getWindow();
 
+            FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
 
+            File selectedFile = fileChooser.showOpenDialog(s);
+
+            //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
+            FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
+            textArea.appendText(FileManager.getFileManager().getFileModelL().toString());
         }
         catch(RightEditorFileNotFoundException e) {
+            Stage s = (Stage) btnCompare.getScene().getWindow();
 
+            FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
+
+            File selectedFile = fileChooser.showOpenDialog(s);
+
+            FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
+            textArea.appendText(FileManager.getFileManager().getFileModelR().toString());
         }
-        */
-        catch(Exception e) {
 
+        catch(Exception e) {
+            e.printStackTrace();
+            //TODO 알수없는 예외에 대한 처리.
         }
 
     }

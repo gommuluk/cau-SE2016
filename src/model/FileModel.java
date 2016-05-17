@@ -127,6 +127,10 @@ public class FileModel {
         return listProperty;
     }
 
+    /**
+     * 현재 DiffList의 상태를 반환합니다.
+     * @return ObservableList 현재 diffrence를 나타내는 List
+     */
     public ObservableList<Integer> getList(){
         return diffList;
     }

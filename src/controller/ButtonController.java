@@ -109,79 +109,16 @@ public class ButtonController {
             // TODO 만들겠다고 하면 파일 생성
             // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
 
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Simple Merge - 소공 2팀");
+            alert.setHeaderText(null);
+            alert.setContentText("변경 내용을 저장하시겠습니까?");
 
-//            Popup popup = new Popup();
-//            popup.setX(300);
-//            popup.setY(200);
-//            Label label = new Label();
-//            label.setText("hi");
-//            popup.getContent().addAll(new Circle(25,25,50));
-
-//            Stage s = (Stage) btnFileOpen.getScene().getWindow();
-
-
-
-//1)
-//            Alert alert = new Alert(AlertType.INFORMATION);
-//            alert.setTitle("Information Dialog");
-//            alert.setHeaderText("Look, an Information Dialog");
-//            alert.setContentText("I have a great message for you!");
-//
-//            alert.showAndWait();
-
-//2)
-//            Alert alert = new Alert(AlertType.CONFIRMATION);
-//            alert.setTitle("Confirmation Dialog");
-//            alert.setHeaderText("Look, a Confirmation Dialog");
-//            alert.setContentText("Are you ok with this?");
-//
-//            Optional<ButtonType> result = alert.showAndWait();
-//            if (result.get() == ButtonType.OK){
-//                // ... user chose OK
-//            } else {
-//                // ... user chose CANCEL or closed the dialog
-//            }
-
-            //3)
-//            Alert alert = new Alert(AlertType.CONFIRMATION);
-//            alert.setTitle("Confirmation Dialog with Custom Actions");
-//            alert.setHeaderText("Look, a Confirmation Dialog with Custom Actions");
-//            alert.setContentText("Choose your option.");
-//
-//            ButtonType buttonTypeOne = new ButtonType("One");
-//            ButtonType buttonTypeTwo = new ButtonType("Two");
-//            ButtonType buttonTypeThree = new ButtonType("Three");
-//            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-//
-//            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
-//
-//            Optional<ButtonType> result = alert.showAndWait();
-//            if (result.get() == buttonTypeOne){
-//                // ... user chose "One"
-//            } else if (result.get() == buttonTypeTwo) {
-//                // ... user chose "Two"
-//            } else if (result.get() == buttonTypeThree) {
-//                // ... user chose "Three"
-//            } else {
-//                // ... user chose CANCEL or closed the dialog
-//            }
+            Optional<ButtonType> result = alert.showAndWait();
 
 
 
 
-//            Alert alert = new Alert(AlertType.ERROR, "content text");
-//                Alert a = new Alert(AlertType.INFORMATION);
-//                a.setTitle("My Title");
-//                a.setHeaderText("My Header Text");
-//                a.setResizable(true);
-//                String version = System.getProperty("java.version");
-//                String content = String.format("Java: %s.\nThis is a long text. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", version);
-//                a.setContentText(content);
-//                a.showAndWait();
-
-
-
-            System.out.println("nn");
         }
     }
 

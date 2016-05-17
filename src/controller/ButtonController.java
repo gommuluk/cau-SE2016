@@ -17,11 +17,15 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Path;
 import javafx.stage.*;
 import model.FileManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional; //
 
@@ -134,7 +138,17 @@ public class ButtonController {
                 // TODO 새로운 파일 저장 시스템을 띄운다
                 // TODO 새 경로에 새 이름으로 저장
 
-            } else if (result.get() == buttonTypeNotSave) {
+               Stage s = (Stage) btnFileSave.getScene().getWindow();
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save File");
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("텍스트 문서(*.txt)", "*.txt"));
+                File file = fileChooser.showSaveDialog(s);
+
+
+
+
+
+                } else if (result.get() == buttonTypeNotSave) {
                 // TODO 진행을 취소..
             } else {
                 //취소->아무것도 하지 않음.

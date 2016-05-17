@@ -21,7 +21,7 @@ public class EditorSceneController {
     @FXML private ListView<String> listView;
 
     public EditorSceneController(){
-        FileManager.getFileManager().GetFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
+        FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
     }
 
     @FXML
@@ -57,9 +57,9 @@ public class EditorSceneController {
 
     private void _syncEditorContentWithHighlightList(){
         if( textArea.getParent().getParent().getId().contentEquals("leftEditor")) {
-            listView.itemsProperty().bind(FileManager.getFileManager().GetFileModelL().getListProperty());
+            listView.itemsProperty().bind(FileManager.getFileManager().getFileModelL().getListProperty());
         } else {
-            listView.itemsProperty().bind(FileManager.getFileManager().GetFileModelR().getListProperty());
+            listView.itemsProperty().bind(FileManager.getFileManager().getFileModelR().getListProperty());
         }
     }
 
@@ -72,14 +72,14 @@ public class EditorSceneController {
                 {
                     if( textArea.getParent().getParent().getId().contentEquals("leftEditor") ) {
                         invalid = Bindings.createBooleanBinding(
-                                () -> FileManager.getFileManager().GetFileModelL().getList().contains(getIndex()),
-                                indexProperty(), itemProperty(), FileManager.getFileManager().GetFileModelL().getList()
+                                () -> FileManager.getFileManager().getFileModelL().getList().contains(getIndex()),
+                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelL().getList()
                         );
 
                     } else {
                         invalid = Bindings.createBooleanBinding(
-                                () -> FileManager.getFileManager().GetFileModelR().getList().contains(getIndex()),
-                                indexProperty(), itemProperty(), FileManager.getFileManager().GetFileModelR().getList()
+                                () -> FileManager.getFileManager().getFileModelR().getList().contains(getIndex()),
+                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelR().getList()
                         );
                     }
 

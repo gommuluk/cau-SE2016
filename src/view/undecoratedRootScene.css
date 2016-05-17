@@ -272,7 +272,7 @@
     -fx-font-size: 14px;
     -fx-font-family: 'Gulim', 'Dotum';
     -fx-line-spacing: 12px;
-    /*-fx-text-fill: transparent;*/
+    -fx-text-fill: transparent;
     -fx-padding: 0;
 }
 

@@ -107,12 +107,18 @@ public class ButtonController {
                 FileManager.getFileManager().getFileModelR().writeFile();
 
             }
+            //TODO 성공시 isEdited를 false로 갱신해야 하는데..\
+            //TODO 파일을 실제로 저장해보면 개행 처리가 안 됨 ㅜㅠ
+            //TODO COMPARE버튼이 눌러져있다면, 취소
 
         } catch (Exception e) { // FileNotFound 등 Exception에 대한 처리.
             // TODO 새 파일을 만들겠냐는 선택지 부여
             // TODO 만들겠다고 하면 파일 생성
             // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
 
+
+            //로드가 되지 않은 채로 저장을 눌렀다든가.
+            //edit만 하고 저장을 눌렀다든가?
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Simple Merge - 소공 2팀");
@@ -127,13 +133,17 @@ public class ButtonController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeSave){
+                // TODO 새로운 파일 저장 시스템을 띄운다
+                // TODO 새 경로에 새 이름으로 저장
 
             } else if (result.get() == buttonTypeNotSave) {
-
+                // TODO 진행을 취소..
             } else {
                 //취소->아무것도 하지 않음.
             }
 
+            // TODO 성공하면, isEdited를 false로 바꾼다.
+            // TODO 실패하면, 실패했다는 알림을 표시하고 진행 중지
 
 
         }

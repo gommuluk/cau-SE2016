@@ -31,12 +31,9 @@ public class EditorSceneController {
 
     private Button btnCompare, btnMergeLeft, btnMergeRight;
 
-    private boolean isEdited;
-    public boolean isFileExist;
 
     public EditorSceneController(){
         FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
-        this.isFileExist = false;
     }
 
     @FXML

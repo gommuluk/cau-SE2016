@@ -21,6 +21,11 @@ public class FileModel {
     protected ListProperty<String> listProperty = new SimpleListProperty<>();
     ObservableList<Integer> diffList = FXCollections.observableArrayList();
 
+
+    private boolean isFileExist     = false;
+    private boolean isEdited        = false;
+
+
     private SimpleStringProperty statusString; //현재 파일을 읽는지 로드중인지 그런 상태를 표시하는 문장
 
     public FileModel()
@@ -48,6 +53,7 @@ public class FileModel {
             }
 
             in.close();
+            this.isFileExist = true;
             listProperty.set(FXCollections.observableArrayList(stringArrayList));
 
         } catch (FileNotFoundException e) {
@@ -134,6 +140,9 @@ public class FileModel {
     public ObservableList<Integer> getList(){
         return diffList;
     }
+
+    public boolean getFileExistFlag()   { return isFileExist; }
+    public boolean getEditedFlag()      { return isEdited; }
 
 
 }

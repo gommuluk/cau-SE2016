@@ -95,12 +95,14 @@ public class ButtonController {
                                                                                                        해당 패널의 Text를 읽어서
                                                                                                        파일 객체를 갱신하고, 파일에 덮어씌운다. */
             if (editorToolbarScene.getParent().getParent().getId().equals("leftEditor")) {
+                //TODO isEdited 상태로 저장 여부 결정
                 String s = textArea.getText();
                 FileManager.getFileManager().getFileModelL().updateArrayList(s);
                 FileManager.getFileManager().getFileModelL().writeFile();
 
             } else {
                 String s = textArea.getText();
+                //TODO isEdited 상태로 저장 여부 결정
                 FileManager.getFileManager().getFileModelR().updateArrayList(s);
                 FileManager.getFileManager().getFileModelR().writeFile();
 

@@ -19,7 +19,7 @@ public class EditorSceneController {
 
     @FXML private TextArea textArea;
     @FXML private ListView<String> listView;
-
+    private boolean isEdited;
     public EditorSceneController(){
         FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
     }

@@ -147,7 +147,6 @@ public class ButtonController {
 
 
 
-
                 } else if (result.get() == buttonTypeNotSave) {
                 // TODO 진행을 취소..
             } else {

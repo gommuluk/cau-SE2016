@@ -75,6 +75,8 @@ public class ControlPaneSceneController {
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
+            //TODO NullptrExp 해결 필요.
+            //TODO 아래 textArea가 파일에 존재하는 그 textArea가 아님.
             textArea.appendText(FileManager.getFileManager().getFileModelL().toString());
         }
         catch(RightEditorFileNotFoundException e) {

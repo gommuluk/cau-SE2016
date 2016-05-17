@@ -8,8 +8,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.*;
 import model.FileManager;
+import model.LeftEditorFileNotFoundException;
+import model.RightEditorFileNotFoundException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional; //
@@ -160,10 +163,22 @@ public class ButtonController {
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
     private void onBtnCompareClicked(ActionEvent event) {
-        ArrayList<String> leftList  = FileManager.getFileManager().getFileModelL().getStringArrayList();
-        ArrayList<String> rightList = FileManager.getFileManager().getFileModelR().getStringArrayList();
-
+        ArrayList<String> leftList;
+        ArrayList<String> rightList;
         try{
+             //TODO 파일 할당 여부를 보고 있다면 파일을 읽어오는 코드. 버튼 컨트롤러가 해체되어야 함.
+            /*
+            if(leftEditor.isFileExist) {
+                leftList  = FileManager.getFileManager().getFileModelL().getStringArrayList();
+            }
+            else throw new LeftEditorFileNotFoundException("Left files are not exist");
+
+            if(rightEditor.isFileExist) {
+                rightList = FileManager.getFileManager().getFileModelR().getStringArrayList();
+            }
+            else throw new RightEditorFileNotFoundException("Right files are not exist");
+            */
+
             //TODO LCS 알고리즘을 사용하는 메서드
             //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
             //TODO 블럭에 속하는 line들을 highlight한다.
@@ -171,10 +186,20 @@ public class ButtonController {
 
 
 
-        } catch(IndexOutOfBoundsException e){
+        }
+        /*
+        catch(LeftEditorFileNotFoundException e){
             // 두 파일 중 하나라도 없으면 생길만한 오류
+
             //TODo 아무 일도 없게 하거나/경고창 띄워서 파일 로드 유도
 
+
+        }
+        catch(RightEditorFileNotFoundException e) {
+
+        }
+        */
+        catch(Exception e) {
 
         }
 

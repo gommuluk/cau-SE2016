@@ -75,7 +75,7 @@ public class EditorSceneController {
         System.out.println(textAreaScrollTo.getValue());
         System.out.println(listViewScrollTo.getValue());
 
-        //textAreaScrollTo.valueProperty().bindBidirectional(listViewScrollTo.valueProperty());
+        textAreaScrollTo.valueProperty().bindBidirectional(listViewScrollTo.valueProperty());
         listViewScrollTo.valueProperty().bindBidirectional(textAreaScrollTo.valueProperty());
     }
     private void _syncEditorContentWithHighlightList(){
@@ -245,15 +245,14 @@ public class EditorSceneController {
             textArea.setEditable(true);
             btnFileOpen.setDisable(true);
             btnFileSave.setDisable(true);
-            ///btnMergeLeft.setDisable(true);
+            btnMergeLeft.setDisable(true);
             //TODO STATUS 갱신
         }
         else {                          // edit 모드 탈출
             textArea.setEditable(false);
-
             btnFileOpen.setDisable(false);
             btnFileSave.setDisable(false);
-
+            btnMergeLeft.setDisable(false);
         }
 
     }

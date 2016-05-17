@@ -7,9 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -106,17 +104,27 @@ public class TabPaneSceneController {
         });
     }
     private void _syncEditorsScrollBar(){
+
+        ListView leftHighLight = (ListView)((AnchorPane)leftEditor.getCenter()).getChildren().get(0);
+        ListView rightHighLight = (ListView)((AnchorPane)rightEditor.getCenter()).getChildren().get(0);
+
         TextArea leftTextArea = (TextArea)((AnchorPane)leftEditor.getCenter()).getChildren().get(1);
         TextArea rightTextArea = (TextArea)((AnchorPane)rightEditor.getCenter()).getChildren().get(1);
 
+        // textarea scrolling
         DoubleProperty leftVerticalScroll = leftTextArea.scrollTopProperty();
         DoubleProperty rightVerticalScroll = rightTextArea.scrollTopProperty();
-
         DoubleProperty leftHorizontalScroll = leftTextArea.scrollLeftProperty();
         DoubleProperty rightHorizontalScroll = rightTextArea.scrollLeftProperty();
 
+        // highlightlist scrolling
+        ScrollBar leftListScroll = (ScrollBar) leftHighLight.lookup(".scroll-bar:vertical");
+        ScrollBar rightListScroll = (ScrollBar) rightHighLight.lookup(".scroll-bar:vertical");
+
         leftVerticalScroll.bindBidirectional(rightVerticalScroll);
         leftHorizontalScroll.bindBidirectional(rightHorizontalScroll);
+//        leftListScroll.valueProperty().bindBidirectional(rightListScroll.valueProperty());
+
     }
     private void _openTabInStage(final Tab tab) {
         if(tab == null) return;

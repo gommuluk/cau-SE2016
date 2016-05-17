@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import model.FileManager;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -196,16 +197,18 @@ public class EditorSceneController {
             //로드가 되지 않은 채로 저장을 눌렀다든가.
             //edit만 하고 저장을 눌렀다든가?
 
+            // TODO 경고창 매서드로 따로 만들기
+
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Simple Merge - 소공 2팀");
             alert.setHeaderText(null);
-            alert.setContentText("변경 내용을 저장하시겠습니까?");
+            alert.setContentText("새로운 파일로 저장하시겠습니까?");
 
             ButtonType buttonTypeSave = new ButtonType("저장");
             ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
-            ButtonType buttonTypeCancle = new ButtonType("취소");
+            ButtonType buttonTypeCancel = new ButtonType("취소");
 
-            alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave, buttonTypeCancle);
+            alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave, buttonTypeCancel);
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeSave){
@@ -215,10 +218,23 @@ public class EditorSceneController {
                 Stage s = (Stage) btnFileSave.getScene().getWindow();
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Save File");
-                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("텍스트 문서(*.txt)", "*.txt"));
+                fileChooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                        new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+                        new FileChooser.ExtensionFilter("All Files", "*.*"));
+
                 File file = fileChooser.showSaveDialog(s);
 
+                file = new File(file.getAbsolutePath());
+                FileOutputStream fileOut = new FileOutputStream(file);
 
+                if(textArea.getParent().getParent().getId().equals("leftEditor")) {
+                    FileManager.getFileManager().getFileModelL().readFile(file.getPath());
+                }
+                else {
+                    FileManager.getFileManager().getFileModelR().readFile(file.getPath());
+                }
 
 
 

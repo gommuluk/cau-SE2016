@@ -51,33 +51,32 @@ public class FileManager {
         else return b;
     }
 
-    private void buildArrayLCS(int[][] arr)
-    {
+    private void buildArrayLCS(int[][] arr) {
         ArrayList<Line> leftArr = FileModelL.getlLneArrayList(); // width
         ArrayList<Line> rightArr = FileModelR.getlLneArrayList(); // height
+
         int width = arr.length;
         int height = arr[0].length;
-        for(int i = 0; i <= width; i++)
-        {
-            for(int j = 0; j <= height ; j++)
-            {
-                if(i == 0 || j == 0) arr[i][j] = 0;
-                else
-                {
-                    if(leftArr.get(i-1) == rightArr.get(j-1))
-                    {
-                        arr[i][j] = arr[i-1][j-1] + 1;
-                    }
-                    else
-                    {
-                        arr[i][j] = max(arr[i-1][j],arr[i][j-1]);
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+
+                if (i == 0 || j == 0) arr[i][j] = 0;
+                else {
+                    //System.out.println(leftArr.get(i - 1).content.compareTo(rightArr.get(j - 1).content));
+                    if (leftArr.get(i - 1).content.compareTo(rightArr.get(j - 1).content) == 0) {
+                        arr[i][j] = arr[i - 1][j - 1] + 1;
+                    } else {
+                        arr[i][j] = max(arr[i - 1][j], arr[i][j - 1]);
                     }
                 }
             }
         }
-
-
+    }
+    public int[][] getArrayLCS() {
+        return arrayLCS;
 
     }
+
 
 }

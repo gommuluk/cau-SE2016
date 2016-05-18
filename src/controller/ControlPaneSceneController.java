@@ -48,12 +48,12 @@ public class ControlPaneSceneController {
             //TODO 파일 할당 여부를 보고 있다면 파일을 읽어오는 코드. 버튼 컨트롤러가 해체되어야 함.
 
             if(FileManager.getFileManager().getFileModelL().getFileExistFlag()) {
-                leftList  = FileManager.getFileManager().getFileModelL().getStringArrayList();
+                //leftList  = FileManager.getFileManager().getFileModelL().getStringArrayList(); //사양 변경으로 인한 임시 주석처리
             }
             else throw new LeftEditorFileNotFoundException();
 
             if(FileManager.getFileManager().getFileModelR().getFileExistFlag()) {
-                rightList = FileManager.getFileManager().getFileModelR().getStringArrayList();
+                //rightList = FileManager.getFileManager().getFileModelR().getStringArrayList(); //사양 변경으로 인한 임시 주석처리
             }
             else throw new RightEditorFileNotFoundException();
 

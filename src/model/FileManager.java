@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 
 /**
  * Created by ano on 2016. 5. 13..
@@ -41,12 +42,41 @@ public class FileManager {
     private int[][] arrayLCS;
     public void runLCS()
     {
-        arrayLCS = new int[FileModelL.getlLneArrayList().size()][FileModelR.getlLneArrayList().size()];//초기화
-
-
+        arrayLCS = new int[FileModelL.getlLneArrayList().size() + 1][FileModelR.getlLneArrayList().size() + 1];//초기화
+        buildArrayLCS(arrayLCS);
     }
+    private int max(int a, int b)
+    {
+        if(a > b) return a;
+        else return b;
+    }
+
     private void buildArrayLCS(int[][] arr)
     {
+        ArrayList<Line> leftArr = FileModelL.getlLneArrayList(); // width
+        ArrayList<Line> rightArr = FileModelR.getlLneArrayList(); // height
+        int width = arr.length;
+        int height = arr[0].length;
+        for(int i = 0; i <= width; i++)
+        {
+            for(int j = 0; j <= height ; j++)
+            {
+                if(i == 0 || j == 0) arr[i][j] = 0;
+                else
+                {
+                    if(leftArr.get(i-1) == rightArr.get(j-1))
+                    {
+                        arr[i][j] = arr[i-1][j-1] + 1;
+                    }
+                    else
+                    {
+                        arr[i][j] = max(arr[i-1][j],arr[i][j-1]);
+                    }
+                }
+            }
+        }
+
+
 
     }
 

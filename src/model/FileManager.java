@@ -64,7 +64,7 @@ public class FileManager {
                 if (i == 0 || j == 0) arr[i][j] = 0;
                 else {
                     //System.out.println(leftArr.get(i - 1).content.compareTo(rightArr.get(j - 1).content));
-                    if (leftArr.get(i - 1).content.compareTo(rightArr.get(j - 1).content) == 0) {
+                    if (leftArr.get(i - 1).getLine(true).compareTo(rightArr.get(j - 1).getLine(true)) == 0) {//개행 없이 비교해야되기떄문에 getLine에 true를 넘겨줘서 받아옴
                         arr[i][j] = arr[i - 1][j - 1] + 1;
                     } else {
                         arr[i][j] = max(arr[i - 1][j], arr[i][j - 1]);

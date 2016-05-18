@@ -252,17 +252,21 @@ public class EditorSceneController {
     //TODO 나머지 버튼들 활성화/비활성화 조절
     private void  onTBBtnEditClicked(ActionEvent event) {
         if(!textArea.isEditable()) {    // edit 모드로 진입
-            textArea.setEditable(true);
-            btnFileOpen.setDisable(true);
-            btnFileSave.setDisable(true);
-            btnMergeLeft.setDisable(true);
-            //TODO STATUS 갱신
+            textArea.    setEditable(true);
+            btnFileOpen.  setDisable(true);
+            btnFileSave.  setDisable(true);
+            btnCompare.   setDisable(true);
+            btnMergeLeft. setDisable(true);
+            btnMergeRight.setDisable(true);
+            //TODO STATUS 갱신 editing으로
         }
         else {                          // edit 모드 탈출
-            textArea.setEditable(false);
-            btnFileOpen.setDisable(false);
-            btnFileSave.setDisable(false);
-            btnMergeLeft.setDisable(false);
+            textArea.    setEditable(false);
+            btnFileOpen.  setDisable(false);
+            btnFileSave.  setDisable(false);
+            btnCompare.   setDisable(false);
+            btnMergeLeft. setDisable(false);
+            btnMergeRight.setDisable(false);
         }
 
     }

@@ -104,7 +104,9 @@ public class FileModel {
      * @return isCompared에 따른 지금 출력해야하는 Line을 가지는 Arraylist의 clone
      */
     public ArrayList<Line> getLineArrayList() {
-        if(isCompeared) return (ArrayList<Line>) comparedLineArrayList.clone();
+        if(isCompeared) {
+            return (ArrayList<Line>) comparedLineArrayList.clone();
+        }
         else return (ArrayList<Line>) lineArrayList.clone();
     }
     /**

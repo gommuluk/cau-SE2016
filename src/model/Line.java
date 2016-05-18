@@ -31,6 +31,11 @@ public class Line {
     {
         unHilighted, whitespace, isDifferent,selected
     }
+    public int getBlockIndex()
+    { return  blockIndex;}
+    public boolean getIsWhiteSpace()
+    {return isWhitespace;};
+
     public Highlight getHighlight()
     {
         if(blockIndex == -1) return Highlight.unHilighted;
@@ -43,6 +48,8 @@ public class Line {
     {
         blockArrayList = inArrayList;
     }
+    public static ArrayList<Block> getBlockArray()
+    {return blockArrayList;}//only for testing
 
 
 

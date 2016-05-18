@@ -12,6 +12,13 @@ public class Line {
     public Line(String input)
     {
         content = input;
+        blockIndex = -1;
+    }
+    public Line(String input,int index, boolean whiteSpace)
+    {
+        content = input;
+        blockIndex = index;
+        isWhitespace = whiteSpace;
     }
     public String getLine(boolean isLastLine) //마지막 줄이면 개행을 없이 그것이 아니면 개행 있이 content를 반환합니다
     {
@@ -32,7 +39,7 @@ public class Line {
         else return Highlight.isDifferent;
     }
 
-    public void setBlockArray(ArrayList<Block> inArrayList)
+    public static void setBlockArray(ArrayList<Block> inArrayList)
     {
         blockArrayList = inArrayList;
     }

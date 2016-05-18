@@ -16,8 +16,9 @@ import java.util.Scanner;
 public class FileModel {
 
     private File file; //로드하고있는 파일
-
+    public boolean isCompeared = false;//현재 비교를 하는 중이냐고
     private ArrayList<Line> lineArrayList = new ArrayList<Line>();//데이터를 줄 단위로 저장하는 arraylist
+    private ArrayList<Line> comparedLineArrayList;
     protected ListProperty<String> listProperty = new SimpleListProperty<>();
     ObservableList<Integer> diffList = FXCollections.observableArrayList();
 
@@ -31,6 +32,25 @@ public class FileModel {
     public FileModel()
     {
         statusString = new SimpleStringProperty("Ready(No file is loaded)");
+    }
+    /**
+     * FileModel으로투버 compare중이라는 것을 Compared된 array와 함께 전달합니다
+     * @param clArrayList compare결과로 인해 새롭게 출력해햐하는 Line들을 가지고 있는 어레이리스트
+     * @return
+     */
+    public void setCompare(ArrayList<Line> clArrayList)
+    {
+        isCompeared = true;
+        comparedLineArrayList = clArrayList;
+    }
+
+    /**
+     * FileModel으로부터 compare가 cancel됬다는 것을 받습니다
+     * @return
+     */
+    public void cancleCompare()
+    {
+        isCompeared = false;
     }
 
 
@@ -74,16 +94,18 @@ public class FileModel {
     public String toString() {
         String ret = "";
         for(Line s : lineArrayList)
-            ret += s.content;
+            ret += s.getLine(false);
+        ret = ret.substring(0,ret.length()-1);//맨 마지막의 개행 제거
         return ret;
     }
 
     /**
-     * 파일 내용을 저장하는 ArrayList의 Clone을 반환합니다.
-     * @return file에 내용에 대한 Arraylist의 clone
+     * isCompared의 값에 따라서 파일 내용을 저장하는 ArrayList의 Clone을 반환합니다.
+     * @return isCompared에 따른 지금 출력해야하는 Line을 가지는 Arraylist의 clone
      */
-    public ArrayList<Line> getlLneArrayList() {
-        return (ArrayList<Line>) lineArrayList.clone();
+    public ArrayList<Line> getLineArrayList() {
+        if(isCompeared) return (ArrayList<Line>) comparedLineArrayList.clone();
+        else return (ArrayList<Line>) lineArrayList.clone();
     }
     /**
      * 파일의 내용을 갱신합니다.
@@ -92,7 +114,7 @@ public class FileModel {
     public void updateArrayList(String args) {
         lineArrayList = new ArrayList<Line>();
         for(String s : args.split("\n"))
-            lineArrayList.add(new Line(s + "\n"));
+            lineArrayList.add(new Line(s));
     }
 
     /**
@@ -104,8 +126,9 @@ public class FileModel {
         try(  PrintWriter out = new PrintWriter(file.getPath()) ){
             String tstring ="";
             for (Line i : lineArrayList) {
-                tstring+=i.content;
+                tstring+=i.getLine(false);
             }
+            tstring = tstring.substring(0,tstring.length()-1);
             out.print(tstring);
             out.close();
 

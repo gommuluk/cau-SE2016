@@ -27,10 +27,12 @@ public class FileManagerTest {
     @Test
     public void buildArrayLCSTest() {
         int[][] arr = {{0,0,0,0,0},{0,1,1,1,1},{0,1,2,2,2},{0,1,2,2,3},{0,1,2,3,3}};
+
         //L이 a b c d, R이 a b d c 일떄의 DP 테이블
         fileManager.runLCS();
         assertArrayEquals(arr, fileManager.getArrayLCS());
 
-
     }
+
+
 }

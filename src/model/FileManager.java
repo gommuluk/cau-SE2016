@@ -10,6 +10,8 @@ public class FileManager {
     private static FileManager instance;
     private FileModel FileModelL = new FileModel();
     private FileModel FileModelR = new FileModel();
+    private ArrayList<Block> blockArrayList;
+
     private FileManager(){}
 
     /**
@@ -42,8 +44,11 @@ public class FileManager {
     private int[][] arrayLCS;
     public void runLCS()
     {
-        arrayLCS = new int[FileModelL.getlLneArrayList().size() + 1][FileModelR.getlLneArrayList().size() + 1];//초기화
-        buildArrayLCS(arrayLCS);
+
+        arrayLCS = new int[FileModelL.getLineArrayList().size() + 1][FileModelR.getLineArrayList().size() + 1];//LCS 배열의 초기화
+        buildArrayLCS();// 배열 구성
+
+
     }
     private int max(int a, int b)
     {
@@ -51,9 +56,10 @@ public class FileManager {
         else return b;
     }
 
-    private void buildArrayLCS(int[][] arr) {
-        ArrayList<Line> leftArr = FileModelL.getlLneArrayList(); // width
-        ArrayList<Line> rightArr = FileModelR.getlLneArrayList(); // height
+    private void buildArrayLCS() {
+        int[][] arr = arrayLCS;
+        ArrayList<Line> leftArr = FileModelL.getLineArrayList(); // width
+        ArrayList<Line> rightArr = FileModelR.getLineArrayList(); // height
 
         int width = arr.length;
         int height = arr[0].length;
@@ -72,10 +78,105 @@ public class FileManager {
                 }
             }
         }
+        //여기서부터는 블럭과 Line Arraylist 구성
+        //백트래킹 초기화작업
+        ArrayList<Line> cLineArrayListL = new ArrayList<Line>();
+        ArrayList<Line> cLineArrayListR = new ArrayList<Line>();
+
+        blockArrayList = new ArrayList<Block>();//블럭 어레이리스트를 새로 만든다.
+        Line.setBlockArray(blockArrayList);
+        int i = FileModelL.getLineArrayList().size();
+        int j = FileModelR.getLineArrayList().size();//끝점부터 시작한다.
+        int startLineNum = 0; //블럭 시작줄
+        int endLineNum = 0;//블럭 끝나는 줄
+        int numBlock = 0; //현재 만든 블럭의 수
+        Block tempBlock = null;
+
+        int count = i + j - arr[i][j];//공백이 삽입 된 결과 총 라인의 길이가 되는 것
+        //백트래킹 초기화작업 끝
+        //백트래킹 시작
+        while(true)
+        {
+            if(i == 0 && j == 0) {
+                if(tempBlock != null)//마지막 블럭을 안넣었으면 넣어준다
+                {
+                    endLineNum = count;
+                    tempBlock.setLineNum(startLineNum,endLineNum);
+                    blockArrayList.add(tempBlock);
+                    tempBlock = null;
+                }
+                break;
+            }//비교끝
+            if(i == 0) //위로 올라간다
+            {
+                cLineArrayListL.add(new Line("",numBlock,true));
+                cLineArrayListR.add(new Line(rightArr.get(i-1).getLine(true),numBlock,false));
+                j--;
+                if(tempBlock == null)
+                {
+                    startLineNum = count;
+                    tempBlock = new Block();//새 블럭을 만들어줌
+                }
+            }
+            if(j == 0) //왼쪽으로 이동한다
+            {
+                cLineArrayListL.add(new Line(rightArr.get(i-1).getLine(true),numBlock,false));
+                cLineArrayListL.add(new Line("",numBlock,true));
+                i--;
+                if(tempBlock == null)
+                {
+                    endLineNum = count;
+                    tempBlock = new Block();//새 블럭을 만들어줌
+                }
+            }
+            if(leftArr.get(i - 1).getLine(true).compareTo(rightArr.get(j - 1).getLine(true)) == 0)//같으면 대각선 위로 간다. 블럭 갱신이 일어남
+            {
+                cLineArrayListL.add(new Line(leftArr.get(i-1).getLine(true),numBlock,false));
+                cLineArrayListR.add(new Line(leftArr.get(i-1).getLine(true),numBlock,false));
+                i--;j--;
+                if(tempBlock != null)//블럭이 있으니 반영을 해주지 않으면 안되잖아?
+                {
+                    startLineNum = count;
+                    tempBlock.setLineNum(startLineNum,endLineNum);
+                    blockArrayList.add(tempBlock);
+                    tempBlock = null;
+                    numBlock++;
+                }
+
+            }
+            else if (arr[i][j-1] > arr[i-1][j])//위쪽방향이 더 클 경우 위쪽방향으로 향한다
+            {
+                cLineArrayListL.add(new Line("",numBlock,true));
+                cLineArrayListR.add(new Line(rightArr.get(i-1).getLine(true),numBlock,false));
+                j--;
+                if(tempBlock == null)
+                {
+                    endLineNum = count;
+                    tempBlock = new Block();//새 블럭을 만들어줌
+                }
+            }
+            else
+            {
+                cLineArrayListL.add(new Line(rightArr.get(i-1).getLine(true),numBlock,false));
+                cLineArrayListR.add(new Line("",numBlock,true));
+                i--;
+                if(tempBlock == null)
+                {
+                    endLineNum = count;
+                    tempBlock = new Block();//새 블럭을 만들어줌
+                }
+            }
+            count--;//줄 수 하나 추가해줌
+
+        }
+        //백트레킹으로 block하고 line이 잘 완성됬을 예정
+        FileModelL.setCompare(cLineArrayListL);//변경된 arrayList를 넘겨줌
+        FileModelR.setCompare(cLineArrayListR);
     }
+
+
     public int[][] getArrayLCS() {
         return arrayLCS;
-
     }
 
 

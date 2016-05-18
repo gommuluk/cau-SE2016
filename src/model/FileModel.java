@@ -22,8 +22,8 @@ public class FileModel {
     ObservableList<Integer> diffList = FXCollections.observableArrayList();
 
 
-    private boolean isFileExist     = false;
-    private boolean isEdited        = false;
+    private boolean isFileExist     = false;//불러온 파일이 있느냐를 저장하는 변수
+    private boolean isEdited        = false;//이 파일이 수정됬는지를 저장하는 변수
 
 
     private SimpleStringProperty statusString; //현재 파일을 읽는지 로드중인지 그런 상태를 표시하는 문장
@@ -143,6 +143,12 @@ public class FileModel {
 
     public boolean getFileExistFlag()   { return isFileExist; }
     public boolean getEditedFlag()      { return isEdited; }
+
+    private int LCSarray;
+    public void LCS()
+    {
+
+    }
 
 
 }

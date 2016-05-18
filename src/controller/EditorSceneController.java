@@ -5,6 +5,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -53,16 +55,11 @@ public class EditorSceneController {
 
     private void _getBtnsReference(){
 
-        BorderPane contentPane = (BorderPane)textArea.getParent().getParent()
-                .getParent().getParent().getParent().getParent().getParent()
-                .getParent().getParent().getParent().getParent();
+        Node root = textArea.getScene().getRoot();
 
-        GridPane controlPane = (GridPane)((AnchorPane)contentPane.getTop()).getChildren().get(0);
-        ToolBar globalToolbar = ((ToolBar)controlPane.getChildren().get(1));
-
-        this.btnMergeLeft = (Button)globalToolbar.getItems().get(0);
-        this.btnMergeRight = (Button)globalToolbar.getItems().get(1);
-        this.btnCompare = (Button)globalToolbar.getItems().get(2);
+        this.btnMergeLeft = (Button)root.lookup("#btnMergeLeft");
+        this.btnMergeRight = (Button)root.lookup("#btnMergeRight");
+        this.btnCompare = (Button)root.lookup("#btnCompare");
 
     }
 

@@ -3,9 +3,11 @@ package controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.FileManager;
@@ -22,13 +24,20 @@ public class ControlPaneSceneController {
 
     @FXML private Button btnCompare, btnMergeLeft, btnMergeRight;
     @FXML private GridPane controlPane;
-    private TextArea textArea;
+    private TextArea leftEditor, rightEditor;
+
 
     @FXML
     public void initialize(){
-        Platform.runLater(()->{
-            //this.textArea = controlPane.getParent()
-        });
+        Platform.runLater(()->
+            _getEditorReference()
+        );
+    }
+
+    private void _getEditorReference(){
+        Node root = controlPane.getScene().getRoot();
+        this.leftEditor = (TextArea)root.lookup("#leftEditor").lookup("#textArea");
+        this.rightEditor = (TextArea)root.lookup("#rightEditor").lookup("#textArea");
     }
 
 
@@ -75,7 +84,7 @@ public class ControlPaneSceneController {
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
-            textArea.appendText(FileManager.getFileManager().getFileModelL().toString());
+            leftEditor.appendText(FileManager.getFileManager().getFileModelL().toString());
         }
         catch(RightEditorFileNotFoundException e) {
             Stage s = (Stage) btnCompare.getScene().getWindow();
@@ -91,7 +100,7 @@ public class ControlPaneSceneController {
             File selectedFile = fileChooser.showOpenDialog(s);
 
             FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
-            textArea.appendText(FileManager.getFileManager().getFileModelR().toString());
+            rightEditor.appendText(FileManager.getFileManager().getFileModelR().toString());
         }
 
         catch(Exception e) {

@@ -72,7 +72,7 @@ public class ControlPaneSceneController {
             Stage s = (Stage) btnCompare.getScene().getWindow();
 
             FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
-            fileChooser.setTitle("Open Resource File");
+            fileChooser.setTitle("Open Left Resource File");
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Text Files", "*.txt"),
                     new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
@@ -89,7 +89,7 @@ public class ControlPaneSceneController {
             Stage s = (Stage) btnCompare.getScene().getWindow();
 
             FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
-            fileChooser.setTitle("Open Resource File");
+            fileChooser.setTitle("Open Right Resource File");
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Text Files", "*.txt"),
                     new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),

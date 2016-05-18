@@ -84,6 +84,7 @@ public class ControlPaneSceneController {
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
             leftEditor.appendText(FileManager.getFileManager().getFileModelL().toString());
+            onBtnCompareClicked(event);
         }
         catch(RightEditorFileNotFoundException e) {
             Stage s = (Stage) btnCompare.getScene().getWindow();
@@ -100,6 +101,7 @@ public class ControlPaneSceneController {
 
             FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
             rightEditor.appendText(FileManager.getFileManager().getFileModelR().toString());
+            onBtnCompareClicked(event);
         }
 
         catch(Exception e) {

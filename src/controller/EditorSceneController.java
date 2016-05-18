@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import model.FileManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
@@ -161,7 +162,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) throws IOException {
+    private void onTBBtnSaveClicked(ActionEvent event) throws FileNotFoundException {
 
         //TODO isEdited가 true인 경우, 버튼 활성화
         try {

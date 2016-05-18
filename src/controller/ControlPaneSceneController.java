@@ -50,12 +50,12 @@ public class ControlPaneSceneController {
             if(FileManager.getFileManager().getFileModelL().getFileExistFlag()) {
                 leftList  = FileManager.getFileManager().getFileModelL().getStringArrayList();
             }
-            else throw new LeftEditorFileNotFoundException("Left files are not exist");
+            else throw new LeftEditorFileNotFoundException();
 
             if(FileManager.getFileManager().getFileModelR().getFileExistFlag()) {
                 rightList = FileManager.getFileManager().getFileModelR().getStringArrayList();
             }
-            else throw new RightEditorFileNotFoundException("Right files are not exist");
+            else throw new RightEditorFileNotFoundException();
 
 
             //TODO LCS 알고리즘을 사용하는 메서드
@@ -74,10 +74,7 @@ public class ControlPaneSceneController {
             FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
             fileChooser.setTitle("Open Left Resource File");
             fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                    new FileChooser.ExtensionFilter("All Files", "*.*"));
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt", "*.java", "*.c", "*.cpp", "*.py"));
 
             File selectedFile = fileChooser.showOpenDialog(s);
 
@@ -92,11 +89,8 @@ public class ControlPaneSceneController {
             FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
             fileChooser.setTitle("Open Right Resource File");
             fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                    new FileChooser.ExtensionFilter("All Files", "*.*"));
-
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt", "*.java", "*.c", "*.cpp", "*.py"));
+                //TODO FILE 형식이 잘못되면 ArrayIndexOutOfBoundException 발생 처리필요
             File selectedFile = fileChooser.showOpenDialog(s);
 
             FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());

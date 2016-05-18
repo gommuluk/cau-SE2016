@@ -38,6 +38,16 @@ public class FileManager {
     {
         return FileModelR;
     }
+    private int[][] arrayLCS;
+    public void runLCS()
+    {
+        arrayLCS = new int[FileModelL.getlLneArrayList().size()][FileModelR.getlLneArrayList().size()];//초기화
 
+
+    }
+    private void buildArrayLCS(int[][] arr)
+    {
+
+    }
 
 }

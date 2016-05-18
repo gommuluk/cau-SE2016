@@ -17,7 +17,7 @@ public class FileModel {
 
     private File file; //로드하고있는 파일
 
-    private ArrayList<String> stringArrayList = new ArrayList<>();//데이터를 줄 단위로 저장하는 arraylist
+    private ArrayList<Line> lineArrayList = new ArrayList<Line>();//데이터를 줄 단위로 저장하는 arraylist
     protected ListProperty<String> listProperty = new SimpleListProperty<>();
     ObservableList<Integer> diffList = FXCollections.observableArrayList();
 
@@ -41,20 +41,19 @@ public class FileModel {
      */
     public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
         file= new File(filePath);
-
         try {
             Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
             String tempString = "";
-
+            lineArrayList = new ArrayList<Line>();
             while(in.hasNextLine()) {
                 tempString = in.nextLine(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
                 if(in.hasNextLine()) tempString +="\n"; //다음 줄이 없을 때는 개행을 추가하지 않는다.
-                stringArrayList.add(tempString);
+                lineArrayList.add(new Line(tempString));//Line Arraylist에 읽어온 값을 추가한다
             }
 
             in.close();
             this.isFileExist = true;
-            listProperty.set(FXCollections.observableArrayList(stringArrayList));
+            //listProperty.set(FXCollections.observableArrayList(lineArrayList));  리스트프로퍼티가 String인터페이스만 되서 묶어놓음 @승현
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -75,8 +74,8 @@ public class FileModel {
     @Override
     public String toString() {
         String ret = "";
-        for(String s : stringArrayList)
-            ret += s;
+        for(Line s : lineArrayList)
+            ret += s.content;
         return ret;
     }
 
@@ -84,17 +83,17 @@ public class FileModel {
      * 파일 내용을 저장하는 ArrayList의 Clone을 반환합니다.
      * @return file에 내용에 대한 Arraylist의 clone
      */
-    public ArrayList<String> getStringArrayList() {
-        return (ArrayList<String>) stringArrayList.clone();
+    public ArrayList<Line> getlLneArrayList() {
+        return (ArrayList<Line>) lineArrayList.clone();
     }
     /**
      * 파일의 내용을 갱신합니다.
      * @param args 갱신할 내용
      */
     public void updateArrayList(String args) {
-        stringArrayList = new ArrayList<String>();
+        lineArrayList = new ArrayList<Line>();
         for(String s : args.split("\n"))
-            stringArrayList.add(s + "\n");
+            lineArrayList.add(new Line(s + "\n"));
     }
 
     /**
@@ -105,8 +104,8 @@ public class FileModel {
     public boolean writeFile() { // 파일명 받기 및 읽기
         try(  PrintWriter out = new PrintWriter(file.getPath()) ){
             String tstring ="";
-            for (String i : stringArrayList) {
-                tstring+=i;
+            for (Line i : lineArrayList) {
+                tstring+=i.content;
             }
             out.print(tstring);
             out.close();
@@ -144,11 +143,8 @@ public class FileModel {
     public boolean getFileExistFlag()   { return isFileExist; }
     public boolean getEditedFlag()      { return isEdited; }
 
-    private int LCSarray;
-    public void LCS()
-    {
 
-    }
+
 
 
 }

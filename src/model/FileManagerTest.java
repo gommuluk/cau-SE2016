@@ -4,10 +4,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static org.junit.Assert.*;
 /**
@@ -21,7 +19,7 @@ public class FileManagerTest {
         fileManager = FileManager.getFileManager();
         fileManager.getFileModelL().readFile("AA.txt");
         fileManager.getFileModelR().readFile("BB.txt");//파일을 로드해둔다
-        fileManager.runLCS();
+        fileManager.compare();
 
     }
 

@@ -16,13 +16,13 @@ import java.util.Scanner;
 public class FileModel {
 
     private File file; //로드하고있는 파일
-    public boolean isCompeared = false;//현재 비교를 하는 중이냐고
+
     private ArrayList<Line> lineArrayList = new ArrayList<Line>();//데이터를 줄 단위로 저장하는 arraylist
     private ArrayList<Line> comparedLineArrayList;
     protected ListProperty<String> listProperty = new SimpleListProperty<>();
     ObservableList<Integer> diffList = FXCollections.observableArrayList();
 
-
+    public boolean isCompared = false;//현재 비교를 하는 중이냐고
     private boolean isFileExist     = false;//불러온 파일이 있느냐를 저장하는 변수
     private boolean isEdited        = false;//이 파일이 수정됬는지를 저장하는 변수
 
@@ -40,7 +40,7 @@ public class FileModel {
      */
     public void setCompare(ArrayList<Line> clArrayList)
     {
-        isCompeared = true;
+        isCompared = true;
         comparedLineArrayList = clArrayList;
     }
 
@@ -50,7 +50,7 @@ public class FileModel {
      */
     public void cancleCompare()
     {
-        isCompeared = false;
+        isCompared = false;
     }
 
 
@@ -94,7 +94,7 @@ public class FileModel {
      * @return isCompared에 따른 지금 출력해야하는 Line을 가지는 Arraylist의 clone
      */
     public ArrayList<Line> getLineArrayList() {
-        if(isCompeared) {
+        if(isCompared) {
             return (ArrayList<Line>) comparedLineArrayList.clone();
         }
         else return (ArrayList<Line>) lineArrayList.clone();

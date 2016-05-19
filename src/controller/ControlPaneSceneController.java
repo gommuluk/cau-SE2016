@@ -7,13 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import model.FileManager;
-import model.LeftEditorFileNotFoundException;
-import model.RightEditorFileNotFoundException;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -44,6 +39,7 @@ public class ControlPaneSceneController {
     private void onBtnCompareClicked(ActionEvent event) {
         ArrayList<String> leftList;
         ArrayList<String> rightList;
+        FileManager.getFileManager().compare();
             //TODO LCS 알고리즘을 사용하는 메서드
             //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
             //TODO 블럭에 속하는 line들을 highlight한다.
@@ -67,15 +63,17 @@ public class ControlPaneSceneController {
 
     @FXML
     private void onMenuBtnResetClicked(ActionEvent event) {
+
     }
 
     @FXML
     private void onMenuBtnCloseClicked(ActionEvent event) {
-
+        System.exit(0);
     }
 
     @FXML
     private void onMenuBtnCopyToRightClicked(ActionEvent event) {
+
     }
 
     @FXML

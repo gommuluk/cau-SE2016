@@ -47,7 +47,7 @@ public class FileManager {
 
     private int[][] arrayLCS;
 
-    public void runLCS() {
+    public void compare() {
 
         arrayLCS = new int[FileModelL.getLineArrayList().size() + 1][FileModelR.getLineArrayList().size() + 1];//LCS 배열의 초기화
         buildArrayLCS();// 배열 구성

@@ -134,7 +134,7 @@ public class EditorSceneController {
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
             FileExplorer fileExplorer = new FileExplorer();
-            File selectedFile = fileExplorer.getSaveDialog(btnFileOpen);
+            File selectedFile = fileExplorer.getLoadDialog(btnFileOpen);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             if(textArea.getParent().getParent().getId().equals("leftEditor")) {

@@ -159,7 +159,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) throws FileNotFoundException, UnsupportedEncodingException { //UnsupportedEncoingExceoption 추가
+    private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingExceoption 추가
 
         //TODO isEdited가 true인 경우, 버튼 활성화
         try {
@@ -221,16 +221,23 @@ public class EditorSceneController {
 
                 File file = fileChooser.showSaveDialog(s);
 
-                file = new File(file.getAbsolutePath());
+                if(!file.exists()) file = new File(file.getAbsolutePath());
                 FileOutputStream fileOut = new FileOutputStream(file);
+
+                FileWriter fw = new FileWriter(file, false);
+                String txt = textArea.getText();
+                fw.write(txt);
+                fw.close();
+
 
                 if(textArea.getParent().getParent().getId().equals("leftEditor")) {
                     FileManager.getFileManager().getFileModelL().readFile(file.getPath());
+
                 }
                 else {
                     FileManager.getFileManager().getFileModelR().readFile(file.getPath());
-                }
 
+                }
 
 
             } else if (result.get() == buttonTypeNotSave) {

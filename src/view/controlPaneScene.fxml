@@ -23,8 +23,6 @@
          <menus>
             <Menu mnemonicParsing="false" text="파일(F)">
                <items>
-                  <MenuItem id="menuOpenLeft" onAction="#onMenuBtnOpenLeftClicked" mnemonicParsing="false" text="OpenLeft" />
-                  <MenuItem id="menuOpenRight" onAction="#onMenuBtnOpenRightClicked" mnemonicParsing="false" text="OpenRight" />
                   <MenuItem id="menuReset" onAction="#onMenuBtnResetClicked" mnemonicParsing="false" text="Reset" />
                   <MenuItem id="menuClose" onAction="#onMenuBtnCloseClicked" mnemonicParsing="false" text="Close" />
                </items>

@@ -47,9 +47,7 @@ public class ControlPaneSceneController {
             //TODO LCS 알고리즘을 사용하는 메서드
             //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
             //TODO 블럭에 속하는 line들을 highlight한다.
-            //TODO IsCompared를 true로 설정
-        }
-
+            //TODO IsCompared를 true로 설치.
     }
 
     //TODO Merge
@@ -68,16 +66,6 @@ public class ControlPaneSceneController {
     }
 
     @FXML
-    private void onMenuBtnOpenLeftClicked(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void onMenuBtnOpenRightClicked(ActionEvent event) {
-
-    }
-
-    @FXML
     private void onMenuBtnResetClicked(ActionEvent event) {
     }
 
@@ -92,6 +80,7 @@ public class ControlPaneSceneController {
 
     @FXML
     private void onMenuBtnCopyToLeftClicked(ActionEvent event) {
+
     }
 
     @FXML

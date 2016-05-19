@@ -11,10 +11,7 @@ import java.io.File;
  */
 public class FileExplorer {
 
-//    Button btn;
-//    public FileExplorer(Button btn){
-//        this.btn = btn;
-//    }
+
     public File getSaveDialog(Button btn){
 
         Stage s = (Stage) btn.getScene().getWindow();

@@ -133,15 +133,8 @@ public class EditorSceneController {
             System.out.println(textArea.getParent().getParent().getId());
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
-            FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
-            fileChooser.setTitle("Open Resource File");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                    new FileChooser.ExtensionFilter("All Files", "*.*"));
-
-            File selectedFile = fileChooser.showOpenDialog(s);
+            FileExplorer fileExplorer = new FileExplorer();
+            File selectedFile = fileExplorer.getSaveDialog(btnFileOpen);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             if(textArea.getParent().getParent().getId().equals("leftEditor")) {
@@ -210,16 +203,8 @@ public class EditorSceneController {
                 // TODO 새로운 파일 저장 시스템을 띄운다
                 // TODO 새 경로에 새 이름으로 저장
 
-                Stage s = (Stage) btnFileSave.getScene().getWindow();
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Save File");
-                fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                        new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                        new FileChooser.ExtensionFilter("All Files", "*.*"));
-
-                File file = fileChooser.showSaveDialog(s);
+                FileExplorer fileExplorer = new FileExplorer();
+                File file = fileExplorer.getSaveDialog(btnFileSave);
 
                 if(!file.exists()) file = new File(file.getAbsolutePath());
                 FileOutputStream fileOut = new FileOutputStream(file);

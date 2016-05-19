@@ -51,7 +51,7 @@ public class FileManager {
 
         arrayLCS = new int[FileModelL.getLineArrayList().size() + 1][FileModelR.getLineArrayList().size() + 1];//LCS 배열의 초기화
         buildArrayLCS();// 배열 구성
-        backTrackingLCS();
+        backTrackingLCS(); //diff구현 및 compare array저장
 
     }
 
@@ -60,7 +60,7 @@ public class FileManager {
         else return b;
     }
 
-    private void buildArrayLCS() {
+    private void buildArrayLCS() {//LCS를 위한 행렬을 구성한다
         int[][] arr = arrayLCS;
         ArrayList<Line> leftArr = FileModelL.getLineArrayList(); // width
         ArrayList<Line> rightArr = FileModelR.getLineArrayList(); // height
@@ -82,12 +82,11 @@ public class FileManager {
                 }
             }
         }
-        //여기서부터는 블럭과 Line Arraylist 구성
-        //백트래킹 초기화작업
+
 
     }
 
-    private void backTrackingLCS()
+    private void backTrackingLCS()//LCS 행렬을 이용해서 DIFF를 한다
     {
         int[][] arr = arrayLCS;
         ArrayList<Line> leftArr = FileModelL.getLineArrayList(); // width
@@ -189,7 +188,7 @@ public class FileManager {
 
 
     public int[][] getArrayLCS() {
-        return arrayLCS;
+        return arrayLCS.clone();
     }
 
 

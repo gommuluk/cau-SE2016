@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ import static org.junit.Assert.*;
 public class FileManagerTest {
     static FileManager fileManager;
     @BeforeClass
-    public static void setupTest ()
+    public static void setupTest () throws FileNotFoundException, UnsupportedEncodingException
     {
         fileManager = FileManager.getFileManager();
         fileManager.getFileModelL().readFile("AA.txt");

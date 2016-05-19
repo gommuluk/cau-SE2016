@@ -26,11 +26,13 @@ public class FileModelTest {
     }
 
     @Test
-    public void fileWriteTest() {
+    public void fileWriteTest() throws FileNotFoundException {
+
         FileModel testFileModel = new FileModel();
-        //assertTrue(testFileModel.writeFile("AA.txt"));
+        assertTrue(testFileModel.readFile("A.txt"));
+        assertTrue(testFileModel.writeFile());
         ArrayList<String> testArraylist = new ArrayList<String>();
-        try(Scanner in = new Scanner(new FileReader("AA.txt")))
+        try(Scanner in = new Scanner(new FileReader("A.txt")))
         {
             String tempString = "";
             while(in.hasNext()) {
@@ -39,12 +41,12 @@ public class FileModelTest {
                 testArraylist.add(tempString);
             }
         } catch (FileNotFoundException e) {
-
             e.printStackTrace();
         }
         //assertEquals(testFileModel.getStringArrayList(),testArraylist);
 
     }
+
     @Test
     public void getStatusTest()
     {

@@ -120,12 +120,12 @@ public class FileModel {
     }
 
     /**
-     * 파일을 현재 ArrayList의 내용으로 덮어씌웁니다.
+     * 현재 파일이 로드되있다면 파일을 현재 ArrayList의 내용으로 덮어씌웁니다.
      * FileNotFoundException이 발생할 수 있습니다.
      * @return boolean 파일 쓰기 성공 여부
      */
-    public boolean writeFile() { // 파일명 받기 및 읽기
-        try(  PrintWriter out = new PrintWriter(file.getPath()) ){
+    public boolean writeFile() throws FileNotFoundException, SecurityException{ // 파일명 받기 및 읽기
+        try( PrintWriter out = new PrintWriter(file.getPath()) ){
             String tstring ="";
             for (Line i : lineArrayList) {
                 tstring+=i.getLine(false);
@@ -133,15 +133,42 @@ public class FileModel {
             tstring = tstring.substring(0,tstring.length()-1);
             out.print(tstring);
             out.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
         }
-
+        catch (FileNotFoundException e)//파일이 없어져있는 경우
+        {
+            if(writeFile(file.getPath()))//이전에 있는 파일 경로를 이용해서 그 자리에 다시 파일 생성 시도
+            {
+                return true; //잘됐넹
+            }
+            else
+            {
+                throw new FileNotFoundException();//잘안됬으니 예외 던지기
+            }
+        }
         statusString.set("File Written successfully");
         return true;
     }
+    /**
+     * FilePath의 경로에 파일을 새로 만들어서 ArrayList의 내용으로 덮어씌웁니다.
+     * FileNotFoundException이 발생할 수 있습니다.
+     * @param FilePath 파일을 저장할 경로
+     * @return boolean 파일 쓰기 성공 여부
+     */
+    public boolean writeFile(String FilePath) throws FileNotFoundException, SecurityException{ // 파일명 받기 및 읽기
+        file = new File(FilePath);//새로운 경로에 파일 생성
+        try( PrintWriter out = new PrintWriter(file.getPath()) ){
+            String tstring ="";
+            for (Line i : lineArrayList) {
+                tstring+=i.getLine(false);
+            }
+            tstring = tstring.substring(0,tstring.length()-1);
+            out.print(tstring);
+            out.close();
+        }
+        statusString.set("File Written successfully");
+        return true;
+    }
+
 
     /**
      * 현재 Model의 상태를 반환합니다.

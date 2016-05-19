@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * Created by ano on 2016. 5. 18..
  */
@@ -29,6 +31,7 @@ public class Block {
         if(isSelected) isSelected = false;
         else isSelected = true;
     }
+
 
 
 

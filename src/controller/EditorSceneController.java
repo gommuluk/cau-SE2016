@@ -6,13 +6,9 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.FileManager;
@@ -20,7 +16,6 @@ import model.FileManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -28,99 +23,30 @@ import java.util.Optional;
  */
 public class EditorSceneController {
 
-    @FXML private TextArea textArea;
-    @FXML private ListView<String> listView;
+    @FXML private HighlightEditorController editor;
+
     @FXML private Button btnFileSave;
     @FXML private Button btnFileOpen;
-
     private Button btnCompare, btnMergeLeft, btnMergeRight;
 
-
-    public EditorSceneController(){
-        FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
-    }
 
     @FXML
     private void initialize(){
 
         Platform.runLater(()-> {
-
             _getBtnsReference();
-            _syncEditorScrollWithHighlightList();
-            _syncEditorContentWithHighlightList();
-            _enableHighLights();
-
-            listView.scrollTo(0);
         });
     }
 
     private void _getBtnsReference(){
 
-        Node root = textArea.getScene().getRoot();
+        Node root = editor.getScene().getRoot();
 
         this.btnMergeLeft = (Button)root.lookup("#btnMergeLeft");
         this.btnMergeRight = (Button)root.lookup("#btnMergeRight");
         this.btnCompare = (Button)root.lookup("#btnCompare");
 
     }
-
-    private void _syncEditorScrollWithHighlightList(){
-        // ListView와 TextArea의 스크롤을 동기화시킨다.
-        ScrollBar textAreaScrollTo = (ScrollBar) textArea.lookup(".scroll-bar:vertical");
-        ScrollBar listViewScrollTo = (ScrollBar) listView.lookup(".scroll-bar:vertical");
-        System.out.println(textAreaScrollTo.getValue());
-        System.out.println(listViewScrollTo.getValue());
-
-        textAreaScrollTo.valueProperty().bindBidirectional(listViewScrollTo.valueProperty());
-        listViewScrollTo.valueProperty().bindBidirectional(textAreaScrollTo.valueProperty());
-    }
-    private void _syncEditorContentWithHighlightList(){
-        if( textArea.getParent().getParent().getId().contentEquals("leftEditor")) {
-            listView.itemsProperty().bind(FileManager.getFileManager().getFileModelL().getListProperty());
-        } else {
-            listView.itemsProperty().bind(FileManager.getFileManager().getFileModelR().getListProperty());
-        }
-    }
-    private void _enableHighLights(){
-
-        if( listView != null ) {
-
-            listView.setCellFactory(list -> new ListCell<String>() {
-                BooleanBinding invalid ;
-                {
-                    if( textArea.getParent().getParent().getId().contentEquals("leftEditor") ) {
-                        invalid = Bindings.createBooleanBinding(
-                                () -> FileManager.getFileManager().getFileModelL().getList().contains(getIndex()),
-                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelL().getList()
-                        );
-
-                    } else {
-                        invalid = Bindings.createBooleanBinding(
-                                () -> FileManager.getFileManager().getFileModelR().getList().contains(getIndex()),
-                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelR().getList()
-                        );
-                    }
-
-                    invalid.addListener((obs, wasInvalid, isNowInvalid) -> {
-                        if (isNowInvalid) {
-                            setStyle("-fx-background-color:yellowgreen;");
-                        } else {
-                            setStyle("");
-                        }
-                    });
-
-                }
-
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setText(empty ? null : item);
-                }
-            });
-        }
-
-    }
-
 
     @FXML // Editor에서 키보드입력이 있을 때의 동작
     private void onTextAreaKeyPressed(KeyEvent event){
@@ -133,7 +59,7 @@ public class EditorSceneController {
     private void onTBBtnLoadClicked(ActionEvent event) {
         //File chooser code
         try {
-            System.out.println(textArea.getParent().getParent().getId());
+            //System.out.println(editor.getParent().getParent().getId());
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
             FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
@@ -147,17 +73,17 @@ public class EditorSceneController {
             File selectedFile = fileChooser.showOpenDialog(s);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
-            if(textArea.getParent().getParent().getId().equals("leftEditor")) {
+            if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
                 FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
-                textArea.appendText(FileManager.getFileManager().getFileModelL().toString());
-            }
-            else {
+                editor.setText(FileManager.getFileManager().getFileModelL().toString());
+            } else {
                 FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
-                textArea.appendText(FileManager.getFileManager().getFileModelR().toString());
+                editor.setText(FileManager.getFileManager().getFileModelR().toString());
             }
         }
         catch(Exception e) {                                                                        // TODO Exception 별 처리 필요.
-
+            e.printStackTrace();
+            System.out.println("Exception.");
         }
     }
 
@@ -169,14 +95,14 @@ public class EditorSceneController {
                                                                                                     /* 저장 버튼이 속한 패널을 판단하고,
                                                                                                        해당 패널의 Text를 읽어서
                                                                                                        파일 객체를 갱신하고, 파일에 덮어씌운다. */
-            if (textArea.getParent().getParent().getId().equals("leftEditor")) {
+            if (editor.getParent().getParent().getId().equals("leftEditor")) {
                 //TODO isEdited 상태로 저장 여부 결정
-                String s = textArea.getText();
+                String s = editor.getText();
                 FileManager.getFileManager().getFileModelL().updateArrayList(s);
                 FileManager.getFileManager().getFileModelL().writeFile();
 
             } else {
-                String s = textArea.getText();
+                String s = editor.getText();
                 //TODO isEdited 상태로 저장 여부 결정
                 FileManager.getFileManager().getFileModelR().updateArrayList(s);
                 FileManager.getFileManager().getFileModelR().writeFile();
@@ -209,6 +135,7 @@ public class EditorSceneController {
             alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave, buttonTypeCancel);
 
             Optional<ButtonType> result = alert.showAndWait();
+
             if (result.get() == buttonTypeSave){
                 // TODO 새로운 파일 저장 시스템을 띄운다
                 // TODO 새 경로에 새 이름으로 저장
@@ -227,7 +154,7 @@ public class EditorSceneController {
                 file = new File(file.getAbsolutePath());
                 FileOutputStream fileOut = new FileOutputStream(file);
 
-                if(textArea.getParent().getParent().getId().equals("leftEditor")) {
+                if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
                     FileManager.getFileManager().getFileModelL().readFile(file.getPath());
                 }
                 else {
@@ -252,8 +179,8 @@ public class EditorSceneController {
     @FXML // 수정 버튼을 클릭했을 때의 동작
     //TODO 나머지 버튼들 활성화/비활성화 조절
     private void  onTBBtnEditClicked(ActionEvent event) {
-        if(!textArea.isEditable()) {    // edit 모드로 진입
-            textArea.    setEditable(true);
+        if(!editor.isEditable()) {    // edit 모드로 진입
+            editor.      setEditable(true);
             btnFileOpen.  setDisable(true);
             btnFileSave.  setDisable(true);
             btnCompare.   setDisable(true);
@@ -262,7 +189,7 @@ public class EditorSceneController {
             //TODO STATUS 갱신 editing으로
         }
         else {                          // edit 모드 탈출
-            textArea.    setEditable(false);
+            editor.      setEditable(false);
             btnFileOpen.  setDisable(false);
             btnFileSave.  setDisable(false);
             btnCompare.   setDisable(false);
@@ -271,6 +198,5 @@ public class EditorSceneController {
         }
 
     }
-
 
 }

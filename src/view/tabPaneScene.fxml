@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import controller.HighlightEditorController?>
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="dark-tab" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TabPaneSceneController">
    <children>
       <TabPane id="tabPane" fx:id="tabPane" onDragDetected="#onTabPaneDragDetected" onDragDone="#onTabPaneDragDone" styleClass="dark-tab" stylesheets="@undecoratedRootScene.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

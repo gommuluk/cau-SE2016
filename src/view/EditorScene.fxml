@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
+<?import controller.HighlightEditorController?>
 <BorderPane styleClass="editor-toolbar" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorSceneController">
    <top>
       <AnchorPane>
@@ -42,9 +43,9 @@
    <center>
       <AnchorPane styleClass="editor" stylesheets="@undecoratedRootScene.css" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="listView" styleClass="list-cell" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            </ListView>
-            <TextArea fx:id="textArea" editable="false" layoutX="9.1" layoutY="9.1" onKeyPressed="#onTextAreaKeyPressed" styleClass="editor" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <!--<ListView fx:id="listView" styleClass="list-cell" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+            <!--<TextArea fx:id="editor" editable="false" layoutX="9.1" layoutY="9.1" onKeyPressed="#onTextAreaKeyPressed" styleClass="editor" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+            <HighlightEditorController fx:id="editor" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" />
          </children>
       </AnchorPane>
    </center>

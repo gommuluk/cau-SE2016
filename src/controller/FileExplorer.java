@@ -11,7 +11,10 @@ import java.io.File;
  */
 public class FileExplorer {
 
-
+/**
+ * 저장용 file chooser를 생성
+ * @return File
+ * */
     public File getSaveDialog(Button btn){
 
         Stage s = (Stage) btn.getScene().getWindow();
@@ -28,6 +31,10 @@ public class FileExplorer {
         return file;
     }
 
+/**
+ * 열기(로드)용 file chooser를 생성
+ * @return File
+ */
     public File getLoadDialog(Button btn){
 
         Stage s = (Stage) btn.getScene().getWindow();

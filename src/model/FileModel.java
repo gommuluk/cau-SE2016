@@ -59,28 +59,18 @@ public class FileModel {
      * @param filePath 파일의 경로
      * @return boolean 파일 읽기에 대한 성공 여부
      */
-    public boolean readFile(String filePath) { // 파일명 받기 및 읽기.
+    public boolean readFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException{ // 파일명 받기 및 읽기.
         file= new File(filePath);
-        try {
-            Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
-            String tempString = "";
-            lineArrayList = new ArrayList<Line>();
-            while(in.hasNextLine()) {
-                tempString = in.nextLine(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
-                lineArrayList.add(new Line(tempString));//Line Arraylist에 읽어온 값을 추가한다
-            }
-
-            in.close();
-            this.isFileExist = true;
-            //listProperty.set(FXCollections.observableArrayList(lineArrayList));  리스트프로퍼티가 String인터페이스만 되서 묶어놓음 @승현
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
+        String tempString = "";
+        lineArrayList = new ArrayList<Line>();
+        while(in.hasNextLine()) {
+            tempString = in.nextLine(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
+            lineArrayList.add(new Line(tempString));//Line Arraylist에 읽어온 값을 추가한다
         }
+        in.close();
+        this.isFileExist = true;
+        //listProperty.set(FXCollections.observableArrayList(lineArrayList));  리스트프로퍼티가 String인터페이스만 되서 묶어놓음 @승현
 
         statusString.set("File Loaded Successfully");
         return true;
@@ -193,9 +183,5 @@ public class FileModel {
 
     public boolean getFileExistFlag()   { return isFileExist; }
     public boolean getEditedFlag()      { return isEdited; }
-
-
-
-
 
 }

@@ -23,17 +23,23 @@
          <menus>
             <Menu mnemonicParsing="false" text="파일(F)">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem id="menuOpenLeft" onAction="#onMenuBtnOpenLeftClicked" mnemonicParsing="false" text="OpenLeft" />
+                  <MenuItem id="menuOpenRight" onAction="#onMenuBtnOpenRightClicked" mnemonicParsing="false" text="OpenRight" />
+                  <MenuItem id="menuReset" onAction="#onMenuBtnResetClicked" mnemonicParsing="false" text="Reset" />
+                  <MenuItem id="menuClose" onAction="#onMenuBtnCloseClicked" mnemonicParsing="false" text="Close" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="편집(E)">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem id="menuCopyToRight" onAction="#onMenuBtnCopyToRightClicked" mnemonicParsing="false" text="Copy to right" />
+                  <MenuItem id="menuCopyToLeft" onAction="#onMenuBtnCopyToLeftClicked" mnemonicParsing="false" text="Copy to left" />
+                  <MenuItem id="menuCompare" onAction="#onMenuBtnCopyToCompareClicked" mnemonicParsing="false" text="Compare" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="도움말(H)">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem id="menuHelp" onAction="#onMenuBtnHelpClicked" mnemonicParsing="false" text="Help" />
+                  <MenuItem id="menuAbout" onAction="#onMenuBtnAboutClicked" mnemonicParsing="false" text="About" />
                </items>
             </Menu>
          </menus>

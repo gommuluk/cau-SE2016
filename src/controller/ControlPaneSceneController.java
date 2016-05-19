@@ -120,5 +120,42 @@ public class ControlPaneSceneController {
         //TODO 위 컴페어 버튼처럼 왼쪽, 오른쪽 파일을 저장중인 리스트를 받아야 함.
     }
 
+    @FXML
+    private void onMenuBtnOpenLeftClicked(ActionEvent event) {
+        System.out.println("MenuBtnOpenLeft clicked");
+    }
+
+    @FXML
+    private void onMenuBtnOpenRightClicked(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void onMenuBtnResetClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMenuBtnCloseClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMenuBtnCopyToRightClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMenuBtnCopyToLeftClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMenuBtnCopyToCompareClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMenuBtnHelpClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMenuBtnAboutClicked(ActionEvent event) {
+    }
 
 }

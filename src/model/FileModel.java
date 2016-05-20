@@ -132,7 +132,7 @@ public class FileModel {
             }
             else
             {
-                throw new FileNotFoundException();//잘안됬으니 예외 던지기
+                throw new FileNotFoundException();//잘안됐으니 예외 던지기
             }
         }
         statusString.set("File Written successfully");

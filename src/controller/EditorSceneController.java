@@ -206,21 +206,19 @@ public class EditorSceneController {
                 FileExplorer fileExplorer = new FileExplorer();
                 File file = fileExplorer.getSaveDialog(btnFileSave);
 
-                if(!file.exists()) file = new File(file.getAbsolutePath());
-                FileOutputStream fileOut = new FileOutputStream(file);
 
-                FileWriter fw = new FileWriter(file, false);
-                String txt = textArea.getText();
-                fw.write(txt);
-                fw.close();
 
 
                 if(textArea.getParent().getParent().getId().equals("leftEditor")) {
-                    FileManager.getFileManager().getFileModelL().readFile(file.getPath());
+
+                    FileManager.getFileManager().getFileModelL().updateArrayList(textArea.getText());
+                    FileManager.getFileManager().getFileModelL().writeFile(file.getPath());
 
                 }
                 else {
-                    FileManager.getFileManager().getFileModelR().readFile(file.getPath());
+
+                    FileManager.getFileManager().getFileModelR().updateArrayList(textArea.getText());
+                    FileManager.getFileManager().getFileModelR().writeFile(file.getPath());
 
                 }
 

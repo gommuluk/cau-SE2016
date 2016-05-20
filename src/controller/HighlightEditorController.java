@@ -60,6 +60,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     @Override
     public void setText(String s){
         this.editor.setText(s);
+
     }
 
     @Override

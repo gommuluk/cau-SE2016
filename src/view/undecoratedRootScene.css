@@ -89,27 +89,27 @@
 }
 
 .btnEdit {
-    -fx-background-image:url("btnEdit.png");
+    -fx-background-image:url("../res/btnEdit.png");
 }
 
 .btnEdit:disabled {
-    -fx-background-image:url("btnEditDisable.png");
+    -fx-background-image:url("../res/btnEditDisable.png");
 }
 
 .btnEdit:hover {
-    -fx-background-image:url("btnEdit-hover.png");
+    -fx-background-image:url("../res/btnEdit-hover.png");
 }
 
 .btnFileOpen {
-    -fx-background-image:url("btnFileOpen.png");
+    -fx-background-image:url("../res/btnFileOpen.png");
 }
 
 .btnFileOpen:hover{
-    -fx-background-image:url("btnFileOpen-hover.png");
+    -fx-background-image:url("../res/btnFileOpen-hover.png");
 }
 
 .btnFileOpen:disabled {
-    -fx-background-image:url("btnFileOpenDisable.png");
+    -fx-background-image:url("../res/btnFileOpenDisable.png");
 }
 
 
@@ -118,54 +118,54 @@
     -fx-background-radius: 0;
     -fx-border-style: null;
     -fx-background-color: null;
-    -fx-background-image:url("minimize.png");
+    -fx-background-image:url("../res/minimize.png");
     -fx-background-repeat:no-repeat;
 }
 .decoration-button-minimize:hover{
     -fx-background-color: null;
-    -fx-background-image:url("minimize-hover.png");
+    -fx-background-image:url("../res/minimize-hover.png");
     -fx-background-repeat:no-repeat;
 }
 .decoration-button-maximize{
     -fx-background-radius: 0;
     -fx-border-style: null;
     -fx-background-color: null;
-    -fx-background-image:url("maximize.png");
+    -fx-background-image:url("../res/maximize.png");
     -fx-background-repeat:no-repeat;
 }
 .decoration-button-maximize:hover{
     -fx-background-color: null;
-    -fx-background-image:url("maximize-hover.png");
+    -fx-background-image:url("../res/maximize-hover.png");
     -fx-background-repeat:no-repeat;
 }
 .decoration-button-restore{
     -fx-background-radius: 0;
     -fx-border-style: null;
     -fx-background-color: null;
-    -fx-background-image:url("restore.png");
+    -fx-background-image:url("../res/restore.png");
     -fx-background-repeat:no-repeat;
 }
 .decoration-button-restore:hover{
     -fx-background-color: null;
-    -fx-background-image:url("restore-hover.png");
+    -fx-background-image:url("../res/restore-hover.png");
     -fx-background-repeat:no-repeat;
 }
 .decoration-button-close{
     -fx-background-radius: 0;
     -fx-border-style: null;
     -fx-background-color: null;
-    -fx-background-image:url("close.png");
+    -fx-background-image:url("../res/close.png");
     -fx-background-repeat:no-repeat;
 }
 .decoration-button-close:hover{
     -fx-background-color: null;
-    -fx-background-image:url("close-hover.png");
+    -fx-background-image:url("../res/close-hover.png");
     -fx-background-repeat:no-repeat;
 }
 .decoration-button-resize{
     -fx-border-style: null;
     -fx-background-color: null;
-    -fx-background-image:url("resizeSE.png");
+    -fx-background-image:url("../res/resizeSE.png");
     -fx-background-repeat:no-repeat;
 }
 
@@ -324,66 +324,66 @@
 .btnEdit {
     -fx-background-color: transparent;
     -fx-min-width: 24px;
-    -fx-background-image:url("btnEdit.png");
+    -fx-background-image:url("../res/btnEdit.png");
     -fx-border-width: 0;
 }
 .btnEdit:disabled {
     -fx-background-image:url("btnEditDisable.png");
 }
 .btnEdit:hover {
-    -fx-background-image:url("btnEdit-hover.png");
+    -fx-background-image:url("../res/btnEdit-hover.png");
 }
 .btnEdit:selected{
-    -fx-background-image:url("btnEdit-hover.png");
+    -fx-background-image:url("../res/btnEdit-hover.png");
 }
 
 .btnFileOpen {
-    -fx-background-image:url("btnFileOpen.png");
+    -fx-background-image:url("../res/btnFileOpen.png");
 }
 .btnFileOpen:hover{
-    -fx-background-image:url("btnFileOpen-hover.png");
+    -fx-background-image:url("../res/btnFileOpen-hover.png");
 }
 .btnFileOpen:disabled {
-    -fx-background-image:url("btnFileOpenDisable.png");
+    -fx-background-image:url("../res/btnFileOpenDisable.png");
 }
 
 .btnFileSave {
-    -fx-background-image:url("btnFileSave.png");
+    -fx-background-image:url("../res/btnFileSave.png");
 }
 .btnFileSave:hover{
-    -fx-background-image:url("btnFileSave-hover.png");
+    -fx-background-image:url("../res/btnFileSave-hover.png");
 }
 .btnFileSave:disabled {
-    -fx-background-image:url("btnFileSaveDisable.png");
+    -fx-background-image:url("../res/btnFileSaveDisable.png");
 }
 
 .btnMergeLeft {
-    -fx-background-image:url("btnMergeLeft.png");
+    -fx-background-image:url("../res/btnMergeLeft.png");
 }
 .btnMergeLeft:hover{
-    -fx-background-image:url("btnMergeLeft-hover.png");
+    -fx-background-image:url("../res/btnMergeLeft-hover.png");
 }
 .btnMergeLeft:disabled {
-    -fx-background-image:url("btnMergeLeftDisable.png");
+    -fx-background-image:url("../res/btnMergeLeftDisable.png");
 }
 
 .btnMergeRight {
-    -fx-background-image:url("btnMergeRight.png");
+    -fx-background-image:url("../res/btnMergeRight.png");
 }
 .btnMergeRight:hover{
-    -fx-background-image:url("btnMergeRight-hover.png");
+    -fx-background-image:url("../res/btnMergeRight-hover.png");
 }
 .btnMergeRight:disabled {
-    -fx-background-image:url("btnMergeRightDisable.png");
+    -fx-background-image:url("../res/btnMergeRightDisable.png");
 }
 
 .btnCompare {
-    -fx-background-image:url("btnCompare.png");
+    -fx-background-image:url("../res/btnCompare.png");
 }
 .btnCompare:hover{
-    -fx-background-image:url("btnCompare-hover.png");
+    -fx-background-image:url("../res/btnCompare-hover.png");
 }
 .btnCompare:disabled {
-    -fx-background-image:url("btnCompareDisable.png");
+    -fx-background-image:url("../res/btnCompareDisable.png");
 }
 

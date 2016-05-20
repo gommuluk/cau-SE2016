@@ -8,14 +8,13 @@ import javafx.scene.Scene;
  */
 public interface HighlightEditorInterface {
 
+    boolean isEditable();
     void setEditable(boolean value);
-    void setText(String s);
 
+    void setText(String s);
     void setHighlightLines(int... lines);
 
-    boolean isEditable();
     String getText();
-
     Parent getParent();
     Scene getScene();
 

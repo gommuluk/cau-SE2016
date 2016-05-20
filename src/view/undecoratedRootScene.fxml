@@ -31,7 +31,7 @@
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
                            <image>
-                              <Image url="@logo_white.png" />
+                              <Image url="@../res/logo_white.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="btnClose" mnemonicParsing="false" onAction="#onBtnCloseClicked" pickOnBounds="true" prefHeight="25.0" prefWidth="34.0" styleClass="decoration-button-close" stylesheets="@undecoratedRootScene.css" text="" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

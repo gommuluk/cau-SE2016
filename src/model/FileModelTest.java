@@ -4,8 +4,10 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UnknownFormatConversionException;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +16,7 @@ import static org.junit.Assert.*;
  */
 public class FileModelTest {
     @Test
-    public void fileReadTest() {
+    public void fileReadTest() throws FileNotFoundException, UnsupportedEncodingException{
         FileModel testFileModel = new FileModel();
         ArrayList<String> testArraylist = new ArrayList<String>();
         testArraylist.add("asdf\n");
@@ -26,11 +28,13 @@ public class FileModelTest {
     }
 
     @Test
-    public void fileWriteTest() {
+    public void fileWriteTest() throws FileNotFoundException, UnsupportedEncodingException{
+
         FileModel testFileModel = new FileModel();
-        //assertTrue(testFileModel.writeFile("AA.txt"));
+        assertTrue(testFileModel.readFile("A.txt"));
+        assertTrue(testFileModel.writeFile());
         ArrayList<String> testArraylist = new ArrayList<String>();
-        try(Scanner in = new Scanner(new FileReader("AA.txt")))
+        try(Scanner in = new Scanner(new FileReader("A.txt")))
         {
             String tempString = "";
             while(in.hasNext()) {
@@ -39,14 +43,14 @@ public class FileModelTest {
                 testArraylist.add(tempString);
             }
         } catch (FileNotFoundException e) {
-
             e.printStackTrace();
         }
         //assertEquals(testFileModel.getStringArrayList(),testArraylist);
 
     }
+
     @Test
-    public void getStatusTest()
+    public void getStatusTest() throws UnsupportedEncodingException, FileNotFoundException
     {
         FileModel testFileModel = new FileModel();
         String testStatus = "Ready(No file is loaded)";

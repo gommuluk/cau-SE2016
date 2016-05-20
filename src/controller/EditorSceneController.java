@@ -1,8 +1,6 @@
 package controller;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,6 +14,7 @@ import model.FileManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.*;
 import java.util.Optional;
 
 /**
@@ -88,7 +87,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) throws FileNotFoundException {
+    private void onTBBtnSaveClicked(ActionEvent event) throws FileNotFoundException, UnsupportedEncodingException { //UnsupportedEncoingExceoption 추가
 
         //TODO isEdited가 true인 경우, 버튼 활성화
         try {

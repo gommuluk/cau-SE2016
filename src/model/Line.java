@@ -33,6 +33,8 @@ public class Line {
     }
     public int getBlockIndex()
     { return  blockIndex;}
+
+
     public boolean getIsWhiteSpace()
     {return isWhitespace;};
 

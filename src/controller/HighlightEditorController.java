@@ -10,16 +10,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Callback;
 import model.FileManager;
 
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by SH on 2016-05-19.
  */
-public class HighlightEditorController extends AnchorPane {
+public class HighlightEditorController extends AnchorPane implements HighlightEditorInterface {
 
     @FXML private TextArea editor;
     @FXML private ListView highlightList;
@@ -47,21 +45,31 @@ public class HighlightEditorController extends AnchorPane {
         }
     }
 
+    @Override
     public void setEditable(boolean value){
         editor.setEditable(value);
     }
 
+    @Override
     public boolean isEditable(){
         return editor.isEditable();
     }
 
+    @Override
     public void setText(String s){
         this.editor.setText(s);
     }
 
+    @Override
+    public void setHighlightLines(int... lines) {
+
+    }
+
+    @Override
     public String getText(){
         return editor.getText();
     }
+
 
     private void _syncEditorScrollWithHighlightList(){
         // ListView와 TextArea의 스크롤을 동기화시킨다.

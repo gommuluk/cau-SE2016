@@ -7,13 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.FileManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.*;
 import java.util.Optional;
 
@@ -22,7 +19,7 @@ import java.util.Optional;
  */
 public class EditorSceneController {
 
-    @FXML private HighlightEditorController editor;
+    @FXML private HighlightEditorInterface editor;
 
     @FXML private Button btnFileSave;
     @FXML private Button btnFileOpen;
@@ -61,15 +58,8 @@ public class EditorSceneController {
             //System.out.println(editor.getParent().getParent().getId());
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
-            FileChooser fileChooser = new FileChooser();                                            //File Chooser을 유저에게 보여준다.
-            fileChooser.setTitle("Open Resource File");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                    new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                    new FileChooser.ExtensionFilter("All Files", "*.*"));
-
-            File selectedFile = fileChooser.showOpenDialog(s);
+            FileExplorer fileExplorer = new FileExplorer();
+            File selectedFile = fileExplorer.getLoadDialog(btnFileOpen);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
@@ -87,7 +77,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) throws FileNotFoundException, UnsupportedEncodingException { //UnsupportedEncoingExceoption 추가
+    private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingExceoption 추가
 
         //TODO isEdited가 true인 경우, 버튼 활성화
         try {
@@ -139,27 +129,18 @@ public class EditorSceneController {
                 // TODO 새로운 파일 저장 시스템을 띄운다
                 // TODO 새 경로에 새 이름으로 저장
 
-                Stage s = (Stage) btnFileSave.getScene().getWindow();
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Save File");
-                fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-                        new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-                        new FileChooser.ExtensionFilter("All Files", "*.*"));
+                FileExplorer fileExplorer = new FileExplorer();
+                File file = fileExplorer.getSaveDialog(btnFileSave);
 
-                File file = fileChooser.showSaveDialog(s);
-
-                file = new File(file.getAbsolutePath());
-                FileOutputStream fileOut = new FileOutputStream(file);
 
                 if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                    FileManager.getFileManager().getFileModelL().readFile(file.getPath());
-                }
-                else {
-                    FileManager.getFileManager().getFileModelR().readFile(file.getPath());
-                }
+                    FileManager.getFileManager().getFileModelL().updateArrayList(editor.getText());
+                    FileManager.getFileManager().getFileModelL().writeFile(file.getPath());
+                } else {
+                    FileManager.getFileManager().getFileModelR().updateArrayList(editor.getText());
+                    FileManager.getFileManager().getFileModelR().writeFile(file.getPath());
 
+                }
 
 
             } else if (result.get() == buttonTypeNotSave) {

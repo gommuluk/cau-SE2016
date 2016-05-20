@@ -58,8 +58,8 @@ public class EditorSceneController {
             //System.out.println(editor.getParent().getParent().getId());
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
-            FileExplorer fileExplorer = new FileExplorer();
-            File selectedFile = fileExplorer.getLoadDialog(btnFileOpen);
+            FileExplorer fileLoadExplorer = new FileLoadExplorer();
+            File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
@@ -129,9 +129,8 @@ public class EditorSceneController {
                 // TODO 새로운 파일 저장 시스템을 띄운다
                 // TODO 새 경로에 새 이름으로 저장
 
-                FileExplorer fileExplorer = new FileExplorer();
-                File file = fileExplorer.getSaveDialog(btnFileSave);
-
+                FileExplorer fileSaveExplorer = new FileSaveExplorer();
+                File file = fileSaveExplorer.getDialog(btnFileSave);
 
                 if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
                     FileManager.getFileManager().getFileModelL().updateArrayList(editor.getText());

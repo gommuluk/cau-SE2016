@@ -11,8 +11,10 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import model.FileManager;
+import model.Line;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by SH on 2016-05-19.
@@ -61,7 +63,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
-    public void setHighlightLines(int... lines) {
+    public void setHighlightLines(ArrayList<Line> lines) {
 
     }
 

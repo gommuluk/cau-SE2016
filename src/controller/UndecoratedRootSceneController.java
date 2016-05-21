@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Delta;
 import model.FileManager;
+import model.FileManagerInterface;
 
 /**
  * Created by SH on 2016-05-07.
@@ -50,9 +51,8 @@ public class UndecoratedRootSceneController {
             INIT_WIDTH = mainWindow.getWidth();
 
             // Status bind
-            labelStatus.textProperty().bindBidirectional(FileManager.getFileManager().getFileModelL().getStatus());
-            FileManager.getFileManagerInterface()
-            labelStatus.textProperty().bindBidirectional(FileManager.getFileManager().getFileModelR().getStatus());
+            labelStatus.textProperty().bind(FileManager.getFileManagerInterface().getStatus(FileManagerInterface.SideOfEditor.Left));
+            labelStatus.textProperty().bind(FileManager.getFileManagerInterface().getStatus(FileManagerInterface.SideOfEditor.Right));
         });
 
     }

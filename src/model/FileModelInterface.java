@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.ReadOnlyStringProperty;
+
 import javax.sql.rowset.serial.SerialException;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -25,8 +27,7 @@ public interface FileModelInterface {
     boolean isFileExist();
     String getFilePath();
 
-
-
+    ReadOnlyStringProperty getStatus();
 
 
 }

@@ -1,6 +1,7 @@
 package model;
 
 import com.sun.media.sound.RIFFInvalidDataException;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.geometry.Side;
 
 import java.io.FileNotFoundException;
@@ -158,6 +159,14 @@ public class FileManager implements FileManagerInterface {
     {
         if(side == SideOfEditor.Left) return getFileModelL().getFilePath();
         else return getFileModelR().getFilePath();
+    }
+
+    @Override
+    public ReadOnlyStringProperty getStatus(SideOfEditor side) {
+        if(side == SideOfEditor.Left)
+            return fileModelL.getStatus();
+        else
+            return fileModelR.getStatus();
     }
 
     private int max(int a, int b) {

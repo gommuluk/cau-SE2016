@@ -85,25 +85,27 @@ public class FileManagerTest {
         testLineArrayListL.add(new Line("d",-1,false));
         testLineArrayListR.add(new Line("a",-1,false));
         testLineArrayListR.add(new Line("b",-1,false));
+        testLineArrayListR.add(new Line("d",-1,false));
         testLineArrayListR.add(new Line("c",-1,false));
         testLineArrayListR.add(new Line("d",-1,false));
-        fileManager.clickLine(2);
         fileManager.clickLine(4);
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
-        for (int i = 0; i < testLineArrayListR.size(); i++) {
+        for (int i = 0; i < testLineArrayListL.size(); i++) {
             System.out.print(i);
-            System.out.print(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right ");
-            System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " left");
-
-            assertEquals(testLineArrayListR.get(i).getContent(true),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true));
-            assertEquals(testLineArrayListR.get(i).getBlockIndex(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getBlockIndex());
-            assertEquals(testLineArrayListR.get(i).getIsWhiteSpace(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getIsWhiteSpace());
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " Left ");
             assertEquals(testLineArrayListL.get(i).getContent(true),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true));
             assertEquals(testLineArrayListL.get(i).getBlockIndex(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getBlockIndex());
             assertEquals(testLineArrayListL.get(i).getIsWhiteSpace(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getIsWhiteSpace());
+//텍스트 어레이 같게 생겼는지 검사
+        }
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
 
-            //텍스트 어레이 같게 생겼는지 검사
+            System.out.print(i);
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
+            assertEquals(testLineArrayListR.get(i).getContent(true),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true));
+            assertEquals(testLineArrayListR.get(i).getBlockIndex(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getBlockIndex());
+            assertEquals(testLineArrayListR.get(i).getIsWhiteSpace(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getIsWhiteSpace());
+//텍스트 어레이 같게 생겼는지 검사
         }
     }
 

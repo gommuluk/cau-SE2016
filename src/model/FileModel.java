@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class FileModel implements FileModelInterface {
 
-    private ArrayList<Line> lineArrayList = new ArrayList<Line>();//데이터를 줄 단위로 저장하는 arraylist
+    private ArrayList<LineInterface> lineArrayList = new ArrayList<>();//데이터를 줄 단위로 저장하는 arraylist
     public  boolean isEdited = false;//이 파일이 수정됬는지를 저장하는 변수
     private final ReadOnlyStringWrapper statusString = new ReadOnlyStringWrapper("Ready(No file is loaded)");
 
@@ -29,7 +29,7 @@ public class FileModel implements FileModelInterface {
     @Override
     public String toString() {
         String ret = "";
-        for(Line s : lineArrayList)
+        for(LineInterface s : lineArrayList)
             ret += s.getContent(false);
         ret = ret.substring(0,ret.length()-1);//맨 마지막의 개행 제거
         return ret;
@@ -40,7 +40,7 @@ public class FileModel implements FileModelInterface {
      */
     @Override
     public void updateArrayList(String args) {
-        lineArrayList = new ArrayList<Line>();
+        lineArrayList = new ArrayList<>();
         for(String s : args.split("\n"))
             lineArrayList.add(new Line(s));
     }
@@ -55,7 +55,7 @@ public class FileModel implements FileModelInterface {
         file= new File(filePath);
         Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
         String tempString = "";
-        lineArrayList = new ArrayList<Line>();
+        lineArrayList = new ArrayList<>();
         while(in.hasNextLine()) {
             tempString = in.nextLine(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
             lineArrayList.add(new Line(tempString));//Line Arraylist에 읽어온 값을 추가한다
@@ -93,8 +93,8 @@ public class FileModel implements FileModelInterface {
         file = new File(FilePath);//새로운 경로에 파일 생성
         PrintWriter out = new PrintWriter(file.getPath());
         String tstring ="";
-        for (Line i : lineArrayList) {
-            tstring+=i.getContent(false);
+        for (LineInterface i : lineArrayList) {
+            tstring += i.getContent(false);
         }
         tstring = tstring.substring(0,tstring.length()-1);
         out.print(tstring);
@@ -124,12 +124,14 @@ public class FileModel implements FileModelInterface {
     public void clickLine(int lineNum) {
         compareLineArrayList.get(lineNum).clickBlock();
     }
+
     @Override
     public boolean isFileExist()
     {
         if(file == null) return false;
         else return true;
     }
+
     @Override
     public String getFilePath()
     {

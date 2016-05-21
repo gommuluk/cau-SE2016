@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.FileManager;
+import model.FileManagerInterface;
 
 import java.io.File;
 import java.io.*;
@@ -80,7 +81,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingExceoption 추가
+    private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingException 추가
 
         //TODO isEdited가 true인 경우, 버튼 활성화
         try {
@@ -90,15 +91,12 @@ public class EditorSceneController {
             if (editor.getParent().getParent().getId().equals("leftEditor")) {
                 //TODO isEdited 상태로 저장 여부 결정
                 String s = editor.getText();
-                FileManager.getFileManager().getFileModelL().updateArrayList(s);
-                FileManager.getFileManager().getFileModelL().writeFile();
+                FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Left);
 
             } else {
                 String s = editor.getText();
                 //TODO isEdited 상태로 저장 여부 결정
-                FileManager.getFileManager().getFileModelR().updateArrayList(s);
-                FileManager.getFileManager().getFileModelR().writeFile();
-
+                FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Right);
             }
             //TODO 성공시 isEdited를 false로 갱신해야 하는데..\
             //TODO 파일을 실제로 저장해보면 개행 처리가 안 됨 ㅜㅠ
@@ -136,8 +134,8 @@ public class EditorSceneController {
                 File file = fileSaveExplorer.getDialog(btnFileSave);
 
                 if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                    FileManager.getFileManager().getFileModelL().updateArrayList(editor.getText());
-                    FileManager.getFileManager().getFileModelL().writeFile(file.getPath());
+                    FileManager.getFileManagerInterface().getFileModelL().updateArrayList(editor.getText());
+                    FileManager.getFileManagerInterface().getFileModelL().writeFile(file.getPath());
                 } else {
                     FileManager.getFileManager().getFileModelR().updateArrayList(editor.getText());
                     FileManager.getFileManager().getFileModelR().writeFile(file.getPath());
@@ -190,4 +188,8 @@ public class EditorSceneController {
 
     }
 
+
+    public void useSaveActionMethod() throws IOException {
+        onTBBtnSaveClicked(new ActionEvent());
+    }
 }

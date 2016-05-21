@@ -14,7 +14,7 @@ import java.util.Collections;
 public class FileManager implements FileManagerInterface {
 
     private boolean isComparing;
-    private static FileManager instance;
+    private static FileManagerInterface instance;
     private FileModelInterface fileModelL;
     private FileModelInterface fileModelR;
     private ArrayList<Block> blockArrayList;
@@ -32,7 +32,7 @@ public class FileManager implements FileManagerInterface {
      *
      * @return FileManager 양 쪽 Editor에 할당된 파일들을 관리하는 매니저
      */
-    public static FileManager getFileManager() { // 1개의 객체를 유지하기 위한 싱글톤
+    public static FileManagerInterface getFileManagerInterface() { // 1개의 객체를 유지하기 위한 싱글톤
         if (instance == null)
             instance = new FileManager();
         return instance;

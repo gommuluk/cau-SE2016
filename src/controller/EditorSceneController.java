@@ -65,10 +65,16 @@ public class EditorSceneController {
             if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
                 FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
                 editor.setText(FileManager.getFileManager().getFileModelL().toString());
+
+                FileManager.getFileManagerInterface()
+                        .loadFile(selectedFile.getPath(), FileManagerInterface.SideOfEditor.Left);
+                //editor.setText(FileManager.getFileManagerInterface().);
+
             } else {
                 FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
                 editor.setText(FileManager.getFileManager().getFileModelR().toString());
             }
+
         }
         catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.
             e.printStackTrace();
@@ -134,12 +140,11 @@ public class EditorSceneController {
                 File file = fileSaveExplorer.getDialog(btnFileSave);
 
                 if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                    FileManager.getFileManagerInterface().getFileModelL().updateArrayList(editor.getText());
-                    FileManager.getFileManagerInterface().getFileModelL().writeFile(file.getPath());
+                    FileManager.getFileManagerInterface()
+                            .saveFile(editor.getText(), file.getPath(), FileManagerInterface.SideOfEditor.Left);
                 } else {
-                    FileManager.getFileManager().getFileModelR().updateArrayList(editor.getText());
-                    FileManager.getFileManager().getFileModelR().writeFile(file.getPath());
-
+                    FileManager.getFileManagerInterface()
+                            .saveFile(editor.getText(), file.getPath(), FileManagerInterface.SideOfEditor.Right);
                 }
 
 

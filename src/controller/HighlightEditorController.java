@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import model.FileManager;
+import model.FileManagerInterface;
 import model.LineInterface;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                 //_syncEditorContentWithHighlightList();
                 _enableHighLights();
 
-                FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
+                //FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
             });
 
         } catch(IOException e) {
@@ -60,7 +61,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
         this.editor.setText(s);
 
         this.highlightList.setItems(FXCollections.observableArrayList(
-                FileManager.getFileManager().getFileModelL().getLineArrayList()
+                FileManager.getFileManagerInterface().getLineArrayList(FileManagerInterface.SideOfEditor.Left)
         ));
     }
 
@@ -145,7 +146,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                     super.updateItem(item, empty);
 
                     if( item != null ) {
-                        setText(empty ? null : item.getContent());
+                        setText(empty ? null : item.getContent(false));
                         if (item.getHighlight() == LineInterface.LineHighlight.unHighlighted)
                             setStyle("-fx-background-color:yellow;");
                     }

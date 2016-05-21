@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.FileManager;
+import model.FileManagerInterface;
 
 import java.io.File;
 import java.io.*;
@@ -90,8 +91,7 @@ public class EditorSceneController {
             if (editor.getParent().getParent().getId().equals("leftEditor")) {
                 //TODO isEdited 상태로 저장 여부 결정
                 String s = editor.getText();
-                FileManager.getFileManager().getFileModelL().updateArrayList(s);
-                FileManager.getFileManager().getFileModelL().writeFile();
+                FileManagerInterface.
 
             } else {
                 String s = editor.getText();

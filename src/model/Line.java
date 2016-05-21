@@ -25,11 +25,6 @@ public class Line implements LineInterface {
         isWhitespace = whiteSpace;
     }
 
-    public String getLine(boolean isLastLine) //마지막 줄이면 개행을 없이 그것이 아니면 개행 있이 content를 반환합니다
-    {
-        if(isLastLine) return content;
-        else return content + "\n";
-    }
     @Override
     public int getBlockIndex() { return  blockIndex; }
     @Override
@@ -58,8 +53,7 @@ public class Line implements LineInterface {
         return this.lineStatus;
     }
 
-    @Override
-    public void setBlockArrayList(ArrayList<Block> bArrayList) {
+    public static void setBlockArrayList(ArrayList<Block> bArrayList) {
         blockArrayList = bArrayList;
     }
 

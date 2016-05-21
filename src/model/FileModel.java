@@ -38,7 +38,7 @@ public class FileModel implements FileModelInterface{
     public String toString() {
         String ret = "";
         for(Line s : lineArrayList)
-            ret += s.getLine(false);
+            ret += s.getContent(false);
         ret = ret.substring(0,ret.length()-1);//맨 마지막의 개행 제거
         return ret;
     }
@@ -100,7 +100,7 @@ public class FileModel implements FileModelInterface{
         PrintWriter out = new PrintWriter(file.getPath());
         String tstring ="";
         for (Line i : lineArrayList) {
-            tstring+=i.getLine(false);
+            tstring+=i.getContent(false);
         }
         tstring = tstring.substring(0,tstring.length()-1);
         out.print(tstring);

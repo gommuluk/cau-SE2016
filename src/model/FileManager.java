@@ -179,7 +179,7 @@ public class FileManager implements FileManagerInterface {
         ArrayList<LineInterface> cLineArrayListL = new ArrayList<LineInterface>();
         ArrayList<LineInterface> cLineArrayListR = new ArrayList<LineInterface>();
         blockArrayList = new ArrayList<Block>();//블럭 어레이리스트를 새로 만든다.
-        Line.setBlockArray(blockArrayList);
+        Line.setBlockArrayList(blockArrayList);
         int i = fileModelL.getLineArrayList().size();
         int j = fileModelR.getLineArrayList().size();//끝점부터 시작한다.
         int startLineNum = 0; //블럭 시작줄

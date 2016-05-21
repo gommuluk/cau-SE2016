@@ -62,18 +62,17 @@ public class EditorSceneController {
             File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
+            FileManagerInterface.SideOfEditor side;
+
             if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
-                FileManager.getFileManager().getFileModelL().readFile(selectedFile.getPath());
-                editor.setText(FileManager.getFileManager().getFileModelL().toString());
-
-                FileManager.getFileManagerInterface()
-                        .loadFile(selectedFile.getPath(), FileManagerInterface.SideOfEditor.Left);
-                //editor.setText(FileManager.getFileManagerInterface().);
-
+                side = FileManagerInterface.SideOfEditor.Left;
             } else {
-                FileManager.getFileManager().getFileModelR().readFile(selectedFile.getPath());
-                editor.setText(FileManager.getFileManager().getFileModelR().toString());
+                side = FileManagerInterface.SideOfEditor.Right;
             }
+
+            FileManager.getFileManagerInterface()
+                    .loadFile(selectedFile.getPath(), side);
+            editor.setText(FileManager.getFileManagerInterface().getString(side));
 
         }
         catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.

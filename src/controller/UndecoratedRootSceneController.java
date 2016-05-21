@@ -51,6 +51,7 @@ public class UndecoratedRootSceneController {
 
             // Status bind
             labelStatus.textProperty().bindBidirectional(FileManager.getFileManager().getFileModelL().getStatus());
+            FileManager.getFileManagerInterface()
             labelStatus.textProperty().bindBidirectional(FileManager.getFileManager().getFileModelR().getStatus());
         });
 

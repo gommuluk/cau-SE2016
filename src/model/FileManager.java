@@ -20,8 +20,7 @@ public class FileManager implements FileManagerInterface {
     private ArrayList<Block> blockArrayList;
     private int[][] arrayLCS;
 
-
-
+    
     private FileManager() {
         fileModelL = new FileModel();
         fileModelR = new FileModel();
@@ -33,8 +32,7 @@ public class FileManager implements FileManagerInterface {
      * @return FileManager 양 쪽 Editor에 할당된 파일들을 관리하는 매니저
      */
     public static FileManagerInterface getFileManagerInterface() { // 1개의 객체를 유지하기 위한 싱글톤
-        if (instance == null)
-            instance = new FileManager();
+        if (instance == null) instance = new FileManager();
         return instance;
     }
     public void setFileModelL(FileModel L) //@@for mock testing by using Easymock
@@ -71,8 +69,7 @@ public class FileManager implements FileManagerInterface {
     public ArrayList<LineInterface> getLineArrayList(FileManagerInterface.SideOfEditor side){
         if(side == SideOfEditor.Left) {
             return fileModelL.getLineArrayList();
-        }
-            else{
+        } else {
             return fileModelR.getLineArrayList();
         }
     }
@@ -128,11 +125,13 @@ public class FileManager implements FileManagerInterface {
     public void cancelCompare(){
         isComparing = false;
     }
+
     @Override
     public void clickLine(int lineNum){//미구현
         if(isComparing) fileModelL.clickLine(lineNum);//왼쪽이든 오른쪽이든 상관없음
 
     }
+
     @Override
     public void merge(FileManagerInterface.SideOfEditor toSide){ // 미구현
         FileModelInterface fromFileManager;

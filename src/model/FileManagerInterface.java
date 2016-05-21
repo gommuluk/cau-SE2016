@@ -23,5 +23,5 @@ public interface FileManagerInterface {
     void clickLine(int lineNum); //lineNum번째 line을 클릭했다고 FileManager에게 알려줌
     void merge(SideOfEditor toSide); //다른사이드부터  toSide로 파일을 머지함
     String getString(SideOfEditor side);//해당 side의 content를 string으로 받아옴
-
+    String getFilePath(SideOfEditor side);
 }

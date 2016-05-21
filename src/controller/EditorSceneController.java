@@ -91,7 +91,7 @@ public class EditorSceneController {
             if (editor.getParent().getParent().getId().equals("leftEditor")) {
                 //TODO isEdited 상태로 저장 여부 결정
                 String s = editor.getText();
-                FileManagerInterface.saveNewFile(s, FileManagerInterface.SideOfEditor.Left);
+                FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Left);
 
             } else {
                 String s = editor.getText();

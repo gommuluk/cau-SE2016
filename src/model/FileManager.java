@@ -115,8 +115,8 @@ public class FileManager implements FileManagerInterface {
         }
         else
         {
-            fileModelL.readFile(filepath);
-            return fileModelL.getLineArrayList();
+            fileModelR.readFile(filepath);
+            return fileModelR.getLineArrayList();
         }
     }
     @Override

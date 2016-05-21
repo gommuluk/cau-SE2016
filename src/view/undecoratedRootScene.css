@@ -251,11 +251,10 @@
 
 .editor-toolbar .list-cell {
     -fx-background-insets: 0;
-    -fx-label-padding: -0.1em;
-    -fx-padding: 0 0 0 5;
-    -fx-min-height: 1.29em;
-    -fx-cell-size: 1.29em;
-    /*-fx-font-family: 'Gulim', 'Dotum';*/
+    -fx-label-padding: 2px 0 0 8px;
+    -fx-padding: 0 0 -1 0;
+    -fx-min-height: 1.28em;
+    -fx-cell-size: 1.28em;
     -fx-font-size: 14px;
     -fx-text-fill: yellowgreen;
     -fx-background-color: transparent;

@@ -106,10 +106,14 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
     private void _syncEditorsScroll(){
         // ListView와 TextArea의 스크롤을 동기화시킨다.
-        ScrollBar textAreaScrollTo = (ScrollBar) editor.lookup(".scroll-bar:vertical");
-        ScrollBar listViewScrollTo = (ScrollBar) highlightList.lookup(".scroll-bar:vertical");
+        ScrollBar textAreaVScroll = (ScrollBar) editor.lookup(".scroll-bar:vertical");
+        ScrollBar listViewVScroll = (ScrollBar) highlightList.lookup(".scroll-bar:vertical");
 
-        textAreaScrollTo.valueProperty().bindBidirectional(listViewScrollTo.valueProperty());
+        ScrollBar textAreaHScroll = (ScrollBar) editor.lookup(".scroll-bar:horizontal");
+        ScrollBar listViewHScroll = (ScrollBar) highlightList.lookup(".scroll-bar:horizontal");
+
+        textAreaVScroll.valueProperty().bindBidirectional(listViewVScroll.valueProperty());
+        textAreaHScroll.valueProperty().bindBidirectional(listViewHScroll.valueProperty());
     }
 
 

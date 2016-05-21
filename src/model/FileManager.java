@@ -67,6 +67,7 @@ public class FileManager implements FileManagerInterface {
 
 
     //FileManager Interface 구현 시작
+    @Override
     public ArrayList<LineInterface> getLineArrayList(FileManagerInterface.SideOfEditor side){
         if(side == SideOfEditor.Left) {
             return fileModelL.getLineArrayList();
@@ -75,6 +76,7 @@ public class FileManager implements FileManagerInterface {
             return fileModelR.getLineArrayList();
         }
     }
+    @Override
     public void saveFile(String content, FileManagerInterface.SideOfEditor side) throws FileNotFoundException, SecurityException{
         if(side == SideOfEditor.Left)
         {
@@ -87,6 +89,7 @@ public class FileManager implements FileManagerInterface {
             fileModelR.writeFile();
         }
     }
+    @Override
     public void saveFile(String content, String filepath, FileManagerInterface.SideOfEditor side)throws FileNotFoundException, SecurityException{
         if(side == SideOfEditor.Left)
         {
@@ -99,6 +102,7 @@ public class FileManager implements FileManagerInterface {
             fileModelR.writeFile(filepath);
         }
     }
+    @Override
     public ArrayList<LineInterface> loadFile(String filepath, FileManagerInterface.SideOfEditor side) throws FileNotFoundException, UnsupportedEncodingException{
         if(side == SideOfEditor.Left)
         {
@@ -111,7 +115,7 @@ public class FileManager implements FileManagerInterface {
             return fileModelL.getLineArrayList();
         }
     }
-
+    @Override
     public void setCompare() throws LeftEditorFileNotFoundException, RightEditorFileNotFoundException{
         if(!fileModelL.isFileExist()) throw new LeftEditorFileNotFoundException();
         if(!fileModelR.isFileExist()) throw new RightEditorFileNotFoundException();
@@ -120,15 +124,16 @@ public class FileManager implements FileManagerInterface {
         backTrackingLCS(); //diff구현 및 compare array저장
         isComparing = true;
     }
-
+    @Override
     public void cancelCompare(){
         isComparing = false;
     }
-
+    @Override
     public void clickLine(int lineNum){//미구현
         if(isComparing) fileModelL.clickLine(lineNum);//왼쪽이든 오른쪽이든 상관없음
 
     }
+    @Override
     public void merge(FileManagerInterface.SideOfEditor toSide){ // 미구현
 
     }

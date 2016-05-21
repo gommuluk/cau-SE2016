@@ -59,6 +59,7 @@ public class FileModel implements FileModelInterface{
      */
     @Override
     public void readFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException{ // 파일명 받기 및 읽기.
+        init();
         file= new File(filePath);
         Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
         String tempString = "";
@@ -135,6 +136,27 @@ public class FileModel implements FileModelInterface{
     {
         if(file == null) return false;
         else return true;
+    }
+    @Override
+    public String getFilePath()
+    {
+        if(file == null)
+        {
+            return "파일 참조자가 눌이잖아!";
+        }
+        else
+        {
+            return file.getPath();
+        }
+    }
+
+    private void init()
+    {
+        lineArrayList = null;
+        isEdited = false;
+        file = null;
+        compareLineArrayList =null;
+        statusString =  new SimpleStringProperty("Ready(No file is loaded)");
     }
 
     /**

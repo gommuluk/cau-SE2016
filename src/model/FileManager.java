@@ -155,6 +155,11 @@ public class FileManager implements FileManagerInterface {
             return fileModelL.toString();
         else return fileModelR.toString();
     }
+    public String getFilePath(SideOfEditor side)
+    {
+        if(side == SideOfEditor.Left) return getFileModelL().getFilePath();
+        else return getFileModelR().getFilePath();
+    }
 
     private int max(int a, int b) {
         if (a > b) return a;

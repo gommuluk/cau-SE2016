@@ -20,6 +20,8 @@ public interface FileModelInterface {
     void setCompareLineArrayList(ArrayList<LineInterface> compareLineArrayList);
     void clickLine(int lineNum);
     boolean isFileExist();
+    String getFilePath();
+
 
 
 

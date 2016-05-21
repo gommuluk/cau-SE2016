@@ -1,14 +1,15 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * Created by ano on 2016. 5. 13..
  */
-public class FileManager {
+public class FileManager implements FileManagerInterface{
 
-    private static FileManager instance;
+    private static FileManagerInterface instance;
     private FileModel FileModelL = new FileModel();
     private FileModel FileModelR = new FileModel();
     private ArrayList<Block> blockArrayList;
@@ -21,7 +22,7 @@ public class FileManager {
      *
      * @return FileManager 양 쪽 Editor에 할당된 파일들을 관리하는 매니저
      */
-    public static FileManager getFileManager() { // 1개의 객체를 유지하기 위한 싱글톤
+    public static FileManagerInterface getFileManagerInterface() { // 1개의 객체를 유지하기 위한 싱글톤
         if (instance == null)
             instance = new FileManager();
         return instance;
@@ -195,5 +196,48 @@ public class FileManager {
             this.FileModelL = new FileModel();
         }
         else this.FileModelR = new FileModel();
+    }
+
+
+    //TODO 아래의 Override func 구현 필요
+
+    @Override
+    public ArrayList<LineInterface> getLineArrayList(SideOfEditor side) {
+        return null;
+    }
+
+    @Override
+    public boolean SaveFile(String newContents, String filePath, SideOfEditor side) {
+        return false;
+    }
+
+    @Override
+    public boolean SaveFile(String newContents, SideOfEditor side) {
+        return false;
+    }
+
+    @Override
+    public ArrayList<LineInterface> LoadNewFile(String filePath, SideOfEditor side) {
+        return null;
+    }
+
+    @Override
+    public boolean setCompare() {
+        return false;
+    }
+
+    @Override
+    public void cancelCompare() {
+
+    }
+
+    @Override
+    public void clickLine(int lineNum) {
+
+    }
+
+    @Override
+    public void merge(SideOfEditor toSide) {
+
     }
 }

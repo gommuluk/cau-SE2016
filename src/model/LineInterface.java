@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by ano on 2016. 5. 21..
  */
-public interface LineInterface {
+public interface LineInterface{
 
     enum LineHighlight
     {
@@ -19,6 +19,7 @@ public interface LineInterface {
 
     void clickBlock();//이 라인이 속해있는 블럭을 클릭함.
     String getContent(boolean isLastLine);//이 라인의 컨텐츠인 String을 반환. LastLine인지 아닌지에 따라 다르게
+
 
 }
 

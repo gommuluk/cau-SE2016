@@ -1,6 +1,8 @@
 package model;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -12,14 +14,16 @@ import static org.junit.Assert.*;
  * Created by ano on 2016. 5. 18..
  */
 public class FileManagerTest {
-    static FileManager fileManager;
-    @BeforeClass
-    public static void setupTest () throws FileNotFoundException, UnsupportedEncodingException
+    static FileManagerInterface fileManager;
+
+    @Before
+    public void setupTest () throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileNotFoundException, RightEditorFileNotFoundException
     {
         //fileManager = FileManager.getFileManager();
-        fileManager.getFileModelL().readFile("AA.txt");
-        fileManager.getFileModelR().readFile("BB.txt");//파일을 로드해둔다
-        //fileManager.compare();
+        fileManager = FileManager.getFileManagerInterface();
+        fileManager.loadFile("AA.txt",FileManagerInterface.SideOfEditor.Left);
+        fileManager.loadFile("BB.txt",FileManagerInterface.SideOfEditor.Right);
+        fileManager.setCompare();
 
     }
 
@@ -56,17 +60,57 @@ public class FileManagerTest {
         testLineArrayListR.add(new Line("c",-1,false));
         testLineArrayListR.add(new Line("",0,true));
         for (int i = 0; i < testLineArrayListR.size(); i++) {
-            //assertEquals(testLineArrayListR.get(i).getLine(true),fileManager.getFileModelR().getLineArrayList().get(i).getLine(true));
-            assertEquals(testLineArrayListR.get(i).getBlockIndex(),fileManager.getFileModelR().getLineArrayList().get(i).getBlockIndex());
-            assertEquals(testLineArrayListR.get(i).getIsWhiteSpace(),fileManager.getFileModelR().getLineArrayList().get(i).getIsWhiteSpace());
-            //assertEquals(testLineArrayListL.get(i).getLine(true),fileManager.getFileModelL().getLineArrayList().get(i).getLine(true));
-            assertEquals(testLineArrayListL.get(i).getBlockIndex(),fileManager.getFileModelL().getLineArrayList().get(i).getBlockIndex());
-            assertEquals(testLineArrayListL.get(i).getIsWhiteSpace(),fileManager.getFileModelL().getLineArrayList().get(i).getIsWhiteSpace());
-            //텍스트 어레이 같게 생겼는지 검사
 
+
+            assertEquals(testLineArrayListR.get(i).getContent(false),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(false));
+            assertEquals(testLineArrayListR.get(i).getBlockIndex(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getBlockIndex());
+            assertEquals(testLineArrayListR.get(i).getIsWhiteSpace(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getIsWhiteSpace());
+            assertEquals(testLineArrayListL.get(i).getContent(false),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(false));
+            assertEquals(testLineArrayListL.get(i).getBlockIndex(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getBlockIndex());
+            assertEquals(testLineArrayListL.get(i).getIsWhiteSpace(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getIsWhiteSpace());
+
+            //텍스트 어레이 같게 생겼는지 검사
         }
 
     }
 
+    @Test
+    public void LeftToRightMergeTest()
+    {
+        ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<Line>();
+        testLineArrayListL.add(new Line("a",-1,false));
+        testLineArrayListL.add(new Line("b",-1,false));
+        testLineArrayListL.add(new Line("c",-1,false));
+        testLineArrayListL.add(new Line("d",-1,false));
+        testLineArrayListR.add(new Line("a",-1,false));
+        testLineArrayListR.add(new Line("b",-1,false));
+        testLineArrayListR.add(new Line("c",-1,false));
+        testLineArrayListR.add(new Line("d",-1,false));
+        fileManager.clickLine(2);
+        fileManager.clickLine(4);
+        fileManager.merge(FileManagerInterface.SideOfEditor.Right);
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
+            System.out.print(i);
+            System.out.print(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right ");
+            System.out.print(i);
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " left");
+
+            assertEquals(testLineArrayListR.get(i).getContent(true),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true));
+            assertEquals(testLineArrayListR.get(i).getBlockIndex(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getBlockIndex());
+            assertEquals(testLineArrayListR.get(i).getIsWhiteSpace(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getIsWhiteSpace());
+            assertEquals(testLineArrayListL.get(i).getContent(true),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true));
+            assertEquals(testLineArrayListL.get(i).getBlockIndex(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getBlockIndex());
+            assertEquals(testLineArrayListL.get(i).getIsWhiteSpace(),fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getIsWhiteSpace());
+
+            //텍스트 어레이 같게 생겼는지 검사
+        }
+    }
+
+    @Test
+    public void RightToLeftMergeTest()
+    {
+
+    }
 
 }

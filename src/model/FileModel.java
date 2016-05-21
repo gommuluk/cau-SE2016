@@ -112,7 +112,7 @@ public class FileModel implements FileModelInterface {
     }
     @Override
     public ArrayList<LineInterface> getCompareLineArrayList() {
-        return (ArrayList<LineInterface>) compareLineArrayList.clone();
+        return compareLineArrayList;
     }
     @Override
     public void setCompareLineArrayList(ArrayList<LineInterface> lineArrayList)

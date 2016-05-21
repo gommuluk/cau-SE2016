@@ -69,9 +69,11 @@ public class FileManager implements FileManagerInterface {
     @Override
     public ArrayList<LineInterface> getLineArrayList(FileManagerInterface.SideOfEditor side){
         if(side == SideOfEditor.Left) {
-            return fileModelL.getLineArrayList();
+            if(isComparing) return fileModelL.getCompareLineArrayList();
+            else return fileModelL.getLineArrayList();
         } else {
-            return fileModelR.getLineArrayList();
+            if(isComparing) return fileModelR.getCompareLineArrayList();
+            else return fileModelR.getLineArrayList();
         }
     }
     @Override
@@ -140,10 +142,11 @@ public class FileManager implements FileManagerInterface {
     }
 
     @Override
-    public void merge(FileManagerInterface.SideOfEditor toSide){ // 미구현
+    public boolean merge(FileManagerInterface.SideOfEditor toSide){
+        if(!isComparing) return false;
         FileModelInterface fromFileManager;
         FileModelInterface toFileManager;
-        if(toSide == SideOfEditor.Left)        {
+        if(toSide == SideOfEditor.Left){
             toFileManager = fileModelL;
             fromFileManager = fileModelR;
         }
@@ -152,7 +155,40 @@ public class FileManager implements FileManagerInterface {
             toFileManager = fileModelR;
         }
 
+        for (Block b :blockArrayList) {
+            if(b.getSelected()) {
+                int count = b.endLineNum - b.startLineNum;//지워야 될 블럭의 갯수
+                System.out.println("count" + count);
+                int insertNum = b.startLineNum; //이 줄에 넣을거임
+                for (int i = 0; i < count; i++) {
+                    toFileManager.getCompareLineArrayList().remove(insertNum);//일단 지워줌
+                }
+                for (int i = 0; i < count; i++) {
+                    LineInterface tempL = fromFileManager.getCompareLineArrayList().get(insertNum);
+                    if (tempL.getIsWhiteSpace()) fromFileManager.getCompareLineArrayList().remove(insertNum);
+                    else {
+                        LineInterface insertL = new Line(tempL.getContent(true));
+                        toFileManager.getCompareLineArrayList().add(insertNum, insertL);
+                        insertNum++;
 
+                    }
+                }
+            }//이제 컴페어 어레이를 리스트 어레이로 갱신해주면 됨
+
+
+        }
+        String ret = "";
+        for(LineInterface s : toFileManager.getCompareLineArrayList())
+            ret += s.getContent(false);
+        ret = ret.substring(0,ret.length()-1);//맨 마지막의 개행 제거
+        toFileManager.updateArrayList(ret);
+        ret = "";
+        for(LineInterface s : fromFileManager.getCompareLineArrayList())
+            ret += s.getContent(false);
+        ret = ret.substring(0,ret.length()-1);//맨 마지막의 개행 제거
+        fromFileManager.updateArrayList(ret);
+        cancelCompare();
+        return true;
     }
     //FileManager Interface 구현 끝
     @Override

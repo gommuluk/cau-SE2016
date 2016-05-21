@@ -135,10 +135,26 @@ public class FileManager implements FileManagerInterface {
     }
     @Override
     public void merge(FileManagerInterface.SideOfEditor toSide){ // 미구현
+        FileModelInterface fromFileManager;
+        FileModelInterface toFileManager;
+        if(toSide == SideOfEditor.Left)        {
+            toFileManager = fileModelL;
+            fromFileManager = fileModelR;
+        }
+        else{
+            fromFileManager = fileModelL;
+            toFileManager = fileModelR;
+        }
+
 
     }
     //FileManager Interface 구현 끝
-
+    @Override
+    public String getString(FileManagerInterface.SideOfEditor side){
+        if(side == SideOfEditor.Left)
+            return fileModelL.toString();
+        else return fileModelR.toString();
+    }
 
     private int max(int a, int b) {
         if (a > b) return a;

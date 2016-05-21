@@ -97,6 +97,20 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
         return this.highlightList;
     }
 
+    @Override
+    public void update() {
+        FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), FileManagerInterface.SideOfEditor.Left);
+        FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), FileManagerInterface.SideOfEditor.Right);
+
+        this.highlightList.setItems(FXCollections.observableArrayList(
+                FileManager.getFileManagerInterface().getLineArrayList(FileManagerInterface.SideOfEditor.Left)
+        ));
+        this.highlightList.setItems(FXCollections.observableArrayList(
+                FileManager.getFileManagerInterface().getLineArrayList(FileManagerInterface.SideOfEditor.Right)
+        ));
+
+    }
+
 
     private void _syncEditorsScroll(){
         // ListView와 TextArea의 스크롤을 동기화시킨다.

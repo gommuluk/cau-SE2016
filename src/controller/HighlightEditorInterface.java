@@ -29,4 +29,6 @@ public interface HighlightEditorInterface {
     public TextArea getTextArea();
     public ListView getHighlightListView();
 
+    public void update();
+
 }

@@ -163,6 +163,7 @@ public class EditorSceneController {
     @FXML // 수정 버튼을 클릭했을 때의 동작
     //TODO 나머지 버튼들 활성화/비활성화 조절
     private void  onTBBtnEditClicked(ActionEvent event) {
+
         if(!editor.isEditable()) {    // edit 모드로 진입
             editor.      setEditable(true);
             editor.       changeMode(true);
@@ -189,6 +190,8 @@ public class EditorSceneController {
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
         }
+
+        editor.update();
 
     }
 

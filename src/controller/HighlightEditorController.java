@@ -17,6 +17,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 import model.FileManager;
 import model.Line;
+import model.LineHighlight;
+import model.LineInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,7 +76,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
     @Override
     @SuppressWarnings("unchecked")
-    public void setHighlightLines(ArrayList<Line> lines) {
+    public void setHighlightLines(ArrayList<LineInterface> lines) {
         highlightList.setItems(FXCollections.observableArrayList(lines));
     }
 
@@ -122,7 +124,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     private void _enableHighLights(){
 
         if( highlightList != null ) {
-            highlightList.setCellFactory(list -> new ListCell<Line>() {
+            highlightList.setCellFactory(list -> new ListCell<LineInterface>() {
                 BooleanBinding invalid ;
 //                {
 //                    if( this.getParent().getParent().getId().contentEquals("leftEditor") ) {
@@ -149,12 +151,12 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 //                }
 
                 @Override
-                protected void updateItem(Line item, boolean empty) {
+                protected void updateItem(LineInterface item, boolean empty) {
                     super.updateItem(item, empty);
 
                     if( item != null ) {
-                        setText(empty ? null : item.getLine(false));
-                        if (item.getHighlight() == Line.Highlight.unHighlighted)
+                        setText(empty ? null : item.getContent());
+                        if (item.getHighlight() == LineHighlight.unHighlighted)
                             setStyle("-fx-background-color:yellow;");
                     }
 

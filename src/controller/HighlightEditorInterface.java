@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import model.Line;
+import model.LineInterface;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public interface HighlightEditorInterface {
     public void setEditable(boolean value);
 
     public void setText(String s);
-    public void setHighlightLines(ArrayList<Line> lines);
+    public void setHighlightLines(ArrayList<LineInterface> lines);
 
     public void changeMode(boolean isEditable);
 

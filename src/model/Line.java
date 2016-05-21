@@ -62,8 +62,10 @@ public class Line implements LineInterface {
     }
 
     @Override
-    public String getContent() {
-        return content;
+    public String getContent(boolean isLastLine) {
+
+        if(isLastLine) return content;
+        else return content + "\n";
     }
 
     public static void setBlockArray(ArrayList<Block> inArrayList)

@@ -19,5 +19,4 @@ public interface FileManagerInterface {
     void clickLine(int lineNum); //lineNum번째 line을 클릭했다고 FileManager에게 알려줌
     void merge(SideOfEditor toSide); //다른사이드부터  toSide로 파일을 머지함
 
-
 }

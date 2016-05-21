@@ -81,7 +81,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingExceoption 추가
+    private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingException 추가
 
         //TODO isEdited가 true인 경우, 버튼 활성화
         try {
@@ -96,9 +96,7 @@ public class EditorSceneController {
             } else {
                 String s = editor.getText();
                 //TODO isEdited 상태로 저장 여부 결정
-                FileManager.getFileManager().getFileModelR().updateArrayList(s);
-                FileManager.getFileManager().getFileModelR().writeFile();
-
+                FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Right);
             }
             //TODO 성공시 isEdited를 false로 갱신해야 하는데..\
             //TODO 파일을 실제로 저장해보면 개행 처리가 안 됨 ㅜㅠ
@@ -136,8 +134,8 @@ public class EditorSceneController {
                 File file = fileSaveExplorer.getDialog(btnFileSave);
 
                 if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                    FileManager.getFileManager().getFileModelL().updateArrayList(editor.getText());
-                    FileManager.getFileManager().getFileModelL().writeFile(file.getPath());
+                    FileManager.getFileManagerInterface().getFileModelL().updateArrayList(editor.getText());
+                    FileManager.getFileManagerInterface().getFileModelL().writeFile(file.getPath());
                 } else {
                     FileManager.getFileManager().getFileModelR().updateArrayList(editor.getText());
                     FileManager.getFileManager().getFileModelR().writeFile(file.getPath());

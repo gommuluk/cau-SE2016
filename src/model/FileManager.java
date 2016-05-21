@@ -135,10 +135,26 @@ public class FileManager implements FileManagerInterface {
     }
     @Override
     public void merge(FileManagerInterface.SideOfEditor toSide){ // 미구현
+        FileModelInterface fromFileManager;
+        FileModelInterface toFileManager;
+        if(toSide == SideOfEditor.Left)        {
+            toFileManager = fileModelL;
+            fromFileManager = fileModelR;
+        }
+        else{
+            fromFileManager = fileModelL;
+            toFileManager = fileModelR;
+        }
+
 
     }
     //FileManager Interface 구현 끝
-
+    @Override
+    public String getString(FileManagerInterface.SideOfEditor side){
+        if(side == SideOfEditor.Left)
+            return fileModelL.toString();
+        else return fileModelR.toString();
+    }
 
     private int max(int a, int b) {
         if (a > b) return a;
@@ -179,7 +195,7 @@ public class FileManager implements FileManagerInterface {
         ArrayList<LineInterface> cLineArrayListL = new ArrayList<LineInterface>();
         ArrayList<LineInterface> cLineArrayListR = new ArrayList<LineInterface>();
         blockArrayList = new ArrayList<Block>();//블럭 어레이리스트를 새로 만든다.
-        Line.setBlockArray(blockArrayList);
+        Line.setBlockArrayList(blockArrayList);
         int i = fileModelL.getLineArrayList().size();
         int j = fileModelR.getLineArrayList().size();//끝점부터 시작한다.
         int startLineNum = 0; //블럭 시작줄
@@ -267,8 +283,8 @@ public class FileManager implements FileManagerInterface {
         //백트레킹으로 block하고 line이 잘 완성됬을 예정
         Collections.reverse(cLineArrayListL);//라인들은 반대로 저장됨
         Collections.reverse(cLineArrayListR);
-        fileModelL.setCompareArrayList(cLineArrayListL);
-        fileModelR.setCompareArrayList(cLineArrayListR);
+        fileModelL.setCompareLineArrayList(cLineArrayListL);
+        fileModelR.setCompareLineArrayList(cLineArrayListR);
     }
 
 

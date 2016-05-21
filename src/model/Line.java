@@ -25,40 +25,41 @@ public class Line implements LineInterface {
         isWhitespace = whiteSpace;
     }
 
-    public String getLine(boolean isLastLine) //마지막 줄이면 개행을 없이 그것이 아니면 개행 있이 content를 반환합니다
-    {
-        if(isLastLine) return content;
-        else return content + "\n";
-    }
-
+    @Override
     public int getBlockIndex() { return  blockIndex; }
+    @Override
     public boolean getIsWhiteSpace() { return isWhitespace; }
-
+    @Override
     public LineHighlight getHighlight()
     {
-        if(blockIndex == -1)
+        if(blockIndex == -1 || blockArrayList == null)
             this.lineStatus = LineHighlight.unHighlighted;
 
         else if(isWhitespace)
             this.lineStatus = LineHighlight.whitespace;
 
-        else if(blockArrayList.get(blockIndex).getSelected())
-            this.lineStatus = LineHighlight.selected;
+        else try {
+                if (blockArrayList.get(blockIndex).getSelected())
+                    this.lineStatus = LineHighlight.selected;
 
-        else
-            this.lineStatus = LineHighlight.isDifferent;
-
+                else
+                    this.lineStatus = LineHighlight.isDifferent;
+            }catch(ArrayIndexOutOfBoundsException e)
+            {
+                e.printStackTrace();
+                System.out.print("Block index problem");
+                this.lineStatus = LineHighlight.unHighlighted;
+            }
         return this.lineStatus;
     }
 
-    @Override
-    public void setBlockArrayList(ArrayList<Block> blockArrayList) {
-
+    public static void setBlockArrayList(ArrayList<Block> bArrayList) {
+        blockArrayList = bArrayList;
     }
 
     @Override
     public void clickBlock() {
-
+        blockArrayList.get(blockIndex).click();
     }
 
     @Override
@@ -67,10 +68,6 @@ public class Line implements LineInterface {
         else return content + "\n";
     }
 
-    public static void setBlockArray(ArrayList<Block> inArrayList)
-    {
-        blockArrayList = inArrayList;
-    }
-    public static ArrayList<Block> getBlockArray() { return blockArrayList; }//only for testing
+    public static ArrayList<Block> getBlockArray() { return blockArrayList; }//@@only for testing
 
 }

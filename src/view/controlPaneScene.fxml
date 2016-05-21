@@ -5,11 +5,14 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.layout.Pane?>
 <GridPane fx:id="controlPane" styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControlPaneSceneController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -23,21 +26,21 @@
          <menus>
             <Menu mnemonicParsing="false" text="파일(F)">
                <items>
-                  <MenuItem id="menuReset" onAction="#onMenuBtnResetClicked" mnemonicParsing="false" text="Reset" />
-                  <MenuItem id="menuClose" onAction="#onMenuBtnCloseClicked" mnemonicParsing="false" text="Close" />
+                  <MenuItem id="menuReset" mnemonicParsing="false" onAction="#onMenuBtnResetClicked" text="Reset" />
+                  <MenuItem id="menuClose" mnemonicParsing="false" onAction="#onMenuBtnCloseClicked" text="Close" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="편집(E)">
                <items>
-                  <MenuItem id="menuCopyToRight" onAction="#onMenuBtnCopyToRightClicked" mnemonicParsing="false" text="Copy to right" />
-                  <MenuItem id="menuCopyToLeft" onAction="#onMenuBtnCopyToLeftClicked" mnemonicParsing="false" text="Copy to left" />
-                  <MenuItem id="menuCompare" onAction="#onMenuBtnCopyToCompareClicked" mnemonicParsing="false" text="Compare" />
+                  <MenuItem id="menuCopyToRight" mnemonicParsing="false" onAction="#onMenuBtnCopyToRightClicked" text="Copy to right" />
+                  <MenuItem id="menuCopyToLeft" mnemonicParsing="false" onAction="#onMenuBtnCopyToLeftClicked" text="Copy to left" />
+                  <MenuItem id="menuCompare" mnemonicParsing="false" onAction="#onMenuBtnCopyToCompareClicked" text="Compare" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="도움말(H)">
                <items>
-                  <MenuItem id="menuHelp" onAction="#onMenuBtnHelpClicked" mnemonicParsing="false" text="Help" />
-                  <MenuItem id="menuAbout" onAction="#onMenuBtnAboutClicked" mnemonicParsing="false" text="About" />
+                  <MenuItem id="menuHelp" mnemonicParsing="false" onAction="#onMenuBtnHelpClicked" text="Help" />
+                  <MenuItem id="menuAbout" mnemonicParsing="false" onAction="#onMenuBtnAboutClicked" text="About" />
                </items>
             </Menu>
          </menus>
@@ -50,6 +53,8 @@
             <Button fx:id="btnMergeLeft" mnemonicParsing="false" onAction="#onBtnMergeToLeftClicked" styleClass="btnMergeLeft" stylesheets="@undecoratedRootScene.css" />
             <Button fx:id="btnMergeRight" mnemonicParsing="false" onAction="#onBtnMergeToRightClicked" styleClass="btnMergeRight" stylesheets="@undecoratedRootScene.css" />
             <Button fx:id="btnCompare" mnemonicParsing="false" onAction="#onBtnCompareClicked" styleClass="btnCompare" stylesheets="@undecoratedRootScene.css" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <ToggleButton fx:id="btnScrollSync" mnemonicParsing="false" styleClass="btnScrollSync" stylesheets="@undecoratedRootScene.css" />
          </items>
       </ToolBar>
    </children>

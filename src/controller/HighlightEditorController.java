@@ -3,13 +3,18 @@ package controller;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Callback;
 import model.FileManager;
 import model.Line;
 
@@ -35,8 +40,8 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
             loader.load();
 
             Platform.runLater(()->{
-                _syncEditorScrollWithHighlightList();
-                _syncEditorContentWithHighlightList();
+                _syncEditorsScroll();
+                //_syncEditorContentWithHighlightList();
                 _enableHighLights();
 
                 FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
@@ -61,11 +66,26 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     public void setText(String s){
         this.editor.setText(s);
 
+        this.highlightList.setItems(FXCollections.observableArrayList(
+                FileManager.getFileManager().getFileModelL().getLineArrayList()
+        ));
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void setHighlightLines(ArrayList<Line> lines) {
+        highlightList.setItems(FXCollections.observableArrayList(lines));
+    }
 
+    @Override
+    public void changeMode(boolean isEditable) {
+        if( isEditable ){
+            this.highlightList.setVisible(false);
+            this.editor.setVisible(true);
+        } else {
+            this.highlightList.setVisible(true);
+            this.editor.setVisible(false);
+        }
     }
 
     @Override
@@ -73,61 +93,60 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
         return editor.getText();
     }
 
+    @Override
+    public TextArea getTextArea() {
+        return this.editor;
+    }
 
-    private void _syncEditorScrollWithHighlightList(){
+    @Override
+    public ListView getHighlightListView() {
+        return this.highlightList;
+    }
+
+
+    private void _syncEditorsScroll(){
         // ListView와 TextArea의 스크롤을 동기화시킨다.
         ScrollBar textAreaScrollTo = (ScrollBar) editor.lookup(".scroll-bar:vertical");
         ScrollBar listViewScrollTo = (ScrollBar) highlightList.lookup(".scroll-bar:vertical");
 
         textAreaScrollTo.valueProperty().bindBidirectional(listViewScrollTo.valueProperty());
-        listViewScrollTo.valueProperty().bindBidirectional(textAreaScrollTo.valueProperty());
     }
 
-    private void _syncEditorContentWithHighlightList(){
 
-        if( this.getParent().getParent().getId().contentEquals("leftEditor")) {
-            highlightList.itemsProperty().bind(FileManager.getFileManager().getFileModelL().getListProperty());
-        } else {
-            highlightList.itemsProperty().bind(FileManager.getFileManager().getFileModelR().getListProperty());
-        }
-
-    }
-
+    @SuppressWarnings("unchecked")
     private void _enableHighLights(){
 
         if( highlightList != null ) {
-
-
-            highlightList.setCellFactory(list -> new ListCell<String>() {
+            highlightList.setCellFactory(list -> new ListCell<Line>() {
                 BooleanBinding invalid ;
-                {
-                    if( this.getParent().getParent().getId().contentEquals("leftEditor") ) {
-                        invalid = Bindings.createBooleanBinding(
-                                () -> FileManager.getFileManager().getFileModelL().getList().contains(getIndex()),
-                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelL().getList()
-                        );
-
-                    } else {
-                        invalid = Bindings.createBooleanBinding(
-                                () -> FileManager.getFileManager().getFileModelR().getList().contains(getIndex()),
-                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelR().getList()
-                        );
-                    }
-
-                    invalid.addListener((obs, wasInvalid, isNowInvalid) -> {
-                        if (isNowInvalid) {
-                            setStyle("-fx-background-color:yellowgreen;");
-                        } else {
-                            setStyle("");
-                        }
-                    });
-
-                }
+//                {
+//                    if( this.getParent().getParent().getId().contentEquals("leftEditor") ) {
+//                        invalid = Bindings.createBooleanBinding(
+//                                () -> FileManager.getFileManager().getFileModelL().getList().contains(getIndex()),
+//                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelL().getList()
+//                        );
+//
+//                    } else {
+//                        invalid = Bindings.createBooleanBinding(
+//                                () -> FileManager.getFileManager().getFileModelR().getList().contains(getIndex()),
+//                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelR().getList()
+//                        );
+//                    }
+//
+//                    invalid.addListener((obs, wasInvalid, isNowInvalid) -> {
+//                        if (isNowInvalid) {
+//                            setStyle("-fx-background-color:yellowgreen;");
+//                        } else {
+//                            setStyle("");
+//                        }
+//                    });
+//
+//                }
 
                 @Override
-                protected void updateItem(String item, boolean empty) {
+                protected void updateItem(Line item, boolean empty) {
                     super.updateItem(item, empty);
-                    setText(empty ? null : item);
+                    setText(empty ? null : item.getLine(false));
                 }
             });
         }

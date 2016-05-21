@@ -2,6 +2,8 @@ package controller;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import model.Line;
 
 import java.util.ArrayList;
@@ -11,14 +13,19 @@ import java.util.ArrayList;
  */
 public interface HighlightEditorInterface {
 
-    boolean isEditable();
-    void setEditable(boolean value);
+    public boolean isEditable();
+    public void setEditable(boolean value);
 
-    void setText(String s);
-    void setHighlightLines(ArrayList<Line> lines);
+    public void setText(String s);
+    public void setHighlightLines(ArrayList<Line> lines);
 
-    String getText();
-    Parent getParent();
-    Scene getScene();
+    public void changeMode(boolean isEditable);
+
+    public String getText();
+    public Parent getParent();
+    public Scene getScene();
+
+    public TextArea getTextArea();
+    public ListView getHighlightListView();
 
 }

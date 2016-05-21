@@ -53,7 +53,7 @@ public class TabPaneSceneController {
     @FXML // FXML 로딩이 완료되면 호출되는 콜백함수
     public void initialize(){
         _init();
-//        _syncEditorsScrollBar();
+        _syncEditorsScrollBar();
     }
 
     @FXML // 탭을 드래그하기 시작하면 수행되는 액션
@@ -105,21 +105,17 @@ public class TabPaneSceneController {
     }
     private void _syncEditorsScrollBar(){
 
-        ListView leftHighLight = (ListView)((AnchorPane)leftEditor.getCenter()).getChildren().get(0);
-        ListView rightHighLight = (ListView)((AnchorPane)rightEditor.getCenter()).getChildren().get(0);
+        HighlightEditorInterface leftEditor = (HighlightEditorInterface)this.leftEditor.lookup("#editor");
+        HighlightEditorInterface rightEditor = (HighlightEditorInterface)this.rightEditor.lookup("#editor");
 
-        TextArea leftTextArea = (TextArea)((AnchorPane)leftEditor.getCenter()).getChildren().get(1);
-        TextArea rightTextArea = (TextArea)((AnchorPane)rightEditor.getCenter()).getChildren().get(1);
+        TextArea leftTextArea = leftEditor.getTextArea();
+        TextArea rightTextArea = rightEditor.getTextArea();
 
         // textarea scrolling
         DoubleProperty leftVerticalScroll = leftTextArea.scrollTopProperty();
         DoubleProperty rightVerticalScroll = rightTextArea.scrollTopProperty();
         DoubleProperty leftHorizontalScroll = leftTextArea.scrollLeftProperty();
         DoubleProperty rightHorizontalScroll = rightTextArea.scrollLeftProperty();
-
-        // highlightlist scrolling
-        ScrollBar leftListScroll = (ScrollBar) leftHighLight.lookup(".scroll-bar:vertical");
-        ScrollBar rightListScroll = (ScrollBar) rightHighLight.lookup(".scroll-bar:vertical");
 
         leftVerticalScroll.bindBidirectional(rightVerticalScroll);
         leftHorizontalScroll.bindBidirectional(rightHorizontalScroll);

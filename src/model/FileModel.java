@@ -19,7 +19,6 @@ public class FileModel {
 
     private ArrayList<Line> lineArrayList = new ArrayList<Line>();//데이터를 줄 단위로 저장하는 arraylist
     private ArrayList<Line> comparedLineArrayList;
-    protected ListProperty<String> listProperty = new SimpleListProperty<>();
     ObservableList<Integer> diffList = FXCollections.observableArrayList();
 
     public boolean isCompared = false;//현재 비교를 하는 중이냐고
@@ -167,10 +166,6 @@ public class FileModel {
     public SimpleStringProperty getStatus() {
         //TODO SAFE GETTER로 만들기 위한 CLONE 필요
         return statusString;
-    }
-
-    public ListProperty<String> getListProperty(){
-        return listProperty;
     }
 
     /**

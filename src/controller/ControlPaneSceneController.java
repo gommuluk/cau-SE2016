@@ -74,16 +74,17 @@ public class ControlPaneSceneController {
 
     @FXML
     private void onMenuBtnCopyToRightClicked(ActionEvent event) {
-
+        onBtnMergeToRightClicked(event);
     }
 
     @FXML
     private void onMenuBtnCopyToLeftClicked(ActionEvent event) {
-
+        onBtnMergeToLeftClicked(event);
     }
 
     @FXML
     private void onMenuBtnCopyToCompareClicked(ActionEvent event) {
+        onBtnCompareClicked(event);
     }
 
     @FXML

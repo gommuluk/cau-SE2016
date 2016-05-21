@@ -190,6 +190,10 @@ public class FileManager {
     public int[][] getArrayLCS() {
         return arrayLCS.clone();
     }
-
-
+    private void resetModel(FileManagerInterface.SideOfEditor sideOfEditor) {
+        if(sideOfEditor == FileManagerInterface.SideOfEditor.Left) {
+            this.FileModelL = new FileModel();
+        }
+        else this.FileModelR = new FileModel();
+    }
 }

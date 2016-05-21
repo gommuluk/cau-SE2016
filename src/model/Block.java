@@ -14,7 +14,7 @@ public class Block {
     {
         return isSelected;
     } //선택되고 있는지를 반환한다
-    public void setLineNum(int start, int end)//시작줄하고 끝줄을 지정한다
+    public void setLineNum(int start, int end)//시작줄하고 끝줄을 지정한다. 필요없으니 지워야됨
     {
         startLineNum = start;
         endLineNum = end;

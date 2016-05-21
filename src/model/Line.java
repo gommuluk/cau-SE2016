@@ -36,7 +36,7 @@ public class Line {
     {
         unHighlighted, whitespace, isDifferent,selected
     }
-
+    
     public int getBlockIndex() { return  blockIndex; }
     public boolean getIsWhiteSpace() { return isWhitespace; }
 

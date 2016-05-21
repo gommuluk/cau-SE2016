@@ -55,7 +55,6 @@ public class EditorSceneController {
     private void onTBBtnLoadClicked(ActionEvent event) {
         //File chooser code
         try {
-            //System.out.println(editor.getParent().getParent().getId());
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
             FileExplorer fileLoadExplorer = new FileLoadExplorer();
@@ -70,10 +69,14 @@ public class EditorSceneController {
                 editor.setText(FileManager.getFileManager().getFileModelR().toString());
             }
         }
-        catch(Exception e) {                                                                        // TODO Exception 별 처리 필요.
+        catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.
             e.printStackTrace();
             System.out.println("Exception.");
         }
+        catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
@@ -167,6 +170,13 @@ public class EditorSceneController {
             btnMergeLeft. setDisable(true);
             btnMergeRight.setDisable(true);
             //TODO STATUS 갱신 editing으로
+
+            if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
+                //isEdited 셋
+            }
+            else {
+                //isEdited 셋
+            }
         }
         else {                          // edit 모드 탈출
             editor.      setEditable(false);

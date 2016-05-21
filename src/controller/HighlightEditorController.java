@@ -1,22 +1,14 @@
 package controller;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Callback;
 import model.FileManager;
-import model.Line;
+import model.LineInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +55,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void setText(String s){
         this.editor.setText(s);
 
@@ -73,7 +66,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
     @Override
     @SuppressWarnings("unchecked")
-    public void setHighlightLines(ArrayList<Line> lines) {
+    public void setHighlightLines(ArrayList<LineInterface> lines) {
         highlightList.setItems(FXCollections.observableArrayList(lines));
     }
 
@@ -121,7 +114,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     private void _enableHighLights(){
 
         if( highlightList != null ) {
-            highlightList.setCellFactory(list -> new ListCell<Line>() {
+            highlightList.setCellFactory(list -> new ListCell<LineInterface>() {
                 BooleanBinding invalid ;
 //                {
 //                    if( this.getParent().getParent().getId().contentEquals("leftEditor") ) {
@@ -148,9 +141,15 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 //                }
 
                 @Override
-                protected void updateItem(Line item, boolean empty) {
+                protected void updateItem(LineInterface item, boolean empty) {
                     super.updateItem(item, empty);
-                    setText(empty ? null : item.getLine(false));
+
+                    if( item != null ) {
+                        setText(empty ? null : item.getContent());
+                        if (item.getHighlight() == LineHighlight.unHighlighted)
+                            setStyle("-fx-background-color:yellow;");
+                    }
+
                 }
             });
         }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 /**
  * Created by ano on 2016. 5. 18..
  */
-public class Line {
+public class Line implements LineInterface {
 
     private String content;//이 라인이 가지고 있는 컨텐츠
-
+    private LineHighlight lineStatus = LineHighlight.unHighlighted; //현재 라인의 상태
     private int blockIndex; // 이 라인이 속해있는 블럭의 index. -1이면 속하는 블럭이 없다는 것
     private boolean isWhitespace;//compare로 생긴 공백 줄이면 true;
     private static ArrayList<Block> blockArrayList;//블럭을 가지고 있는 arraylist
@@ -31,21 +31,39 @@ public class Line {
         else return content + "\n";
     }
 
-
-    public enum Highlight//하이라이트 객체
-    {
-        unHighlighted, whitespace, isDifferent,selected
-    }
-
     public int getBlockIndex() { return  blockIndex; }
     public boolean getIsWhiteSpace() { return isWhitespace; }
 
-    public Highlight getHighlight()
+    public LineHighlight getHighlight()
     {
-        if(blockIndex == -1) return Highlight.unHighlighted;
-        else if(isWhitespace) return Highlight.whitespace;
-        else if(blockArrayList.get(blockIndex).getSelected()) return Highlight.selected;
-        else return Highlight.isDifferent;
+        if(blockIndex == -1)
+            this.lineStatus = LineHighlight.unHighlighted;
+
+        else if(isWhitespace)
+            this.lineStatus = LineHighlight.whitespace;
+
+        else if(blockArrayList.get(blockIndex).getSelected())
+            this.lineStatus = LineHighlight.selected;
+
+        else
+            this.lineStatus = LineHighlight.isDifferent;
+
+        return this.lineStatus;
+    }
+
+    @Override
+    public void setBlockArrayList(ArrayList<Block> blockArrayList) {
+
+    }
+
+    @Override
+    public void clickBlock() {
+
+    }
+
+    @Override
+    public String getContent() {
+        return content;
     }
 
     public static void setBlockArray(ArrayList<Block> inArrayList)

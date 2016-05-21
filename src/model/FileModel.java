@@ -46,6 +46,7 @@ public class FileModel implements FileModelInterface{
      * 파일의 내용을 갱신합니다.
      * @param args 갱신할 내용
      */
+    @Override
     public void updateArrayList(String args) {
         lineArrayList = new ArrayList<Line>();
         for(String s : args.split("\n"))
@@ -56,6 +57,7 @@ public class FileModel implements FileModelInterface{
      * @param filePath 파일의 경로
      * @return boolean 파일 읽기에 대한 성공 여부
      */
+    @Override
     public void readFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException{ // 파일명 받기 및 읽기.
         file= new File(filePath);
         Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
@@ -80,6 +82,7 @@ public class FileModel implements FileModelInterface{
      * FileNotFoundException이 발생할 수 있습니다.
      * @return boolean 파일 쓰기 성공 여부
      */
+    @Override
     public void writeFile() throws FileNotFoundException, SecurityException{ // 파일명 받기 및 읽기
         if(file == null) throw new FileNotFoundException();
         else writeFile(file.getPath());
@@ -91,6 +94,7 @@ public class FileModel implements FileModelInterface{
      * @param FilePath 파일을 저장할 경로
      * @return boolean 파일 쓰기 성공 여부
      */
+    @Override
     public void writeFile(String FilePath) throws FileNotFoundException, SecurityException{ // 파일명 받기 및 읽기
         file = new File(FilePath);//새로운 경로에 파일 생성
         PrintWriter out = new PrintWriter(file.getPath());
@@ -108,22 +112,29 @@ public class FileModel implements FileModelInterface{
      * isCompared의 값에 따라서 파일 내용을 저장하는 ArrayList의 Clone을 반환합니다.
      * @return isCompared에 따른 지금 출력해야하는 Line을 가지는 Arraylist의 clone
      */
+    @Override
     public ArrayList<LineInterface> getLineArrayList() {
         return (ArrayList<LineInterface>) lineArrayList.clone();
+    }
+    @Override
+    public ArrayList<LineInterface> getCompareLineArrayList() {
+        return (ArrayList<LineInterface>) compareLineArrayList.clone();
+    }
+    @Override
+    public void setCompareLineArrayList(ArrayList<LineInterface> lineArrayList)
+    {
+        compareLineArrayList = lineArrayList;
     }
 
     @Override
     public void clickLine(int lineNum) {
-
+        compareLineArrayList.get(lineNum).clickBlock();
     }
+    @Override
     public boolean isFileExist()
     {
         if(file == null) return false;
         else return true;
-    }
-    public void setCompareArrayList(ArrayList<LineInterface> lineArrayList)
-    {
-        compareLineArrayList = lineArrayList;
     }
 
     /**

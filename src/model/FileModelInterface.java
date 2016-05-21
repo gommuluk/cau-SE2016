@@ -15,10 +15,12 @@ public interface FileModelInterface {
     void readFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException;
     void writeFile() throws FileNotFoundException, SecurityException;
     void writeFile(String filePath) throws FileNotFoundException, SecurityException;
-    ArrayList<LineInterface> getLineArrayList(); //content의 정보로 어레이리스트를 갱신한다
+    ArrayList<LineInterface> getLineArrayList();
+    ArrayList<LineInterface> getCompareLineArrayList();
+    void setCompareLineArrayList(ArrayList<LineInterface> compareLineArrayList);
     void clickLine(int lineNum);
     boolean isFileExist();
-    void setCompareArrayList(ArrayList<LineInterface> LineArrayList);
+
 
 
 

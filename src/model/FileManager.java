@@ -267,8 +267,8 @@ public class FileManager implements FileManagerInterface {
         //백트레킹으로 block하고 line이 잘 완성됬을 예정
         Collections.reverse(cLineArrayListL);//라인들은 반대로 저장됨
         Collections.reverse(cLineArrayListR);
-        fileModelL.setCompareArrayList(cLineArrayListL);
-        fileModelR.setCompareArrayList(cLineArrayListR);
+        fileModelL.setCompareLineArrayList(cLineArrayListL);
+        fileModelR.setCompareLineArrayList(cLineArrayListR);
     }
 
 

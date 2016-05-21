@@ -63,6 +63,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void setText(String s){
         this.editor.setText(s);
 
@@ -150,7 +151,13 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                 @Override
                 protected void updateItem(Line item, boolean empty) {
                     super.updateItem(item, empty);
-                    setText(empty ? null : item.getLine(false));
+
+                    if( item != null ) {
+                        setText(empty ? null : item.getLine(false));
+                        if (item.getHighlight() == Line.Highlight.unHighlighted)
+                            setStyle("-fx-background-color:yellow;");
+                    }
+
                 }
             });
         }

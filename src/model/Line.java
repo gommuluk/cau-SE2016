@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Line {
 
     private String content;//이 라인이 가지고 있는 컨텐츠
-
+    private Highlight lineStatus = Highlight.unHighlighted; //현재 라인의 상태
     private int blockIndex; // 이 라인이 속해있는 블럭의 index. -1이면 속하는 블럭이 없다는 것
     private boolean isWhitespace;//compare로 생긴 공백 줄이면 true;
     private static ArrayList<Block> blockArrayList;//블럭을 가지고 있는 arraylist
@@ -42,10 +42,16 @@ public class Line {
 
     public Highlight getHighlight()
     {
-        if(blockIndex == -1) return Highlight.unHighlighted;
-        else if(isWhitespace) return Highlight.whitespace;
-        else if(blockArrayList.get(blockIndex).getSelected()) return Highlight.selected;
-        else return Highlight.isDifferent;
+        if(blockIndex == -1)
+            this.lineStatus = Highlight.unHighlighted;
+        else if(isWhitespace)
+            this.lineStatus = Highlight.whitespace;
+        else if(blockArrayList.get(blockIndex).getSelected())
+            this.lineStatus = Highlight.selected;
+        else
+            this.lineStatus = Highlight.isDifferent;
+
+        return this.lineStatus;
     }
 
     public static void setBlockArray(ArrayList<Block> inArrayList)

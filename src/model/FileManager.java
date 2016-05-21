@@ -75,6 +75,12 @@ public class FileManager implements FileManagerInterface {
         }
     }
     @Override
+    public void updateLineArrayList(String content, SideOfEditor side){
+        if(side == SideOfEditor.Left) fileModelL.updateArrayList(content);
+        else fileModelR.updateArrayList(content);
+    }
+
+    @Override
     public void saveFile(String content, FileManagerInterface.SideOfEditor side) throws FileNotFoundException, SecurityException{
         if(side == SideOfEditor.Left)
         {

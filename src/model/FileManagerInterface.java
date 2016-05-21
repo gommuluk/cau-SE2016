@@ -15,6 +15,7 @@ public interface FileManagerInterface {
     enum SideOfEditor{Left, Right} //왼쪽 패널인지 오른쪽 패널인지
 
     ArrayList<LineInterface> getLineArrayList(SideOfEditor side); //Side의 Line ArrayList를 가져옴
+    void updateLineArrayList(String content, SideOfEditor side);//side의 컨텐츠를 string으로 갱신함
 
     void saveFile(String newContents, String filePath, SideOfEditor side) throws FileNotFoundException, SecurityException; //Side에 파일경로로 저장함.
     void saveFile(String newContents, SideOfEditor side) throws FileNotFoundException, SecurityException; //Side에 기존 파일 경로로 저장함. false를 반환하는 경우는 기존 파일이 없을 경우이다

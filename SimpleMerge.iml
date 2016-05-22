@@ -20,5 +20,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="TEST" name="easymock-3.4" level="project" />
+    <orderEntry type="library" name="easymock-3.4" level="project" />
   </component>
 </module>

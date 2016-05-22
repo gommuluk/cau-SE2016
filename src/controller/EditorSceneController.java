@@ -179,11 +179,9 @@ public class EditorSceneController {
             btnMergeRight.setDisable(false);
 
             if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                //isEdited 셋
                 editor.update(FileManagerInterface.SideOfEditor.Left);
             }
             else {
-                //isEdited 셋
                 editor.update(FileManagerInterface.SideOfEditor.Right);
             }
         }

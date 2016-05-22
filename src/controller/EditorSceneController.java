@@ -162,12 +162,11 @@ public class EditorSceneController {
             btnMergeRight.setDisable(true);
             //TODO STATUS 갱신 editing으로
 
-            if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                //isEdited 셋
-            }
-            else {
-                //isEdited 셋
-            }
+            if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
+                FileManager.getFileManagerInterface().setEdited(FileManagerInterface.SideOfEditor.Left, true);
+
+            else
+                FileManager.getFileManagerInterface().setEdited(FileManagerInterface.SideOfEditor.Right, true);
         }
         else {                          // edit 모드 탈출
             editor.      setEditable(false);
@@ -177,15 +176,6 @@ public class EditorSceneController {
             btnCompare.   setDisable(false);
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
-
-            if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                //isEdited 셋
-                editor.update(FileManagerInterface.SideOfEditor.Left);
-            }
-            else {
-                //isEdited 셋
-                editor.update(FileManagerInterface.SideOfEditor.Right);
-            }
         }
 
     }

@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class FileModel implements FileModelInterface {
 
     private ArrayList<LineInterface> lineArrayList = new ArrayList<>();//데이터를 줄 단위로 저장하는 arraylist
-    public  boolean isEdited = false;//이 파일이 수정됬는지를 저장하는 변수
+    private  boolean isEdited = false;//이 파일이 수정됬는지를 저장하는 변수
     private final ReadOnlyStringWrapper statusString = new ReadOnlyStringWrapper("Ready(No file is loaded)");
 
     private ArrayList<LineInterface> compareLineArrayList;
@@ -152,7 +152,14 @@ public class FileModel implements FileModelInterface {
         file = null;
         compareLineArrayList =null;
     }
-
+    @Override
+    public void setEdited(boolean value){
+        isEdited = value;
+    }
+    @Override
+    public boolean getEdited(){
+        return isEdited;
+    }
     /**
      * 현재 Model의 상태를 반환합니다.
      * @return SimpleStringProperty 현재 Model의 상태

@@ -26,8 +26,10 @@ public interface FileModelInterface {
     void clickLine(int lineNum);
     boolean isFileExist();
     String getFilePath();
-
+    void setEdited(boolean value);
+    boolean getEdited();
     ReadOnlyStringProperty getStatus();
+
 
 
 }

@@ -28,6 +28,11 @@ public interface FileManagerInterface {
     String getString(SideOfEditor side);//해당 side의 content를 string으로 받아옴
     String getFilePath(SideOfEditor side);
     ReadOnlyStringProperty getStatus(SideOfEditor side);
+    boolean getEdited(SideOfEditor side); //그 사이드가 수정중인지를 판단
+    void setEdited(SideOfEditor side, boolean value); //그 사이드가 수정중인지를 판단
+
+    boolean getComparing();//지금 비교중이니
 
     int[][] getArrayLCS();//@@for debug
+
 }

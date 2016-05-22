@@ -354,10 +354,34 @@ public class FileManager implements FileManagerInterface {
         fileModelR.setCompareLineArrayList(cLineArrayListR);
     }
 
-
+    @Override
     public int[][] getArrayLCS() {
         return arrayLCS.clone();
     } //@@for test of jUnit
+    @Override
+    public boolean getComparing()
+    {
+        return isComparing;
+    }
+    @Override
+    public void setEdited(SideOfEditor side, boolean value) {
+        if(side == SideOfEditor.Left){
+            fileModelL.setEdited(value);
+        }
+        else{
+            fileModelR.setEdited(value);
+        }
+    }
+    @Override
+    public boolean getEdited(SideOfEditor side){
+        if(side == SideOfEditor.Left){
+            return fileModelL.getEdited();
+        }
+        else{
+            return fileModelR.getEdited();
+        }
+    }
+
 
     private void resetModel(FileManagerInterface.SideOfEditor sideOfEditor) {
         if (sideOfEditor == FileManagerInterface.SideOfEditor.Left) {

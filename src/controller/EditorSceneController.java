@@ -71,7 +71,7 @@ public class EditorSceneController {
             }
 
             FileManager.getFileManagerInterface().loadFile(selectedFile.getPath(), side);
-            editor.setText(FileManager.getFileManagerInterface().getString(side));
+            editor.setText(side, FileManager.getFileManagerInterface().getString(side));
 
         }
         catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.

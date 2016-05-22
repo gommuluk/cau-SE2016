@@ -18,7 +18,7 @@ public interface HighlightEditorInterface {
     public boolean isEditable();
     public void setEditable(boolean value);
 
-    public void setText(String s);
+    public void setText(FileManagerInterface.SideOfEditor side, String s);
     public void setHighlightLines(ArrayList<LineInterface> lines);
 
     public void changeMode(boolean isEditable);

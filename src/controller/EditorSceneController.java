@@ -62,18 +62,13 @@ public class EditorSceneController {
             File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
-            FileManagerInterface.SideOfEditor side;
-
             if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
-                side = FileManagerInterface.SideOfEditor.Left;
+                FileManager.getFileManagerInterface().loadFile(selectedFile.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
+                //editor.setText(FileManager.getFileManager().getFileModelL().toString());
             } else {
-                side = FileManagerInterface.SideOfEditor.Right;
+                FileManager.getFileManagerInterface().loadFile(selectedFile.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+                //editor.setText(FileManager.getFileManager().getFileModelR().toString());
             }
-
-            FileManager.getFileManagerInterface()
-                    .loadFile(selectedFile.getPath(), side);
-            editor.setText(FileManager.getFileManagerInterface().getString(side));
-
         }
         catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.
             e.printStackTrace();
@@ -138,13 +133,11 @@ public class EditorSceneController {
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
                 File file = fileSaveExplorer.getDialog(btnFileSave);
 
-                if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                    FileManager.getFileManagerInterface()
-                            .saveFile(editor.getText(), file.getPath(), FileManagerInterface.SideOfEditor.Left);
-                } else {
-                    FileManager.getFileManagerInterface()
-                            .saveFile(editor.getText(), file.getPath(), FileManagerInterface.SideOfEditor.Right);
-                }
+                if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
+                    FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
+                else
+                    FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+
 
 
             } else if (result.get() == buttonTypeNotSave) {
@@ -163,7 +156,6 @@ public class EditorSceneController {
     @FXML // 수정 버튼을 클릭했을 때의 동작
     //TODO 나머지 버튼들 활성화/비활성화 조절
     private void  onTBBtnEditClicked(ActionEvent event) {
-
         if(!editor.isEditable()) {    // edit 모드로 진입
             editor.      setEditable(true);
             editor.       changeMode(true);
@@ -190,8 +182,6 @@ public class EditorSceneController {
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
         }
-
-        editor.update();
 
     }
 

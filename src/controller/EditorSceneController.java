@@ -93,20 +93,13 @@ public class EditorSceneController {
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingException 추가
-
-        //TODO isEdited가 true인 경우, 버튼 활성화
         try {
-                                                                                                    /* 저장 버튼이 속한 패널을 판단하고,
-                                                                                                       해당 패널의 Text를 읽어서
-                                                                                                       파일 객체를 갱신하고, 파일에 덮어씌운다. */
             if (editor.getParent().getParent().getId().equals("leftEditor")) {
-                //TODO isEdited 상태로 저장 여부 결정
                 String s = editor.getText();
                 FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Left);
 
             } else {
                 String s = editor.getText();
-                //TODO isEdited 상태로 저장 여부 결정
                 FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Right);
             }
             //TODO 파일을 실제로 저장해보면 개행 처리가 안 됨 ㅜㅠ
@@ -125,31 +118,21 @@ public class EditorSceneController {
 
             ButtonType buttonTypeSave = new ButtonType("저장");
             ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
-            ButtonType buttonTypeCancel = new ButtonType("취소");
 
-            alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave, buttonTypeCancel);
+            alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave);
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == buttonTypeSave){
-
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
                 File file = fileSaveExplorer.getDialog(btnFileSave);
-
+                if(file == null) return ;
                 if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
                 else
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
-
-
-
-            } else if (result.get() == buttonTypeNotSave) {
-                // TODO 만들지 않겠다고 하면 EDIT PANE을 비우고, 파일과의 연결을 끊는다.
-            } else {
-                //취소->아무것도 하지 않음.
             }
 
-            // TODO 성공하면, isEdited를 false로 바꾼다.
             // TODO 실패하면, 실패했다는 알림을 표시하고 진행 중지
 
 
@@ -167,7 +150,6 @@ public class EditorSceneController {
             btnCompare.   setDisable(true);
             btnMergeLeft. setDisable(true);
             btnMergeRight.setDisable(true);
-            //TODO STATUS 갱신 editing으로
 
             if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
                 FileManager.getFileManagerInterface().setEdited(FileManagerInterface.SideOfEditor.Left, true);

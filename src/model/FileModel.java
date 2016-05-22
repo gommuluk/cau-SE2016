@@ -100,6 +100,7 @@ public class FileModel implements FileModelInterface {
         out.print(tstring);
         out.close();
         statusString.set("File Written successfully");
+        this.isEdited = false;
     }
 
     /**

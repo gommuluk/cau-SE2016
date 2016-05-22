@@ -1,12 +1,12 @@
 package controller;
 
 import model.FileManagerInterface;
-//import org.easymock.EasyMock;
+import org.easymock.EasyMock;
 import org.junit.Test;
 
 import java.io.IOException;
 
-//import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.createMock;
 
 
 /**
@@ -17,7 +17,7 @@ public class EditorSceneTest {
 
     @Test
     public void saveTest() throws IOException {
-        //mock = createMock(FileManagerInterface.class);
+        mock = createMock(FileManagerInterface.class);
         EditorSceneController ctrr = new EditorSceneController();
         ctrr.useSaveActionMethod();
     }

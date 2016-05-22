@@ -70,8 +70,7 @@ public class EditorSceneController {
                 side = FileManagerInterface.SideOfEditor.Right;
             }
 
-            FileManager.getFileManagerInterface()
-                    .loadFile(selectedFile.getPath(), side);
+            FileManager.getFileManagerInterface().loadFile(selectedFile.getPath(), side);
             editor.setText(FileManager.getFileManagerInterface().getString(side));
 
         }
@@ -138,13 +137,11 @@ public class EditorSceneController {
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
                 File file = fileSaveExplorer.getDialog(btnFileSave);
 
-                if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                    FileManager.getFileManagerInterface()
-                            .saveFile(editor.getText(), file.getPath(), FileManagerInterface.SideOfEditor.Left);
-                } else {
-                    FileManager.getFileManagerInterface()
-                            .saveFile(editor.getText(), file.getPath(), FileManagerInterface.SideOfEditor.Right);
-                }
+                if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
+                    FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
+                else
+                    FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+
 
 
             } else if (result.get() == buttonTypeNotSave) {
@@ -162,8 +159,7 @@ public class EditorSceneController {
 
     @FXML // 수정 버튼을 클릭했을 때의 동작
     //TODO 나머지 버튼들 활성화/비활성화 조절
-    private void  onTBBtnEditClicked(ActionEvent event) {
-
+    private void onTBBtnEditClicked(ActionEvent event) {
         if(!editor.isEditable()) {    // edit 모드로 진입
             editor.      setEditable(true);
             editor.       changeMode(true);
@@ -190,8 +186,6 @@ public class EditorSceneController {
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
         }
-
-        editor.update();
 
     }
 

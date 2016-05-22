@@ -102,11 +102,9 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), FileManagerInterface.SideOfEditor.Left);
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), FileManagerInterface.SideOfEditor.Right);
 
+        this.highlightList.getItems().clear();
         this.highlightList.setItems(FXCollections.observableArrayList(
                 FileManager.getFileManagerInterface().getLineArrayList(FileManagerInterface.SideOfEditor.Left)
-        ));
-        this.highlightList.setItems(FXCollections.observableArrayList(
-                FileManager.getFileManagerInterface().getLineArrayList(FileManagerInterface.SideOfEditor.Right)
         ));
 
     }

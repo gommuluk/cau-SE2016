@@ -185,6 +185,15 @@ public class EditorSceneController {
             btnCompare.   setDisable(false);
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
+
+            if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
+                //isEdited 셋
+                editor.update(FileManagerInterface.SideOfEditor.Left);
+            }
+            else {
+                //isEdited 셋
+                editor.update(FileManagerInterface.SideOfEditor.Right);
+            }
         }
 
     }

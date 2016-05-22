@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import model.FileManagerInterface;
 import model.Line;
 import model.LineInterface;
 
@@ -29,6 +30,6 @@ public interface HighlightEditorInterface {
     public TextArea getTextArea();
     public ListView getHighlightListView();
 
-    public void update();
+    public void update(FileManagerInterface.SideOfEditor side);
 
 }

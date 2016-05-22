@@ -19,7 +19,7 @@
                <items>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Label styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="FilePath" />
+                        <Label fx:id="filePath" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="FilePath" />
                      </children>
                   </Pane>
                   <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnLoadClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css">

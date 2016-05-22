@@ -24,7 +24,10 @@ public class EditorSceneController {
 
     @FXML private Button btnFileSave;
     @FXML private Button btnFileOpen;
+    @FXML private Label filePath;
+
     private Button btnCompare, btnMergeLeft, btnMergeRight;
+
 
 
     @FXML
@@ -55,6 +58,8 @@ public class EditorSceneController {
     @FXML // 불러오기 버튼을 클릭했을 때의 동작
     private void onTBBtnLoadClicked(ActionEvent event) {
         //File chooser code
+
+        //TODO 파일이 이미 load되어있고, isEdited==true이면, re-load전에 '저장할래?'물어본다.
         try {
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
@@ -72,6 +77,8 @@ public class EditorSceneController {
 
             FileManager.getFileManagerInterface().loadFile(selectedFile.getPath(), side);
             editor.setText(side, FileManager.getFileManagerInterface().getString(side));
+
+            filePath.setText(selectedFile.getPath());
 
         }
         catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.

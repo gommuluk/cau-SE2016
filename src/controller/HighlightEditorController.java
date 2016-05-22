@@ -57,12 +57,15 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
     @Override
     @SuppressWarnings("unchecked")
-    public void setText(String s){
+    public void setText(FileManagerInterface.SideOfEditor side, String s){
         this.editor.setText(s);
 
-        this.highlightList.setItems(FXCollections.observableArrayList(
-                FileManager.getFileManagerInterface().getLineArrayList(FileManagerInterface.SideOfEditor.Left)
-        ));
+        if( side == FileManagerInterface.SideOfEditor.Left ) {
+            update(FileManagerInterface.SideOfEditor.Left);
+        } else {
+            update(FileManagerInterface.SideOfEditor.Right);
+        }
+
     }
 
     @Override

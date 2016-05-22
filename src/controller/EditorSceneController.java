@@ -71,7 +71,7 @@ public class EditorSceneController {
             }
 
             FileManager.getFileManagerInterface().loadFile(selectedFile.getPath(), side);
-            editor.setText(FileManager.getFileManagerInterface().getString(side));
+            editor.setText(side, FileManager.getFileManagerInterface().getString(side));
 
         }
         catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.
@@ -176,6 +176,13 @@ public class EditorSceneController {
             btnCompare.   setDisable(false);
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
+
+            if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
+                editor.update(FileManagerInterface.SideOfEditor.Left);
+            }
+            else {
+                editor.update(FileManagerInterface.SideOfEditor.Right);
+            }
         }
 
     }

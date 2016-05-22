@@ -21,7 +21,8 @@ public interface HighlightEditorInterface {
     public void setText(FileManagerInterface.SideOfEditor side, String s);
     public void setHighlightLines(ArrayList<LineInterface> lines);
 
-    public void changeMode(boolean isEditable);
+    public void setEditMode(boolean isEditMode);
+    public boolean isEditMode();
 
     public String getText();
     public Parent getParent();
@@ -31,5 +32,6 @@ public interface HighlightEditorInterface {
     public ListView getHighlightListView();
 
     public void update(FileManagerInterface.SideOfEditor side);
+
 
 }

@@ -154,7 +154,7 @@ public class EditorSceneController {
     private void onTBBtnEditClicked(ActionEvent event) {
         if(!editor.isEditable()) {    // edit 모드로 진입
             editor.      setEditable(true);
-            editor.       changeMode(true);
+            editor.       setEditMode(true);
             btnFileOpen.  setDisable(true);
             btnFileSave.  setDisable(true);
             btnCompare.   setDisable(true);
@@ -171,7 +171,7 @@ public class EditorSceneController {
         }
         else {                          // edit 모드 탈출
             editor.      setEditable(false);
-            editor.       changeMode(false);
+            editor.setEditMode(false);
             btnFileOpen.  setDisable(false);
             btnFileSave.  setDisable(false);
             btnCompare.   setDisable(false);

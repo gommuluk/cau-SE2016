@@ -22,6 +22,8 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     @FXML private TextArea editor;
     @FXML private ListView highlightList;
 
+    private boolean isEditMode = false;
+
     /* 생성자 */
     public HighlightEditorController() {
         super();
@@ -75,14 +77,21 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
-    public void changeMode(boolean isEditable) {
-        if( isEditable ){
+    public void setEditMode(boolean isEditMode) {
+        if( isEditMode ){
             this.highlightList.setVisible(false);
             this.editor.setVisible(true);
+            this.isEditMode = true;
         } else {
             this.highlightList.setVisible(true);
             this.editor.setVisible(false);
+            this.isEditMode = false;
         }
+    }
+
+    @Override
+    public boolean isEditMode() {
+        return this.isEditMode;
     }
 
     @Override

@@ -18,6 +18,8 @@ import java.util.ArrayList;
  */
 public class ControlPaneSceneController {
 
+    @FXML private HighlightEditorInterface editor;
+
     @FXML private Button btnCompare, btnMergeLeft, btnMergeRight;
     @FXML private GridPane controlPane;
     private TextArea leftEditor, rightEditor;

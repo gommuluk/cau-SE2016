@@ -77,7 +77,7 @@ public class EditorSceneController {
             File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
-
+            if(selectedFile == null) return ;
             FileManager.getFileManagerInterface().loadFile(selectedFile.getPath(), side);
             editor.setText(side, FileManager.getFileManagerInterface().getString(side));
 
@@ -147,7 +147,7 @@ public class EditorSceneController {
     private void onTBBtnEditClicked(ActionEvent event) {
         if(!editor.isEditable()) {    // edit 모드로 진입
             editor.      setEditable(true);
-            editor.       setEditMode(true);
+            editor.      setEditMode(true);
             btnFileOpen.  setDisable(true);
             btnFileSave.  setDisable(true);
             btnCompare.   setDisable(true);
@@ -162,7 +162,7 @@ public class EditorSceneController {
         }
         else {                          // edit 모드 탈출
             editor.      setEditable(false);
-            editor.setEditMode(false);
+            editor.      setEditMode(false);
             btnFileOpen.  setDisable(false);
             btnFileSave.  setDisable(false);
             btnCompare.   setDisable(false);

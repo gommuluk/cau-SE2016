@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import model.FileManager;
+import model.LeftEditorFileNotFoundException;
+import model.RightEditorFileNotFoundException;
 
 import java.util.ArrayList;
 
@@ -40,8 +42,15 @@ public class ControlPaneSceneController {
         ArrayList<String> leftList;
         ArrayList<String> rightList;
 
-//        FileManager.getFileManager().compare();
-            //TODO LCS 알고리즘을 사용하는 메서드
+        try {
+            FileManager.getFileManagerInterface().setCompare();
+
+        } catch (LeftEditorFileNotFoundException e) {
+            e.printStackTrace();
+        } catch (RightEditorFileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //TODO LCS 알고리즘을 사용하는 메서드
             //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
             //TODO 블럭에 속하는 line들을 highlight한다.
             //TODO IsCompared를 true로 설치.

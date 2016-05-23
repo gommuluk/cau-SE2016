@@ -6,8 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.FileManager;
+import model.FileManagerInterface;
 import model.LeftEditorFileNotFoundException;
 import model.RightEditorFileNotFoundException;
 
@@ -22,7 +24,7 @@ public class ControlPaneSceneController {
 
     @FXML private Button btnCompare, btnMergeLeft, btnMergeRight;
     @FXML private GridPane controlPane;
-    private TextArea leftEditor, rightEditor;
+    private HighlightEditorInterface leftEditor, rightEditor;
 
 
     @FXML
@@ -33,9 +35,9 @@ public class ControlPaneSceneController {
     }
 
     private void _getEditorReference(){
-//        Node root = controlPane.getScene().getRoot();
-//        this.leftEditor = (TextArea)root.lookup("#leftEditor").lookup("#textArea");
-//        this.rightEditor = (TextArea)root.lookup("#rightEditor").lookup("#textArea");
+        Node root = controlPane.getScene().getRoot();
+        this.leftEditor  = (HighlightEditorInterface)((BorderPane) root.lookup("#leftEditor")).getCenter().lookup("#editor");
+        this.rightEditor = (HighlightEditorInterface)((BorderPane) root.lookup("#rightEditor")).getCenter().lookup("#editor");
     }
 
 

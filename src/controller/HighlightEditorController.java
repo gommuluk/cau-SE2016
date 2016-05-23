@@ -179,8 +179,12 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
                     if( item != null ) {
                         setText(empty ? null : item.getContent(false));
-                        if (item.getHighlight() == LineInterface.LineHighlight.unHighlighted)
-                            setStyle("-fx-background-color:yellow;");
+
+                        switch(item.getHighlight()){
+                            case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
+                            case isDifferent  : setStyle("-fx-background-color: yellow"); break;
+                        }
+
                     }
 
                 }

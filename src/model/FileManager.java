@@ -291,7 +291,7 @@ public class FileManager implements FileManagerInterface {
                 }
                 break;
             }//비교끝
-            if (i == 0) //위로 올라간다
+            else if (i == 0) //위로 올라간다
             {
                 cLineArrayListL.add(new Line("", numBlock, true));
                 cLineArrayListR.add(new Line(rightArr.get(j - 1).getContent(true), numBlock, false));
@@ -301,7 +301,7 @@ public class FileManager implements FileManagerInterface {
                     tempBlock = new Block();//새 블럭을 만들어줌
                 }
             }
-            if (j == 0) //왼쪽으로 이동한다
+            else if (j == 0) //왼쪽으로 이동한다
             {
                 cLineArrayListL.add(new Line(leftArr.get(i - 1).getContent(true), numBlock, false));
                 cLineArrayListR.add(new Line("", numBlock, true));
@@ -311,7 +311,7 @@ public class FileManager implements FileManagerInterface {
                     tempBlock = new Block();//새 블럭을 만들어줌
                 }
             }
-            if (leftArr.get(i - 1).getContent(true).compareTo(rightArr.get(j - 1).getContent(true)) == 0)//같으면 대각선 위로 간다. 블럭 갱신이 일어남
+            else if (leftArr.get(i - 1).getContent(true).compareTo(rightArr.get(j - 1).getContent(true)) == 0)//같으면 대각선 위로 간다. 블럭 갱신이 일어남
             {
                 cLineArrayListL.add(new Line(leftArr.get(i - 1).getContent(true), -1, false));
                 cLineArrayListR.add(new Line(rightArr.get(j - 1).getContent(true), -1, false));//블럭에 속하지 않음

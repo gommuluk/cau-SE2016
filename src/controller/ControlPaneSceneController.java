@@ -45,10 +45,11 @@ public class ControlPaneSceneController {
     private void onBtnCompareClicked(ActionEvent event) {
         ArrayList<String> leftList;
         ArrayList<String> rightList;
-
+        FileManagerInterface.SideOfEditor side;
         try {
             FileManager.getFileManagerInterface().setCompare();
-
+            this.leftEditor.update(FileManagerInterface.SideOfEditor.Left);
+            this.rightEditor.update(FileManagerInterface.SideOfEditor.Right);
         } catch (LeftEditorFileNotFoundException e) {
             e.printStackTrace();
         } catch (RightEditorFileNotFoundException e) {

@@ -112,7 +112,6 @@ public class EditorSceneController {
             //로드가 되지 않은 채로 저장을 눌렀다든가.
             //edit만 하고 저장을 눌렀다든가?
 
-            // TODO 경고창 매서드로 따로 만들기
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Simple Merge - 소공 2팀");

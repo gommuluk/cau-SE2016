@@ -58,15 +58,7 @@ public class EditorSceneController {
     @FXML // 불러오기 버튼을 클릭했을 때의 동작
     private void onTBBtnLoadClicked(ActionEvent event) {
         //File chooser code
-
-        //TODO 파일이 이미 load되어있고, isEdited==true이면, re-load전에 '저장할래?'물어본다.
         try {
-            Stage s = (Stage) btnFileOpen.getScene().getWindow();
-
-            FileExplorer fileLoadExplorer = new FileLoadExplorer();
-            File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
-
-            //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             FileManagerInterface.SideOfEditor side;
 
             if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
@@ -74,6 +66,17 @@ public class EditorSceneController {
             } else {
                 side = FileManagerInterface.SideOfEditor.Right;
             }
+
+            if(FileManager.getFileManagerInterface().getEdited(side)) {
+                //TODO 파일이 이미 load되어있고, isEdited==true이면, re-load전에 '저장할래?'물어본다.
+            }
+
+            Stage s = (Stage) btnFileOpen.getScene().getWindow();
+
+            FileExplorer fileLoadExplorer = new FileLoadExplorer();
+            File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
+
+            //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
 
             FileManager.getFileManagerInterface().loadFile(selectedFile.getPath(), side);
             editor.setText(side, FileManager.getFileManagerInterface().getString(side));
@@ -168,6 +171,8 @@ public class EditorSceneController {
 
             if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
                 editor.update(FileManagerInterface.SideOfEditor.Left);
+
+
             }
             else {
                 editor.update(FileManagerInterface.SideOfEditor.Right);

@@ -13,7 +13,6 @@ import model.FileManagerInterface;
 
 import java.io.File;
 import java.io.*;
-import java.util.Optional;
 
 /**
  * Created by SH on 2016-05-11.
@@ -113,19 +112,9 @@ public class EditorSceneController {
             //edit만 하고 저장을 눌렀다든가?
 
 
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Simple Merge - 소공 2팀");
-            alert.setHeaderText(null);
-            alert.setContentText("새로운 파일로 저장하시겠습니까?");
+            SavingCaution caution = new SavingCaution();
 
-            ButtonType buttonTypeSave = new ButtonType("저장");
-            ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
-
-            alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave);
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == buttonTypeSave){
+            if (caution.getWindow().get() == caution.getSavebtn()){
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
                 File file = fileSaveExplorer.getDialog(btnFileSave);
                 if(file == null) return ;

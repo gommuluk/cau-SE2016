@@ -20,4 +20,19 @@ public class SavingCaution {
     }
 
 
+    public  Optional<ButtonType> getWindow(){
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Simple Merge - 소공 2팀");
+        alert.setHeaderText(null);
+        alert.setContentText("새로운 파일로 저장하시겠습니까?");
+
+        alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        return result;
+    }
+
+
 }

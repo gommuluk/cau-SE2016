@@ -15,4 +15,9 @@ public class SavingCaution {
     ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
 
 
+    public ButtonType getSavebtn(){
+        return buttonTypeSave;
+    }
+
+
 }

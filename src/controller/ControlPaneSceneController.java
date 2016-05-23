@@ -52,9 +52,7 @@ public class ControlPaneSceneController {
         } catch (RightEditorFileNotFoundException e) {
             e.printStackTrace();
         }
-            //TODO 다른 부분에 대한 블럭에서 각 블럭의 LINE 범위를 받아서 공백을 맞춰준다.
             //TODO 블럭에 속하는 line들을 highlight한다.
-            //TODO IsCompared를 true로 설치.
     }
 
     //TODO Merge

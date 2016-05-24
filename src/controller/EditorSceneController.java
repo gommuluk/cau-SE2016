@@ -120,16 +120,17 @@ public class EditorSceneController {
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingException 추가
-        try {
-            if (editor.getParent().getParent().getId().equals("leftEditor")) {
-                String s = editor.getText();
-                FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Left);
+        FileManagerInterface.SideOfEditor side;
+        if(editor.getParent().getParent().getId().equals("leftEditor"))
+            side = FileManagerInterface.SideOfEditor.Left;
+        else
+            side = FileManagerInterface.SideOfEditor.Right;
 
-            } else {
-                String s = editor.getText();
-                FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Right);
-            }
-            //TODO 파일을 실제로 저장해보면 개행 처리가 안 됨 ㅜㅠ
+        try {
+            String s = editor.getText();
+            FileManager.getFileManagerInterface().saveFile(s, side);
+
+
             FileManager.getFileManagerInterface().cancelCompare();
 
         } catch (Exception e) { // FileNotFound 등 Exception에 대한 처리.
@@ -139,7 +140,7 @@ public class EditorSceneController {
 
             SavingCaution caution = new SavingCaution();
 
-            if (caution.getWindow().get() == caution.getSavebtn()){
+            if (caution.getWindow(side).get() == caution.getSavebtn()){
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
                 File file = fileSaveExplorer.getDialog(btnFileSave);
                 if(file == null) return ;

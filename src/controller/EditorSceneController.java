@@ -59,17 +59,31 @@ public class EditorSceneController {
     private void onTBBtnLoadClicked(ActionEvent event) {
         //File chooser code
         try {
-            if(FileManager.getFileManagerInterface().getComparing())
+            boolean flag = false;
+            if(FileManager.getFileManagerInterface().getComparing()) {
                 FileManager.getFileManagerInterface().cancelCompare();
-
-            FileManagerInterface.SideOfEditor side;
-
-            if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
-                side = FileManagerInterface.SideOfEditor.Left;
-            } else {
-                side = FileManagerInterface.SideOfEditor.Right;
+                flag = true;
             }
 
+            FileManagerInterface.SideOfEditor side, oppositeSide;
+
+            if(editor.getParent().getParent().getId().equals("leftEditor")) {
+                side = FileManagerInterface.SideOfEditor.Left;
+                oppositeSide = FileManagerInterface.SideOfEditor.Right;
+            }
+            else {
+                side = FileManagerInterface.SideOfEditor.Right;
+                oppositeSide = FileManagerInterface.SideOfEditor.Left;
+            }
+
+            Node root = editor.getScene().getRoot();
+
+            if(flag) {
+                if(oppositeSide == FileManagerInterface.SideOfEditor.Right)
+                    ((HighlightEditorInterface)(root.lookup("#rightEditor").lookup("#editor"))).update(oppositeSide);
+                else
+                    ((HighlightEditorInterface)(root.lookup("#leftEditor").lookup("#editor"))).update(oppositeSide);
+            }
 
 
             if(FileManager.getFileManagerInterface().getEdited(side)) {
@@ -177,7 +191,6 @@ public class EditorSceneController {
         FileManagerInterface.SideOfEditor side, oppositeSide;
 
         if(FileManager.getFileManagerInterface().getComparing()) {
-            System.out.println("AA");
             FileManager.getFileManagerInterface().cancelCompare();
             flag = true;
         }

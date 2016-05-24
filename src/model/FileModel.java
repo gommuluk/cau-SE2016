@@ -42,7 +42,7 @@ public class FileModel implements FileModelInterface {
     public void updateArrayList(String args) {
 
         lineArrayList = new ArrayList<>();
-        for(String s : args.split("\n"))
+        for(String s : args.split("\n",0xffffffff))
             lineArrayList.add(new Line(s));
     }
     /**

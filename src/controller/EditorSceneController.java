@@ -155,6 +155,7 @@ public class EditorSceneController {
             editor.      setEditMode(false);
             btnFileOpen.  setDisable(false);
             btnFileSave.  setDisable(false);
+            //TODO 버튼 DISABLE 조건..
             btnCompare.   setDisable(false);
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);

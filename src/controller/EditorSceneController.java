@@ -3,6 +3,7 @@ package controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -133,6 +134,13 @@ public class EditorSceneController {
     @FXML // 수정 버튼을 클릭했을 때의 동작
     //TODO 나머지 버튼들 활성화/비활성화 조절
     private void onTBBtnEditClicked(ActionEvent event) {
+        FileManagerInterface.SideOfEditor side;
+        if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
+            side = FileManagerInterface.SideOfEditor.Left;
+        else
+            side = FileManagerInterface.SideOfEditor.Right;
+
+
         if(FileManager.getFileManagerInterface().getComparing())
             FileManager.getFileManagerInterface().cancelCompare();
         if(!editor.isEditable()) {    // edit 모드로 진입
@@ -144,11 +152,8 @@ public class EditorSceneController {
             btnMergeLeft. setDisable(true);
             btnMergeRight.setDisable(true);
 
-            if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
-                FileManager.getFileManagerInterface().setEdited(FileManagerInterface.SideOfEditor.Left, true);
 
-            else
-                FileManager.getFileManagerInterface().setEdited(FileManagerInterface.SideOfEditor.Right, true);
+            FileManager.getFileManagerInterface().setEdited(side, true);
         }
         else {                          // edit 모드 탈출
             editor.      setEditable(false);
@@ -159,16 +164,9 @@ public class EditorSceneController {
             btnCompare.   setDisable(false);
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
-
-            if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                editor.update(FileManagerInterface.SideOfEditor.Left);
-
-
-            }
-            else {
-                editor.update(FileManagerInterface.SideOfEditor.Right);
-            }
+            editor.update(side);
         }
+
 
     }
 

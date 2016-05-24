@@ -67,9 +67,33 @@ public class EditorSceneController {
                 side = FileManagerInterface.SideOfEditor.Right;
             }
 
+
+            //테스트중..
             if(FileManager.getFileManagerInterface().getEdited(side)) {
-                //TODO 파일이 이미 load되어있고, isEdited==true이면, re-load전에 '저장할래?'물어본다.
+                System.out.println("");
+                if(FileManager.getFileManagerInterface().getFilePath(side) == null){
+                    System.out.println("경로가 없음"); // 얘는 되는데 isedited가 안되나봄..
+                    System.out.println("if : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
+                }
+                else if(FileManager.getFileManagerInterface().getFilePath(side) != null){
+                    System.out.println("수정되었는데 저장이 안 되었음");
+                    System.out.println("if : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
+                }
+                else {
+
+                    System.out.println("다 통과하고 else만 남음");
+                    //TODO 파일이 이미 load되어있고, isEdited==true이면, re-load전에 '저장할래?'물어본다.
+                }
             }
+            else{
+
+                System.out.println("else : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
+            }
+
+
+
+
+
 
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
@@ -154,7 +178,6 @@ public class EditorSceneController {
 
 
             FileManager.getFileManagerInterface().setEdited(side, true);
-            System.out.println(FileManager.getFileManagerInterface().getEdited(side));
         }
         else {                          // edit 모드 탈출
             editor.      setEditable(false);
@@ -167,10 +190,8 @@ public class EditorSceneController {
             btnMergeRight.setDisable(false);
             editor.update(side);
 
-            FileManager.getFileManagerInterface().setEdited(side, false);
-            System.out.println(FileManager.getFileManagerInterface().getEdited(side));
+            FileManager.getFileManagerInterface().setEdited(side, true);
         }
-
 
     }
 

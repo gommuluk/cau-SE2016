@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public interface FileManagerInterface {
 
     enum SideOfEditor{Left, Right} //왼쪽 패널인지 오른쪽 패널인지
-
     ArrayList<LineInterface> getLineArrayList(SideOfEditor side); //Side의 Line ArrayList를 가져옴
     void updateLineArrayList(String content, SideOfEditor side);//side의 컨텐츠를 string으로 갱신함
 

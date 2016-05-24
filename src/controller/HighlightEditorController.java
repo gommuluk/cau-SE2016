@@ -172,7 +172,8 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
                         switch(item.getHighlight()){
                             case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
-                            case isDifferent  : setStyle("-fx-background-color: yellow"); break;
+                            case isDifferent: setStyle("-fx-background-color: yellow"); break;
+                            case whitespace: setStyle("-fx-background-color: #EEEEEE"); break;
                         }
 
                     }

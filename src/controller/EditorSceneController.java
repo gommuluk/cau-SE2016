@@ -70,9 +70,9 @@ public class EditorSceneController {
 
             //테스트중..
             if(FileManager.getFileManagerInterface().getEdited(side)) {
-                System.out.println("");
+                System.out.println("경로 = " + FileManager.getFileManagerInterface().getFilePath(side));
                 if(FileManager.getFileManagerInterface().getFilePath(side) == null){
-                    System.out.println("경로가 없음"); // 얘는 되는데 isedited가 안되나봄..
+                    System.out.println("경로가 없음");
                     System.out.println("if : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
                 }
                 else if(FileManager.getFileManagerInterface().getFilePath(side) != null){
@@ -177,7 +177,6 @@ public class EditorSceneController {
             btnMergeRight.setDisable(true);
 
 
-            FileManager.getFileManagerInterface().setEdited(side, true);
         }
         else {                          // edit 모드 탈출
             Node root = editor.getScene().getRoot();
@@ -206,8 +205,9 @@ public class EditorSceneController {
 
             editor.update(side);
 
-            FileManager.getFileManagerInterface().setEdited(side, true);
         }
+
+        FileManager.getFileManagerInterface().setEdited(side, true);
 
     }
 

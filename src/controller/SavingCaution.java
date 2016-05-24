@@ -2,6 +2,8 @@ package controller;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import model.FileManager;
+import model.FileManagerInterface;
 
 import java.util.Optional;
 
@@ -20,12 +22,15 @@ public class SavingCaution {
     }
 
 
-    public  Optional<ButtonType> getWindow(){
+    public  Optional<ButtonType> getWindow(FileManagerInterface.SideOfEditor side){
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Simple Merge - 소공 2팀");
         alert.setHeaderText(null);
-        alert.setContentText("새로운 파일로 저장하시겠습니까?");
+        if(FileManager.getFileManagerInterface().getFilePath(side) == null)
+            alert.setContentText("새로운 파일로 저장하시겠습니까?");
+        else
+            alert.setContentText("변경 사항을 저장하시겠습니까?");
 
         alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave);
 

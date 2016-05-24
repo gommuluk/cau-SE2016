@@ -68,31 +68,41 @@ public class EditorSceneController {
             }
 
 
-            //테스트중..
+
             if(FileManager.getFileManagerInterface().getEdited(side)) {
-                System.out.println("경로 = " + FileManager.getFileManagerInterface().getFilePath(side));
+
+                SavingCaution caution = new SavingCaution();
                 if(FileManager.getFileManagerInterface().getFilePath(side) == null){
-                    System.out.println("경로가 없음");
-                    System.out.println("if : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
+
+                    if(caution.getWindow(side).get() == caution.getSavebtn()){
+
+                        FileExplorer fileSaveExplorer = new FileSaveExplorer();
+                        File file = fileSaveExplorer.getDialog(btnFileOpen);
+                        if(file == null) return ;
+                        FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
+
+                    }
+                    else{
+                        editor.setText(side, "");
+                    }
+                    FileManager.getFileManagerInterface().setEdited(side, false);
+
+
                 }
                 else if(FileManager.getFileManagerInterface().getFilePath(side) != null){
-                    System.out.println("수정되었는데 저장이 안 되었음");
-                    System.out.println("if : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
-                }
-                else {
 
-                    System.out.println("다 통과하고 else만 남음");
-                    //TODO 파일이 이미 load되어있고, isEdited==true이면, re-load전에 '저장할래?'물어본다.
+                    if(caution.getWindow(side).get() == caution.getSavebtn()){
+
+                        FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
+                        FileManager.getFileManagerInterface().setEdited(side, false);
+                    }
+                    else{
+                        //TODO 파일이 존재하는데, 저장을 하지 않고 load를 눌렀는데, 거기서도 저장 안 함을 눌렀을 경우
+                    }
+
+
                 }
             }
-            else{
-
-                System.out.println("else : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
-            }
-
-
-
-
 
 
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
@@ -120,16 +130,17 @@ public class EditorSceneController {
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingException 추가
-        try {
-            if (editor.getParent().getParent().getId().equals("leftEditor")) {
-                String s = editor.getText();
-                FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Left);
+        FileManagerInterface.SideOfEditor side;
+        if(editor.getParent().getParent().getId().equals("leftEditor"))
+            side = FileManagerInterface.SideOfEditor.Left;
+        else
+            side = FileManagerInterface.SideOfEditor.Right;
 
-            } else {
-                String s = editor.getText();
-                FileManager.getFileManagerInterface().saveFile(s, FileManagerInterface.SideOfEditor.Right);
-            }
-            //TODO 파일을 실제로 저장해보면 개행 처리가 안 됨 ㅜㅠ
+        try {
+            String s = editor.getText();
+            FileManager.getFileManagerInterface().saveFile(s, side);
+
+
             FileManager.getFileManagerInterface().cancelCompare();
 
         } catch (Exception e) { // FileNotFound 등 Exception에 대한 처리.
@@ -139,7 +150,7 @@ public class EditorSceneController {
 
             SavingCaution caution = new SavingCaution();
 
-            if (caution.getWindow().get() == caution.getSavebtn()){
+            if (caution.getWindow(side).get() == caution.getSavebtn()){
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
                 File file = fileSaveExplorer.getDialog(btnFileSave);
                 if(file == null) return ;

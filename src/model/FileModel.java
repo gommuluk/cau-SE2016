@@ -40,6 +40,8 @@ public class FileModel implements FileModelInterface {
      */
     @Override
     public void updateArrayList(String args) {
+        System.out.println("이걸로 갱신합니다" + args);
+
         lineArrayList = new ArrayList<>();
         for(String s : args.split("\n"))
             lineArrayList.add(new Line(s));
@@ -109,10 +111,20 @@ public class FileModel implements FileModelInterface {
      */
     @Override
     public ArrayList<LineInterface> getLineArrayList() {
+        System.out.println("getLineArrayList started");
+        for(LineInterface i : lineArrayList)
+        {
+            System.out.println(i.getContent(true));
+        }
         return (ArrayList<LineInterface>) lineArrayList.clone();
     }
     @Override
     public ArrayList<LineInterface> getCompareLineArrayList() {
+        System.out.println("getCompareLineArrayList started");
+        for(LineInterface i : compareLineArrayList)
+        {
+            System.out.println(i.getContent(true));
+        }
         return compareLineArrayList;
     }
     @Override

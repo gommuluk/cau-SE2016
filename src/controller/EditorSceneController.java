@@ -159,7 +159,7 @@ public class EditorSceneController {
     //TODO 나머지 버튼들 활성화/비활성화 조절
     private void onTBBtnEditClicked(ActionEvent event) {
         FileManagerInterface.SideOfEditor side;
-        if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
+        if(editor.getParent().getParent().getId().equals("leftEditor"))
             side = FileManagerInterface.SideOfEditor.Left;
         else
             side = FileManagerInterface.SideOfEditor.Right;
@@ -180,14 +180,30 @@ public class EditorSceneController {
             FileManager.getFileManagerInterface().setEdited(side, true);
         }
         else {                          // edit 모드 탈출
+            Node root = editor.getScene().getRoot();
+
             editor.      setEditable(false);
             editor.      setEditMode(false);
             btnFileOpen.  setDisable(false);
             btnFileSave.  setDisable(false);
             //TODO 버튼 DISABLE 조건..
-            btnCompare.   setDisable(false);
-            btnMergeLeft. setDisable(false);
-            btnMergeRight.setDisable(false);
+            //다른 패널의 에디트 버튼 상태 조회 필요
+
+            if(side == FileManagerInterface.SideOfEditor.Right) {
+                if (((ToggleButton)root.lookup("#leftEditor").lookup("#btnEdit")).isSelected()) {
+                    btnCompare.setDisable(false);
+                    btnMergeLeft.setDisable(false);
+                    btnMergeRight.setDisable(false);
+                }
+            }
+            else {
+                if (((ToggleButton)root.lookup("#rightEditor").lookup("#btnEdit")).isSelected()) {
+                    btnCompare.setDisable(false);
+                    btnMergeLeft.setDisable(false);
+                    btnMergeRight.setDisable(false);
+                }
+            }
+
             editor.update(side);
 
             FileManager.getFileManagerInterface().setEdited(side, true);

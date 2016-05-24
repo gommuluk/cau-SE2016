@@ -138,7 +138,7 @@ public class FileModel implements FileModelInterface {
     {
         if(file == null)
         {
-            return "파일 참조자가 눌이잖아!";
+            return null;
         }
         else
         {

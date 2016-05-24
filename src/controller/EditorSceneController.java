@@ -154,6 +154,7 @@ public class EditorSceneController {
 
 
             FileManager.getFileManagerInterface().setEdited(side, true);
+            System.out.println(FileManager.getFileManagerInterface().getEdited(side));
         }
         else {                          // edit 모드 탈출
             editor.      setEditable(false);
@@ -165,6 +166,9 @@ public class EditorSceneController {
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
             editor.update(side);
+
+            FileManager.getFileManagerInterface().setEdited(side, false);
+            System.out.println(FileManager.getFileManagerInterface().getEdited(side));
         }
 
 

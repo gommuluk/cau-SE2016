@@ -59,6 +59,9 @@ public class EditorSceneController {
     private void onTBBtnLoadClicked(ActionEvent event) {
         //File chooser code
         try {
+            if(FileManager.getFileManagerInterface().getComparing())
+                FileManager.getFileManagerInterface().cancelCompare();
+
             FileManagerInterface.SideOfEditor side;
 
             if( editor.getParent().getParent().getId().contentEquals("leftEditor") ) {
@@ -169,15 +172,28 @@ public class EditorSceneController {
     @FXML // 수정 버튼을 클릭했을 때의 동작
     //TODO 나머지 버튼들 활성화/비활성화 조절
     private void onTBBtnEditClicked(ActionEvent event) {
-        FileManagerInterface.SideOfEditor side;
-        if(editor.getParent().getParent().getId().equals("leftEditor"))
-            side = FileManagerInterface.SideOfEditor.Left;
-        else
-            side = FileManagerInterface.SideOfEditor.Right;
+        boolean flag = false;
 
+        Node root = editor.getScene().getRoot();
+        FileManagerInterface.SideOfEditor side, oppositeSide;
 
-        if(FileManager.getFileManagerInterface().getComparing())
+        if(FileManager.getFileManagerInterface().getComparing()) {
+            System.out.println("AA");
             FileManager.getFileManagerInterface().cancelCompare();
+            flag = true;
+        }
+
+
+        if(editor.getParent().getParent().getId().equals("leftEditor")) {
+            side = FileManagerInterface.SideOfEditor.Left;
+            oppositeSide = FileManagerInterface.SideOfEditor.Right;
+        }
+        else {
+            side = FileManagerInterface.SideOfEditor.Right;
+            oppositeSide = FileManagerInterface.SideOfEditor.Left;
+        }
+
+
         if(!editor.isEditable()) {    // edit 모드로 진입
             editor.      setEditable(true);
             editor.      setEditMode(true);
@@ -187,17 +203,20 @@ public class EditorSceneController {
             btnMergeLeft. setDisable(true);
             btnMergeRight.setDisable(true);
 
+            if(flag) {
+                if(oppositeSide == FileManagerInterface.SideOfEditor.Right)
+                    ((HighlightEditorInterface)(root.lookup("#rightEditor").lookup("#editor"))).update(oppositeSide);
+                else
+                    ((HighlightEditorInterface)(root.lookup("#leftEditor").lookup("#editor"))).update(oppositeSide);
+            }
 
         }
         else {                          // edit 모드 탈출
-            Node root = editor.getScene().getRoot();
 
             editor.      setEditable(false);
             editor.      setEditMode(false);
             btnFileOpen.  setDisable(false);
             btnFileSave.  setDisable(false);
-            //TODO 버튼 DISABLE 조건..
-            //다른 패널의 에디트 버튼 상태 조회 필요
 
             if(side == FileManagerInterface.SideOfEditor.Right) {
                 if (!((ToggleButton)root.lookup("#leftEditor").lookup("#btnEdit")).isSelected()) {
@@ -216,7 +235,6 @@ public class EditorSceneController {
             }
 
             editor.update(side);
-
         }
 
         FileManager.getFileManagerInterface().setEdited(side, true);

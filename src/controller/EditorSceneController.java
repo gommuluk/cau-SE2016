@@ -189,14 +189,15 @@ public class EditorSceneController {
             //다른 패널의 에디트 버튼 상태 조회 필요
 
             if(side == FileManagerInterface.SideOfEditor.Right) {
-                if (((ToggleButton)root.lookup("#leftEditor").lookup("#btnEdit")).isSelected()) {
+                if (!((ToggleButton)root.lookup("#leftEditor").lookup("#btnEdit")).isSelected()) {
                     btnCompare.setDisable(false);
                     btnMergeLeft.setDisable(false);
                     btnMergeRight.setDisable(false);
                 }
             }
             else {
-                if (((ToggleButton)root.lookup("#rightEditor").lookup("#btnEdit")).isSelected()) {
+                if (!((ToggleButton)root.lookup("#rightEditor").lookup("#btnEdit")).isSelected()) {
+
                     btnCompare.setDisable(false);
                     btnMergeLeft.setDisable(false);
                     btnMergeRight.setDisable(false);

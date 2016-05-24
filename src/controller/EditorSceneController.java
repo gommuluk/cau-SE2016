@@ -3,6 +3,7 @@ package controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -66,9 +67,33 @@ public class EditorSceneController {
                 side = FileManagerInterface.SideOfEditor.Right;
             }
 
+
+            //테스트중..
             if(FileManager.getFileManagerInterface().getEdited(side)) {
-                //TODO 파일이 이미 load되어있고, isEdited==true이면, re-load전에 '저장할래?'물어본다.
+                System.out.println("");
+                if(FileManager.getFileManagerInterface().getFilePath(side) == null){
+                    System.out.println("경로가 없음"); // 얘는 되는데 isedited가 안되나봄..
+                    System.out.println("if : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
+                }
+                else if(FileManager.getFileManagerInterface().getFilePath(side) != null){
+                    System.out.println("수정되었는데 저장이 안 되었음");
+                    System.out.println("if : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
+                }
+                else {
+
+                    System.out.println("다 통과하고 else만 남음");
+                    //TODO 파일이 이미 load되어있고, isEdited==true이면, re-load전에 '저장할래?'물어본다.
+                }
             }
+            else{
+
+                System.out.println("else : isEdited값 = " + FileManager.getFileManagerInterface().getEdited(side));
+            }
+
+
+
+
+
 
             Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
@@ -133,6 +158,13 @@ public class EditorSceneController {
     @FXML // 수정 버튼을 클릭했을 때의 동작
     //TODO 나머지 버튼들 활성화/비활성화 조절
     private void onTBBtnEditClicked(ActionEvent event) {
+        FileManagerInterface.SideOfEditor side;
+        if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
+            side = FileManagerInterface.SideOfEditor.Left;
+        else
+            side = FileManagerInterface.SideOfEditor.Right;
+
+
         if(FileManager.getFileManagerInterface().getComparing())
             FileManager.getFileManagerInterface().cancelCompare();
         if(!editor.isEditable()) {    // edit 모드로 진입
@@ -144,11 +176,8 @@ public class EditorSceneController {
             btnMergeLeft. setDisable(true);
             btnMergeRight.setDisable(true);
 
-            if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
-                FileManager.getFileManagerInterface().setEdited(FileManagerInterface.SideOfEditor.Left, true);
 
-            else
-                FileManager.getFileManagerInterface().setEdited(FileManagerInterface.SideOfEditor.Right, true);
+            FileManager.getFileManagerInterface().setEdited(side, true);
         }
         else {                          // edit 모드 탈출
             editor.      setEditable(false);
@@ -159,15 +188,9 @@ public class EditorSceneController {
             btnCompare.   setDisable(false);
             btnMergeLeft. setDisable(false);
             btnMergeRight.setDisable(false);
+            editor.update(side);
 
-            if(editor.getParent().getParent().getParent().getId().equals("leftEditor")) {
-                editor.update(FileManagerInterface.SideOfEditor.Left);
-
-
-            }
-            else {
-                editor.update(FileManagerInterface.SideOfEditor.Right);
-            }
+            FileManager.getFileManagerInterface().setEdited(side, true);
         }
 
     }

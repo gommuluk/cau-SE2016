@@ -40,7 +40,6 @@ public class FileModel implements FileModelInterface {
      */
     @Override
     public void updateArrayList(String args) {
-        System.out.println("이걸로 갱신합니다" + args);
 
         lineArrayList = new ArrayList<>();
         for(String s : args.split("\n"))
@@ -54,8 +53,21 @@ public class FileModel implements FileModelInterface {
     @Override
     public void readFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException{ // 파일명 받기 및 읽기.
         init();
+        Scanner  in;
         file= new File(filePath);
-        Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8")));
+        FileInputStream FIS = new FileInputStream(filePath);
+        byte[] BOM = new byte[4];
+        try{
+            FIS.read(BOM,0,4); FIS.close();
+
+        }
+        catch (IOException e)
+        {
+
+        }
+
+        FIS = new FileInputStream(filePath);
+        in = new Scanner(new BufferedReader(new InputStreamReader(FIS,"EUC-KR")));
         String tempString = "";
         lineArrayList = new ArrayList<>();
         while(in.hasNextLine()) {
@@ -111,20 +123,12 @@ public class FileModel implements FileModelInterface {
      */
     @Override
     public ArrayList<LineInterface> getLineArrayList() {
-        System.out.println("getLineArrayList started");
-        for(LineInterface i : lineArrayList)
-        {
-            System.out.println(i.getContent(true));
-        }
+
         return (ArrayList<LineInterface>) lineArrayList.clone();
     }
     @Override
     public ArrayList<LineInterface> getCompareLineArrayList() {
-        System.out.println("getCompareLineArrayList started");
-        for(LineInterface i : compareLineArrayList)
-        {
-            System.out.println(i.getContent(true));
-        }
+
         return compareLineArrayList;
     }
     @Override

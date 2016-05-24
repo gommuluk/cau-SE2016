@@ -97,7 +97,7 @@ public class EditorSceneController {
                         FileManager.getFileManagerInterface().setEdited(side, false);
                     }
                     else{
-                        //TODO 파일이 존재하는데, 저장을 하지 않고 load를 눌렀는데, 거기서도 저장 안 함을 눌렀을 경우
+                        //TODO 파일이 존재하는데, 저장을 하지 않고 load를 눌렀는데, 거기서도 저장 안 함을 눌렀을 경우.. 어찌되는 거지 ㅠㅠ
                     }
 
 
@@ -158,9 +158,8 @@ public class EditorSceneController {
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
                 else
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+                filePath.setText(file.getPath());
             }
-
-            // TODO 실패하면, 실패했다는 알림을 표시하고 진행 중지
 
 
         }

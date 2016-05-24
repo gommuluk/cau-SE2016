@@ -36,8 +36,8 @@ public class ControlPaneSceneController {
 
     private void _getEditorReference(){
         Node root = controlPane.getScene().getRoot();
-        this.leftEditor  = (HighlightEditorInterface)((BorderPane) root.lookup("#leftEditor")).getCenter().lookup("#editor");
-        this.rightEditor = (HighlightEditorInterface)((BorderPane) root.lookup("#rightEditor")).getCenter().lookup("#editor");
+        this.leftEditor  = (HighlightEditorInterface)((BorderPane)root.lookup("#leftEditor")).getCenter().lookup("#editor");
+        this.rightEditor = (HighlightEditorInterface)((BorderPane)root.lookup("#rightEditor")).getCenter().lookup("#editor");
     }
 
 

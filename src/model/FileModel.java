@@ -114,7 +114,8 @@ public class FileModel implements FileModelInterface {
         tstring = tstring.substring(0,tstring.length()-1);
         out.print(tstring);
         out.close();
-        statusString.set("File Written successfully");
+        this.statusString.set("File Written successfully");
+        this.filePath.set(file.getPath());
         this.isEdited = false;
     }
 

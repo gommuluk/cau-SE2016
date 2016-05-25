@@ -87,11 +87,7 @@ public class EditorSceneController {
 
 
             if(FileManager.getFileManagerInterface().getEdited(side)) {
-
-                SavingCaution caution = new SavingCaution();
-                if(caution.getWindow(side).get() == caution.getSavebtn()) {
-                    onTBBtnSaveClicked(event);
-                }
+                onTBBtnSaveClicked(event);
 /*              if(FileManager.getFileManagerInterface().getFilePath(side) == null){
 
                     if(caution.getWindow(side).get() == caution.getSavebtn()){

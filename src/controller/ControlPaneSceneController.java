@@ -27,6 +27,7 @@ public class ControlPaneSceneController {
     private HighlightEditorInterface leftEditor, rightEditor;
 
 
+
     @FXML
     public void initialize(){
         Platform.runLater(()->
@@ -104,10 +105,25 @@ public class ControlPaneSceneController {
     * 한쪽블럭선택하면 해당다른곳도 같이 선택된다.
     * 선택된 블럭을 다시 클릭하면 선택 되기 전 색으로 돌아간다.
     * Merge버튼 활성화 조건 1)양 EditPane에 FileLoad되어있음
-    *                       2)isCompared가 true인 경우
     * */
     @FXML // merge-to-right 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToRightClicked(ActionEvent event) {
+
+
+        // 테스트 중
+
+        try{
+            if(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Right))
+                System.out.println("실험: 머지가 머지머지");
+            else
+                System.out.println("실험: 머지 실패함"); // compare가 안 되어있는 상태임 !
+
+        } catch(Exception e){
+            System.out.println("실험: 뭐든 오류가 났음");
+        }
+
+
+
         //TODO 위 컴페어 버튼처럼 왼쪽, 오른쪽 파일을 저장중인 리스트를 받아야 함.
         //TODO 선택된 블럭 존재 여부에 따라 분기
         //TODO 있다면 복사. 없다면 메서드 종료
@@ -116,6 +132,7 @@ public class ControlPaneSceneController {
     @FXML // merge-to-left 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToLeftClicked(ActionEvent event) {
         //TODO 위 컴페어 버튼처럼 왼쪽, 오른쪽 파일을 저장중인 리스트를 받아야 함.
+        System.out.println("Copy to Left");
     }
 
     @FXML

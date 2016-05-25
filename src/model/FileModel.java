@@ -16,6 +16,7 @@ public class FileModel implements FileModelInterface {
     private ArrayList<LineInterface> lineArrayList = new ArrayList<>();//데이터를 줄 단위로 저장하는 arraylist
     private  boolean isEdited = false;//이 파일이 수정됬는지를 저장하는 변수
     private final ReadOnlyStringWrapper statusString = new ReadOnlyStringWrapper("Ready(No file is loaded)");
+    private ReadOnlyStringWrapper filePath = new ReadOnlyStringWrapper("새 파일");
 
     private ArrayList<LineInterface> compareLineArrayList;
     private File file; //로드하고있는 파일
@@ -77,8 +78,8 @@ public class FileModel implements FileModelInterface {
         in.close();
 
         //listProperty.set(FXCollections.observableArrayList(lineArrayList));  리스트프로퍼티가 String인터페이스만 되서 묶어놓음 @승현
-        statusString.set("File Loaded Successfully");
-
+        this.statusString.set("File Loaded Successfully");
+        this.filePath.set(filePath);
     }
     @Override
     public void readFile() throws FileNotFoundException, UnsupportedEncodingException {
@@ -184,6 +185,11 @@ public class FileModel implements FileModelInterface {
     public ReadOnlyStringProperty getStatus() {
         //TODO SAFE GETTER로 만들기 위한 CLONE 필요
         return statusString;
+    }
+
+    @Override
+    public ReadOnlyStringProperty filePathProperty() {
+        return this.filePath;
     }
 
     /**

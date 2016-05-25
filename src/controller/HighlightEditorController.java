@@ -38,8 +38,6 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                 _syncEditorsScroll();
                 //_syncEditorContentWithHighlightList();
                 _enableHighLights();
-
-                //FileManager.getFileManager().getFileModelL().getList().addAll(0, 1, 2, 4, 10, 20);
             });
 
         } catch(IOException e) {
@@ -112,7 +110,10 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     @Override
     @SuppressWarnings("unchecked")
     public void update(FileManagerInterface.SideOfEditor side) {
+
+        System.out.println("size:"+this.highlightList.getItems().size());
         this.highlightList.getItems().clear();
+
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), side);
         this.highlightList.setItems(FXCollections.observableArrayList(
                     FileManager.getFileManagerInterface().getLineArrayList(side)
@@ -172,13 +173,12 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
                         switch(item.getHighlight()){
                             case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
-                            case isDifferent: setStyle("-fx-background-color: yellow"); break;
+                            case isDifferent: setStyle("-fx-font-fill:black; -fx-background-color: #EDE98D;"); break;
                             case whitespace: setStyle("-fx-background-color: #EEEEEE"); break;
                         }
-
                     }
-
                 }
+
             });
         }
 

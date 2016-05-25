@@ -1,7 +1,9 @@
 package controller;
 
 import etc.MouseRobot;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -16,6 +18,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.FileManager;
+import model.FileManagerInterface;
+import model.FileModel;
+import model.FileModelInterface;
 
 
 import java.io.File;
@@ -31,6 +37,7 @@ public class TabPaneSceneController {
 
     private Tab currentTab;
     private List<Tab> originalTabs;
+    private Label leftPathLabel, rightPathLabel;
     private Map<Integer, Tab> tapTransferMap;
     private String[] stylesheets;
 
@@ -52,8 +59,12 @@ public class TabPaneSceneController {
 
     @FXML // FXML 로딩이 완료되면 호출되는 콜백함수
     public void initialize(){
-        _init();
-        _syncEditorsScrollBar();
+        Platform.runLater(()->{
+            _init();
+            _getLabelReference();
+            _syncLabelTextWithPath();
+            _syncEditorsScrollBar();
+        });
     }
 
     @FXML // 탭을 드래그하기 시작하면 수행되는 액션
@@ -111,15 +122,23 @@ public class TabPaneSceneController {
         TextArea leftTextArea = leftEditor.getTextArea();
         TextArea rightTextArea = rightEditor.getTextArea();
 
+        ListView leftListView = leftEditor.getHighlightListView();
+        ListView rightListView = rightEditor.getHighlightListView();
+
         // textarea scrolling
         DoubleProperty leftVerticalScroll = leftTextArea.scrollTopProperty();
         DoubleProperty rightVerticalScroll = rightTextArea.scrollTopProperty();
         DoubleProperty leftHorizontalScroll = leftTextArea.scrollLeftProperty();
         DoubleProperty rightHorizontalScroll = rightTextArea.scrollLeftProperty();
 
+        // listview scroll property
+        ScrollBar listLeftVerticalScroll = (ScrollBar) leftListView.lookup(".scroll-bar:vertical");
+        ScrollBar listRightVerticalScroll = (ScrollBar) rightListView.lookup(".scroll-bar:vertical");
+
         leftVerticalScroll.bindBidirectional(rightVerticalScroll);
         leftHorizontalScroll.bindBidirectional(rightHorizontalScroll);
-//        leftListScroll.valueProperty().bindBidirectional(rightListScroll.valueProperty());
+
+        //listLeftVerticalScroll.valueProperty().bind(listRightVerticalScroll.valueProperty());
 
     }
     private void _openTabInStage(final Tab tab) {
@@ -165,6 +184,15 @@ public class TabPaneSceneController {
         });
 
         stage.show();
+    }
+
+    private void _getLabelReference(){
+        this.leftPathLabel = (Label)leftEditor.lookup("#filePath");
+        this.rightPathLabel = (Label)rightEditor.lookup("#filePath");
+    }
+    private void _syncLabelTextWithPath(){
+        this.leftPathLabel.textProperty().bind(FileManager.getFileManagerInterface().filePathProperty(FileManagerInterface.SideOfEditor.Left));
+        this.rightPathLabel.textProperty().bind(FileManager.getFileManagerInterface().filePathProperty(FileManagerInterface.SideOfEditor.Right));
     }
 
 }

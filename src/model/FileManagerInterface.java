@@ -34,4 +34,6 @@ public interface FileManagerInterface {
 
     int[][] getArrayLCS();//@@for debug
 
+    ReadOnlyStringProperty filePathProperty(SideOfEditor side);
+
 }

@@ -224,10 +224,7 @@ public class FileManager implements FileManagerInterface {
 
     @Override
     public ReadOnlyStringProperty getStatus(SideOfEditor side) {
-        if (side == SideOfEditor.Left)
-            return fileModelL.getStatus();
-        else
-            return fileModelR.getStatus();
+        return side == SideOfEditor.Left ? fileModelL.getStatus() : fileModelR.getStatus();
     }
 
     private int max(int a, int b) {
@@ -358,6 +355,13 @@ public class FileManager implements FileManagerInterface {
     public int[][] getArrayLCS() {
         return arrayLCS.clone();
     } //@@for test of jUnit
+
+    @Override
+    public ReadOnlyStringProperty filePathProperty(SideOfEditor side) {
+        if( side == SideOfEditor.Left ) System.out.println("left!");
+        return side == SideOfEditor.Left ? fileModelL.filePathProperty() : fileModelR.filePathProperty();
+    }
+
     @Override
     public boolean getComparing()
     {

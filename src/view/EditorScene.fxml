@@ -19,7 +19,7 @@
                <items>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="filePath" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="FilePath" />
+                        <Label fx:id="filePath" prefWidth="300.0" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="새 파일" />
                      </children>
                   </Pane>
                   <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnLoadClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css">
@@ -41,8 +41,6 @@
    <center>
       <AnchorPane styleClass="editor" stylesheets="@undecoratedRootScene.css" BorderPane.alignment="CENTER">
          <children>
-            <!--<ListView fx:id="listView" styleClass="list-cell" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
-            <!--<TextArea fx:id="editor" editable="false" layoutX="9.1" layoutY="9.1" onKeyPressed="#onTextAreaKeyPressed" styleClass="editor" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
             <HighlightEditorController fx:id="editor" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" />
          </children>
       </AnchorPane>

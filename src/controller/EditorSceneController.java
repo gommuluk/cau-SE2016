@@ -123,7 +123,7 @@ public class EditorSceneController {
             }
 
 
-            Stage s = (Stage) btnFileOpen.getScene().getWindow();
+//            Stage s = (Stage) btnFileOpen.getScene().getWindow();
 
             FileExplorer fileLoadExplorer = new FileLoadExplorer();
             File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
@@ -133,7 +133,7 @@ public class EditorSceneController {
             FileManager.getFileManagerInterface().loadFile(selectedFile.getPath(), side);
             editor.setText(side, FileManager.getFileManagerInterface().getString(side));
 
-            filePath.setText(selectedFile.getPath());
+//            filePath.setText(selectedFile.getPath());
 
         }
         catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.

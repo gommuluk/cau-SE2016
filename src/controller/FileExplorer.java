@@ -9,6 +9,6 @@ import java.io.File;
  */
 public interface FileExplorer {
 
-    public File getDialog(Button btn);
+    File getDialog(Button btn);
 
 }

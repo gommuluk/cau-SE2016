@@ -89,7 +89,10 @@ public class EditorSceneController {
             if(FileManager.getFileManagerInterface().getEdited(side)) {
 
                 SavingCaution caution = new SavingCaution();
-                if(FileManager.getFileManagerInterface().getFilePath(side) == null){
+                if(caution.getWindow(side).get() == caution.getSavebtn()) {
+                    onTBBtnSaveClicked(event);
+                }
+/*              if(FileManager.getFileManagerInterface().getFilePath(side) == null){
 
                     if(caution.getWindow(side).get() == caution.getSavebtn()){
 
@@ -119,6 +122,8 @@ public class EditorSceneController {
 
 
                 }
+*/
+
             }
 
 
@@ -146,7 +151,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) throws IOException { //UnsupportedEncoingException 추가
+    private void onTBBtnSaveClicked(ActionEvent event) { //UnsupportedEncoingException 추가
         FileManagerInterface.SideOfEditor side;
         if(editor.getParent().getParent().getId().equals("leftEditor"))
             side = FileManagerInterface.SideOfEditor.Left;
@@ -154,33 +159,33 @@ public class EditorSceneController {
             side = FileManagerInterface.SideOfEditor.Right;
 
         try {
-            String s = editor.getText();
-            FileManager.getFileManagerInterface().saveFile(s, side);
+            FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
 
-
-            FileManager.getFileManagerInterface().cancelCompare();
-
-        } catch (Exception e) { // FileNotFound 등 Exception에 대한 처리.
-            //로드가 되지 않은 채로 저장을 눌렀다든가.
-            //edit만 하고 저장을 눌렀다든가?
-
-
+        } catch (FileNotFoundException e) {
             SavingCaution caution = new SavingCaution();
 
-            if (caution.getWindow(side).get() == caution.getSavebtn()){
+            if (caution.getWindow(side).get() == caution.getSavebtn()) {
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
                 File file = fileSaveExplorer.getDialog(btnFileSave);
-                if(file == null) return ;
-                if(editor.getParent().getParent().getParent().getId().equals("leftEditor"))
-                    FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
-                else
-                    FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+                if (file == null) return;
+                try {
+                    FileManager.getFileManagerInterface().saveFile(editor.getText(),file.getAbsolutePath(), side);
+                } catch (FileNotFoundException e1) {
+                    boolean condition = true;
+                    while (condition) {
+                        try {
+                            FileExplorer fileExplorer = new FileSaveExplorer();
+                            FileManager.getFileManagerInterface().saveFile(editor.getText(), fileExplorer.getDialog(btnFileSave).getAbsolutePath(), side);
+                            condition = false;
+                        } catch (FileNotFoundException e2) { }
+                    }
+                }
                 filePath.setText(file.getPath());
             }
-
-
         }
+
     }
+
 
     @FXML // 수정 버튼을 클릭했을 때의 동작
     //TODO 나머지 버튼들 활성화/비활성화 조절
@@ -192,7 +197,6 @@ public class EditorSceneController {
 
         if(FileManager.getFileManagerInterface().getComparing()) {
             FileManager.getFileManagerInterface().cancelCompare();
-            flag = true;
         }
 
 

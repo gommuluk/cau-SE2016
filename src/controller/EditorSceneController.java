@@ -88,6 +88,8 @@ public class EditorSceneController {
 
             if(FileManager.getFileManagerInterface().getEdited(side)) {
                 onTBBtnSaveClicked(event);
+
+
 /*              if(FileManager.getFileManagerInterface().getFilePath(side) == null){
 
                     if(caution.getWindow(side).get() == caution.getSavebtn()){

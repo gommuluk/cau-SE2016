@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.FileManager;
 import model.FileManagerInterface;
@@ -184,4 +185,12 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
     }
 
+
+    //
+    @FXML
+    public void handleMouseClick(MouseEvent arg0) {
+        System.out.println(highlightList.getSelectionModel().getSelectedIndex());
+        FileManager.getFileManagerInterface().clickLine(highlightList.getSelectionModel().getSelectedIndex());
+
+    }
 }

@@ -152,7 +152,7 @@ public class FileManager implements FileManagerInterface {
         for (Block b : blockArrayList) {
 
             int count = b.endLineNum - b.startLineNum;//지워야 될 블럭의 갯수
-            System.out.println("count" + count);
+            System.out.println("count = " + count);
             int insertNum = b.startLineNum; //이 줄에 넣을거임
             if (b.getSelected()) {
                 for (int i = 0; i < count; i++) {

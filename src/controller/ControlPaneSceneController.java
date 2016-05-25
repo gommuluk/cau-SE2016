@@ -12,6 +12,7 @@ import model.FileManagerInterface;
 import model.LeftEditorFileCanNotCompareException;
 import model.RightEditorFileCanNotCompareException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -60,7 +61,9 @@ public class ControlPaneSceneController {
                     while (condition) {
                         try {
                             FileExplorer fileExplorer = new FileSaveExplorer();
-                            FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
+                            File file = fileExplorer.getDialog(btnCompare);
+                            if(file == null) return;
+                            FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
                             condition = false;
                         } catch (FileNotFoundException e2) {
                         }
@@ -79,7 +82,9 @@ public class ControlPaneSceneController {
                     while (condition) {
                         try {
                             FileExplorer fileExplorer = new FileSaveExplorer();
-                            FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+                            File file = fileExplorer.getDialog(btnCompare);
+                            if(file == null) return;
+                            FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
                             condition = false;
                         } catch (FileNotFoundException e2) {
                         }

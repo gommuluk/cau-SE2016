@@ -171,7 +171,9 @@ public class EditorSceneController {
                     while (condition) {
                         try {
                             FileExplorer fileExplorer = new FileSaveExplorer();
-                            FileManager.getFileManagerInterface().saveFile(editor.getText(), fileExplorer.getDialog(btnFileSave).getAbsolutePath(), side);
+                            File file2 = fileExplorer.getDialog(btnFileSave);
+                                if (file2 == null) return;
+                            FileManager.getFileManagerInterface().saveFile(editor.getText(), file2.getAbsolutePath(), side);
                             condition = false;
                         } catch (FileNotFoundException e2) {
                         }

@@ -50,8 +50,8 @@
       </MenuBar>
       <ToolBar styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" GridPane.rowIndex="1">
          <items>
-            <Button fx:id="btnMergeLeft" mnemonicParsing="false" onAction="#onBtnMergeToLeftClicked" styleClass="btnMergeLeft" stylesheets="@undecoratedRootScene.css" />
-            <Button fx:id="btnMergeRight" mnemonicParsing="false" onAction="#onBtnMergeToRightClicked" styleClass="btnMergeRight" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnMergeLeft" mnemonicParsing="false" disable="true" onAction="#onBtnMergeToLeftClicked" styleClass="btnMergeLeft" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnMergeRight" mnemonicParsing="false" disable="true" onAction="#onBtnMergeToRightClicked" styleClass="btnMergeRight" stylesheets="@undecoratedRootScene.css" />
             <Button fx:id="btnCompare" mnemonicParsing="false" onAction="#onBtnCompareClicked" styleClass="btnCompare" stylesheets="@undecoratedRootScene.css" />
             <Pane HBox.hgrow="ALWAYS" />
             <ToggleButton fx:id="btnScrollSync" mnemonicParsing="false" styleClass="btnScrollSync" stylesheets="@undecoratedRootScene.css" />

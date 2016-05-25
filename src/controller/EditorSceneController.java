@@ -62,6 +62,8 @@ public class EditorSceneController {
             boolean flag = false;
             if(FileManager.getFileManagerInterface().getComparing()) {
                 FileManager.getFileManagerInterface().cancelCompare();
+                btnMergeLeft.setDisable(true);
+                btnMergeRight.setDisable(true);
                 flag = true;
             }
 
@@ -195,6 +197,7 @@ public class EditorSceneController {
 
         if(FileManager.getFileManagerInterface().getComparing()) {
             FileManager.getFileManagerInterface().cancelCompare();
+            flag = true;
         }
 
 
@@ -235,16 +238,12 @@ public class EditorSceneController {
             if(side == FileManagerInterface.SideOfEditor.Right) {
                 if (!((ToggleButton)root.lookup("#leftEditor").lookup("#btnEdit")).isSelected()) {
                     btnCompare.setDisable(false);
-                    btnMergeLeft.setDisable(false);
-                    btnMergeRight.setDisable(false);
                 }
             }
             else {
                 if (!((ToggleButton)root.lookup("#rightEditor").lookup("#btnEdit")).isSelected()) {
 
                     btnCompare.setDisable(false);
-                    btnMergeLeft.setDisable(false);
-                    btnMergeRight.setDisable(false);
                 }
             }
 

@@ -52,6 +52,8 @@ public class ControlPaneSceneController {
                 FileManager.getFileManagerInterface().setCompare(); // 양쪽 파일 없는거 감지 가능
                 this.leftEditor.update(FileManagerInterface.SideOfEditor.Left);
                 this.rightEditor.update(FileManagerInterface.SideOfEditor.Right);
+                btnMergeLeft.setDisable(false);
+                btnMergeRight.setDisable(false);
         }
         catch (LeftEditorFileCanNotCompareException e) {
             if(caution.getWindow(FileManagerInterface.SideOfEditor.Left).get() == caution.getSavebtn()) {

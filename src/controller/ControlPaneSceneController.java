@@ -47,44 +47,46 @@ public class ControlPaneSceneController {
         ArrayList<String> leftList;
         ArrayList<String> rightList;
         try {
-            if((!FileManager.getFileManagerInterface().getEdited(FileManagerInterface.SideOfEditor.Left)) &&
-                    (!FileManager.getFileManagerInterface().getEdited(FileManagerInterface.SideOfEditor.Right))) {
-                FileManager.getFileManagerInterface().setCompare();
+                FileManager.getFileManagerInterface().setCompare(); // 양쪽 파일 없는거 감지 가능
                 this.leftEditor.update(FileManagerInterface.SideOfEditor.Left);
                 this.rightEditor.update(FileManagerInterface.SideOfEditor.Right);
-            }
-            else {
-                try {
-                    FileManager.getFileManagerInterface().saveFile(editor.getText(), FileManagerInterface.SideOfEditor.Left);
-                } catch (FileNotFoundException e) {
-                    boolean condition = true;
-                    while(condition) {
-                        try {
-                            FileExplorer fileExplorer = new FileSaveExplorer();
-                            FileManager.getFileManagerInterface().saveFile(editor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
-                            condition = false;
-                        } catch (FileNotFoundException e1) { }
-                    }
-                }
-                try {
-                    FileManager.getFileManagerInterface().saveFile(editor.getText(), FileManagerInterface.SideOfEditor.Right);
-                } catch (FileNotFoundException e) {
-                    boolean condition = true;
-                    while(condition) {
-                        try {
-                            FileExplorer fileExplorer = new FileSaveExplorer();
-                            FileManager.getFileManagerInterface().saveFile(editor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
-                            condition = false;
-                        } catch (FileNotFoundException e1) { }
-                    }
-                }
-            }
-        } catch (LeftEditorFileNotFoundException e) {
-            e.printStackTrace();
-        } catch (RightEditorFileNotFoundException e) {
-            e.printStackTrace();
         }
-            //TODO 블럭에 속하는 line들을 highlight한다.
+        catch (LeftEditorFileNotFoundException e) {
+            try {
+                FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
+            }
+            catch (FileNotFoundException e1) {
+                boolean condition = true;
+                while(condition) {
+                    try {
+                        FileExplorer fileExplorer = new FileSaveExplorer();
+                        FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
+                        condition = false;
+                    } catch (FileNotFoundException e2) { }
+                }
+            }
+            finally {
+                onBtnCompareClicked(event);
+            }
+        }
+        catch (RightEditorFileNotFoundException e) {
+            try {
+                FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
+            }
+            catch (FileNotFoundException e1) {
+                boolean condition = true;
+                while(condition) {
+                    try {
+                        FileExplorer fileExplorer = new FileSaveExplorer();
+                        FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+                        condition = false;
+                    } catch (FileNotFoundException e2) { }
+                }
+            }
+            finally {
+                onBtnCompareClicked(event);
+            }
+        }
     }
 
     //TODO Merge

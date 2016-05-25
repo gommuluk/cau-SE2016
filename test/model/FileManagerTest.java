@@ -1,8 +1,6 @@
 package model;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -17,7 +15,7 @@ public class FileManagerTest {
     static FileManagerInterface fileManager;
 
     @Before
-    public void setupTest () throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileNotFoundException, RightEditorFileNotFoundException
+    public void setupTest () throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
     {
         //fileManager = FileManager.getFileManager();
         fileManager = FileManager.getFileManagerInterface();

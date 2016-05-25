@@ -1,8 +1,6 @@
 package model;
 
-import com.sun.media.sound.RIFFInvalidDataException;
 import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.geometry.Side;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -118,9 +116,9 @@ public class FileManager implements FileManagerInterface {
     }
 
     @Override
-    public void setCompare() throws LeftEditorFileNotFoundException, RightEditorFileNotFoundException {
-        if (!fileModelL.isFileExist()) throw new LeftEditorFileNotFoundException();
-        if (!fileModelR.isFileExist()) throw new RightEditorFileNotFoundException();
+    public void setCompare() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
+        if (!(fileModelL.isFileExist() && !fileModelL.getEdited())) throw new LeftEditorFileCanNotCompareException();
+        if (!(fileModelR.isFileExist() && !fileModelR.getEdited())) throw new RightEditorFileCanNotCompareException();
         arrayLCS = new int[fileModelL.getLineArrayList().size() + 1][fileModelR.getLineArrayList().size() + 1];//LCS 배열의 초기화
         buildArrayLCS();// 배열 구성
         backTrackingLCS(); //diff구현 및 compare array저장

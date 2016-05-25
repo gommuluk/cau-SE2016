@@ -155,19 +155,17 @@ public class EditorSceneController {
             side = FileManagerInterface.SideOfEditor.Left;
         else
             side = FileManagerInterface.SideOfEditor.Right;
+        SavingCaution caution = new SavingCaution();
+        if(caution.getWindow(side).get() == caution.getSavebtn()) {
+            try {
+                FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
 
-        try {
-            FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
-
-        } catch (FileNotFoundException e) {
-            SavingCaution caution = new SavingCaution();
-
-            if (caution.getWindow(side).get() == caution.getSavebtn()) {
+            } catch (FileNotFoundException e) {
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
                 File file = fileSaveExplorer.getDialog(btnFileSave);
                 if (file == null) return;
                 try {
-                    FileManager.getFileManagerInterface().saveFile(editor.getText(),file.getAbsolutePath(), side);
+                    FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
                 } catch (FileNotFoundException e1) {
                     boolean condition = true;
                     while (condition) {
@@ -175,10 +173,10 @@ public class EditorSceneController {
                             FileExplorer fileExplorer = new FileSaveExplorer();
                             FileManager.getFileManagerInterface().saveFile(editor.getText(), fileExplorer.getDialog(btnFileSave).getAbsolutePath(), side);
                             condition = false;
-                        } catch (FileNotFoundException e2) { }
+                        } catch (FileNotFoundException e2) {
+                        }
                     }
                 }
-                filePath.setText(file.getPath());
             }
         }
 

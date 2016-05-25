@@ -5,5 +5,5 @@ import java.io.FileNotFoundException;
 /**
  * Created by Elliad on 2016-05-17.
  */
-public class LeftEditorFileNotFoundException extends FileNotFoundException {
+public class LeftEditorFileCanNotCompareException extends Exception {
 }

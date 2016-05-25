@@ -5,13 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.FileManager;
 import model.FileManagerInterface;
-import model.LeftEditorFileNotFoundException;
-import model.RightEditorFileNotFoundException;
+import model.LeftEditorFileCanNotCompareException;
+import model.RightEditorFileCanNotCompareException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -46,45 +45,48 @@ public class ControlPaneSceneController {
     private void onBtnCompareClicked(ActionEvent event) {
         ArrayList<String> leftList;
         ArrayList<String> rightList;
+        SavingCaution caution = new SavingCaution();
         try {
                 FileManager.getFileManagerInterface().setCompare(); // 양쪽 파일 없는거 감지 가능
                 this.leftEditor.update(FileManagerInterface.SideOfEditor.Left);
                 this.rightEditor.update(FileManagerInterface.SideOfEditor.Right);
         }
-        catch (LeftEditorFileNotFoundException e) {
-            try {
-                FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
-            }
-            catch (FileNotFoundException e1) {
-                boolean condition = true;
-                while(condition) {
-                    try {
-                        FileExplorer fileExplorer = new FileSaveExplorer();
-                        FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
-                        condition = false;
-                    } catch (FileNotFoundException e2) { }
+        catch (LeftEditorFileCanNotCompareException e) {
+            if(caution.getWindow(FileManagerInterface.SideOfEditor.Left).get() == caution.getSavebtn()) {
+                try {
+                    FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
+                } catch (FileNotFoundException e1) {
+                    boolean condition = true;
+                    while (condition) {
+                        try {
+                            FileExplorer fileExplorer = new FileSaveExplorer();
+                            FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
+                            condition = false;
+                        } catch (FileNotFoundException e2) {
+                        }
+                    }
+                } finally {
+                    onBtnCompareClicked(event);
                 }
-            }
-            finally {
-                onBtnCompareClicked(event);
             }
         }
-        catch (RightEditorFileNotFoundException e) {
-            try {
-                FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
-            }
-            catch (FileNotFoundException e1) {
-                boolean condition = true;
-                while(condition) {
-                    try {
-                        FileExplorer fileExplorer = new FileSaveExplorer();
-                        FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
-                        condition = false;
-                    } catch (FileNotFoundException e2) { }
+        catch (RightEditorFileCanNotCompareException e) {
+            if(caution.getWindow(FileManagerInterface.SideOfEditor.Right).get() == caution.getSavebtn()) {
+                try {
+                    FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
+                } catch (FileNotFoundException e1) {
+                    boolean condition = true;
+                    while (condition) {
+                        try {
+                            FileExplorer fileExplorer = new FileSaveExplorer();
+                            FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), fileExplorer.getDialog(btnCompare).getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+                            condition = false;
+                        } catch (FileNotFoundException e2) {
+                        }
+                    }
+                } finally {
+                    onBtnCompareClicked(event);
                 }
-            }
-            finally {
-                onBtnCompareClicked(event);
             }
         }
     }

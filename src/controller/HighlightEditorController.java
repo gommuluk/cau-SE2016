@@ -2,6 +2,8 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,28 +30,23 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     /* 생성자 */
     public HighlightEditorController() {
         super();
-//
-//        try {
-//            FXMLLoader loader = new FXMLLoader(HighlightEditorController.class.getResource("/view/highlightEditor.fxml"));
-//            loader.setController(this);
-//            loader.setRoot(this);
-//            loader.load();
-//
-//            Platform.runLater(()->{
-//                _syncEditorsScroll();
-//                //_syncEditorContentWithHighlightList();
-//                _enableHighLights();
-//            });
-//
-//        } catch(IOException e) {
-//            e.printStackTrace();
-//        }
 
-        Platform.runLater(()->{
-//            _syncEditorsScroll();
-            //_syncEditorContentWithHighlightList();
-            _enableHighLights();
-        });
+        try {
+            FXMLLoader loader = new FXMLLoader(HighlightEditorController.class.getResource("/view/highlightEditor.fxml"));
+            loader.setController(this);
+            loader.setRoot(this);
+            loader.load();
+
+            Platform.runLater(()->{
+                _syncEditorsScroll();
+                //_syncEditorContentWithHighlightList();
+                _enableHighLights();
+            });
+
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -119,12 +116,15 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     public void update(FileManagerInterface.SideOfEditor side) {
 
         System.out.println("size:"+this.highlightList.getItems().size());
-        this.highlightList.getItems().clear();
-
+//        this.highlightList.getItems().clear();
+//
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), side);
-        this.highlightList.setItems(FXCollections.observableArrayList(
-                    FileManager.getFileManagerInterface().getLineArrayList(side)
-            ));
+//        this.highlightList.setItems(FXCollections.observableArrayList(
+//                FileManager.getFileManagerInterface().getLineArrayList(side)
+//
+//         ));
+
+
     }
 
 
@@ -146,8 +146,9 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
         if( highlightList != null ) {
             highlightList.setCellFactory(list -> new ListCell<LineInterface>() {
-                BooleanBinding invalid ;
-//                {
+//                BooleanBinding invalid ;
+                {
+                    System.out.println("호출됨");
 //                    if( this.getParent().getParent().getId().contentEquals("leftEditor") ) {
 //                        invalid = Bindings.createBooleanBinding(
 //                                () -> FileManager.getFileManager().getFileModelL().getList().contains(getIndex()),
@@ -169,14 +170,18 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 //                        }
 //                    });
 //
-//                }
+                }
 
                 @Override
                 protected void updateItem(LineInterface item, boolean empty) {
                     super.updateItem(item, empty);
 
                     if( item != null ) {
-                        setText(empty ? null : item.getContent(false));
+                        if( !empty ) setText(item.getContent(false));
+                        else {
+                            setText("empty");
+                            setStyle("-fx-background-color: transparent");
+                        }
 
                         switch(item.getHighlight()){
                             case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
@@ -184,10 +189,18 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                             case whitespace: setStyle("-fx-background-color: #EEEEEE"); break;
                         }
                     }
+
                 }
 
             });
         }
+
+        highlightList.itemsProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                System.out.println("변경됨");
+            }
+        });
 
     }
 

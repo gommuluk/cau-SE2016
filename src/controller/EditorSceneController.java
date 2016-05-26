@@ -28,24 +28,17 @@ public class EditorSceneController {
 
     private Button btnCompare, btnMergeLeft, btnMergeRight;
 
-
-
     @FXML
     private void initialize(){
-
-        Platform.runLater(()-> {
-            _getBtnsReference();
-        });
+        Platform.runLater(this::_getBtnsReference);
     }
 
     private void _getBtnsReference(){
-
         Node root = editor.getScene().getRoot();
 
         this.btnMergeLeft = (Button)root.lookup("#btnMergeLeft");
         this.btnMergeRight = (Button)root.lookup("#btnMergeRight");
         this.btnCompare = (Button)root.lookup("#btnCompare");
-
     }
 
     @FXML // Editor에서 키보드입력이 있을 때의 동작

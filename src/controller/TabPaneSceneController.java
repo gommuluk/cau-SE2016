@@ -64,6 +64,7 @@ public class TabPaneSceneController {
             _getLabelReference();
             _syncLabelTextWithPath();
             _syncEditorsScrollBar();
+            _syncEditorsWithListProperty();
         });
     }
 
@@ -193,6 +194,14 @@ public class TabPaneSceneController {
     private void _syncLabelTextWithPath(){
         this.leftPathLabel.textProperty().bind(FileManager.getFileManagerInterface().filePathProperty(FileManagerInterface.SideOfEditor.Left));
         this.rightPathLabel.textProperty().bind(FileManager.getFileManagerInterface().filePathProperty(FileManagerInterface.SideOfEditor.Right));
+    }
+
+    private void _syncEditorsWithListProperty(){
+        HighlightEditorInterface leftEditor = (HighlightEditorInterface)this.leftEditor.lookup("#editor");
+        HighlightEditorInterface rightEditor = (HighlightEditorInterface)this.rightEditor.lookup("#editor");
+
+        leftEditor.getHighlightListView().itemsProperty().bind(FileManager.getFileManagerInterface().listProperty(FileManagerInterface.SideOfEditor.Left));
+        rightEditor.getHighlightListView().itemsProperty().bind(FileManager.getFileManagerInterface().listProperty(FileManagerInterface.SideOfEditor.Right));
     }
 
 }

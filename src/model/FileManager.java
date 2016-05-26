@@ -70,7 +70,9 @@ public class FileManager implements FileManagerInterface {
     @Override
     public ArrayList<LineInterface> getLineArrayList(FileManagerInterface.SideOfEditor side) {
         if (side == SideOfEditor.Left) {
-            if (isComparing) return fileModelL.getCompareLineArrayList();
+            if (isComparing){
+                return fileModelL.getCompareLineArrayList();
+            }
             else return fileModelL.getLineArrayList();
         } else {
             if (isComparing) return fileModelR.getCompareLineArrayList();
@@ -228,8 +230,7 @@ public class FileManager implements FileManagerInterface {
     }
 
     private int max(int a, int b) {
-        if (a > b) return a;
-        else return b;
+        return a >b ? a : b;
     }
 
     private void buildArrayLCS() {//LCS를 위한 행렬을 구성한다
@@ -358,18 +359,12 @@ public class FileManager implements FileManagerInterface {
 
     @Override
     public ReadOnlyStringProperty filePathProperty(SideOfEditor side) {
-        if( side == SideOfEditor.Left ) System.out.println("left!");
         return side == SideOfEditor.Left ? fileModelL.filePathProperty() : fileModelR.filePathProperty();
     }
 
     @Override
     public ListProperty<LineInterface> listProperty(SideOfEditor side) {
-        if(side == SideOfEditor.Left){
-            return fileModelL.listProperty();
-        }
-        else{
-            return fileModelR.listProperty();
-        }
+        return side == SideOfEditor.Left ? fileModelL.listProperty() : fileModelR.listProperty();
     }
 
     @Override

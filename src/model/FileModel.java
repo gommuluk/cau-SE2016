@@ -46,6 +46,7 @@ public class FileModel implements FileModelInterface {
         lineArrayList = new ArrayList<>();
         for(String s : args.split("\n",0xffffffff))
             lineArrayList.add(new Line(s));
+        this.contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
     }
     /**
      * Plain Text 형식의 파일의 Path를 받아 내부 Text를 읽습니다.
@@ -79,6 +80,7 @@ public class FileModel implements FileModelInterface {
         in.close();
 
         //listProperty.set(FXCollections.observableArrayList(lineArrayList));  리스트프로퍼티가 String인터페이스만 되서 묶어놓음 @승현
+        this.contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
         this.statusString.set("File Loaded Successfully");
         this.filePath.set(filePath);
     }
@@ -132,13 +134,16 @@ public class FileModel implements FileModelInterface {
     }
     @Override
     public ArrayList<LineInterface> getCompareLineArrayList() {
-        contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
+        this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
         return compareLineArrayList;
     }
     @Override
     public void setCompareLineArrayList(ArrayList<LineInterface> lineArrayList)
     {
         compareLineArrayList = lineArrayList;
+        this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
+
+//        this.contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
     }
 
     @Override
@@ -186,7 +191,6 @@ public class FileModel implements FileModelInterface {
      * @return SimpleStringProperty 현재 Model의 상태
      */
     public ReadOnlyStringProperty getStatus() {
-        //TODO SAFE GETTER로 만들기 위한 CLONE 필요
         return statusString;
     }
 

@@ -13,9 +13,9 @@ import java.util.Optional;
 public class Caution {
 
 
-    ButtonType buttonTypeSave = new ButtonType("저장");
-    ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
-    ButtonType buttonTypeClose = new ButtonType("닫기");
+    private ButtonType buttonTypeSave = new ButtonType("저장");
+    private ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
+    private ButtonType buttonTypeClose = new ButtonType("닫기");
 
 
     public ButtonType getSavebtn(){
@@ -51,5 +51,15 @@ public class Caution {
         alert.showAndWait();
     }
 
+
+    public void noticeMergeFailure(){
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Simple Merge - 소공 2팀");
+        alert.setHeaderText(null);
+        alert.setContentText("복사에 실패하였습니다.");
+
+        alert.showAndWait();
+    }
 
 }

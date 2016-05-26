@@ -15,6 +15,7 @@ public class SavingCaution {
 
     ButtonType buttonTypeSave = new ButtonType("저장");
     ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
+    ButtonType buttonTypeClose = new ButtonType("닫기");
 
 
     public ButtonType getSavebtn(){
@@ -37,6 +38,17 @@ public class SavingCaution {
         Optional<ButtonType> result = alert.showAndWait();
 
         return result;
+    }
+    public void noticeWindow(FileManagerInterface.SideOfEditor side) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Simple Merge - 소공 2팀");
+        alert.setHeaderText(null);
+        if(side == FileManagerInterface.SideOfEditor.Left)
+            alert.setContentText("Left side File - 저장에 실패하였습니다.");
+        else
+            alert.setContentText("Right side File - 저장에 실패하였습니다.");
+        alert.getButtonTypes().setAll(buttonTypeClose);
+        alert.showAndWait();
     }
 
 

@@ -60,19 +60,8 @@ public class ControlPaneSceneController {
                 try {
                     FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
                 } catch (FileNotFoundException e1) {
-                    boolean condition = true;
-                    while (condition) {
-                        try {
-                            FileExplorer fileExplorer = new FileSaveExplorer();
-                            File file = fileExplorer.getDialog(btnCompare);
-                            if(file == null) return;
-                            FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
-                            condition = false;
-                        } catch (FileNotFoundException e2) {
-                        }
-                    }
-                } finally {
-                    onBtnCompareClicked(event);
+                    caution.noticeWindow(FileManagerInterface.SideOfEditor.Left);
+                    return ;
                 }
             }
         }
@@ -81,19 +70,8 @@ public class ControlPaneSceneController {
                 try {
                     FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
                 } catch (FileNotFoundException e1) {
-                    boolean condition = true;
-                    while (condition) {
-                        try {
-                            FileExplorer fileExplorer = new FileSaveExplorer();
-                            File file = fileExplorer.getDialog(btnCompare);
-                            if(file == null) return;
-                            FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
-                            condition = false;
-                        } catch (FileNotFoundException e2) {
-                        }
-                    }
-                } finally {
-                    onBtnCompareClicked(event);
+                    caution.noticeWindow(FileManagerInterface.SideOfEditor.Right);
+                    return ;
                 }
             }
         }

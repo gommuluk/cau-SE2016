@@ -162,17 +162,8 @@ public class EditorSceneController {
                 try {
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
                 } catch (FileNotFoundException e1) {
-                    boolean condition = true;
-                    while (condition) {
-                        try {
-                            FileExplorer fileExplorer = new FileSaveExplorer();
-                            File file2 = fileExplorer.getDialog(btnFileSave);
-                                if (file2 == null) return;
-                            FileManager.getFileManagerInterface().saveFile(editor.getText(), file2.getAbsolutePath(), side);
-                            condition = false;
-                        } catch (FileNotFoundException e2) {
-                        }
-                    }
+                    caution.noticeWindow(FileManagerInterface.SideOfEditor.Left);
+                    return ;
                 }
             }
         }

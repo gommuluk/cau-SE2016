@@ -92,21 +92,26 @@ public class ControlPaneSceneController {
 
         // 테스트 중
 
-//        if(!(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Right)))
+        if(!(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Right))){
+            Caution caution = new Caution();
+            caution.noticeMergeFailure();
+        }
+        else{
+        }
 
-
-
-
-
-        //TODO 위 컴페어 버튼처럼 왼쪽, 오른쪽 파일을 저장중인 리스트를 받아야 함.
-        //TODO 선택된 블럭 존재 여부에 따라 분기
-        //TODO 있다면 복사. 없다면 메서드 종료
     }
 
     @FXML // merge-to-left 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToLeftClicked(ActionEvent event) {
-        //TODO 위 컴페어 버튼처럼 왼쪽, 오른쪽 파일을 저장중인 리스트를 받아야 함.
-        System.out.println("Copy to Left");
+
+        if(!(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Left))){
+            Caution caution = new Caution();
+            caution.noticeMergeFailure();
+        }
+        else{
+        }
+
+
     }
 
     @FXML

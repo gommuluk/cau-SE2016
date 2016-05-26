@@ -12,7 +12,6 @@ import model.FileManagerInterface;
 import model.LeftEditorFileCanNotCompareException;
 import model.RightEditorFileCanNotCompareException;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -47,7 +46,7 @@ public class ControlPaneSceneController {
     private void onBtnCompareClicked(ActionEvent event) {
         ArrayList<String> leftList;
         ArrayList<String> rightList;
-        SavingCaution caution = new SavingCaution();
+        Caution caution = new Caution();
         try {
                 FileManager.getFileManagerInterface().setCompare(); // 양쪽 파일 없는거 감지 가능
                 this.leftEditor.update(FileManagerInterface.SideOfEditor.Left);
@@ -56,21 +55,21 @@ public class ControlPaneSceneController {
                 btnMergeRight.setDisable(false);
         }
         catch (LeftEditorFileCanNotCompareException e) {
-            if(caution.getWindow(FileManagerInterface.SideOfEditor.Left).get() == caution.getSavebtn()) {
+            if(caution.getSaveWindow(FileManagerInterface.SideOfEditor.Left).get() == caution.getSavebtn()) {
                 try {
                     FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
                 } catch (FileNotFoundException e1) {
-                    caution.noticeWindow(FileManagerInterface.SideOfEditor.Left);
+                    caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
                     return ;
                 }
             }
         }
         catch (RightEditorFileCanNotCompareException e) {
-            if(caution.getWindow(FileManagerInterface.SideOfEditor.Right).get() == caution.getSavebtn()) {
+            if(caution.getSaveWindow(FileManagerInterface.SideOfEditor.Right).get() == caution.getSavebtn()) {
                 try {
                     FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
                 } catch (FileNotFoundException e1) {
-                    caution.noticeWindow(FileManagerInterface.SideOfEditor.Right);
+                    caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Right);
                     return ;
                 }
             }
@@ -81,14 +80,10 @@ public class ControlPaneSceneController {
     //어떤 블록이 선택되었는지 알아낼 수 있어야 한다.
 
     /*
-    * right의 경우: 오른족 패널의 선택된 블럭의 정보를 왼쪽 패널로 대체한다.
-    * 활용: edit pane에 연결된 file의 contents를 가지고 있는 line class를 저장하는 arrayList, fileManager활용
     * isCompare이 true인 상태
     * merge하면 compare가 꺼진다.
     * edit랑 merge가 될 경우는 isCompared를 false라고 .. 그 때의 버튼 비활성화 여부 체크해주기
     * isCompare == true면,,, EditPane에서 블럭 선택 가능-선택된곳은 다른색으로 표시..
-    * 한쪽블럭선택하면 해당다른곳도 같이 선택된다.
-    * 선택된 블럭을 다시 클릭하면 선택 되기 전 색으로 돌아간다.
     * Merge버튼 활성화 조건 1)양 EditPane에 FileLoad되어있음
     * */
     @FXML // merge-to-right 버튼이 클릭되었을 때의 동작
@@ -97,15 +92,9 @@ public class ControlPaneSceneController {
 
         // 테스트 중
 
-        try{
-            if(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Right))
-                System.out.println("실험: 머지가 머지머지");
-            else
-                System.out.println("실험: 머지 실패함"); // compare가 안 되어있는 상태임 !
+//        if(!(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Right)))
 
-        } catch(Exception e){
-            System.out.println("실험: 뭐든 오류가 났음");
-        }
+
 
 
 

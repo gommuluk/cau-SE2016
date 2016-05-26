@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * Created by 효민 on 2016-05-23.
  */
-public class SavingCaution {
+public class Caution {
 
 
     ButtonType buttonTypeSave = new ButtonType("저장");
@@ -23,7 +23,7 @@ public class SavingCaution {
     }
 
 
-    public  Optional<ButtonType> getWindow(FileManagerInterface.SideOfEditor side){
+    public  Optional<ButtonType> getSaveWindow(FileManagerInterface.SideOfEditor side){
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Simple Merge - 소공 2팀");
@@ -39,8 +39,8 @@ public class SavingCaution {
 
         return result;
     }
-    public void noticeWindow(FileManagerInterface.SideOfEditor side) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+    public void noticeSaveWindow(FileManagerInterface.SideOfEditor side) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Simple Merge - 소공 2팀");
         alert.setHeaderText(null);
         if(side == FileManagerInterface.SideOfEditor.Left)

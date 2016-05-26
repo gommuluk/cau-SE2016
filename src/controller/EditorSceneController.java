@@ -3,12 +3,10 @@ package controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import model.FileManager;
 import model.FileManagerInterface;
 
@@ -150,8 +148,8 @@ public class EditorSceneController {
             side = FileManagerInterface.SideOfEditor.Left;
         else
             side = FileManagerInterface.SideOfEditor.Right;
-        SavingCaution caution = new SavingCaution();
-        if(caution.getWindow(side).get() == caution.getSavebtn()) {
+        Caution caution = new Caution();
+        if(caution.getSaveWindow(side).get() == caution.getSavebtn()) {
             try {
                 FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
 
@@ -162,7 +160,7 @@ public class EditorSceneController {
                 try {
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
                 } catch (FileNotFoundException e1) {
-                    caution.noticeWindow(FileManagerInterface.SideOfEditor.Left);
+                    caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
                     return ;
                 }
             }

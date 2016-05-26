@@ -127,11 +127,12 @@ public class FileModel implements FileModelInterface {
     @Override
     @SuppressWarnings("unchecked")
     public ArrayList<LineInterface> getLineArrayList() {
+        contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
         return (ArrayList<LineInterface>) lineArrayList.clone();
     }
     @Override
     public ArrayList<LineInterface> getCompareLineArrayList() {
-
+        contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
         return compareLineArrayList;
     }
     @Override

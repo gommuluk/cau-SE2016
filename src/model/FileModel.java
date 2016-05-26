@@ -2,7 +2,6 @@ package model;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,13 +14,16 @@ public class FileModel implements FileModelInterface {
 
     private ArrayList<LineInterface> lineArrayList = new ArrayList<>();//데이터를 줄 단위로 저장하는 arraylist
     private  boolean isEdited = false;//이 파일이 수정됬는지를 저장하는 변수
+
     private final ReadOnlyStringWrapper statusString = new ReadOnlyStringWrapper("Ready(No file is loaded)");
     private ReadOnlyStringWrapper filePath = new ReadOnlyStringWrapper("새 파일");
+    private ListProperty<LineInterface> contentListProperty = new SimpleListProperty<>(FXCollections.observableArrayList(lineArrayList));
+
+
+    //용례 contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
 
     private ArrayList<LineInterface> compareLineArrayList;
     private File file; //로드하고있는 파일
-
-    ObservableList<Integer> diffList = FXCollections.observableArrayList();
 
     /**
      * 읽어진 파일의 내용을 String의 형태로 반환합니다.
@@ -41,7 +43,6 @@ public class FileModel implements FileModelInterface {
      */
     @Override
     public void updateArrayList(String args) {
-
         lineArrayList = new ArrayList<>();
         for(String s : args.split("\n",0xffffffff))
             lineArrayList.add(new Line(s));
@@ -124,8 +125,8 @@ public class FileModel implements FileModelInterface {
      * @return isCompared에 따른 지금 출력해야하는 Line을 가지는 Arraylist의 clone
      */
     @Override
+    @SuppressWarnings("unchecked")
     public ArrayList<LineInterface> getLineArrayList() {
-
         return (ArrayList<LineInterface>) lineArrayList.clone();
     }
     @Override
@@ -193,12 +194,9 @@ public class FileModel implements FileModelInterface {
         return this.filePath;
     }
 
-    /**
-     * 현재 DiffList의 상태를 반환합니다.
-     * @return ObservableList 현재 diffrence를 나타내는 List
-     */
-    public ObservableList<Integer> getList(){
-        return diffList;
+    @Override
+    public ListProperty<LineInterface> listProperty() {
+        return this.contentListProperty;
     }
 
 

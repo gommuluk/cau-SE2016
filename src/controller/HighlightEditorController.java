@@ -28,22 +28,28 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     /* 생성자 */
     public HighlightEditorController() {
         super();
+//
+//        try {
+//            FXMLLoader loader = new FXMLLoader(HighlightEditorController.class.getResource("/view/highlightEditor.fxml"));
+//            loader.setController(this);
+//            loader.setRoot(this);
+//            loader.load();
+//
+//            Platform.runLater(()->{
+//                _syncEditorsScroll();
+//                //_syncEditorContentWithHighlightList();
+//                _enableHighLights();
+//            });
+//
+//        } catch(IOException e) {
+//            e.printStackTrace();
+//        }
 
-        try {
-            FXMLLoader loader = new FXMLLoader(HighlightEditorController.class.getResource("/view/highlightEditor.fxml"));
-            loader.setController(this);
-            loader.setRoot(this);
-            loader.load();
-
-            Platform.runLater(()->{
-                _syncEditorsScroll();
-                //_syncEditorContentWithHighlightList();
-                _enableHighLights();
-            });
-
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+        Platform.runLater(()->{
+//            _syncEditorsScroll();
+            //_syncEditorContentWithHighlightList();
+            _enableHighLights();
+        });
     }
 
     @Override

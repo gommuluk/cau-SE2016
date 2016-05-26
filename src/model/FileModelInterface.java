@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 
 import javax.sql.rowset.serial.SerialException;
@@ -32,5 +34,6 @@ public interface FileModelInterface {
 
     ReadOnlyStringProperty getStatus();
     ReadOnlyStringProperty filePathProperty();
+    ListProperty<LineInterface> listProperty();
 
 }

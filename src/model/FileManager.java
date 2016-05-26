@@ -1,6 +1,8 @@
 package model;
 
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.geometry.Side;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -358,6 +360,16 @@ public class FileManager implements FileManagerInterface {
     public ReadOnlyStringProperty filePathProperty(SideOfEditor side) {
         if( side == SideOfEditor.Left ) System.out.println("left!");
         return side == SideOfEditor.Left ? fileModelL.filePathProperty() : fileModelR.filePathProperty();
+    }
+
+    @Override
+    public ListProperty<LineInterface> listProperty(SideOfEditor side) {
+        if(side == SideOfEditor.Left){
+            return fileModelL.listProperty();
+        }
+        else{
+            return fileModelR.listProperty();
+        }
     }
 
     @Override

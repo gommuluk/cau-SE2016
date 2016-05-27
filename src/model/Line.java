@@ -59,6 +59,7 @@ public class Line implements LineInterface {
 
     @Override
     public void clickBlock() {
+        if(blockIndex >=  0 )
         blockArrayList.get(blockIndex).click();
     }
 

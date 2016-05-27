@@ -69,6 +69,14 @@ public class Line implements LineInterface {
         else return content + "\n";
     }
 
+    @Override
+    public int[] getBlockRangeofLine() {
+        int[] range = new int[2];
+        range[0] = blockArrayList.get(blockIndex).startLineNum;
+        range[1] = blockArrayList.get(blockIndex).endLineNum;
+        return range;
+    }
+
     public static ArrayList<Block> getBlockArray() { return blockArrayList; }//@@only for testing
 
 }

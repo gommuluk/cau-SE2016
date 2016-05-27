@@ -31,9 +31,7 @@ public class ControlPaneSceneController {
 
     @FXML
     public void initialize(){
-        Platform.runLater(()->
-            _getEditorReference()
-        );
+        Platform.runLater(this::_getEditorReference);
     }
 
     private void _getEditorReference(){

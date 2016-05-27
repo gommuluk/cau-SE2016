@@ -135,8 +135,9 @@ public class FileManager implements FileManagerInterface {
 
     @Override
     public void clickLine(int lineNum) {
-        if (isComparing) fileModelL.clickLine(lineNum);//왼쪽이든 오른쪽이든 상관없음! 일부러 사이드 검사를 안해줬습니다
-
+        if (isComparing) {
+            fileModelL.clickLine(lineNum);//왼쪽이든 오른쪽이든 상관없음! 일부러 사이드 검사를 안해줬습니다
+        }
     }
 
     @Override

@@ -146,10 +146,13 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
                         LineInterface item = getItem();
 
-                        if( item.getHighlight() == LineInterface.LineHighlight.isDifferent ) {
-                            System.out.println("selected idx: " + getIndex());
-                            FileManager.getFileManagerInterface().clickLine(getIndex());
+                        switch(item.getHighlight()){
+                            case selected:
+                            case isDifferent:
+                                System.out.println("selected idx: " + getIndex());
+                                FileManager.getFileManagerInterface().clickLine(getIndex()); break;
                         }
+
                     }
                 }
 

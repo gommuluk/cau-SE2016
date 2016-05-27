@@ -70,10 +70,8 @@ public class EditorSceneController {
             Node root = editor.getScene().getRoot();
 
             if(flag) {
-                if(oppositeSide == FileManagerInterface.SideOfEditor.Right)
                     ((HighlightEditorInterface)(root.lookup("#rightEditor").lookup("#editor"))).update(oppositeSide);
-                else
-                    ((HighlightEditorInterface)(root.lookup("#leftEditor").lookup("#editor"))).update(oppositeSide);
+                    ((HighlightEditorInterface)(root.lookup("#leftEditor").lookup("#editor"))).update(side);
             }
 
 

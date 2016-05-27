@@ -12,6 +12,7 @@ import model.FileManagerInterface;
 import model.LeftEditorFileCanNotCompareException;
 import model.RightEditorFileCanNotCompareException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -59,7 +60,14 @@ public class ControlPaneSceneController {
                 try {
                     FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
                 } catch (FileNotFoundException e1) {
-                    caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                    FileExplorer fileSaveExplorer = new FileSaveExplorer();
+                    File file = fileSaveExplorer.getDialog(btnCompare);
+                    if (file == null) return;
+                    try {
+                        FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
+                    } catch (FileNotFoundException e2) {
+                        caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                    }
                 }
             }
         }
@@ -68,7 +76,14 @@ public class ControlPaneSceneController {
                 try {
                     FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
                 } catch (FileNotFoundException e1) {
-                    caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Right);
+                    FileExplorer fileSaveExplorer = new FileSaveExplorer();
+                    File file = fileSaveExplorer.getDialog(btnCompare);
+                    if (file == null) return;
+                    try {
+                        FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
+                    } catch (FileNotFoundException e2) {
+                        caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                    }
                 }
             }
         }

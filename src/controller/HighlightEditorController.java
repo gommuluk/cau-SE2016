@@ -116,7 +116,6 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     @SuppressWarnings("unchecked")
     public void update(FileManagerInterface.SideOfEditor side) {
         System.out.println("업데이트 호출");
-        this.highlightList.getItems().clear();
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), side);
 //        this.highlightList.setItems(FXCollections.observableArrayList(
 //                FileManager.getFileManagerInterface().getLineArrayList(side)

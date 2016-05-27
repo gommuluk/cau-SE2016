@@ -21,7 +21,6 @@ public class EditorSceneController {
 
     @FXML private Button btnFileSave;
     @FXML private Button btnFileOpen;
-    @FXML private Label filePath;
 
     private Button btnCompare, btnMergeLeft, btnMergeRight;
 

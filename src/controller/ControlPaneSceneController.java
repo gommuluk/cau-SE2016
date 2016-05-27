@@ -108,6 +108,9 @@ public class ControlPaneSceneController {
             caution.noticeMergeFailure();
         }
         else{
+            FileManager.getFileManagerInterface().cancelCompare();
+            leftEditor.update(FileManagerInterface.SideOfEditor.Left);
+            rightEditor.update(FileManagerInterface.SideOfEditor.Right);
         }
 
     }
@@ -120,6 +123,9 @@ public class ControlPaneSceneController {
             caution.noticeMergeFailure();
         }
         else{
+            FileManager.getFileManagerInterface().cancelCompare();
+            leftEditor.update(FileManagerInterface.SideOfEditor.Left);
+            rightEditor.update(FileManagerInterface.SideOfEditor.Right);
         }
 
 

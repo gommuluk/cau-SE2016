@@ -2,6 +2,8 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -136,42 +138,18 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
         if( highlightList != null ) {
 
             highlightList.setCellFactory(list -> new ListCell<LineInterface>() {
-                BooleanBinding invalid ;
-                {
-//                    if( this.getParent().getParent().getId().contentEquals("leftEditor") ) {
-//                        invalid = Bindings.createBooleanBinding(
-//                                () -> FileManager.getFileManager().getFileModelL().getList().contains(getIndex()),
-//                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelL().getList()
-//                        );
-//
-//                    } else {
-//                        invalid = Bindings.createBooleanBinding(
-//                                () -> FileManager.getFileManager().getFileModelR().getList().contains(getIndex()),
-//                                indexProperty(), itemProperty(), FileManager.getFileManager().getFileModelR().getList()
-//                        );
-//                    }
-//
-//                    invalid.addListener((obs, wasInvalid, isNowInvalid) -> {
-//                        if (isNowInvalid) {
-//                            setStyle("-fx-background-color:yellowgreen;");
-//                        } else {
-//                            setStyle("");
-//                        }
-//                    });
-//
-
-                }
 
                 @Override
                 public void updateSelected(boolean selected) {
                     super.updateSelected(selected);
                     if(selected){
+
                         LineInterface item = getItem();
 
-//                        if( item.getHighlight() == LineInterface.LineHighlight.isDifferent )
-//                            setStyle("-fx-background-color: #44d7ba");
-
-                        System.out.println("selected");
+                        if( item.getHighlight() == LineInterface.LineHighlight.isDifferent ) {
+                            System.out.println("selected idx: " + getIndex());
+                            FileManager.getFileManagerInterface().clickLine(getIndex());
+                        }
                     }
                 }
 
@@ -181,11 +159,8 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
                     setStyle(null); setText(null);
 
-                    if( item != null ) {
-                        if( !empty ) setText(item.getContent(false));
-                        else {
-                            setStyle("-fx-background-color: transparent");
-                        }
+                    if( item != null && !empty ) {
+                        setText(item.getContent(false));
 
                         switch(item.getHighlight()){
                             case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
@@ -193,14 +168,12 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                             case whitespace: setStyle("-fx-background-color: #EEEEEE"); break;
                             case selected: setStyle("-fx-background-color: #44d7ba"); break;
                         }
-
-                        //System.out.println(item.getBlockIndex()+" : "+item.getContent(false));
                     }
 
                 }
 
             });
-            highlightList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            //highlightList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         }
 
@@ -211,6 +184,6 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     @FXML
     public void handleMouseClick(MouseEvent arg0) {
         //System.out.println(highlightList.getSelectionModel().getSelectedIndex());
-        FileManager.getFileManagerInterface().clickLine(highlightList.getSelectionModel().getSelectedIndex());
+        //FileManager.getFileManagerInterface().clickLine(highlightList.getSelectionModel().getSelectedIndex());
     }
 }

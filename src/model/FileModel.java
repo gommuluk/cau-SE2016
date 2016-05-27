@@ -141,15 +141,16 @@ public class FileModel implements FileModelInterface {
     public void setCompareLineArrayList(ArrayList<LineInterface> lineArrayList)
     {
         compareLineArrayList = lineArrayList;
+
+        this.contentListProperty.set(null);
         this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
         System.out.println("setCompareLineArrayList");
-
-//        this.contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
     }
 
     @Override
     public void clickLine(int lineNum) {
         compareLineArrayList.get(lineNum).clickBlock();
+        this.contentListProperty.set(null);
         this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
     }
 

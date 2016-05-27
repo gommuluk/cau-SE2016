@@ -142,6 +142,7 @@ public class FileModel implements FileModelInterface {
     {
         compareLineArrayList = lineArrayList;
         this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
+        System.out.println("setCompareLineArrayList");
 
 //        this.contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
     }

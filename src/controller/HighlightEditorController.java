@@ -167,8 +167,9 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                     super.updateSelected(selected);
                     if(selected){
                         LineInterface item = getItem();
-                        if( item.getHighlight() == LineInterface.LineHighlight.isDifferent )
-                            setStyle("-fx-background-color: #44d7ba");
+
+//                        if( item.getHighlight() == LineInterface.LineHighlight.isDifferent )
+//                            setStyle("-fx-background-color: #44d7ba");
 
                         System.out.println("selected");
                     }

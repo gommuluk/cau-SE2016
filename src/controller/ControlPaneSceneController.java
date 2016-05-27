@@ -60,7 +60,6 @@ public class ControlPaneSceneController {
                     FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
                 } catch (FileNotFoundException e1) {
                     caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
-                    return ;
                 }
             }
         }
@@ -70,7 +69,6 @@ public class ControlPaneSceneController {
                     FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
                 } catch (FileNotFoundException e1) {
                     caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Right);
-                    return ;
                 }
             }
         }

@@ -2,7 +2,6 @@ package model;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.geometry.Side;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;

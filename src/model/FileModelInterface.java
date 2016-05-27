@@ -1,10 +1,8 @@
 package model;
 
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 
-import javax.sql.rowset.serial.SerialException;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

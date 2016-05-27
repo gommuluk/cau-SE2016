@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 /**
  * Created by ano on 2016. 5. 21..
  */
@@ -9,7 +7,7 @@ public interface LineInterface{
 
     enum LineHighlight
     {
-        unHighlighted, whitespace, isDifferent, selected;
+        unHighlighted, whitespace, isDifferent, selected
     }
 
 

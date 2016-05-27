@@ -1,6 +1,5 @@
 package etc;
 
-import controller.UndecoratedRootSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

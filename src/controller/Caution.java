@@ -35,9 +35,7 @@ public class Caution {
 
         alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNotSave);
 
-        Optional<ButtonType> result = alert.showAndWait();
-
-        return result;
+        return alert.showAndWait();
     }
     public void noticeSaveWindow(FileManagerInterface.SideOfEditor side) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

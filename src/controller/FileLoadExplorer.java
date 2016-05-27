@@ -24,8 +24,7 @@ public class FileLoadExplorer implements FileExplorer {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt", "*.java", "*.c", "*.cpp"));
 
-        File selectedFile = fileChooser.showOpenDialog(s);
-        return selectedFile;
+        return fileChooser.showOpenDialog(s);
     }
 
 }

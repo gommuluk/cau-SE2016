@@ -154,8 +154,7 @@ public class FileModel implements FileModelInterface {
     @Override
     public boolean isFileExist()
     {
-        if(file == null) return false;
-        else return true;
+        return file != null;
     }
 
     @Override

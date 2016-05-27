@@ -1,7 +1,6 @@
 package controller;
 
 import model.FileManagerInterface;
-import org.easymock.EasyMock;
 import org.junit.Test;
 
 import java.io.IOException;

@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.UnknownFormatConversionException;
 
 import static org.junit.Assert.*;
 

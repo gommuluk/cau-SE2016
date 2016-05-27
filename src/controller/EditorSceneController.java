@@ -10,7 +10,6 @@ import javafx.scene.input.KeyEvent;
 import model.FileManager;
 import model.FileManagerInterface;
 
-import java.io.File;
 import java.io.*;
 
 /**
@@ -161,7 +160,6 @@ public class EditorSceneController {
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
                 } catch (FileNotFoundException e1) {
                     caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
-                    return ;
                 }
             }
         }

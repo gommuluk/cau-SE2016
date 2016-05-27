@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Objects;
-
 /**
  * Created by ano on 2016. 5. 18..
  */
@@ -28,8 +26,7 @@ public class Block {
 
     public void click()//이 블럭이 클릭됬을때
     {
-        if(isSelected) isSelected = false;
-        else isSelected = true;
+        isSelected = !isSelected;
     }
 
 

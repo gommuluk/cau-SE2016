@@ -3,7 +3,6 @@ package controller;
 import etc.MouseRobot;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -12,7 +11,6 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Transform;
@@ -20,11 +18,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.FileManager;
 import model.FileManagerInterface;
-import model.FileModel;
-import model.FileModelInterface;
 
 
-import java.io.File;
 import java.util.*;
 
 /**

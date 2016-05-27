@@ -24,8 +24,7 @@ public class FileSaveExplorer implements FileExplorer {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt", "*.java", "*.c", "*.cpp"));
 
-        File file = fileChooser.showSaveDialog(s);
-        return file;
+        return fileChooser.showSaveDialog(s);
     }
 
 }

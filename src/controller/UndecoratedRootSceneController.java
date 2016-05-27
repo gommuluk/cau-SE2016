@@ -33,7 +33,6 @@ public class UndecoratedRootSceneController {
     private boolean draggableZoneX, draggableZoneY;
     private boolean isMaximized = false, isDragging = false, initMinHeight = false, initMinWidth = false;
 
-    private final int RESIZE_MARGIN = 5;
     private double INIT_WIDTH, INIT_HEIGHT;
 
     // 생성자
@@ -221,6 +220,7 @@ public class UndecoratedRootSceneController {
 
     //TODO 리펙토링이 필요해 보이는 함수들?
     private boolean _isInDraggableZone(MouseEvent event) {
+        int RESIZE_MARGIN = 5;
         draggableZoneY = (event.getY() > (mainPane.getHeight() - RESIZE_MARGIN));
         draggableZoneX = (event.getX() > (mainPane.getWidth() - RESIZE_MARGIN));
         return (draggableZoneY || draggableZoneX);

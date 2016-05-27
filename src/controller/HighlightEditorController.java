@@ -1,10 +1,7 @@
 package controller;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +38,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
             Platform.runLater(()->{
                 _syncEditorsScroll();
                 //_syncEditorContentWithHighlightList();
-                _enableHighLights();
+                _initEditor();
             });
 
         } catch(IOException e) {
@@ -117,12 +114,6 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     public void update(FileManagerInterface.SideOfEditor side) {
         System.out.println("업데이트 호출");
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), side);
-//        this.highlightList.setItems(FXCollections.observableArrayList(
-//                FileManager.getFileManagerInterface().getLineArrayList(side)
-//
-//         ));
-
-
     }
 
 
@@ -140,9 +131,10 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
 
     @SuppressWarnings("unchecked")
-    private void _enableHighLights(){
+    private void _initEditor(){
 
         if( highlightList != null ) {
+
             highlightList.setCellFactory(list -> new ListCell<LineInterface>() {
                 BooleanBinding invalid ;
                 {
@@ -174,7 +166,10 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                 public void updateSelected(boolean selected) {
                     super.updateSelected(selected);
                     if(selected){
-                        setStyle("-fx-background-color: #44d7ba");
+                        LineInterface item = getItem();
+                        if( item.getHighlight() == LineInterface.LineHighlight.isDifferent )
+                            setStyle("-fx-background-color: #44d7ba");
+
                         System.out.println("selected");
                     }
                 }
@@ -195,6 +190,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                             case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
                             case isDifferent: setStyle("-fx-font-fill:black; -fx-background-color: #EDE98D;"); break;
                             case whitespace: setStyle("-fx-background-color: #EEEEEE"); break;
+                            case selected: setStyle("-fx-background-color: #44d7ba"); break;
                         }
 
                         //System.out.println(item.getBlockIndex()+" : "+item.getContent(false));
@@ -203,14 +199,9 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                 }
 
             });
-        }
+            highlightList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        highlightList.itemsProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                //System.out.println(newValue.toString());
-            }
-        });
+        }
 
     }
 
@@ -218,8 +209,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     //
     @FXML
     public void handleMouseClick(MouseEvent arg0) {
-        System.out.println(highlightList.getSelectionModel().getSelectedIndex());
+        //System.out.println(highlightList.getSelectionModel().getSelectedIndex());
         FileManager.getFileManagerInterface().clickLine(highlightList.getSelectionModel().getSelectedIndex());
-
     }
 }

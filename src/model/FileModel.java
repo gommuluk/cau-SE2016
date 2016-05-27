@@ -150,6 +150,7 @@ public class FileModel implements FileModelInterface {
     @Override
     public void clickLine(int lineNum) {
         compareLineArrayList.get(lineNum).clickBlock();
+        this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
     }
 
     @Override

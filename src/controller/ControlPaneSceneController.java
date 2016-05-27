@@ -107,6 +107,8 @@ public class ControlPaneSceneController {
         }
         else{
             FileManager.getFileManagerInterface().cancelCompare();
+            btnMergeRight.setDisable(true);
+            btnMergeLeft.setDisable(true);
             System.out.println(rightEditor.getText());
         }
 
@@ -121,6 +123,8 @@ public class ControlPaneSceneController {
         }
         else {
             FileManager.getFileManagerInterface().cancelCompare();
+            btnMergeRight.setDisable(true);
+            btnMergeLeft.setDisable(true);
         }
 
 

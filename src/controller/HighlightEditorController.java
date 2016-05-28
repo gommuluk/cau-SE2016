@@ -149,6 +149,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                         switch(item.getHighlight()){
                             case selected:
                             case isDifferent:
+                            case whitespace:
                                 System.out.println("selected idx: " + getIndex());
                                 FileManager.getFileManagerInterface().clickLine(getIndex()); break;
                         }

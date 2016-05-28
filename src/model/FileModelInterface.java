@@ -24,6 +24,7 @@ public interface FileModelInterface {
     ArrayList<LineInterface> getCompareLineArrayList();
     void setCompareLineArrayList(ArrayList<LineInterface> compareLineArrayList);
     void clickLine(int lineNum);
+    void updateHighlight(); //바인딩으로 인해 만ㄷ르어준 함수
     boolean isFileExist();
     String getFilePath();
 

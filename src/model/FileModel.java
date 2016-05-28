@@ -35,6 +35,8 @@ public class FileModel implements FileModelInterface {
         for(LineInterface s : lineArrayList)
             ret += s.getContent(false);
         ret = ret.substring(0,ret.length()-1);//맨 마지막의 개행 제거
+
+        System.out.println("Model System Debug log@@@@@@@@\n" + ret + "Model System Log end@@@@@@@@");
         return ret;
     }
     /**
@@ -150,6 +152,10 @@ public class FileModel implements FileModelInterface {
     @Override
     public void clickLine(int lineNum) {
         compareLineArrayList.get(lineNum).clickBlock();
+    }
+
+    @Override
+    public void updateHighlight() {
         this.contentListProperty.set(null);
         this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
     }

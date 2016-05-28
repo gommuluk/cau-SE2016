@@ -29,7 +29,7 @@ public interface FileManagerInterface {
     String getFilePath(SideOfEditor side);
     ReadOnlyStringProperty getStatus(SideOfEditor side);
     boolean getEdited(SideOfEditor side); //그 사이드가 수정중인지를 판단
-    void setEdited(SideOfEditor side, boolean value); //그 사이드가 수정중인지를 판단
+    void setEdited(SideOfEditor side, boolean value); //그 사이드의 수정중 값을 조절한다
 
     boolean getComparing();//지금 비교중이니
 

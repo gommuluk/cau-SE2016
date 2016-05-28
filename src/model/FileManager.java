@@ -135,11 +135,9 @@ public class FileManager implements FileManagerInterface {
 
     @Override
     public void clickLine(int lineNum) {
-        if (isComparing){
+        if (isComparing) {
             fileModelL.clickLine(lineNum);//왼쪽이든 오른쪽이든 상관없음! 일부러 사이드 검사를 안해줬습니다
-            fileModelR.clickLine(lineNum);
         }
-
     }
 
     @Override
@@ -210,6 +208,8 @@ public class FileManager implements FileManagerInterface {
         ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
         fromFileManager.updateArrayList(ret);
         cancelCompare();
+        if(toSide == SideOfEditor.Left) this.fileModelL.setEdited(true);
+        else this.fileModelR.setEdited(true);
         return true;
     }
 

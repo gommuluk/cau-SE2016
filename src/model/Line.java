@@ -35,15 +35,14 @@ public class Line implements LineInterface {
         if(blockIndex == -1 || blockArrayList == null)
             this.lineStatus = LineHighlight.unHighlighted;
 
-        else if(isWhitespace)
-            this.lineStatus = LineHighlight.whitespace;
 
         else try {
                 if (blockArrayList.get(blockIndex).getSelected())
                     this.lineStatus = LineHighlight.selected;
 
-                else
-                    this.lineStatus = LineHighlight.isDifferent;
+                else if(isWhitespace)
+                this.lineStatus = LineHighlight.whitespace;
+                else this.lineStatus = LineHighlight.isDifferent;
             }catch(ArrayIndexOutOfBoundsException e)
             {
                 e.printStackTrace();
@@ -68,7 +67,7 @@ public class Line implements LineInterface {
         if(isLastLine) return content;
         else return content + "\n";
     }
-
+    @Deprecated
     @Override
     public int[] getBlockRangeofLine() {
         int[] range = new int[2];

@@ -34,8 +34,6 @@ public class Line implements LineInterface {
     {
         if(blockIndex == -1 || blockArrayList == null)
             this.lineStatus = LineHighlight.unHighlighted;
-
-
         else try {
                 if (blockArrayList.get(blockIndex).getSelected())
                     this.lineStatus = LineHighlight.selected;
@@ -58,8 +56,12 @@ public class Line implements LineInterface {
 
     @Override
     public void clickBlock() {
-        if(blockIndex >=  0 )
-        blockArrayList.get(blockIndex).click();
+        if(blockIndex >=  0 ) {
+            System.out.println("Model Block Clikc test : " + blockIndex);
+            blockArrayList.get(blockIndex).click();
+
+            System.out.println("Model Blcok selected :" + blockArrayList.get(blockIndex).getSelected());
+        }
     }
 
     @Override

@@ -23,6 +23,7 @@ public class EditorSceneController {
     @FXML private Button btnFileOpen;
 
     private Button btnCompare, btnMergeLeft, btnMergeRight;
+    private FileManagerInterface.SideOfEditor side = null;
 
     @FXML
     private void initialize(){
@@ -35,6 +36,10 @@ public class EditorSceneController {
         this.btnMergeLeft = (Button)root.lookup("#btnMergeLeft");
         this.btnMergeRight = (Button)root.lookup("#btnMergeRight");
         this.btnCompare = (Button)root.lookup("#btnCompare");
+        if(editor.getParent().getParent().getId().equals("leftEditor"))
+            side = FileManagerInterface.SideOfEditor.Left;
+        else
+            side = FileManagerInterface.SideOfEditor.Right;
     }
 
     @FXML // Editor에서 키보드입력이 있을 때의 동작
@@ -113,7 +118,7 @@ public class EditorSceneController {
             }
 
             FileExplorer fileLoadExplorer = new FileLoadExplorer();
-            File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
+            File selectedFile = fileLoadExplorer.getDialog(btnFileOpen, side);
 
             //선택된 파일의 Text를 해당되는 Edit Pane에 띄워준다.
             if(selectedFile == null) return ;
@@ -132,11 +137,6 @@ public class EditorSceneController {
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) { //UnsupportedEncoingException 추가
-        FileManagerInterface.SideOfEditor side;
-        if(editor.getParent().getParent().getId().equals("leftEditor"))
-            side = FileManagerInterface.SideOfEditor.Left;
-        else
-            side = FileManagerInterface.SideOfEditor.Right;
         Caution caution = new Caution();
         if(caution.getSaveWindow(side).get() == caution.getSavebtn()) {
             try {
@@ -144,7 +144,7 @@ public class EditorSceneController {
 
             } catch (FileNotFoundException e) {
                 FileExplorer fileSaveExplorer = new FileSaveExplorer();
-                File file = fileSaveExplorer.getDialog(btnFileSave);
+                File file = fileSaveExplorer.getDialog(btnFileSave, side);
                 if (file == null) return;
                 try {
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
@@ -163,7 +163,7 @@ public class EditorSceneController {
         boolean flag = false;
 
         Node root = editor.getScene().getRoot();
-        FileManagerInterface.SideOfEditor side, oppositeSide;
+        FileManagerInterface.SideOfEditor oppositeSide;
 
         if(FileManager.getFileManagerInterface().getComparing()) {
             FileManager.getFileManagerInterface().cancelCompare();
@@ -171,12 +171,10 @@ public class EditorSceneController {
         }
 
 
-        if(editor.getParent().getParent().getId().equals("leftEditor")) {
-            side = FileManagerInterface.SideOfEditor.Left;
+        if(side == FileManagerInterface.SideOfEditor.Left) {
             oppositeSide = FileManagerInterface.SideOfEditor.Right;
         }
         else {
-            side = FileManagerInterface.SideOfEditor.Right;
             oppositeSide = FileManagerInterface.SideOfEditor.Left;
         }
 

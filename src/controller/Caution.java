@@ -24,7 +24,9 @@ public class Caution {
     public Optional<ButtonType> getSaveWindow(FileManagerInterface.SideOfEditor side){
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Simple Merge - 소공 2팀");
+        if(side == FileManagerInterface.SideOfEditor.Left)
+            alert.setTitle("왼쪽 파일 저장");
+        else alert.setTitle("오른쪽 파일 저장");
         alert.setHeaderText(null);
         if(FileManager.getFileManagerInterface().getFilePath(side) == null)
             alert.setContentText("새로운 파일로 저장하시겠습니까?");
@@ -38,7 +40,9 @@ public class Caution {
 
     public void noticeSaveWindow(FileManagerInterface.SideOfEditor side) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Simple Merge - 소공 2팀");
+        if(side == FileManagerInterface.SideOfEditor.Left)
+            alert.setTitle("왼쪽 파일 저장");
+        else alert.setTitle("오른쪽 파일 저장");
         alert.setHeaderText(null);
         if(side == FileManagerInterface.SideOfEditor.Left)
             alert.setContentText("Left side File - 저장에 실패하였습니다.");

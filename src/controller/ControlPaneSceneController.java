@@ -53,13 +53,16 @@ public class ControlPaneSceneController {
                     FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
                 } catch (FileNotFoundException e1) {
                     FileExplorer fileSaveExplorer = new FileSaveExplorer();
-                    File file = fileSaveExplorer.getDialog(btnCompare);
+                    File file = fileSaveExplorer.getDialog(btnCompare, FileManagerInterface.SideOfEditor.Left);
                     if (file == null) return;
                     try {
                         FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
                     } catch (FileNotFoundException e2) {
                         caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
                     }
+                }
+                finally {
+                    onBtnCompareClicked(event);
                 }
             }
         }
@@ -69,13 +72,16 @@ public class ControlPaneSceneController {
                     FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
                 } catch (FileNotFoundException e1) {
                     FileExplorer fileSaveExplorer = new FileSaveExplorer();
-                    File file = fileSaveExplorer.getDialog(btnCompare);
+                    File file = fileSaveExplorer.getDialog(btnCompare, FileManagerInterface.SideOfEditor.Right);
                     if (file == null) return;
                     try {
                         FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
                     } catch (FileNotFoundException e2) {
                         caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
                     }
+                }
+                finally {
+                    onBtnCompareClicked(event);
                 }
             }
         }

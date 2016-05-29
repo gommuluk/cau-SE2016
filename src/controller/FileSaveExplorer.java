@@ -3,6 +3,7 @@ package controller;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.FileManagerInterface;
 
 import java.io.File;
 
@@ -16,11 +17,13 @@ public class FileSaveExplorer implements FileExplorer {
      * @return File
      * */
     @Override
-    public File getDialog(Button btn) {
+    public File getDialog(Button btn, FileManagerInterface.SideOfEditor side) {
         Stage s = (Stage) btn.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-
-        fileChooser.setTitle("Save File");
+        if(side == FileManagerInterface.SideOfEditor.Left)
+            fileChooser.setTitle("Save Left File");
+        else
+            fileChooser.setTitle("Save Right File");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt", "*.java", "*.c", "*.cpp"));
 

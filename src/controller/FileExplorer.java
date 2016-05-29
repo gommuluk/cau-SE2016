@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.scene.control.Button;
+import model.FileManagerInterface;
 
 import java.io.File;
 
@@ -9,6 +10,6 @@ import java.io.File;
  */
 public interface FileExplorer {
 
-    File getDialog(Button btn);
+    File getDialog(Button btn, FileManagerInterface.SideOfEditor side);
 
 }

@@ -74,7 +74,6 @@ public class UndecoratedRootSceneController {
     }
 
 
-    //TODO 리펙토링이 필요한 함수입니다.
     private void _minimize(){
         mainWindow.setX(savedBounds.getMinX());
         mainWindow.setY(savedBounds.getMinY());
@@ -218,7 +217,7 @@ public class UndecoratedRootSceneController {
         dragDelta.x = event.getScreenX();
     }
 
-    //TODO 리펙토링이 필요해 보이는 함수들?
+
     private boolean _isInDraggableZone(MouseEvent event) {
         int RESIZE_MARGIN = 5;
         draggableZoneY = (event.getY() > (mainPane.getHeight() - RESIZE_MARGIN));

@@ -87,7 +87,6 @@ public class ControlPaneSceneController {
         }
     }
 
-    //TODO Merge
     //어떤 블록이 선택되었는지 알아낼 수 있어야 한다.
 
     /*

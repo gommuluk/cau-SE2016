@@ -158,7 +158,6 @@ public class EditorSceneController {
 
 
     @FXML // 수정 버튼을 클릭했을 때의 동작
-    //TODO 나머지 버튼들 활성화/비활성화 조절
     private void onTBBtnEditClicked(ActionEvent event) {
         boolean flag = false;
 

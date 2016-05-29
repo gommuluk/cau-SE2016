@@ -50,6 +50,7 @@ public class ControlPaneSceneController {
                 FileManager.getFileManagerInterface().setCompare(); // 양쪽 파일 없는거 감지 가능
                 btnMergeLeft.setDisable(false);
                 btnMergeRight.setDisable(false);
+                btnCompare.setDisable(true);
         }
         catch (LeftEditorFileCanNotCompareException e) {
             if(caution.getSaveWindow(FileManagerInterface.SideOfEditor.Left).get() == caution.getSavebtn()) {
@@ -109,6 +110,7 @@ public class ControlPaneSceneController {
             FileManager.getFileManagerInterface().cancelCompare();
             btnMergeRight.setDisable(true);
             btnMergeLeft.setDisable(true);
+            btnCompare.setDisable(false);
             rightEditor.setText(FileManagerInterface.SideOfEditor.Right, FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Right));
             System.out.println(rightEditor.getText());
         }
@@ -126,6 +128,7 @@ public class ControlPaneSceneController {
             FileManager.getFileManagerInterface().cancelCompare();
             btnMergeRight.setDisable(true);
             btnMergeLeft.setDisable(true);
+            btnCompare.setDisable(false);
             leftEditor.setText(FileManagerInterface.SideOfEditor.Left, FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left));
         }
 

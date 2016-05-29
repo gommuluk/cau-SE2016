@@ -108,7 +108,7 @@ public class EditorSceneController {
                         FileManager.getFileManagerInterface().setEdited(side, false);
                     }
                     else{
-                        //TODO 파일이 존재하는데, 저장을 하지 않고 load를 눌렀는데, 거기서도 저장 안 함을 눌렀을 경우.. 어찌되는 거지 ㅠㅠ
+                        //파일이 존재하는데, 저장을 하지 않고 load를 눌렀는데, 거기서도 저장 안 함을 눌렀을 경우.. 어찌되는 거지 ㅠㅠ
                     }
 
 
@@ -137,23 +137,24 @@ public class EditorSceneController {
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked(ActionEvent event) { //UnsupportedEncoingException 추가
-        Caution caution = new Caution();
-        if(caution.getSaveWindow(side).get() == caution.getSavebtn()) {
-            try {
-                FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
-
-            } catch (FileNotFoundException e) {
-                FileExplorer fileSaveExplorer = new FileSaveExplorer();
-                File file = fileSaveExplorer.getDialog(btnFileSave, side);
-                if (file == null) return;
+        if(FileManager.getFileManagerInterface().getEdited(side)) {
+            Caution caution = new Caution();
+            if (caution.getSaveWindow(side).get() == caution.getSavebtn()) {
                 try {
-                    FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
-                } catch (FileNotFoundException e1) {
-                    caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                    FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
+
+                } catch (FileNotFoundException e) {
+                    FileExplorer fileSaveExplorer = new FileSaveExplorer();
+                    File file = fileSaveExplorer.getDialog(btnFileSave, side);
+                    if (file == null) return;
+                    try {
+                        FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
+                    } catch (FileNotFoundException e1) {
+                        caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                    }
                 }
             }
         }
-
     }
 
 

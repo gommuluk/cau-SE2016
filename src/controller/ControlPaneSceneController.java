@@ -112,7 +112,7 @@ public class ControlPaneSceneController {
             btnMergeLeft.setDisable(true);
             btnCompare.setDisable(false);
             rightEditor.setText(FileManagerInterface.SideOfEditor.Right, FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Right));
-            System.out.println(rightEditor.getText());
+
         }
 
     }

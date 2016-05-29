@@ -33,6 +33,7 @@ public class FileManagerTest {
         //L이 a b c d, R이 a b d c 일떄의 DP 테이블
         assertArrayEquals(arr, fileManager.getArrayLCS()); //테이블 검사
     }
+    /*
     @Test
     public void backTrackingLCSTest(){
         ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
@@ -71,10 +72,11 @@ public class FileManagerTest {
         }
 
     }
-
+    */
     @Test
     public void LeftToRightMergeTest()
     {
+        //abcd ffcd 의 경우
         ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
         ArrayList<Line> testLineArrayListR = new ArrayList<Line>();
         testLineArrayListL.add(new Line("a",-1,false));
@@ -83,10 +85,9 @@ public class FileManagerTest {
         testLineArrayListL.add(new Line("d",-1,false));
         testLineArrayListR.add(new Line("a",-1,false));
         testLineArrayListR.add(new Line("b",-1,false));
-        testLineArrayListR.add(new Line("d",-1,false));
         testLineArrayListR.add(new Line("c",-1,false));
         testLineArrayListR.add(new Line("d",-1,false));
-        fileManager.clickLine(4);
+        fileManager.clickLine(0);
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
             System.out.print(i);

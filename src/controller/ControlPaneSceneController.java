@@ -27,8 +27,6 @@ public class ControlPaneSceneController {
     @FXML private GridPane controlPane;
     private HighlightEditorInterface leftEditor, rightEditor;
 
-
-
     @FXML
     public void initialize(){
         Platform.runLater(this::_getEditorReference);
@@ -39,7 +37,6 @@ public class ControlPaneSceneController {
         this.leftEditor  = (HighlightEditorInterface)((BorderPane)root.lookup("#leftEditor")).getCenter().lookup("#editor");
         this.rightEditor = (HighlightEditorInterface)((BorderPane)root.lookup("#rightEditor")).getCenter().lookup("#editor");
     }
-
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
     private void onBtnCompareClicked(ActionEvent event) {

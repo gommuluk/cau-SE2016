@@ -30,9 +30,11 @@ public class TabPaneSceneController {
     @FXML private TabPane tabPane;
     @FXML private BorderPane leftEditor, rightEditor;
 
+    private Label leftPathLabel, rightPathLabel;
+    private Label leftIsEditedLabel, rightIsEditedLabel;
+
     private Tab currentTab;
     private List<Tab> originalTabs;
-    private Label leftPathLabel, rightPathLabel;
     private Map<Integer, Tab> tapTransferMap;
     private String[] stylesheets;
 
@@ -56,7 +58,9 @@ public class TabPaneSceneController {
     public void initialize(){
         Platform.runLater(()->{
             _init();
-            _getLabelReference();
+            _initLabelReference();
+            _initIsEditedSignLabelReference();
+            _syncIsEditedSignWithBooleanProperty();
             _syncLabelTextWithPath();
             _syncEditorsScrollBar();
             _syncEditorsWithListProperty();
@@ -182,14 +186,39 @@ public class TabPaneSceneController {
         stage.show();
     }
 
-    private void _getLabelReference(){
+    private void _initLabelReference(){
         this.leftPathLabel = (Label)leftEditor.lookup("#filePath");
         this.rightPathLabel = (Label)rightEditor.lookup("#filePath");
     }
+
+    private void _initIsEditedSignLabelReference(){
+        this.leftIsEditedLabel = (Label)leftEditor.lookup("#isEditedSign");
+        this.rightIsEditedLabel = (Label)rightEditor.lookup("#isEditedSign");
+    }
+
+    private void _syncIsEditedSignWithBooleanProperty(){
+        FileManager.getFileManagerInterface().isEditedProperty(FileManagerInterface.SideOfEditor.Left).addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                this.leftIsEditedLabel.setText("*");
+            } else {
+                this.leftIsEditedLabel.setText("");
+            }
+        });
+
+        FileManager.getFileManagerInterface().isEditedProperty(FileManagerInterface.SideOfEditor.Right).addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                this.rightIsEditedLabel.setText("*");
+            } else {
+                this.rightIsEditedLabel.setText("");
+            }
+        });
+    }
+
     private void _syncLabelTextWithPath(){
         this.leftPathLabel.textProperty().bind(FileManager.getFileManagerInterface().filePathProperty(FileManagerInterface.SideOfEditor.Left));
         this.rightPathLabel.textProperty().bind(FileManager.getFileManagerInterface().filePathProperty(FileManagerInterface.SideOfEditor.Right));
     }
+
 
     private void _syncEditorsWithListProperty(){
         HighlightEditorInterface leftEditor = (HighlightEditorInterface)this.leftEditor.lookup("#editor");

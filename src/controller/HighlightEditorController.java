@@ -168,7 +168,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
                         switch(item.getHighlight()){
                             case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
-                            case isDifferent: setStyle("-fx-font-fill:black; -fx-background-color: #EDE98D;"); break;
+                            case isDifferent: setStyle("-fx-background-color: #EDE98D;"); break;
                             case whitespace: setStyle("-fx-background-color: #EEEEEE"); break;
                             case selected: setStyle("-fx-background-color: #44d7ba"); break;
                         }
@@ -177,17 +177,9 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                 }
 
             });
-            //highlightList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         }
 
     }
 
-
-    //
-    @FXML
-    public void handleMouseClick(MouseEvent arg0) {
-        //System.out.println(highlightList.getSelectionModel().getSelectedIndex());
-        //FileManager.getFileManagerInterface().clickLine(highlightList.getSelectionModel().getSelectedIndex());
-    }
 }

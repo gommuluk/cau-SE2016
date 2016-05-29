@@ -2,6 +2,7 @@ package model;
 
 
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 
 import java.io.FileNotFoundException;
@@ -36,6 +37,6 @@ public interface FileManagerInterface {
     int[][] getArrayLCS();//@@for debug
 
     ReadOnlyStringProperty filePathProperty(SideOfEditor side);
-
     ListProperty<LineInterface> listProperty(SideOfEditor side);
+    ReadOnlyBooleanProperty isEditedProperty(SideOfEditor side);
 }

@@ -39,9 +39,7 @@ public class EditorSceneController {
 
     @FXML // Editor에서 키보드입력이 있을 때의 동작
     private void onTextAreaKeyPressed(KeyEvent event){
-        if( event.getCode().compareTo(KeyCode.ENTER) == 0 ){
-            System.out.println("enter");
-        }
+
     }
 
     @FXML // 불러오기 버튼을 클릭했을 때의 동작
@@ -114,9 +112,6 @@ public class EditorSceneController {
 
             }
 
-
-//            Stage s = (Stage) btnFileOpen.getScene().getWindow();
-
             FileExplorer fileLoadExplorer = new FileLoadExplorer();
             File selectedFile = fileLoadExplorer.getDialog(btnFileOpen);
 
@@ -125,12 +120,9 @@ public class EditorSceneController {
             FileManager.getFileManagerInterface().loadFile(selectedFile.getPath(), side);
             editor.setText(side, FileManager.getFileManagerInterface().getString(side));
 
-//            filePath.setText(selectedFile.getPath());
-
         }
         catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.
             e.printStackTrace();
-            System.out.println("Exception.");
         }
         catch(FileNotFoundException e) {
             e.printStackTrace();

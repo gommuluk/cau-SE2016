@@ -7,7 +7,7 @@
 <fx:root styleClass="editor-toolbar" stylesheets="@undecoratedRootScene.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
-            <ListView fx:id="highlightList" onMouseClicked="#handleMouseClick" styleClass="list-cell" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ListView fx:id="highlightList" styleClass="list-cell" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <TextArea fx:id="editor" editable="false" layoutX="9.1" layoutY="9.1" styleClass="editor" stylesheets="@undecoratedRootScene.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 

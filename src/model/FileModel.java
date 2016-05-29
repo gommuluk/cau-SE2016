@@ -13,14 +13,12 @@ import java.util.Scanner;
 public class FileModel implements FileModelInterface {
 
     private ArrayList<LineInterface> lineArrayList = new ArrayList<>();//데이터를 줄 단위로 저장하는 arraylist
-    private  boolean isEdited = false;//이 파일이 수정됬는지를 저장하는 변수
+    private boolean isEdited = false;//이 파일이 수정됬는지를 저장하는 변수
 
-    private final ReadOnlyStringWrapper statusString = new ReadOnlyStringWrapper("Ready(No file is loaded)");
+    private ReadOnlyStringWrapper statusString = new ReadOnlyStringWrapper("Ready(No file is loaded)");
     private ReadOnlyStringWrapper filePath = new ReadOnlyStringWrapper("새 파일");
+    private BooleanProperty isEditedProperty = new SimpleBooleanProperty(isEdited);
     private ListProperty<LineInterface> contentListProperty = new SimpleListProperty<>(FXCollections.observableArrayList(lineArrayList));
-
-
-    //용례 contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
 
     private ArrayList<LineInterface> compareLineArrayList;
     private File file; //로드하고있는 파일
@@ -119,9 +117,12 @@ public class FileModel implements FileModelInterface {
         tstring = tstring.substring(0,tstring.length()-1);
         out.print(tstring);
         out.close();
+
+        // property change
         this.statusString.set("File Written successfully");
         this.filePath.set(file.getPath());
         this.isEdited = false;
+        this.isEditedProperty.set(false);
     }
 
     /**
@@ -186,10 +187,13 @@ public class FileModel implements FileModelInterface {
         file = null;
         compareLineArrayList =null;
     }
+
     @Override
     public void setEdited(boolean value){
         isEdited = value;
+        this.isEditedProperty.set(value);
     }
+
     @Override
     public boolean getEdited(){
         return isEdited;
@@ -212,5 +216,9 @@ public class FileModel implements FileModelInterface {
         return this.contentListProperty;
     }
 
+    @Override
+    public ReadOnlyBooleanProperty isEditedProperty() {
+        return this.isEditedProperty;
+    }
 
 }

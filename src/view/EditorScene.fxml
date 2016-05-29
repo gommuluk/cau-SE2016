@@ -17,9 +17,14 @@
          <children>
             <ToolBar styleClass="editor-toolbar" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <items>
+                  <Pane HBox.hgrow="NEVER">
+                     <children>
+                        <Label fx:id="filePath" maxWidth="300.0" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="새 파일" />
+                     </children>
+                  </Pane>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="filePath" prefWidth="300.0" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="새 파일" />
+                        <Label fx:id="isEditedSign" prefWidth="2" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="" />
                      </children>
                   </Pane>
                   <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnLoadClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css">

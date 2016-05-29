@@ -1,6 +1,7 @@
 package model;
 
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 
 import java.io.FileNotFoundException;
@@ -372,6 +373,11 @@ public class FileManager implements FileManagerInterface {
     @Override
     public ListProperty<LineInterface> listProperty(SideOfEditor side) {
         return side == SideOfEditor.Left ? fileModelL.listProperty() : fileModelR.listProperty();
+    }
+
+    @Override
+    public ReadOnlyBooleanProperty isEditedProperty(SideOfEditor side) {
+        return side == SideOfEditor.Left ? fileModelL.isEditedProperty() : fileModelR.isEditedProperty();
     }
 
     @Override

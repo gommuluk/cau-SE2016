@@ -155,34 +155,36 @@ public class FileManager implements FileManagerInterface {
             fromFileManager = fileModelL;
             toFileManager = fileModelR;
         }
-
+        System.out.println("Model debug blockArrayList size : " + blockArrayList.size());
         for (Block b : blockArrayList) {
-
+            System.out.println("startLineNum : " + b.startLineNum + " endLineNum : " + b.endLineNum);
             int count = b.endLineNum - b.startLineNum;//지워야 될 블럭의 갯수
-            System.out.println("count = " + count);
+
+            System.out.println("Model debug count  : " + count);
             int insertNum = b.startLineNum; //이 줄에 넣을거임
-            if (b.getSelected()) {
+            if (b.getSelected()) {//선택된 블럭이면
                 for (int i = 0; i < count; i++) {
-                    toFileManager.getCompareLineArrayList().remove(insertNum);//일단 지워줌
+                    toFileManager.getCompareLineArrayList().remove(insertNum);//복사대상이 되는 블럭을 지운다
                 }
                 for (int i = 0; i < count; i++) {
-                    LineInterface tempL = fromFileManager.getCompareLineArrayList().get(insertNum);
-                    if (tempL.getIsWhiteSpace()) fromFileManager.getCompareLineArrayList().remove(insertNum);
+                    LineInterface tempL = fromFileManager.getCompareLineArrayList().get(insertNum); //넣을 줄
+                    if (tempL.getIsWhiteSpace()) fromFileManager.getCompareLineArrayList().remove(insertNum); //공백줄이면 지워줌
                     else {
                         LineInterface insertL = new Line(tempL.getContent(true));
-                        toFileManager.getCompareLineArrayList().add(insertNum, insertL);
-                        insertNum++;
+                        toFileManager.getCompareLineArrayList().add(insertNum, insertL);//아니면 넣어주고
+                        insertNum++;//하나 넣어줬으니 하나 올려주고
                     }
                 }
-            } else {
+            } else {//선택 안됬으면 공백을 제거하는 작업을 해준다
                 for (int i = 0; i < count; i++) {
-                    LineInterface tempL = fromFileManager.getCompareLineArrayList().get(insertNum);
-                    if (tempL.getIsWhiteSpace()) fromFileManager.getCompareLineArrayList().remove(insertNum);
+                    LineInterface tempL = fromFileManager.getCompareLineArrayList().get(insertNum);//복사대상이 되는 줄. 의미 없는듯
+                    if (tempL.getIsWhiteSpace()) fromFileManager.getCompareLineArrayList().remove(insertNum);//공백이면 제거
                     else {
                         insertNum++;
                     }
                 }
-                insertNum = b.startLineNum;
+                count = b.endLineNum - b.startLineNum;
+                insertNum = b.startLineNum;//시작줄 초기화
                 for (int i = 0; i < count; i++) {
                     LineInterface tempR = toFileManager.getCompareLineArrayList().get(insertNum);
                     if (tempR.getIsWhiteSpace()) toFileManager.getCompareLineArrayList().remove(insertNum);
@@ -287,7 +289,7 @@ public class FileManager implements FileManagerInterface {
             if (i == 0 && j == 0) {
                 if (tempBlock != null)//마지막 블럭을 안넣었으면 넣어준다
                 {
-                    endLineNum = count;
+                    startLineNum = count;
                     tempBlock.setLineNum(startLineNum, endLineNum);
                     blockArrayList.add(tempBlock);
                     tempBlock = null;

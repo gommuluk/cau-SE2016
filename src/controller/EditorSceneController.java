@@ -53,6 +53,7 @@ public class EditorSceneController {
                 FileManager.getFileManagerInterface().cancelCompare();
                 btnMergeLeft.setDisable(true);
                 btnMergeRight.setDisable(true);
+                btnCompare.setDisable(false);
                 flag = true;
             }
 

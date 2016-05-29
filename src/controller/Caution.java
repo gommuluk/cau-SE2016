@@ -12,7 +12,6 @@ import java.util.Optional;
  */
 public class Caution {
 
-
     private ButtonType buttonTypeSave = new ButtonType("저장");
     private ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
     private ButtonType buttonTypeClose = new ButtonType("닫기");
@@ -22,8 +21,7 @@ public class Caution {
         return buttonTypeSave;
     }
 
-
-    public  Optional<ButtonType> getSaveWindow(FileManagerInterface.SideOfEditor side){
+    public Optional<ButtonType> getSaveWindow(FileManagerInterface.SideOfEditor side){
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Simple Merge - 소공 2팀");
@@ -37,6 +35,7 @@ public class Caution {
 
         return alert.showAndWait();
     }
+
     public void noticeSaveWindow(FileManagerInterface.SideOfEditor side) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Simple Merge - 소공 2팀");

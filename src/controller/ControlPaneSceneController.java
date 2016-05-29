@@ -43,8 +43,6 @@ public class ControlPaneSceneController {
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
     private void onBtnCompareClicked(ActionEvent event) {
-        ArrayList<String> leftList;
-        ArrayList<String> rightList;
         Caution caution = new Caution();
         try {
                 FileManager.getFileManagerInterface().setCompare(); // 양쪽 파일 없는거 감지 가능
@@ -97,7 +95,6 @@ public class ControlPaneSceneController {
     * */
     @FXML // merge-to-right 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToRightClicked(ActionEvent event) {
-
 
         // 테스트 중
 

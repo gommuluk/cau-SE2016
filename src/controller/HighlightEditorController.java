@@ -1,9 +1,9 @@
 package controller;
 
 import javafx.application.Platform;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +26,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     @FXML private ListView highlightList;
 
     private boolean isEditMode = false;
+    private BooleanProperty isFocusedProperty = new SimpleBooleanProperty(false);
 
     /* 생성자 */
     public HighlightEditorController() {
@@ -58,6 +59,8 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     public boolean isEditable(){
         return editor.isEditable();
     }
+
+
 
     @Override
     @SuppressWarnings("unchecked")
@@ -112,9 +115,13 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
+    public ReadOnlyBooleanProperty isFocusedProperty() {
+        return this.isFocusedProperty;
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public void update(FileManagerInterface.SideOfEditor side) {
-        System.out.println("업데이트 호출");
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), side);
     }
 
@@ -168,7 +175,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
                         switch(item.getHighlight()){
                             case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
-                            case isDifferent: setStyle("-fx-background-color: #EDE98D;"); break;
+                            case isDifferent: setStyle("-fx-text-fill:#000000; -fx-background-color: #EDE98D;"); break;
                             case whitespace: setStyle("-fx-background-color: #EEEEEE"); break;
                             case selected: setStyle("-fx-background-color: #44d7ba"); break;
                         }
@@ -180,6 +187,16 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
         }
 
+    }
+
+    @FXML
+    private void onMouseEntered(MouseEvent me){
+        this.isFocusedProperty.set(true);
+    }
+
+    @FXML
+    private void onMouseExited(MouseEvent me){
+        this.isFocusedProperty.set(false);
     }
 
 }

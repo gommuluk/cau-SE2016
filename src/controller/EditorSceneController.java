@@ -1,11 +1,16 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import model.FileManager;
 import model.FileManagerInterface;
@@ -19,15 +24,26 @@ public class EditorSceneController {
 
     @FXML private HighlightEditorInterface editor;
 
-    @FXML private Button btnFileSave;
-    @FXML private Button btnFileOpen;
+    @FXML private Button btnFileSave, btnFileOpen;
+    @FXML private ToggleButton btnEdit;
 
     private Button btnCompare, btnMergeLeft, btnMergeRight;
     private FileManagerInterface.SideOfEditor side = null;
+    private BooleanProperty isFocused = new SimpleBooleanProperty(false);
 
     @FXML
     private void initialize(){
-        Platform.runLater(this::_getBtnsReference);
+        Platform.runLater(()->{
+            _getBtnsReference();
+
+            isFocused.bind(editor.isFocusedProperty());
+
+            btnFileOpen.getScene().getAccelerators().put(
+                    new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN),
+                    ()->{ if(isFocused.getValue()){ onTBBtnLoadClicked(); System.out.println("focused"); }
+                            else System.out.println("not foucsed"); }
+            );
+        });
     }
 
     private void _getBtnsReference(){
@@ -48,7 +64,7 @@ public class EditorSceneController {
     }
 
     @FXML // 불러오기 버튼을 클릭했을 때의 동작
-    private void onTBBtnLoadClicked(ActionEvent event) {
+    private void onTBBtnLoadClicked() {
         //File chooser code
         try {
             boolean flag = false;
@@ -80,7 +96,7 @@ public class EditorSceneController {
 
 
             if(FileManager.getFileManagerInterface().getEdited(side)) {
-                onTBBtnSaveClicked(event);
+                onTBBtnSaveClicked();
 
 
 /*              if(FileManager.getFileManagerInterface().getFilePath(side) == null){
@@ -136,7 +152,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked(ActionEvent event) { //UnsupportedEncoingException 추가
+    private void onTBBtnSaveClicked() { //UnsupportedEncoingException 추가
         if(FileManager.getFileManagerInterface().getEdited(side)) {
             Caution caution = new Caution();
             if (caution.getSaveWindow(side).get() == caution.getSavebtn()) {
@@ -224,6 +240,6 @@ public class EditorSceneController {
 
     //Method for testing
     public void useSaveActionMethod() throws IOException {
-        onTBBtnSaveClicked(new ActionEvent());
+        onTBBtnSaveClicked();
     }
 }

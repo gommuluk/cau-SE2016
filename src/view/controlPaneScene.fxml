@@ -13,6 +13,10 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
 <GridPane fx:id="controlPane" styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControlPaneSceneController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -26,15 +30,37 @@
          <menus>
             <Menu mnemonicParsing="false" text="파일(F)">
                <items>
-                  <MenuItem id="menuReset" mnemonicParsing="false" onAction="#onMenuBtnResetClicked" text="Reset" />
+                  <MenuItem id="menuReset" mnemonicParsing="false" onAction="#onMenuBtnResetClicked" text="Reset" >
+                  </MenuItem>
                   <MenuItem id="menuClose" mnemonicParsing="false" onAction="#onMenuBtnCloseClicked" text="Close" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="편집(E)">
                <items>
-                  <MenuItem id="menuCopyToRight" mnemonicParsing="false" onAction="#onMenuBtnCopyToRightClicked" text="Copy to right" />
-                  <MenuItem id="menuCopyToLeft" mnemonicParsing="false" onAction="#onMenuBtnCopyToLeftClicked" text="Copy to left" />
-                  <MenuItem id="menuCompare" mnemonicParsing="false" onAction="#onMenuBtnCopyToCompareClicked" text="Compare" />
+                  <MenuItem id="menuCopyToRight" mnemonicParsing="false" onAction="#onMenuBtnCopyToRightClicked" text="Copy to right">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="RIGHT" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                     </accelerator>
+                     <graphic>
+                        <ImageView><image><Image url="/res/btnMergeRight.png"/></image></ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem id="menuCopyToLeft" mnemonicParsing="false" onAction="#onMenuBtnCopyToLeftClicked" text="Copy to left" >
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="LEFT" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                     </accelerator>
+                     <graphic>
+                        <ImageView><image><Image url="/res/btnMergeLeft.png"/></image></ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem id="menuCompare" mnemonicParsing="false" onAction="#onMenuBtnCopyToCompareClicked" text="Compare" >
+                     <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="C" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                     </accelerator>
+                     <graphic>
+                        <ImageView><image><Image url="/res/btnCompare.png"/></image></ImageView>
+                     </graphic>
+                  </MenuItem>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="도움말(H)">

@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 
 <?import controller.HighlightEditorController?>
+
 <BorderPane styleClass="editor-toolbar" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorSceneController">
    <top>
       <AnchorPane>
@@ -19,7 +20,7 @@
                <items>
                   <Pane HBox.hgrow="NEVER">
                      <children>
-                        <Label fx:id="filePath" maxWidth="300.0" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="새 파일" />
+                        <Label fx:id="filePath" maxWidth="300.0" textOverrun="CENTER_WORD_ELLIPSIS" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="새 파일" />
                      </children>
                   </Pane>
                   <Pane HBox.hgrow="ALWAYS">

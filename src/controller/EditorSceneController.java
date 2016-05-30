@@ -154,8 +154,7 @@ public class EditorSceneController {
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked() { //UnsupportedEncoingException 추가
         if(FileManager.getFileManagerInterface().getEdited(side)) {
-            Caution caution = new Caution();
-            if (caution.getSaveWindow(side).get() == caution.getSavebtn()) {
+            if (Caution.CautionFactory(Caution.CautionType.SaveChoice, side)) {
                 try {
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
 
@@ -166,7 +165,7 @@ public class EditorSceneController {
                     try {
                         FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
                     } catch (FileNotFoundException e1) {
-                        caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                        Caution.CautionFactory(Caution.CautionType.SaveNotice, side);
                     }
                 }
             }

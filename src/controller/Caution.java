@@ -78,4 +78,13 @@ public class Caution {
         );
         alert.showAndWait();
     }
+
+    public void noticeCompareFailure() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Simple Merge - 소공 2팀");
+        alert.setHeaderText(null);
+        alert.setContentText("Editing 중에는 파일을 비교할 수 없습니다.");
+
+        alert.showAndWait();
+    }
 }

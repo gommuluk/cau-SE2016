@@ -165,6 +165,8 @@ public class ControlPaneSceneController {
 
     @FXML
     private void onMenuBtnAboutClicked(ActionEvent event) {
+        Caution caution = new Caution();
+        caution.getAboutWindow();
     }
 
 }

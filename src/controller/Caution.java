@@ -63,4 +63,19 @@ public class Caution {
         alert.showAndWait();
     }
 
+
+    public void getAboutWindow() {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(
+                "프로그램 명   : " + "Simple Merge\n" +
+                "제작자          : " + "강민승 권준혁 남효민 이승현\n" +
+                "License        : APACHE License\n" +
+                "Version        : 1.00 relase\n" +
+                "배포일          : " + " 2016/06/10\n"
+        );
+        alert.showAndWait();
+    }
 }

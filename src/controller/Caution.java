@@ -41,10 +41,6 @@ public abstract class Caution {
         }
         return caution.get(side);
     }
-
-    public ButtonType getSavebtn() {
-        return buttonTypeSave;
-    }
 }
 
 class SaveChoiceWindow extends Caution {

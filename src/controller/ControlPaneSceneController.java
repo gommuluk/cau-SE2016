@@ -14,7 +14,6 @@ import model.RightEditorFileCanNotCompareException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 /**
  * Created by SH on 2016-05-18.

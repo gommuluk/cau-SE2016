@@ -5,14 +5,12 @@ import javafx.scene.control.ButtonType;
 import model.FileManager;
 import model.FileManagerInterface;
 
-import java.util.Optional;
-
 /**
  * Created by 효민 on 2016-05-23.
  */
 public abstract class Caution {
 
-    public abstract boolean get(FileManagerInterface.SideOfEditor side);
+    protected abstract boolean get(FileManagerInterface.SideOfEditor side);
 
     private ButtonType buttonTypeSave = new ButtonType("저장");
 
@@ -45,8 +43,8 @@ public abstract class Caution {
 
 class SaveChoiceWindow extends Caution {
 
-    private ButtonType buttonTypeSave = new ButtonType("저장");
-    private ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
+    private final ButtonType buttonTypeSave = new ButtonType("저장");
+    private final ButtonType buttonTypeNotSave = new ButtonType("저장 안 함");
 
     @Override
     public boolean get(FileManagerInterface.SideOfEditor side) {
@@ -72,7 +70,7 @@ class SaveChoiceWindow extends Caution {
 
 class SaveNoticeWindow extends Caution {
 
-    private ButtonType buttonTypeClose = new ButtonType("닫기");
+    private final ButtonType buttonTypeClose = new ButtonType("닫기");
     @Override
     public boolean get(FileManagerInterface.SideOfEditor side) {
 

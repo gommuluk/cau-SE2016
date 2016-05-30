@@ -20,7 +20,7 @@ public interface FileManagerInterface {
 
     void saveFile(String newContents, String filePath, SideOfEditor side) throws FileNotFoundException, SecurityException; //Side에 파일경로로 저장함.
     void saveFile(String newContents, SideOfEditor side) throws FileNotFoundException, SecurityException; //Side에 기존 파일 경로로 저장함. false를 반환하는 경우는 기존 파일이 없을 경우이다
-    ArrayList<LineInterface> loadFile(String filePath, SideOfEditor side) throws FileNotFoundException, UnsupportedEncodingException; //filePath에 있는 파일을 side에 로드
+    void loadFile(String filePath, SideOfEditor side) throws FileNotFoundException, UnsupportedEncodingException; //filePath에 있는 파일을 side에 로드
     void setCompare() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException; //비교 실행. 비교할 수 없는 조건이면 false를 반환
 
     void cancelCompare(); //비교 취소
@@ -30,7 +30,7 @@ public interface FileManagerInterface {
     String getFilePath(SideOfEditor side);
     ReadOnlyStringProperty getStatus(SideOfEditor side);
     boolean getEdited(SideOfEditor side); //그 사이드가 수정중인지를 판단
-    void setEdited(SideOfEditor side, boolean value); //그 사이드의 수정중 값을 조절한다
+    void setEdited(SideOfEditor side); //그 사이드의 수정중 값을 조절한다
 
     boolean getComparing();//지금 비교중이니
 

@@ -6,9 +6,8 @@ import java.util.ArrayList;
  */
 public class Line implements LineInterface {
 
-    private String content;//이 라인이 가지고 있는 컨텐츠
-    private LineHighlight lineStatus = LineHighlight.unHighlighted; //현재 라인의 상태
-    private int blockIndex; // 이 라인이 속해있는 블럭의 index. -1이면 속하는 블럭이 없다는 것
+    private final String content;//이 라인이 가지고 있는 컨텐츠
+    private final int blockIndex; // 이 라인이 속해있는 블럭의 index. -1이면 속하는 블럭이 없다는 것
     private boolean isWhitespace;//compare로 생긴 공백 줄이면 true;
     private static ArrayList<Block> blockArrayList;//블럭을 가지고 있는 arraylist
 
@@ -32,22 +31,23 @@ public class Line implements LineInterface {
     @Override
     public LineHighlight getHighlight()
     {
+        LineHighlight lineStatus;
         if(blockIndex == -1 || blockArrayList == null)
-            this.lineStatus = LineHighlight.unHighlighted;
+            lineStatus = LineHighlight.unHighlighted;
         else try {
                 if (blockArrayList.get(blockIndex).getSelected())
-                    this.lineStatus = LineHighlight.selected;
+                    lineStatus = LineHighlight.selected;
 
                 else if(isWhitespace)
-                this.lineStatus = LineHighlight.whitespace;
-                else this.lineStatus = LineHighlight.isDifferent;
+                lineStatus = LineHighlight.whitespace;
+                else lineStatus = LineHighlight.isDifferent;
             }catch(ArrayIndexOutOfBoundsException e)
             {
                 e.printStackTrace();
                 System.out.print("Block index problem");
-                this.lineStatus = LineHighlight.unHighlighted;
+                lineStatus = LineHighlight.unHighlighted;
             }
-        return this.lineStatus;
+        return lineStatus;
     }
 
     public static void setBlockArrayList(ArrayList<Block> bArrayList) {

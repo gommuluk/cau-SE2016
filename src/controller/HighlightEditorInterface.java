@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -31,6 +32,6 @@ public interface HighlightEditorInterface {
     ListView getHighlightListView();
 
     void update(FileManagerInterface.SideOfEditor side);
-
+    ReadOnlyBooleanProperty isFocusedProperty();
 
 }

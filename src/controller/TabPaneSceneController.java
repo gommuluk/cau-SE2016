@@ -64,6 +64,8 @@ public class TabPaneSceneController {
             _syncLabelTextWithPath();
             _syncEditorsScrollBar();
             _syncEditorsWithListProperty();
+
+            //_syncEditorsScroll();
         });
     }
 
@@ -228,4 +230,14 @@ public class TabPaneSceneController {
         rightEditor.getHighlightListView().itemsProperty().bind(FileManager.getFileManagerInterface().listProperty(FileManagerInterface.SideOfEditor.Right));
     }
 
+    private void _syncEditorsScroll(){
+        HighlightEditorInterface leftEditor = (HighlightEditorInterface)this.leftEditor.lookup("#editor");
+        HighlightEditorInterface rightEditor = (HighlightEditorInterface)this.rightEditor.lookup("#editor");
+
+        ScrollBar scrollBarOne = (ScrollBar) leftEditor.getHighlightListView().lookup(".scroll-bar:vertical");
+        ScrollBar scrollBarTwo = (ScrollBar) rightEditor.getHighlightListView().lookup(".scroll-bar:vertical");
+
+        scrollBarOne.valueProperty().bindBidirectional(scrollBarTwo.valueProperty());
+
+    }
 }

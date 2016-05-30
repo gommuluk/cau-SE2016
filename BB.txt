@@ -1,12 +1,141 @@
+Account(id, location)
 
+tjdgus3537, 占쏙옙占쏙옙
+wraithKim, 占쏙옙占쏙옙
+nErumin, 占쏙옙占쏙옙
+leesnhyun, 占쏙옙占쏙옙
+miura0806, 占쏙옙占쏙옙
+zeropage, 占쏙옙占쏙옙
+tmi, 占쏙옙占쏙옙
+dongnae, 占쏙옙占쏙옙
+cau, 占쏙옙占쏙옙
+clug, 占쏙옙占쏙옙
 
+Email(account_id, email_address)
+tjdgus3537, tjdgus3537@naver.com
+wraithKim, wraithKim@gmail.com
+nErumin, nErumin@gmail.com
+tjdgus3537, tjdgus8336@naver.com
+leesnhyun, leesnhyun@naver.com
+zeropage, zeropage@gmail.com
 
-a
+User(id, name, join_date, class, picutre, URL, password)
+tjdgus3537, null, 2015-1-12, free, https://avatars1.githubusercontent.com/u/10491937?v=3&u=1d13e3f169f6684edf9d224cf616e09d032faef0&s=140, null, 12345678
+wraithKim, Dong-Hwan Kim, micro, https://avatars1.githubusercontent.com/u/10491937?v=3&u=1d13e3f169f6684edf9d224cf616e09d032faef0&s=12, null, qwertyqwe
+nErumin, HyeongCheol Shin, micro, https://avatars1.githubusercontent.com/u/10491937?v=3&u=1d13e3f169f6684edf9d224cf616e09d032faef0&s=142, null, asdsafgsa
+leesnhyun, 占쎈��占쎈�占쏙옙, micro, https://avatars1.githubusercontent.com/u/10491937?v=3&u=1d13e3f169f6684edf9d224cf616e09d032faef0&s=23, null, sadsafsaf
+miura0806, null, free, https://avatars1.githubusercontent.com/u/10491937?v=3&u=1d13e3f169f6684edf9d224cf616e09d032faef0&s=255, null, sadsafsaf
 
-a
-d
-d
-d
-d
-d
-d
+Follow(follower_id, followed_id)
+tjdgus3537, nErumin
+nErumin, tjdgus3537
+tjdgus3537, wraithKim
+wraithKim, nErumin
+wraithKim, tjdgus3537
+tjdgus3537, leesnhyun
+
+Organization(id, class, create_date)
+zeropage, platinum, 2013-1-2
+tmi, bronze, 2015-2-23
+dongnae, gold, 2014-5-7
+cau, diamond, 2012-12-25
+clug, silver, 2015-1-3
+
+//TODO
+Participate(user_id, organization_id, authority)
+tjdgus3537, zeropage, master
+tjdgus3537, cau, member
+nErumin, zeropage, member
+wraithKim, zeropage, member
+leesnhyun, zeropage, member
+leesnhyun, dongnae, master
+
+Repository(id, name, is_public)
+1, zerobot, true
+2, robot, true
+3, robot, true
+4, dongnae, false
+5, zerobot, true
+6, portal, true
+7, portal, true
+8, portal, true
+9, linux, true
+10. linux, true
+
+Fork(to_id, from_id, fork_date)
+3, 2, 2015-8-12
+5, 1, 2015-9-1
+7, 6, 2015-10-11
+8, 6, 2015-10-23
+10, 9, 2015-12-25
+
+Own_Repository(repository_id, account_id, create_date)
+1, zeropage, 2014-12-25
+2, zeropage, 2014-12-26
+3, tmi, 2015-8-12
+4, dongnae, 2015-8-13
+5, tmi, 2015-9-1
+6, cau, 2015-9-1
+7, zeropage, 2015-10-11
+8, tmi, 2015-10-23
+9, clug, 2015-10-23
+10, zeropage, 2015-12-25
+
+Contribute(user_id, repository_id)
+tjdgus3537, 1
+tjdgus3537, 2
+tjdgus3537, 3
+nErumin, 1
+nErumin, 2
+nErumin, 4
+leesnhyun, 10
+leesnhyun, 4
+wraithKim, 1
+wraithKim, 7
+wraithKim, 10
+
+Star(user_id, repository_id)
+tjdgus3537, 1
+tjdgus3537, 2
+tjdgus3537, 7
+tjdgus3537, 10
+wraithKim, 1
+
+Watch(user_id, repository_id)
+tjdgus3537, 1
+tjdgus3537, 2
+tjdgus3537, 8
+nErumin, 4
+nErumin, 10
+wraithKim, 10
+
+Issue(issue_number, repository_id, is_closed, content, post_time, post_user)
+1, 1, false, read 占쏙옙 甕곤옙域뱄옙 獄�占쏙옙占�, 2014-12-26, tjdgus3537
+2, 1, false, clock 占쎈�占� �얜�占쏙옙, 2015-1-1, wraithKim
+3, 1, true, FileManager 占썬�삼옙, 2015-1-4, nErumin
+1, 4, false leesnhyun, DB �얜�占쏙옙 獄�占쏙옙占�, 2015-8-14
+2, 4, true, nErumin, 占쏙옙甕곤옙 lock, 2015-9-15
+
+Issue_Label(issue_number, repository_id, label)
+1, 1, npm
+1, 1, build
+1, 1, https
+2, 1, buffer
+1, 4, npm
+1, 4, build
+
+Comment(comment_number, issue_number, repository_id, content, post_time, post_user)
+1, 1, 1, 占쏙옙占쎌�깍옙占� �얜�占쏙옙揶�占� 占쏙옙占쏙옙 野�占� 揶�占쏙옙�쇽옙占�, 2014-12-27, nErumin
+2, 1, 1, 占쏙옙占쎌�깍옙占� 占쏙옙占쎈�占쏙옙 ���삼옙占쏙옙占� 占쎈�욧�占쏙옙 占쏙옙占쏙옙占썬�쇽옙占�, 2014-12-28, tjdgus3537
+3, 1, 1, 占쏙옙占쏙옙 占쏙옙占쎈�占쏙옙 癰���占쎈�占쏙옙, 2014-12-28, leesnhyun
+1, 3, 1, 占쏙옙筌ｋ��占쎈�욧� 占쏙옙占쎈�э옙占쏙옙占�, 2015-1-5, nErumin
+1, 2, 4, 占쏙옙筌ｋ��占쎈�욧� 占쏙옙占쎈�э옙占쏙옙占�, 2015-9-16, nErumin
+
+Comment_Label(comment_number, issue_number, repository_id, label)
+1, 1, 1, file
+1, 1, 1, debug
+1, 1, 1, error
+3, 1, 1, buffer
+3, 1, 1, parser
+2, 1, 1, file
+1, 2, 4, complete

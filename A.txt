@@ -1,5 +1,44 @@
-sd
-jklj
+#include <stdio.h>
+#define MAX 50
+void shift(char * arr, int* result);
+void printValue(int* arr);
+void add(int * num1, int * num2, int * result);
+int distinct(char *input, char *input2);
+void minus(int * num1, int * num2, int * result);
+void multi(int * num1, int * num2, int * result);
+void multi(int * num1, int * num2, int * result);
+
+Own_Repository(repository_id, account_id, create_date)
+1, zeropage, 2014-12-25
+2, zeropage, 2014-12-26
+3, tmi, 2015-8-12
+4, dongnae, 2015-8-13
+5, tmi, 2015-9-1
+6, cau, 2015-9-1
+7, zeropage, 2015-10-11
+8, tmi, 2015-10-23
+9, clug, 2015-10-23
+10, zeropage, 2015-12-25
+
+Contribute(user_id, repository_id)
+tjdgus3537, 1
+tjdgus3537, 2
+tjdgus3537, 3
+nErumin, 1
+nErumin, 2
+nErumin, 4
+leesnhyun, 10
+leesnhyun, 4
+wraithKim, 1
+wraithKim, 7
+wraithKim, 10
+
+Star(user_id, repository_id)
+tjdgus3537, 1
+tjdgus3537, 2
+tjdgus3537, 7
+tjdgus3537, 10
+wraithKim, 1
 
 
 

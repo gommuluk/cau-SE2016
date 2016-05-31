@@ -52,7 +52,7 @@ public class FileManager implements FileManagerInterface {
      *
      * @return FileModel 왼쪽 Editor에 할당된 FileModel
      */
-    public FileModelInterface getFileModelL() {
+    private FileModelInterface getFileModelL() {
         return fileModelL;
     }
 
@@ -61,7 +61,7 @@ public class FileManager implements FileManagerInterface {
      *
      * @return FileModel 오른쪽 Editor에 할당된 FileModel
      */
-    public FileModelInterface getFileModelR() {
+    private FileModelInterface getFileModelR() {
         return fileModelR;
     }
 
@@ -109,13 +109,13 @@ public class FileManager implements FileManagerInterface {
     }
 
     @Override
-    public ArrayList<LineInterface> loadFile(String filepath, FileManagerInterface.SideOfEditor side) throws FileNotFoundException, UnsupportedEncodingException {
+    public void loadFile(String filepath, SideOfEditor side) throws FileNotFoundException, UnsupportedEncodingException {
         if (side == SideOfEditor.Left) {
             fileModelL.readFile(filepath);
-            return fileModelL.getLineArrayList();
+            fileModelL.getLineArrayList();
         } else {
             fileModelR.readFile(filepath);
-            return fileModelR.getLineArrayList();
+            fileModelR.getLineArrayList();
         }
     }
 
@@ -274,13 +274,13 @@ public class FileManager implements FileManagerInterface {
         int[][] arr = arrayLCS;
         ArrayList<LineInterface> leftArr = fileModelL.getLineArrayList(); // width
         ArrayList<LineInterface> rightArr = fileModelR.getLineArrayList(); // height
-        ArrayList<LineInterface> cLineArrayListL = new ArrayList<LineInterface>();
-        ArrayList<LineInterface> cLineArrayListR = new ArrayList<LineInterface>();
-        blockArrayList = new ArrayList<Block>();//블럭 어레이리스트를 새로 만든다.
+        ArrayList<LineInterface> cLineArrayListL = new ArrayList<>();
+        ArrayList<LineInterface> cLineArrayListR = new ArrayList<>();
+        blockArrayList = new ArrayList<>();//블럭 어레이리스트를 새로 만든다.
         Line.setBlockArrayList(blockArrayList);
         int i = fileModelL.getLineArrayList().size();
         int j = fileModelR.getLineArrayList().size();//끝점부터 시작한다.
-        int startLineNum = 0; //블럭 시작줄
+        int startLineNum; //블럭 시작줄
         int endLineNum = 0;//블럭 끝나는 줄
         int numBlock = 0; //현재 만든 블럭의 수
         Block tempBlock = null;
@@ -388,12 +388,12 @@ public class FileManager implements FileManagerInterface {
         return isComparing;
     }
     @Override
-    public void setEdited(SideOfEditor side, boolean value) {
+    public void setEdited(SideOfEditor side) {
         if(side == SideOfEditor.Left){
-            fileModelL.setEdited(value);
+            fileModelL.setEdited(true);
         }
         else{
-            fileModelR.setEdited(value);
+            fileModelR.setEdited(true);
         }
     }
     @Override

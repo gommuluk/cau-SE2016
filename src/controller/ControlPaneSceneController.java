@@ -14,7 +14,6 @@ import model.RightEditorFileCanNotCompareException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 /**
  * Created by SH on 2016-05-18.
@@ -40,9 +39,8 @@ public class ControlPaneSceneController {
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
     private void onBtnCompareClicked(ActionEvent event) {
-        Caution caution = new Caution();
         if(leftEditor.isEditMode() || rightEditor.isEditMode()) {
-            caution.noticeCompareFailure();
+            Caution.CautionFactory(Caution.CautionType.CompareNotice, FileManagerInterface.SideOfEditor.Left);
         }
         else {
             try {
@@ -51,7 +49,7 @@ public class ControlPaneSceneController {
                 btnMergeRight.setDisable(false);
                 btnCompare.setDisable(true);
             } catch (LeftEditorFileCanNotCompareException e) {
-                if (caution.getSaveWindow(FileManagerInterface.SideOfEditor.Left).get() == caution.getSavebtn()) {
+                if (Caution.CautionFactory(Caution.CautionType.SaveChoice, FileManagerInterface.SideOfEditor.Left)) {
                     try {
                         FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), FileManagerInterface.SideOfEditor.Left);
                     } catch (FileNotFoundException e1) {
@@ -61,14 +59,14 @@ public class ControlPaneSceneController {
                         try {
                             FileManager.getFileManagerInterface().saveFile(leftEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Left);
                         } catch (FileNotFoundException e2) {
-                            caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                            Caution.CautionFactory(Caution.CautionType.SaveNotice, FileManagerInterface.SideOfEditor.Left);
                         }
                     } finally {
                         onBtnCompareClicked(event);
                     }
                 }
             } catch (RightEditorFileCanNotCompareException e) {
-                if (caution.getSaveWindow(FileManagerInterface.SideOfEditor.Right).get() == caution.getSavebtn()) {
+                if (Caution.CautionFactory(Caution.CautionType.SaveChoice, FileManagerInterface.SideOfEditor.Right)) {
                     try {
                         FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), FileManagerInterface.SideOfEditor.Right);
                     } catch (FileNotFoundException e1) {
@@ -78,7 +76,7 @@ public class ControlPaneSceneController {
                         try {
                             FileManager.getFileManagerInterface().saveFile(rightEditor.getText(), file.getAbsolutePath(), FileManagerInterface.SideOfEditor.Right);
                         } catch (FileNotFoundException e2) {
-                            caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                            Caution.CautionFactory(Caution.CautionType.SaveChoice, FileManagerInterface.SideOfEditor.Right);
                         }
                     } finally {
                         onBtnCompareClicked(event);
@@ -103,8 +101,7 @@ public class ControlPaneSceneController {
         // 테스트 중
 
         if(!(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Right))){
-            Caution caution = new Caution();
-            caution.noticeMergeFailure();
+            Caution.CautionFactory(Caution.CautionType.MergeNotice, FileManagerInterface.SideOfEditor.Right);
         }
         else{
             FileManager.getFileManagerInterface().cancelCompare();
@@ -121,8 +118,8 @@ public class ControlPaneSceneController {
     private void onBtnMergeToLeftClicked(ActionEvent event) {
 
         if(!(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Left))){
-            Caution caution = new Caution();
-            caution.noticeMergeFailure();
+            Caution.CautionFactory(Caution.CautionType.MergeNotice, FileManagerInterface.SideOfEditor.Left);
+
         }
         else {
             FileManager.getFileManagerInterface().cancelCompare();
@@ -166,8 +163,7 @@ public class ControlPaneSceneController {
 
     @FXML
     private void onMenuBtnAboutClicked(ActionEvent event) {
-        Caution caution = new Caution();
-        caution.getAboutWindow();
+       Caution.CautionFactory(Caution.CautionType.AboutNotice, FileManagerInterface.SideOfEditor.Left);
     }
 
 }

@@ -2,7 +2,6 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import model.FileManager;
 import model.FileManagerInterface;
 
@@ -56,11 +54,6 @@ public class EditorSceneController {
             side = FileManagerInterface.SideOfEditor.Left;
         else
             side = FileManagerInterface.SideOfEditor.Right;
-    }
-
-    @FXML // Editor에서 키보드입력이 있을 때의 동작
-    private void onTextAreaKeyPressed(KeyEvent event){
-
     }
 
     @FXML // 불러오기 버튼을 클릭했을 때의 동작
@@ -154,8 +147,7 @@ public class EditorSceneController {
     @FXML // 저장 버튼을 클릭했을 때의 동작
     private void onTBBtnSaveClicked() { //UnsupportedEncoingException 추가
         if(FileManager.getFileManagerInterface().getEdited(side)) {
-            Caution caution = new Caution();
-            if (caution.getSaveWindow(side).get() == caution.getSavebtn()) {
+            if (Caution.CautionFactory(Caution.CautionType.SaveChoice, side)) {
                 try {
                     FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
 
@@ -166,7 +158,7 @@ public class EditorSceneController {
                     try {
                         FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
                     } catch (FileNotFoundException e1) {
-                        caution.noticeSaveWindow(FileManagerInterface.SideOfEditor.Left);
+                        Caution.CautionFactory(Caution.CautionType.SaveNotice, side);
                     }
                 }
             }
@@ -234,12 +226,12 @@ public class EditorSceneController {
             editor.update(side);
         }
 
-        FileManager.getFileManagerInterface().setEdited(side, true);
+        FileManager.getFileManagerInterface().setEdited(side);
 
     }
 
     //Method for testing
-    public void useSaveActionMethod() throws IOException {
+    public void useSaveActionMethod() {
         onTBBtnSaveClicked();
     }
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by SH on 2016-05-21.
  */
-public interface HighlightEditorInterface {
+interface HighlightEditorInterface {
 
     boolean isEditable();
     void setEditable(boolean value);

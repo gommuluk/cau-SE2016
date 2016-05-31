@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * Created by ano on 2016. 5. 18..
  */
 public class FileManagerTest {
-    static FileManagerInterface fileManager;
+    private static FileManagerInterface fileManager;
 
     @Before
     public void setupTest () throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException

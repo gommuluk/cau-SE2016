@@ -7,15 +7,14 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.HBox?>
-
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.input.KeyCodeCombination?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <GridPane fx:id="controlPane" styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControlPaneSceneController">
    <columnConstraints>
@@ -30,7 +29,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="파일(F)">
                <items>
-                  <MenuItem id="menuReset" mnemonicParsing="false" onAction="#onMenuBtnResetClicked" text="Reset" >
+                  <MenuItem id="menuReset" mnemonicParsing="false" onAction="#onMenuBtnResetClicked" text="Reset">
                   </MenuItem>
                   <MenuItem id="menuClose" mnemonicParsing="false" onAction="#onMenuBtnCloseClicked" text="Close" />
                </items>
@@ -42,23 +41,23 @@
                         <KeyCodeCombination alt="UP" code="RIGHT" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                      <graphic>
-                        <ImageView><image><Image url="/res/btnMergeRight.png"/></image></ImageView>
+                        <ImageView><image><Image url="/res/btnMergeRight.png" /></image></ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem id="menuCopyToLeft" mnemonicParsing="false" onAction="#onMenuBtnCopyToLeftClicked" text="Copy to left" >
+                  <MenuItem id="menuCopyToLeft" mnemonicParsing="false" onAction="#onMenuBtnCopyToLeftClicked" text="Copy to left">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="LEFT" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                      <graphic>
-                        <ImageView><image><Image url="/res/btnMergeLeft.png"/></image></ImageView>
+                        <ImageView><image><Image url="/res/btnMergeLeft.png" /></image></ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem id="menuCompare" mnemonicParsing="false" onAction="#onMenuBtnCopyToCompareClicked" text="Compare" >
+                  <MenuItem id="menuCompare" mnemonicParsing="false" onAction="#onMenuBtnCopyToCompareClicked" text="Compare">
                      <accelerator>
                         <KeyCodeCombination alt="DOWN" code="C" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                      <graphic>
-                        <ImageView><image><Image url="/res/btnCompare.png"/></image></ImageView>
+                        <ImageView><image><Image url="/res/btnCompare.png" /></image></ImageView>
                      </graphic>
                   </MenuItem>
                </items>
@@ -76,11 +75,10 @@
       </MenuBar>
       <ToolBar styleClass="global-toolbar" stylesheets="@undecoratedRootScene.css" GridPane.rowIndex="1">
          <items>
-            <Button fx:id="btnMergeLeft" mnemonicParsing="false" disable="true" onAction="#onBtnMergeToLeftClicked" styleClass="btnMergeLeft" stylesheets="@undecoratedRootScene.css" />
-            <Button fx:id="btnMergeRight" mnemonicParsing="false" disable="true" onAction="#onBtnMergeToRightClicked" styleClass="btnMergeRight" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnMergeLeft" disable="true" mnemonicParsing="false" onAction="#onBtnMergeToLeftClicked" styleClass="btnMergeLeft" stylesheets="@undecoratedRootScene.css" />
+            <Button fx:id="btnMergeRight" disable="true" mnemonicParsing="false" onAction="#onBtnMergeToRightClicked" styleClass="btnMergeRight" stylesheets="@undecoratedRootScene.css" />
             <Button fx:id="btnCompare" mnemonicParsing="false" onAction="#onBtnCompareClicked" styleClass="btnCompare" stylesheets="@undecoratedRootScene.css" />
             <Pane HBox.hgrow="ALWAYS" />
-            <ToggleButton fx:id="btnScrollSync" mnemonicParsing="false" styleClass="btnScrollSync" stylesheets="@undecoratedRootScene.css" />
          </items>
       </ToolBar>
    </children>

@@ -2,6 +2,7 @@ package model;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -183,6 +184,7 @@ public class FileModel implements FileModelInterface {
         isEdited = false;
         file = null;
         compareLineArrayList =null;
+        //stringoroperty 초기호
     }
 
     @Override

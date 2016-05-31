@@ -39,7 +39,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
             loader.load();
 
             Platform.runLater(()->{
-                _syncEditorsScroll();
+                //_syncEditorsScroll();
                 //_syncEditorContentWithHighlightList();
                 _initEditor();
             });

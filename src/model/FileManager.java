@@ -1,8 +1,6 @@
 package model;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.*;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -15,6 +13,8 @@ import java.util.Collections;
 public class FileManager implements FileManagerInterface {
 
     private boolean isComparing;
+    private final BooleanProperty isCompareProperty = new SimpleBooleanProperty(isComparing);
+
     private static FileManagerInterface instance;
     private FileModelInterface fileModelL;
     private FileModelInterface fileModelR;
@@ -127,11 +127,13 @@ public class FileManager implements FileManagerInterface {
         buildArrayLCS();// 배열 구성
         backTrackingLCS(); //diff구현 및 compare array저장
         isComparing = true;
+        isCompareProperty.set(true);
     }
 
     @Override
     public void cancelCompare() {
         isComparing = false;
+        isCompareProperty.set(false);
     }
 
     @Override
@@ -383,10 +385,16 @@ public class FileManager implements FileManagerInterface {
     }
 
     @Override
+    public ReadOnlyBooleanProperty isCompareProperty() {
+        return this.isCompareProperty;
+    }
+
+    @Override
     public boolean getComparing()
     {
         return isComparing;
     }
+
     @Override
     public void setEdited(SideOfEditor side) {
         if(side == SideOfEditor.Left){
@@ -407,7 +415,10 @@ public class FileManager implements FileManagerInterface {
     }
 
 
-    private void resetModel(FileManagerInterface.SideOfEditor sideOfEditor) {
+    public void resetModel(SideOfEditor sideOfEditor) {
+        isComparing = false;
+        isCompareProperty.set(false);
+
         if (sideOfEditor == FileManagerInterface.SideOfEditor.Left) {
             this.fileModelL = new FileModel();
         } else this.fileModelR = new FileModel();

@@ -62,10 +62,9 @@ public class TabPaneSceneController {
             _initIsEditedSignLabelReference();
             _syncIsEditedSignWithBooleanProperty();
             _syncLabelTextWithPath();
-            _syncEditorsScrollBar();
+            _syncListScrollWithCompareProperty();
             _syncEditorsWithListProperty();
-
-            //_syncEditorsScroll();
+            _syncEditorsScrollBar(true);
         });
     }
 
@@ -116,33 +115,7 @@ public class TabPaneSceneController {
             t.setClosable(false);
         });
     }
-    private void _syncEditorsScrollBar(){
 
-        HighlightEditorInterface leftEditor = (HighlightEditorInterface)this.leftEditor.lookup("#editor");
-        HighlightEditorInterface rightEditor = (HighlightEditorInterface)this.rightEditor.lookup("#editor");
-
-        TextArea leftTextArea = leftEditor.getTextArea();
-        TextArea rightTextArea = rightEditor.getTextArea();
-
-        ListView leftListView = leftEditor.getHighlightListView();
-        ListView rightListView = rightEditor.getHighlightListView();
-
-        // textarea scrolling
-        DoubleProperty leftVerticalScroll = leftTextArea.scrollTopProperty();
-        DoubleProperty rightVerticalScroll = rightTextArea.scrollTopProperty();
-        DoubleProperty leftHorizontalScroll = leftTextArea.scrollLeftProperty();
-        DoubleProperty rightHorizontalScroll = rightTextArea.scrollLeftProperty();
-
-        // listview scroll property
-        ScrollBar listLeftVerticalScroll = (ScrollBar) leftListView.lookup(".scroll-bar:vertical");
-        ScrollBar listRightVerticalScroll = (ScrollBar) rightListView.lookup(".scroll-bar:vertical");
-
-        leftVerticalScroll.bindBidirectional(rightVerticalScroll);
-        leftHorizontalScroll.bindBidirectional(rightHorizontalScroll);
-
-        //listLeftVerticalScroll.valueProperty().bind(listRightVerticalScroll.valueProperty());
-
-    }
     private void _openTabInStage(final Tab tab) {
         if(tab == null) return;
 
@@ -230,14 +203,55 @@ public class TabPaneSceneController {
         rightEditor.getHighlightListView().itemsProperty().bind(FileManager.getFileManagerInterface().listProperty(FileManagerInterface.SideOfEditor.Right));
     }
 
-    private void _syncEditorsScroll(){
+    private void _syncListScrollWithCompareProperty(){
+
+        FileManager.getFileManagerInterface().isCompareProperty().addListener((observable, oldValue, newValue) -> {
+
+            HighlightEditorInterface leftEditor = (HighlightEditorInterface) this.leftEditor.lookup("#editor");
+            HighlightEditorInterface rightEditor = (HighlightEditorInterface) this.rightEditor.lookup("#editor");
+
+            ScrollBar leftScroll = (ScrollBar) leftEditor.getHighlightListView().lookup(".scroll-bar:vertical");
+            ScrollBar rightScroll = (ScrollBar) rightEditor.getHighlightListView().lookup(".scroll-bar:vertical");
+
+            if( newValue ) {
+                leftScroll.valueProperty().bindBidirectional(rightScroll.valueProperty());
+                _syncEditorsScrollBar(false);
+            } else {
+                leftScroll.valueProperty().unbindBidirectional(rightScroll.valueProperty());
+                _syncEditorsScrollBar(true);
+            }
+
+        });
+
+    }
+
+    private void _syncEditorsScrollBar(boolean b){
+
         HighlightEditorInterface leftEditor = (HighlightEditorInterface)this.leftEditor.lookup("#editor");
         HighlightEditorInterface rightEditor = (HighlightEditorInterface)this.rightEditor.lookup("#editor");
 
-        ScrollBar scrollBarOne = (ScrollBar) leftEditor.getHighlightListView().lookup(".scroll-bar:vertical");
-        ScrollBar scrollBarTwo = (ScrollBar) rightEditor.getHighlightListView().lookup(".scroll-bar:vertical");
+        TextArea leftTextArea = leftEditor.getTextArea();
+        TextArea rightTextArea = rightEditor.getTextArea();
 
-        scrollBarOne.valueProperty().bindBidirectional(scrollBarTwo.valueProperty());
+        ListView leftListView = leftEditor.getHighlightListView();
+        ListView rightListView = rightEditor.getHighlightListView();
+
+        // textarea scrolling
+        ScrollBar leftVerticalScroll = (ScrollBar) leftTextArea.lookup(".scroll-bar:vertical");
+        ScrollBar rightVerticalScroll = (ScrollBar) rightTextArea.lookup(".scroll-bar:vertical");
+
+        // listview scroll property
+        ScrollBar listLeftVerticalScroll = (ScrollBar) leftListView.lookup(".scroll-bar:vertical");
+        ScrollBar listRightVerticalScroll = (ScrollBar) rightListView.lookup(".scroll-bar:vertical");
+
+        if(b) {
+            leftVerticalScroll.valueProperty().bindBidirectional(listLeftVerticalScroll.valueProperty());
+            rightVerticalScroll.valueProperty().bindBidirectional(listRightVerticalScroll.valueProperty());
+        } else {
+            leftVerticalScroll.valueProperty().unbindBidirectional(listLeftVerticalScroll.valueProperty());
+            rightVerticalScroll.valueProperty().unbindBidirectional(listRightVerticalScroll.valueProperty());
+        }
 
     }
+
 }

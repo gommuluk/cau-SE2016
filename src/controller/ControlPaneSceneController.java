@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.FileManager;
@@ -24,18 +26,28 @@ public class ControlPaneSceneController {
 
     @FXML private Button btnCompare, btnMergeLeft, btnMergeRight;
     @FXML private GridPane controlPane;
+
     private HighlightEditorInterface leftEditor, rightEditor;
 
     @FXML
     public void initialize(){
-        Platform.runLater(this::_getEditorReference);
+        Platform.runLater(()->{
+            _initEditorReference();
+        });
     }
 
-    private void _getEditorReference(){
+    private void _initEditorReference(){
         Node root = controlPane.getScene().getRoot();
         this.leftEditor  = (HighlightEditorInterface)((BorderPane)root.lookup("#leftEditor")).getCenter().lookup("#editor");
         this.rightEditor = (HighlightEditorInterface)((BorderPane)root.lookup("#rightEditor")).getCenter().lookup("#editor");
     }
+
+    private void _syncListViewScrolls(){
+        ScrollBar leftListViewVScroll = (ScrollBar) leftEditor.getHighlightListView().lookup(".scroll-bar:vertical");
+        ScrollBar rightListViewVScroll = (ScrollBar) rightEditor.getHighlightListView().lookup(".scroll-bar:vertical");
+        leftListViewVScroll.valueProperty().bindBidirectional(rightListViewVScroll.valueProperty());
+    }
+
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
     private void onBtnCompareClicked(ActionEvent event) {
@@ -48,6 +60,7 @@ public class ControlPaneSceneController {
                 btnMergeLeft.setDisable(false);
                 btnMergeRight.setDisable(false);
                 btnCompare.setDisable(true);
+
             } catch (LeftEditorFileCanNotCompareException e) {
                 if (Caution.CautionFactory(Caution.CautionType.SaveChoice, FileManagerInterface.SideOfEditor.Left)) {
                     try {

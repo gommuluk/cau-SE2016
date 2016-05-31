@@ -245,10 +245,6 @@
     -fx-background-color: transparent;
 }
 
-.editor-toolbar .list-view {
-    -fx-pref-rows: inherit;
-}
-
 .editor-toolbar .list-cell {
     -fx-background-insets: 0;
     -fx-label-padding: 2px 0 0 8px;
@@ -258,10 +254,6 @@
     -fx-font-size: 14px;
     -fx-text-fill: white;
     -fx-background-color: transparent;
-}
-
-.editor-toolbar .list-cell:odd {
-    /*-fx-background-color: #EEEEEE;*/
 }
 
 

@@ -1,80 +1,39 @@
-#include <stdio.h>
-#define MAX 50
-void shift(char * arr, int* result);
-void printValue(int* arr);
-void add(int * num1, int * num2, int * result);
-int distinct(char *input, char *input2);
-void minus(int * num1, int * num2, int * result);
-void multi(int * num1, int * num2, int * result);
-void multi(int * num1, int * num2, int * result);
-
-Own_Repository(repository_id, account_id, create_date)
-1, zeropage, 2014-12-25
-2, zeropage, 2014-12-26
-3, tmi, 2015-8-12
-4, dongnae, 2015-8-13
-5, tmi, 2015-9-1
-6, cau, 2015-9-1
-7, zeropage, 2015-10-11
-8, tmi, 2015-10-23
-9, clug, 2015-10-23
-10, zeropage, 2015-12-25
-
-Contribute(user_id, repository_id)
-tjdgus3537, 1
-tjdgus3537, 2
-tjdgus3537, 3
-nErumin, 1
-nErumin, 2
-nErumin, 4
-leesnhyun, 10
-leesnhyun, 4
-wraithKim, 1
-wraithKim, 7
-wraithKim, 10
-
-Star(user_id, repository_id)
-tjdgus3537, 1
-tjdgus3537, 2
-tjdgus3537, 7
-tjdgus3537, 10
-wraithKim, 1
-
-Watch(user_id, repository_id)
-tjdgus3537, 1
-tjdgus3537, 2
-tjdgus3537, 8
-nErumin, 4
-nErumin, 10
-wraithKim, 10
-
-Issue(issue_number, repository_id, is_closed, content, post_time, post_user)
-1, 1, false, read ������ ��怨ㅼ����諭��� ��占썲��������占�, 2014-12-26, tjdgus3537
-2, 1, false, clock ����占썲��占� 占쎌��占썲������, 2015-1-1, wraithKim
-3, 1, true, FileManager ���э옙�쇱��, 2015-1-4, nErumin
-1, 4, false leesnhyun, DB 占쎌��占썲������ ��占썲��������占�, 2015-8-14
-2, 4, true, nErumin, ��������怨ㅼ�� lock, 2015-9-15
-
-Issue_Label(issue_number, repository_id, label)
-1, 1, npm
-1, 1, build
-1, 1, https
-2, 1, buffer
-1, 4, npm
-1, 4, build
-
-Comment(comment_number, issue_number, repository_id, content, post_time, post_user)
-1, 1, 1, ����������占쎄�����占� 占쎌��占썲�������띰옙��占� ������������ ��占썲��占� �띰옙������占쎌�쎌����占�, 2014-12-27, nErumin
-2, 1, 1, ����������占쎄�����占� ����������占썲������ 占쏙옙占쎌�쇱����������占� ����占쎌�㏆옙������ ���������������э옙�쎌����占�, 2014-12-28, tjdgus3537
-3, 1, 1, ������������ ����������占썲������ �곤옙占쏙옙����占썲������, 2014-12-28, leesnhyun
-1, 3, 1, ������嶺�節�占쏙옙����占쎌�㏆옙 ����������占싼�����������占�, 2015-1-5, nErumin
-1, 2, 4, ������嶺�節�占쏙옙����占쎌�㏆옙 ����������占싼�����������占�, 2015-9-16, nErumin
-
-Comment_Label(comment_number, issue_number, repository_id, label)
-1, 1, 1, file
-1, 1, 1, debug
-1, 1, 1, error
-3, 1, 1, buffer
-3, 1, 1, parser
-2, 1, 1, file
-1, 2, 4, complete
+c
+a
+b
+f
+a
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v
+w
+x
+y
+z
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0

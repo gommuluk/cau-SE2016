@@ -183,6 +183,7 @@ public class FileModel implements FileModelInterface {
         isEdited = false;
         file = null;
         compareLineArrayList =null;
+        //stringoroperty 초기호
     }
 
     @Override

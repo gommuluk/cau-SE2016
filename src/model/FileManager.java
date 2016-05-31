@@ -405,7 +405,8 @@ public class FileManager implements FileManagerInterface {
     }
 
 
-    private void resetModel(FileManagerInterface.SideOfEditor sideOfEditor) {
+    public void resetModel(SideOfEditor sideOfEditor) {
+        isComparing = false;
         if (sideOfEditor == FileManagerInterface.SideOfEditor.Left) {
             this.fileModelL = new FileModel();
         } else this.fileModelR = new FileModel();

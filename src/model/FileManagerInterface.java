@@ -34,9 +34,13 @@ public interface FileManagerInterface {
 
     boolean getComparing();//지금 비교중이니
 
+    void resetModel(SideOfEditor side);//컴페이링을 초기화하고 모델을 초기화
+
     int[][] getArrayLCS();//@@for debug
 
     ReadOnlyStringProperty filePathProperty(SideOfEditor side);
     ListProperty<LineInterface> listProperty(SideOfEditor side);
     ReadOnlyBooleanProperty isEditedProperty(SideOfEditor side);
+
+
 }

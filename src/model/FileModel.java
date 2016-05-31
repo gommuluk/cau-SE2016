@@ -33,6 +33,7 @@ public class FileModel implements FileModelInterface {
         String ret = "";
         for(LineInterface s : lineArrayList)
             ret += s.getContent(false);
+        if(ret.length() >=1)
         ret = ret.substring(0,ret.length()-1);//맨 마지막의 개행 제거
 
         System.out.println("Model System Debug log@@@@@@@@\n" + ret + "Model System Log end@@@@@@@@");

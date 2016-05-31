@@ -159,6 +159,7 @@ public class FileManager implements FileManagerInterface {
             toFileManager = fileModelR;
         }
         System.out.println("Model debug blockArrayList size : " + blockArrayList.size());
+        System.out.println("Model to compareLineArrayList size : " +toFileManager.getCompareLineArrayList().size() + "Model from compareLineArrayList size : " +fromFileManager.getCompareLineArrayList().size() );
         for (Block b : blockArrayList) {
             System.out.println("startLineNum : " + b.startLineNum + " endLineNum : " + b.endLineNum);
             int count = b.endLineNum - b.startLineNum;//지워야 될 블럭의 갯수
@@ -307,7 +308,7 @@ public class FileManager implements FileManagerInterface {
                 cLineArrayListR.add(new Line(rightArr.get(j - 1).getContent(true), numBlock, false));
                 j--;
                 if (tempBlock == null) {
-                    startLineNum = count;
+                    endLineNum = count;
                     tempBlock = new Block();//새 블럭을 만들어줌
                 }
             }

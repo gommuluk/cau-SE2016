@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.easymock.EasyMock.createMock;
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -15,11 +16,13 @@ public class EditorSceneTest {
     FileManagerInterface mock;
 
     @Test
-    public void saveTest() throws IOException {
+    public void saveTest() {
         mock = createMock(FileManagerInterface.class);
-        EditorSceneController ctrr = new EditorSceneController();
-        ctrr.useSaveActionMethod();
+        ControlPaneSceneController ctrr = new ControlPaneSceneController();
+        assertEquals(ctrr.getBtnCompare().isDisable(), false);
+
     }
+
 
 
 }

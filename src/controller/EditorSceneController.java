@@ -167,7 +167,7 @@ public class EditorSceneController {
 
 
     @FXML // 수정 버튼을 클릭했을 때의 동작
-    private void onTBBtnEditClicked(ActionEvent event) {
+    private void onTBBtnEditClicked() {
         boolean flag = false;
 
         Node root = editor.getScene().getRoot();
@@ -233,5 +233,9 @@ public class EditorSceneController {
     //Method for testing
     public void useSaveActionMethod() {
         onTBBtnSaveClicked();
+    }
+
+    public void testHelper(HighlightEditorInterface editor, Button saveBtn, Button openBtn, Button editBtn) {
+
     }
 }

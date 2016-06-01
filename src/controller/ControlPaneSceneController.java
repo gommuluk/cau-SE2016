@@ -50,7 +50,7 @@ public class ControlPaneSceneController {
 
 
     @FXML // 비교 버튼이 클릭되었을 때의 동작
-    private void onBtnCompareClicked(ActionEvent event) {
+    private void onBtnCompareClicked() {
         if(leftEditor.isEditMode() || rightEditor.isEditMode()) {
             Caution.CautionFactory(Caution.CautionType.CompareNotice, FileManagerInterface.SideOfEditor.Left);
         }
@@ -75,7 +75,7 @@ public class ControlPaneSceneController {
                             Caution.CautionFactory(Caution.CautionType.SaveNotice, FileManagerInterface.SideOfEditor.Left);
                         }
                     } finally {
-                        onBtnCompareClicked(event);
+                        onBtnCompareClicked();
                     }
                 }
             } catch (RightEditorFileCanNotCompareException e) {
@@ -92,7 +92,7 @@ public class ControlPaneSceneController {
                             Caution.CautionFactory(Caution.CautionType.SaveChoice, FileManagerInterface.SideOfEditor.Right);
                         }
                     } finally {
-                        onBtnCompareClicked(event);
+                        onBtnCompareClicked();
                     }
                 }
             }
@@ -109,7 +109,7 @@ public class ControlPaneSceneController {
     * Merge버튼 활성화 조건 1)양 EditPane에 FileLoad되어있음
     * */
     @FXML // merge-to-right 버튼이 클릭되었을 때의 동작
-    private void onBtnMergeToRightClicked(ActionEvent event) {
+    private void onBtnMergeToRightClicked() {
 
         // 테스트 중
 
@@ -128,7 +128,7 @@ public class ControlPaneSceneController {
     }
 
     @FXML // merge-to-left 버튼이 클릭되었을 때의 동작
-    private void onBtnMergeToLeftClicked(ActionEvent event) {
+    private void onBtnMergeToLeftClicked() {
 
         if(!(FileManager.getFileManagerInterface().merge(FileManagerInterface.SideOfEditor.Left))){
             Caution.CautionFactory(Caution.CautionType.MergeNotice, FileManagerInterface.SideOfEditor.Left);
@@ -146,37 +146,48 @@ public class ControlPaneSceneController {
     }
 
     @FXML
-    private void onMenuBtnResetClicked(ActionEvent event) {
+    private void onMenuBtnResetClicked() {
 
     }
 
     @FXML
-    private void onMenuBtnCloseClicked(ActionEvent event) {
+    private void onMenuBtnCloseClicked() {
         System.exit(0);
     }
 
     @FXML
-    private void onMenuBtnCopyToRightClicked(ActionEvent event) {
-        onBtnMergeToRightClicked(event);
+    private void onMenuBtnCopyToRightClicked() {
+        onBtnMergeToRightClicked();
     }
 
     @FXML
-    private void onMenuBtnCopyToLeftClicked(ActionEvent event) {
-        onBtnMergeToLeftClicked(event);
+    private void onMenuBtnCopyToLeftClicked() {
+        onBtnMergeToLeftClicked();
     }
 
     @FXML
-    private void onMenuBtnCopyToCompareClicked(ActionEvent event) {
-        onBtnCompareClicked(event);
+    private void onMenuBtnCopyToCompareClicked() {
+        onBtnCompareClicked();
     }
 
     @FXML
-    private void onMenuBtnHelpClicked(ActionEvent event) {
+    private void onMenuBtnHelpClicked() {
     }
 
     @FXML
-    private void onMenuBtnAboutClicked(ActionEvent event) {
+    private void onMenuBtnAboutClicked() {
        Caution.CautionFactory(Caution.CautionType.AboutNotice, FileManagerInterface.SideOfEditor.Left);
     }
 
+    public Button getBtnCompare() {
+        return this.btnCompare;
+    }
+
+    public Button getBtnMergeLeft() {
+        return this.btnMergeLeft;
+    }
+
+    public Button getBtnMergeRight() {
+        return this.btnMergeRight;
+    }
 }

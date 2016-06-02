@@ -21,11 +21,11 @@ public class FileModel implements FileModelInterface {
     private final BooleanProperty isEditedProperty = new SimpleBooleanProperty(isEdited);
     private final ListProperty<LineInterface> contentListProperty = new SimpleListProperty<>(FXCollections.observableArrayList(lineArrayList));
 
-    private ArrayList<LineInterface> compareLineArrayList;
+    private ArrayList<LineInterface> compareLineArrayList; //컴페어 결과를 저장하고 있는 어레이리스트
     private File file; //로드하고있는 파일
 
     /**
-     * 읽어진 파일의 내용을 String의 형태로 반환합니다.
+     * 가지고 있는 파일의 내용을  String의 형태로 반환합니다.
      * @return String 읽어진 파일의 내용
      */
     @Override
@@ -33,14 +33,12 @@ public class FileModel implements FileModelInterface {
         String ret = "";
         for(LineInterface s : lineArrayList)
             ret += s.getContent(false);
-        if(ret.length() >=1)
+        if(ret.length() >=1) // 파일이 빈 파일이 아닐 때
         ret = ret.substring(0,ret.length()-1);//맨 마지막의 개행 제거
-
-        System.out.println("Model System Debug log@@@@@@@@\n" + ret + "Model System Log end@@@@@@@@");
         return ret;
     }
     /**
-     * 파일의 내용을 갱신합니다.
+     * LineArrayList의 내용을 string을 받아서 갱신합니다.
      * @param args 갱신할 내용
      */
     @Override
@@ -59,19 +57,7 @@ public class FileModel implements FileModelInterface {
         init();
         Scanner  in;
         file= new File(filePath);
-        FileInputStream FIS = new FileInputStream(filePath);
-        byte[] BOM = new byte[4];
-        try{
-            FIS.read(BOM,0,4); FIS.close();
-
-        }
-        catch (IOException e)
-        {
-
-        }
-
-        FIS = new FileInputStream(filePath);
-        in = new Scanner(new BufferedReader(new InputStreamReader(FIS,"EUC-KR")));
+        in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath))));
         String tempString;
         lineArrayList = new ArrayList<>();
         while(in.hasNextLine()) {
@@ -79,12 +65,15 @@ public class FileModel implements FileModelInterface {
             lineArrayList.add(new Line(tempString));//Line Arraylist에 읽어온 값을 추가한다
         }
         in.close();
-
         //listProperty.set(FXCollections.observableArrayList(lineArrayList));  리스트프로퍼티가 String인터페이스만 되서 묶어놓음 @승현
         this.contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
         this.statusString.set("File Loaded Successfully");
         this.filePath.set(filePath);
     }
+    /**
+     * 저장된 파일 정보를 이용해서 파일을 읽게 한다. 해당 파일이 존재하지 않으면 예외를 반환한
+     *
+     */
     @Override
     public void readFile() throws FileNotFoundException, UnsupportedEncodingException {
         if(file == null) throw new FileNotFoundException();
@@ -99,7 +88,6 @@ public class FileModel implements FileModelInterface {
         if(file == null) throw new FileNotFoundException();
         else writeFile(file.getPath());
     }
-
     /**
      * FilePath의 경로에 파일을 새로 만들어서 ArrayList의 내용으로 덮어씌웁니다.
      * FileNotFoundException이 발생할 수 있습니다.
@@ -125,20 +113,29 @@ public class FileModel implements FileModelInterface {
     }
 
     /**
-     * isCompared의 값에 따라서 파일 내용을 저장하는 ArrayList의 Clone을 반환합니다.
-     * @return isCompared에 따른 지금 출력해야하는 Line을 가지는 Arraylist의 clone
+     * 파일 내용을 저장하는 ArrayList의 Clone을 반환합니다.
+     * @return Line을 가지는 Arraylist의 clone
      */
     @Override
-    @SuppressWarnings("unchecked")
     public ArrayList<LineInterface> getLineArrayList() {
         contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
         return (ArrayList<LineInterface>) lineArrayList.clone();
     }
+    /**
+     * 비교 결과의 내용을 저장하는 compareLineArrayList의 참조를 반환합니다.
+     sideeffect = view의 listView를 갱신한다.
+     * @return compareLineArrayList의 참조
+     */
     @Override
     public ArrayList<LineInterface> getCompareLineArrayList() {
         this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
         return compareLineArrayList;
     }
+    /**
+     * 비교 결과의 내용을 저장하는 compareLineArrayList의 참조를 받아와서 그 값으로 변경합니다.
+     * sideeffect = view의 listView를 갱신한다.
+     * @param lineArrayList 값을 갱신할 linearrayList
+     */
     @Override
     public void setCompareLineArrayList(ArrayList<LineInterface> lineArrayList)
     {
@@ -146,26 +143,38 @@ public class FileModel implements FileModelInterface {
 
         this.contentListProperty.set(null);
         this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
-        System.out.println("setCompareLineArrayList");
     }
-
+    /**
+     * compareLineArrayList의 lineNum번째 line에게 클릭되었다는 메시지를 전한다
+     * @param lineNum 클릭된 Line의 인덱스
+     */
     @Override
     public void clickLine(int lineNum) {
         compareLineArrayList.get(lineNum).clickBlock();
     }
-
+    /**
+     * compareLineArrayList의 lineNum번째 line에게 클릭되었다는 메시지를 전한다
+     * sideeffect = view의 listView를 갱신한다.
+     */
     @Override
     public void updateHighlight() {
         this.contentListProperty.set(null);
         this.contentListProperty.set(FXCollections.observableArrayList(compareLineArrayList));
     }
-
+    /**
+     * 연결된 파일이 있는지 없는지를 반환한다
+     * @return 연결된 파일이 있는지 없는지를 반환
+     */
     @Override
     public boolean isFileExist()
     {
         return file != null;
     }
 
+    /**
+     * 연결된 파일의 경로를 반환한다
+     * @return 연결된 파일의 경로를 반환 연결된 파일이 없으면 null을 반환
+     */
     @Override
     public String getFilePath()
     {
@@ -179,6 +188,9 @@ public class FileModel implements FileModelInterface {
         }
     }
 
+    /**
+     * 모델의 값을 초기화한다
+     */
     private void init()
     {
         lineArrayList = null;
@@ -188,6 +200,10 @@ public class FileModel implements FileModelInterface {
         //stringoroperty 초기호
     }
 
+    /**
+     * 수정됬을 가능성이 있는지를 받는다
+     * @param value 수정됬는지 아닌지의 값
+     */
     @Override
     public void setEdited(boolean value){
         isEdited = value;

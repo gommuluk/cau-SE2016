@@ -10,7 +10,7 @@ sourceCompatibility = 1.8
 
 
 
-apply plugin: 'build-announcements'
+//apply plugin: 'build-announcements'
 repositories {
     mavenCentral()
 }

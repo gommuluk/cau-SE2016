@@ -30,6 +30,7 @@ public class AboutSceneController extends Stage implements AboutSceneDialog {
             // init
             super.initModality(Modality.APPLICATION_MODAL);
             super.initOwner(aboutScene.getScene().getWindow());
+            super.setResizable(false);
 
             setScene(scene);
 

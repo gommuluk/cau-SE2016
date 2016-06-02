@@ -12,40 +12,40 @@
 
 <?import controller.HighlightEditorController?>
 
-<BorderPane styleClass="editor-toolbar" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorSceneController">
+<BorderPane styleClass="editor-toolbar" stylesheets="@../style/undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorSceneController">
    <top>
       <AnchorPane>
          <children>
-            <ToolBar styleClass="editor-toolbar" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ToolBar styleClass="editor-toolbar" stylesheets="@../style/undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <items>
                   <Pane HBox.hgrow="NEVER">
                      <children>
-                        <Label fx:id="filePath" maxWidth="300.0" textOverrun="CENTER_WORD_ELLIPSIS" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="새 파일" />
+                        <Label fx:id="filePath" maxWidth="300.0" textOverrun="CENTER_WORD_ELLIPSIS" styleClass="editor-path-label" stylesheets="@../style/undecoratedRootScene.css" text="새 파일" />
                      </children>
                   </Pane>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="isEditedSign" prefWidth="2" styleClass="editor-path-label" stylesheets="@undecoratedRootScene.css" text="" />
+                        <Label fx:id="isEditedSign" prefWidth="2" styleClass="editor-path-label" stylesheets="@../style/undecoratedRootScene.css" text="" />
                      </children>
                   </Pane>
-                  <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnLoadClicked" styleClass="btnFileOpen" stylesheets="@undecoratedRootScene.css">
+                  <Button fx:id="btnFileOpen" mnemonicParsing="false" onAction="#onTBBtnLoadClicked" styleClass="btnFileOpen" stylesheets="@../style/undecoratedRootScene.css">
                      <tooltip>
                         <Tooltip text="파일열기" />
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnFileSave" mnemonicParsing="false" onAction="#onTBBtnSaveClicked" styleClass="btnFileSave" stylesheets="@undecoratedRootScene.css">
+                  <Button fx:id="btnFileSave" mnemonicParsing="false" onAction="#onTBBtnSaveClicked" styleClass="btnFileSave" stylesheets="@../style/undecoratedRootScene.css">
                      <tooltip>
                         <Tooltip text="파일저장" />
                      </tooltip>
                   </Button>
-                  <ToggleButton fx:id="btnEdit" mnemonicParsing="false" onAction="#onTBBtnEditClicked" styleClass="btnEdit" stylesheets="@undecoratedRootScene.css" />
+                  <ToggleButton fx:id="btnEdit" mnemonicParsing="false" onAction="#onTBBtnEditClicked" styleClass="btnEdit" stylesheets="@../style/undecoratedRootScene.css" />
                </items>
             </ToolBar>
          </children>
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane styleClass="editor" stylesheets="@undecoratedRootScene.css" BorderPane.alignment="CENTER">
+      <AnchorPane styleClass="editor" stylesheets="@../style/undecoratedRootScene.css" BorderPane.alignment="CENTER">
          <children>
             <HighlightEditorController fx:id="editor" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" />
          </children>

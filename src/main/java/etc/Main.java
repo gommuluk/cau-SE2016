@@ -45,7 +45,7 @@ public class Main extends Application {
 
             // Load root Layout from fxml file
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/view/undecoratedRootScene.fxml"));
+            loader.setLocation(Main.class.getResource("/fxml/undecoratedRootScene.fxml"));
             undecoratedRootScene = loader.load();
 
             // Show the scene containing the root layout.

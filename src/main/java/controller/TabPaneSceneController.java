@@ -195,6 +195,7 @@ public class TabPaneSceneController {
     }
 
 
+    @SuppressWarnings("unchecked")
     private void _syncEditorsWithListProperty(){
         HighlightEditorInterface leftEditor = (HighlightEditorInterface)this.leftEditor.lookup("#editor");
         HighlightEditorInterface rightEditor = (HighlightEditorInterface)this.rightEditor.lookup("#editor");

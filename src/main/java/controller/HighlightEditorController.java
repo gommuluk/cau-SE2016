@@ -33,7 +33,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
         super();
 
         try {
-            FXMLLoader loader = new FXMLLoader(HighlightEditorController.class.getResource("/view/highlightEditor.fxml"));
+            FXMLLoader loader = new FXMLLoader(HighlightEditorController.class.getResource("/fxml/highlightEditor.fxml"));
             loader.setController(this);
             loader.setRoot(this);
             loader.load();

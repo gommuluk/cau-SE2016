@@ -5,16 +5,16 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="dark-tab" stylesheets="@undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TabPaneSceneController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="dark-tab" stylesheets="@../style/undecoratedRootScene.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TabPaneSceneController">
    <children>
-      <TabPane id="tabPane" fx:id="tabPane" onDragDetected="#onTabPaneDragDetected" onDragDone="#onTabPaneDragDone" styleClass="dark-tab" stylesheets="@undecoratedRootScene.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane id="tabPane" fx:id="tabPane" onDragDetected="#onTabPaneDragDetected" onDragDone="#onTabPaneDragDone" styleClass="dark-tab" stylesheets="@../style/undecoratedRootScene.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="시작">
                <content>
-                  <AnchorPane styleClass="dark-splitPane" stylesheets="@undecoratedRootScene.css">
+                  <AnchorPane styleClass="dark-splitPane" stylesheets="@../style/undecoratedRootScene.css">
 
                       <children>
-                        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" stylesheets="@undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" stylesheets="@../style/undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <AnchorPane fx:id="leftSplit" minHeight="0.0" minWidth="300.0">
                                 <children>

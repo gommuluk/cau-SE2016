@@ -154,10 +154,11 @@ public class UndecoratedRootSceneController {
     @FXML // 메인Pane에 마우스를 올렸을때의 액션
     private void onMainPaneMouseOver(MouseEvent event){
 
-        if ( _isInDraggableZone(event) || isDragging || !isMaximized ) {
-            if (draggableZoneY) mainPane.setCursor(Cursor.S_RESIZE);
-            if (draggableZoneX) mainPane.setCursor(Cursor.E_RESIZE);
-
+        if ( _isInDraggableZone(event) || isDragging ) {
+            if (!isMaximized) {
+                if (draggableZoneY) mainPane.setCursor(Cursor.S_RESIZE);
+                if (draggableZoneX) mainPane.setCursor(Cursor.E_RESIZE);
+            }
         } else {
             mainPane.setCursor(Cursor.DEFAULT);
         }
@@ -220,8 +221,9 @@ public class UndecoratedRootSceneController {
 
     private boolean _isInDraggableZone(MouseEvent event) {
         int RESIZE_MARGIN = 5;
-        draggableZoneY = (event.getY() > (mainPane.getHeight() - RESIZE_MARGIN));
-        draggableZoneX = (event.getX() > (mainPane.getWidth() - RESIZE_MARGIN));
+        draggableZoneY = (event.getY() >= (mainPane.getHeight() - RESIZE_MARGIN));
+        draggableZoneX = (event.getX() >= (mainPane.getWidth() - RESIZE_MARGIN));
+
         return (draggableZoneY || draggableZoneX);
     }
 

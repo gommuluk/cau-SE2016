@@ -21,7 +21,7 @@ public class AboutSceneController extends Stage implements AboutSceneDialog {
         try {
             // Load root Layout from fxml file
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/aboutScene.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/aboutScene.fxml"));
             loader.setController(this);
 
             // Show the scene containing the root layout.

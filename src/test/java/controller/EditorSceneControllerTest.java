@@ -25,6 +25,7 @@ public class EditorSceneControllerTest{
     private FileManagerInterface.SideOfEditor side = null;
     private BooleanProperty isFocused = new SimpleBooleanProperty(false);
 
+
     @Test
     public void saveTest() {
         EditorSceneController ctrr = new EditorSceneController();

@@ -31,21 +31,13 @@ public class ControlPaneSceneController {
 
     @FXML
     public void initialize(){
-        Platform.runLater(()->{
-            _initEditorReference();
-        });
+        Platform.runLater(this::_initEditorReference);
     }
 
-    private void _initEditorReference(){
+    private void _initEditorReference() {
         Node root = controlPane.getScene().getRoot();
-        this.leftEditor  = (HighlightEditorInterface)((BorderPane)root.lookup("#leftEditor")).getCenter().lookup("#editor");
-        this.rightEditor = (HighlightEditorInterface)((BorderPane)root.lookup("#rightEditor")).getCenter().lookup("#editor");
-    }
-
-    private void _syncListViewScrolls(){
-        ScrollBar leftListViewVScroll = (ScrollBar) leftEditor.getHighlightListView().lookup(".scroll-bar:vertical");
-        ScrollBar rightListViewVScroll = (ScrollBar) rightEditor.getHighlightListView().lookup(".scroll-bar:vertical");
-        leftListViewVScroll.valueProperty().bindBidirectional(rightListViewVScroll.valueProperty());
+        this.leftEditor = (HighlightEditorInterface) ((BorderPane) root.lookup("#leftEditor")).getCenter().lookup("#editor");
+        this.rightEditor = (HighlightEditorInterface) ((BorderPane) root.lookup("#rightEditor")).getCenter().lookup("#editor");
     }
 
 

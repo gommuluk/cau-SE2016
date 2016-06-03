@@ -80,4 +80,29 @@ public class Line implements LineInterface {
 
     public static ArrayList<Block> getBlockArray() { return blockArrayList; }//@@only for testing
 
+
+    @Override
+    public boolean equals(Object obj) {
+        //System.out.println("ㅎㅇ");
+        if (this == obj)
+            return true;
+        if (obj == null) //
+            return false;
+        if (getClass() != obj.getClass()) return false;
+        Line other = (Line) obj;
+        //System.out.println("ㅎㅇㅎㅇ");
+        if (!content.equals(other.content)) {
+        //    System.out.println(content + "|" + other.content);
+            return false;
+        }else if (blockIndex != other.blockIndex) {
+        //    System.out.println(blockIndex + "|" + other.blockIndex);
+            return false;
+        }
+        else if (isWhitespace == other.isWhitespace) return true;
+        else {
+        //    System.out.println(isWhitespace + "|" + other.isWhitespace);
+            return false;
+        }
+
+    }
 }

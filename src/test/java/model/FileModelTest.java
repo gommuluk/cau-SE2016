@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  * Created by Elliad on 2016-05-08.
  */
 public class FileModelTest {
+
     @Test
     public void fileReadTest() throws FileNotFoundException, UnsupportedEncodingException{
         FileModel testFileModel = new FileModel();

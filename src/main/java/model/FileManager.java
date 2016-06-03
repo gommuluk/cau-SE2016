@@ -12,7 +12,7 @@ import java.util.Collections;
  */
 public class FileManager implements FileManagerInterface {
 
-    private boolean isComparing;
+    private boolean isComparing = false;
     private final BooleanProperty isCompareProperty = new SimpleBooleanProperty(isComparing);
 
     private static FileManagerInterface instance;

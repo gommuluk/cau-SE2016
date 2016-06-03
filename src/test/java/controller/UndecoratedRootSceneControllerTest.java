@@ -44,12 +44,12 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
     @Override
     public void start(Stage stage) {
         s = TestUtils.startStage(stage);
+        mainPaneControlPane = find("#controlPane");
     }
 
     @Before
     public void setUp() {
-        mainPaneControlPane = find("#controlPane");
-        s.setX(200); s.setY(200);
+        s.setX(50); s.setY(50);
     }
 
     @After
@@ -122,7 +122,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(Cursor.E_RESIZE, mainPane.getCursor());
 
-        moveTo(s.getX() + s.getWidth()/2, s.getY() + s.getHeight() - MARGIN );
+        moveTo(s.getX() + s.getWidth()/2, s.getY() + s.getHeight() - MARGIN);
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(Cursor.S_RESIZE, mainPane.getCursor());
 
@@ -133,10 +133,10 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
         final int MARGIN = 5;
         final Node mainPane = find("#mainPane");
 
-        moveTo(s.getX() + s.getWidth() - MARGIN, s.getY() + s.getHeight()/2);
+        final double prevWidth = s.getWidth();
 
         drag(s.getX() + s.getWidth() - MARGIN, s.getY() + s.getHeight()/2).moveBy(300, 0);
-
+        assertEquals(prevWidth+300, s.getWidth(), 0);
     }
 
     @Test

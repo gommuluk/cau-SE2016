@@ -17,10 +17,9 @@ repositories {
 }
 
 dependencies {
-    testCompile files('libs/easymock-3.4.jar')
-    testCompile "org.testfx:testfx-core:4.0.+"
-    testCompile "org.testfx:testfx-legacy:4.0.+", {
-        exclude group: "junit", module: "junit"
-    }
     testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile "org.testfx:testfx-core:4.0.+"
+    testCompile "org.testfx:testfx-junit:4.0.+"
+    testCompile files('libs/easymock-3.4.jar')
+//    compile group: 'org.easymock', name: 'easymock', version: '3.1'
 }

@@ -18,7 +18,7 @@
     <children>
       <BorderPane fx:id="mainPane" layoutX="3.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1024.0" onMouseDragged="#onMainPaneDragged" onMouseMoved="#onMainPaneMouseOver" onMousePressed="#onMainPanePressed" onMouseReleased="#onMainPaneMouseReleased" styleClass="dark" stylesheets="@../style/undecoratedRootScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-          <top>
+         <top>
             <GridPane fx:id="controlPane" onMouseClicked="#onControlPaneClicked" onMouseDragged="#onControlPaneDragged" onMousePressed="#onControlPanePressed">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -27,7 +27,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <AnchorPane id="titlebar" fx:id="titlePane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" pickOnBounds="false" snapToPixel="true" styleClass="dark-titlebar" stylesheets="@../style/undecoratedRootScene.css">
+                  <AnchorPane fx:id="titlePane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" pickOnBounds="false" snapToPixel="true" styleClass="dark-titlebar" stylesheets="@../style/undecoratedRootScene.css">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
                            <image>
@@ -35,9 +35,6 @@
                            </image>
                         </ImageView>
                         <Button fx:id="btnClose" mnemonicParsing="false" onAction="#onBtnCloseClicked" pickOnBounds="true" prefHeight="25.0" prefWidth="34.0" styleClass="decoration-button-close" stylesheets="@../style/undecoratedRootScene.css" text="" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <rotationAxis>
-                              <Point3D />
-                           </rotationAxis>
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor>
@@ -52,10 +49,7 @@
                               <Cursor fx:constant="DEFAULT" />
                            </cursor>
                         </Button>
-                        <Label id="title" fx:id="labelTitle" mouseTransparent="true" prefHeight="25.0" style="-fx-alignment: center;" stylesheets="@../style/undecoratedRootScene.css" text="Simple Merge - 소프트웨어 공학 02조" textOverrun="CLIP" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="5.0">
-                           <effect>
-                              <Glow />
-                           </effect>
+                        <Label fx:id="labelTitle" mouseTransparent="true" prefHeight="25.0" style="-fx-alignment: center;" stylesheets="@../style/undecoratedRootScene.css" text="Simple Merge - 소프트웨어 공학 02조" textOverrun="CLIP" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="5.0">
                         </Label>
                      </children>
                   </AnchorPane>
@@ -63,7 +57,7 @@
             </GridPane>
          </top>
 
-          <bottom>
+         <bottom>
             <AnchorPane fx:id="status_bar" maxHeight="25.0" styleClass="status-bar" stylesheets="@../style/undecoratedRootScene.css" BorderPane.alignment="CENTER">
                <children>
                   <Label id="statusLabel" fx:id="labelStatus" prefHeight="25.0" styleClass="status-bar-label" stylesheets="@../style/undecoratedRootScene.css" text="Status" AnchorPane.leftAnchor="5.0" />

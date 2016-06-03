@@ -235,7 +235,7 @@ public class EditorSceneController {
         onTBBtnSaveClicked();
     }
 
-    public void testHelper(HighlightEditorInterface editor, Button saveBtn, Button openBtn, Button editBtn) {
+    public void testHelper(HighlightEditorInterface editor, Button saveBtn, Button openBtn, ToggleButton editBtn) {
 
     }
 }

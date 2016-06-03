@@ -26,16 +26,15 @@
    <children>
       <MenuBar id="menubar" styleClass="dark-menubar" stylesheets="@../style/undecoratedRootScene.css">
          <menus>
-            <Menu mnemonicParsing="false" text="파일(F)">
+            <Menu fx:id="menuFile" mnemonicParsing="false" text="파일(F)">
                <items>
-                  <MenuItem id="menuReset" mnemonicParsing="false" onAction="#onMenuBtnResetClicked" text="Reset">
-                  </MenuItem>
-                  <MenuItem id="menuClose" mnemonicParsing="false" onAction="#onMenuBtnCloseClicked" text="Close" />
+                  <MenuItem fx:id="menuReset" mnemonicParsing="false" onAction="#onMenuBtnResetClicked" text="Reset"/>
+                  <MenuItem fx:id="menuClose" mnemonicParsing="false" onAction="#onMenuBtnCloseClicked" text="Close" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="편집(E)">
+            <Menu fx:id="menuEdit" mnemonicParsing="false" text="편집(E)">
                <items>
-                  <MenuItem id="menuCopyToRight" mnemonicParsing="false" onAction="#onMenuBtnCopyToRightClicked" text="Copy to right">
+                  <MenuItem fx:id="menuCopyToRight" mnemonicParsing="false" onAction="#onMenuBtnCopyToRightClicked" text="Copy to right">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="RIGHT" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
@@ -43,7 +42,7 @@
                         <ImageView><image><Image url="/res/btnMergeRight.png" /></image></ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem id="menuCopyToLeft" mnemonicParsing="false" onAction="#onMenuBtnCopyToLeftClicked" text="Copy to left">
+                  <MenuItem fx:id="menuCopyToLeft" mnemonicParsing="false" onAction="#onMenuBtnCopyToLeftClicked" text="Copy to left">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="LEFT" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
@@ -51,7 +50,7 @@
                         <ImageView><image><Image url="/res/btnMergeLeft.png" /></image></ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem id="menuCompare" mnemonicParsing="false" onAction="#onMenuBtnCopyToCompareClicked" text="Compare">
+                  <MenuItem fx:id="menuCompare" mnemonicParsing="false" onAction="#onMenuBtnCopyToCompareClicked" text="Compare">
                      <accelerator>
                         <KeyCodeCombination alt="DOWN" code="C" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
@@ -61,10 +60,10 @@
                   </MenuItem>
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="도움말(H)">
+            <Menu fx:id="menuHelps" mnemonicParsing="false" text="도움말(H)">
                <items>
-                  <MenuItem id="menuHelp" mnemonicParsing="false" onAction="#onMenuBtnHelpClicked" text="Help" />
-                  <MenuItem id="menuAbout" mnemonicParsing="false" onAction="#onMenuBtnAboutClicked" text="About" />
+                  <MenuItem fx:id="menuHelp" mnemonicParsing="false" onAction="#onMenuBtnHelpClicked" text="Help" />
+                  <MenuItem fx:id="menuAbout" mnemonicParsing="false" onAction="#onMenuBtnAboutClicked" text="About" />
                </items>
             </Menu>
          </menus>

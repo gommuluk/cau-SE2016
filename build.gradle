@@ -4,13 +4,13 @@ apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'build-announcements'
+apply plugin: 'jacoco'
 
 mainClassName = "etc.Main"
 
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
 
 repositories {
     mavenCentral()
@@ -21,5 +21,4 @@ dependencies {
     testCompile "org.testfx:testfx-core:4.0.+"
     testCompile "org.testfx:testfx-junit:4.0.+"
     testCompile files('libs/easymock-3.4.jar')
-//    compile group: 'org.easymock', name: 'easymock', version: '3.1'
 }

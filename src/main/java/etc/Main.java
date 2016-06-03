@@ -24,7 +24,7 @@ public class Main extends Application {
         // Stage Setting
         this.primaryStage.setTitle("Simple Merge - 소공 2팀");
         this.primaryStage.initStyle(StageStyle.TRANSPARENT);
-        this.primaryStage.getIcons().add(new Image("./res/icon.png"));
+        this.primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("../res/icon.png")));
 
         // initialize
         _initUndecoratedRootScene();
@@ -45,7 +45,6 @@ public class Main extends Application {
 
             // Load root Layout from fxml file
             FXMLLoader loader = new FXMLLoader();
-            System.out.println(Main.class.getResource("../"));
             loader.setLocation(Main.class.getResource("../fxml/undecoratedRootScene.fxml"));
             undecoratedRootScene = loader.load();
 

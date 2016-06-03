@@ -1,23 +1,23 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.*;
+import javafx.scene.Cursor;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.stage.*;
+
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runners.JUnit4;
+
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
@@ -46,14 +46,10 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
         s = TestUtils.startStage(stage);
     }
 
-    /* Just a shortcut to retrieve widgets in the GUI. */
-    private <T extends Node> T find(final String query) {
-        return lookup(query).query();
-    }
-
     @Before
     public void setUp() {
         mainPaneControlPane = find("#controlPane");
+        s.setX(200); s.setY(200);
     }
 
     @After
@@ -65,7 +61,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void undecoratedRootSceneMaximizeMinimizeTest() {
+    public void undecoratedRootSceneDoubleClickTest() {
 
         final double EPSILON = 40;
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -118,25 +114,55 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
     }
 
     @Test
+    public void undecoratedRootSceneResizableZoneCursorTest(){
+        final int MARGIN = 5;
+        final Node mainPane = find("#mainPane");
+
+        moveTo(s.getX() + s.getWidth() - MARGIN, s.getY() + s.getHeight()/2);
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(Cursor.E_RESIZE, mainPane.getCursor());
+
+        moveTo(s.getX() + s.getWidth()/2, s.getY() + s.getHeight() - MARGIN );
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(Cursor.S_RESIZE, mainPane.getCursor());
+
+    }
+
+    @Test
+    public void undecoratedRootSceneResizeTest(){
+        final int MARGIN = 5;
+        final Node mainPane = find("#mainPane");
+
+        moveTo(s.getX() + s.getWidth() - MARGIN, s.getY() + s.getHeight()/2);
+
+        drag(s.getX() + s.getWidth() - MARGIN, s.getY() + s.getHeight()/2).moveBy(300, 0);
+
+    }
+
+    @Test
     public void undecoratedRootSceneButtonCloseTest(){
         Node btnClose = find("#btnClose");
+        BooleanProperty isSuccess = new SimpleBooleanProperty(false);
 
+        s.setOnCloseRequest(event -> isSuccess.setValue(true));
         clickOn(btnClose);
-        assertTrue(!s.isShowing());
-
+        WaitForAsyncUtils.waitForAsyncFx(3000, ()->{
+            assertTrue(isSuccess.getValue());
+        });
     }
 
     @Test
     public void undecoratedRootSceneButtonMaximizeOrRestoreTest() {
 
         BoundingBox savedBounds = new BoundingBox(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-
         Node btnMaximize = find("#btnMaximize");
-        clickOn(btnMaximize);
 
         ObservableList<Screen> screensForRectangle = Screen.getScreensForRectangle(
                 s.getX(), s.getY(), s.getWidth(), s.getHeight()
         );
+
+        clickOn(btnMaximize);
+        WaitForAsyncUtils.waitForFxEvents();
 
         Screen screen = screensForRectangle.get(0);
         Rectangle2D visualBounds = screen.getVisualBounds();
@@ -145,6 +171,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
         assertEquals(visualBounds.getHeight(), s.getHeight(), 0);
 
         clickOn(btnMaximize);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(savedBounds.getWidth(), s.getWidth(), 0);
         assertEquals(savedBounds.getHeight(), s.getHeight(), 0);
@@ -159,6 +186,10 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
         final int CONTROL_PANE_HEIGHT = 18;
 
         return new Point2D( RESIZE_MARGIN + halfWidth + x, CONTROL_PANE_HEIGHT + RESIZE_MARGIN + y );
+    }
+
+    private <T extends Node> T find(final String query) {
+        return lookup(query).query();
     }
 
 }

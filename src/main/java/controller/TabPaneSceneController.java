@@ -57,7 +57,6 @@ public class TabPaneSceneController {
     @FXML // FXML 로딩이 완료되면 호출되는 콜백함수
     public void initialize(){
         Platform.runLater(()->{
-            _init();
             _initLabelReference();
             _initIsEditedSignLabelReference();
             _syncIsEditedSignWithBooleanProperty();
@@ -104,17 +103,17 @@ public class TabPaneSceneController {
     }
 
 
-    private void _init(){
-        originalTabs.addAll(tabPane.getTabs());
-
-        for (int i = 0; i < tabPane.getTabs().size(); i++) {
-            tapTransferMap.put(i, tabPane.getTabs().get(i));
-        }
-
-        tabPane.getTabs().stream().forEach(t -> {
-            t.setClosable(false);
-        });
-    }
+//    private void _init(){
+//        originalTabs.addAll(tabPane.getTabs());
+//
+//        for (int i = 0; i < tabPane.getTabs().size(); i++) {
+//            tapTransferMap.put(i, tabPane.getTabs().get(i));
+//        }
+//
+//        tabPane.getTabs().stream().forEach(t -> {
+//            t.setClosable(false);
+//        });
+//    }
 
     private void _openTabInStage(final Tab tab) {
         if(tab == null) return;

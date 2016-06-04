@@ -159,6 +159,9 @@ public class FileManager implements FileManagerInterface {
             fromFileManager = fileModelL;
             toFileManager = fileModelR;
         }
+        ArrayList<LineInterface> toFileManagerCompareLineArrayList = toFileManager.getCompareLineArrayList();
+        ArrayList<LineInterface> fromFileManagerCompareLineArrayList = fromFileManager.getCompareLineArrayList();
+
         System.out.println("Model debug blockArrayList size : " + blockArrayList.size());
         System.out.println("Model to compareLineArrayList size : " +toFileManager.getCompareLineArrayList().size() + "Model from compareLineArrayList size : " +fromFileManager.getCompareLineArrayList().size() );
         for (Block b : blockArrayList) {
@@ -168,22 +171,23 @@ public class FileManager implements FileManagerInterface {
             System.out.println("Model debug count  : " + count);
             int insertNum = b.startLineNum; //이 줄에 넣을거임
             if (b.getSelected()) {//선택된 블럭이면
+                System.out.println("block is clicked;");
                 for (int i = 0; i < count; i++) {
-                    toFileManager.getCompareLineArrayList().remove(insertNum);//복사대상이 되는 블럭을 지운다
+                    toFileManagerCompareLineArrayList.remove(insertNum);//복사대상이 되는 블럭을 지운다
                 }
                 for (int i = 0; i < count; i++) {
-                    LineInterface tempL = fromFileManager.getCompareLineArrayList().get(insertNum); //넣을 줄
-                    if (tempL.getIsWhiteSpace()) fromFileManager.getCompareLineArrayList().remove(insertNum); //공백줄이면 지워줌
+                    LineInterface tempL = fromFileManagerCompareLineArrayList.get(insertNum); //넣을 줄
+                    if (tempL.getIsWhiteSpace()) fromFileManagerCompareLineArrayList.remove(insertNum); //공백줄이면 지워줌
                     else {
                         LineInterface insertL = new Line(tempL.getContent(true));
-                        toFileManager.getCompareLineArrayList().add(insertNum, insertL);//아니면 넣어주고
+                        toFileManagerCompareLineArrayList.add(insertNum, insertL);//아니면 넣어주고
                         insertNum++;//하나 넣어줬으니 하나 올려주고
                     }
                 }
             } else {//선택 안됬으면 공백을 제거하는 작업을 해준다
                 for (int i = 0; i < count; i++) {
-                    LineInterface tempL = fromFileManager.getCompareLineArrayList().get(insertNum);//복사대상이 되는 줄. 의미 없는듯
-                    if (tempL.getIsWhiteSpace()) fromFileManager.getCompareLineArrayList().remove(insertNum);//공백이면 제거
+                    LineInterface tempL = fromFileManagerCompareLineArrayList.get(insertNum);//복사대상이 되는 줄. 의미 없는듯
+                    if (tempL.getIsWhiteSpace()) fromFileManagerCompareLineArrayList.remove(insertNum);//공백이면 제거
                     else {
                         insertNum++;
                     }
@@ -191,8 +195,8 @@ public class FileManager implements FileManagerInterface {
                 count = b.endLineNum - b.startLineNum;
                 insertNum = b.startLineNum;//시작줄 초기화
                 for (int i = 0; i < count; i++) {
-                    LineInterface tempR = toFileManager.getCompareLineArrayList().get(insertNum);
-                    if (tempR.getIsWhiteSpace()) toFileManager.getCompareLineArrayList().remove(insertNum);
+                    LineInterface tempR = toFileManagerCompareLineArrayList.get(insertNum);
+                    if (tempR.getIsWhiteSpace()) toFileManagerCompareLineArrayList.remove(insertNum);
                     else {
                         insertNum++;
                     }
@@ -211,11 +215,14 @@ public class FileManager implements FileManagerInterface {
         for (LineInterface s : toFileManager.getCompareLineArrayList())
             ret += s.getContent(false);
         ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
+        System.out.println("from : "  + ret);
         toFileManager.updateArrayList(ret);
         ret = "";
         for (LineInterface s : fromFileManager.getCompareLineArrayList())
             ret += s.getContent(false);
         ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
+
+        System.out.println("to : "  + ret);
         fromFileManager.updateArrayList(ret);
         cancelCompare();
 

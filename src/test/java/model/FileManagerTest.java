@@ -18,8 +18,6 @@ import static org.junit.Assert.*;
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FileManagerTest {
     private static FileManager fileManager;
-    private static FileModelInterface leftFileModelMock;
-    private static FileModelInterface rightFileModelMock;
 
 
     @Before
@@ -32,14 +30,7 @@ public class FileManagerTest {
         fileManager.loadFile( getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
         System.out.println("start");
     }
-    @Before
-    public void setUpTestMock() throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
-        fileManager = (FileManager)FileManager.getFileManagerInterface();
-        leftFileModelMock = EasyMock.createMock(FileModelInterface.class);
-        rightFileModelMock = EasyMock.createMock(FileModelInterface.class);
-        fileManager.setDependency(leftFileModelMock,rightFileModelMock);
 
-    }
     @Test
     public void setCompareTest() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
         fileManager.setCompare();

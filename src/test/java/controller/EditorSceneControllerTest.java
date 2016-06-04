@@ -7,12 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import mockInterface.FileDialogInterface;
 import model.FileManager;
 import model.FileManagerInterface;
 
+import model.Line;
 import model.LineInterface;
 import org.junit.After;
 import org.junit.Before;
@@ -24,9 +26,10 @@ import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 import utils.TestUtils;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
@@ -79,6 +82,35 @@ public class EditorSceneControllerTest extends ApplicationTest {
             verifyThat(node, NodeMatchers.isEnabled());
         }
     }
+    @Test
+    public void LoadSuccessTest() {
+        //given :
+        HighlightEditorInterface editor = find("#editor");
+
+        //when :
+        clickOn("#btnFileOpen");
+
+        assertEquals(1, listTargetWindows().size());
+        type(KeyCode.O, KeyCode.U, KeyCode.T, KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
+
+        //then :
+        assertEquals(editor.getText(), FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left));
+
+    }
+
+    @Test
+    public void SaveSuccessWithNoFileTest() {
+        //when :
+        clickOn("#btnEdit");
+        clickOn("#editor");
+        type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T);
+        clickOn("#btnEdit");
+        clickOn("#btnFileSave");
+        //then :
+        assertEquals(2, listTargetWindows().size());
+
+    }
+
 
     @Test
     public void EditorSceneButtonLoadClickTest(){

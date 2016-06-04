@@ -20,7 +20,8 @@ public class FileLoadExplorer implements FileExplorer {
     public File getDialog(Button btn, FileManagerInterface.SideOfEditor side) {
         Stage s = (Stage) btn.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-
+        File file = new File(".");
+        fileChooser.setInitialDirectory(file);
         if (side == FileManagerInterface.SideOfEditor.Left)
         fileChooser.setTitle("Open Left File");
         else fileChooser.setTitle("Open Right File");

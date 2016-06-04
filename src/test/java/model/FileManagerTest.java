@@ -30,8 +30,8 @@ public class FileManagerTest {
         fileManager = FileManager.getFileManagerInterface();
         fileManager.resetModel(FileManagerInterface.SideOfEditor.Left);
         fileManager.resetModel(FileManagerInterface.SideOfEditor.Right);
-        fileManager.loadFile("test files/AA.txt",FileManagerInterface.SideOfEditor.Left);//a,b,c,d
-        fileManager.loadFile("test files/BB.txt",FileManagerInterface.SideOfEditor.Right);//a,b,d,c
+        fileManager.loadFile( getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile( getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
         System.out.println("start");
     }
     @Test

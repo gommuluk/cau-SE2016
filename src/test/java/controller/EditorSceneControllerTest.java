@@ -39,10 +39,9 @@ import static org.testfx.api.FxAssert.verifyThat;
  * Created by SH on 2016-06-04.
  */
 
-public class EditorSceneControllerTest extends ApplicationTest{
+public class EditorSceneControllerTest extends ApplicationTest {
 
     private Stage s;
-
 
     @Override
     public void init() throws Exception {
@@ -52,12 +51,12 @@ public class EditorSceneControllerTest extends ApplicationTest{
     @Override
     public void start(Stage stage) {
         s = TestUtils.startStage(stage);
-        System.out.println("호출");
     }
 
     @Override
     public void stop() throws Exception {
         FxToolkit.hideStage();
+        FxToolkit.cleanupStages();
     }
 
     @Before
@@ -67,8 +66,8 @@ public class EditorSceneControllerTest extends ApplicationTest{
 
     @Test
     public void saveTest() {
-        EditorSceneController ctrr = new EditorSceneController();
-        ctrr.useSaveActionMethod();
+        //EditorSceneController ctrr = new EditorSceneController();
+        //ctrr.useSaveActionMethod();
         //ctrr.testHelper(editor, btnFileSave, btnFileOpen, btnEdit);
     }
 
@@ -103,9 +102,7 @@ public class EditorSceneControllerTest extends ApplicationTest{
 
             try {
                 FileManager.getFileManagerInterface().loadFile(fileDialogMock.getPath(), FileManagerInterface.SideOfEditor.Left);
-
                 String[] textContents = { "a", "b", "c", "d", "e", "c", "", "e", "d", "d", "e", "d", "c", "", "d", "d", "d", "d", "d" };
-
                 ObservableList<LineInterface> items = highlightListView.getItems();
 
                 for(int i=0; i<items.size(); i++) {
@@ -163,7 +160,6 @@ public class EditorSceneControllerTest extends ApplicationTest{
 
     @After
     public void tearDown() throws TimeoutException {
-
         FxToolkit.cleanupStages();
         FxToolkit.hideStage();
 

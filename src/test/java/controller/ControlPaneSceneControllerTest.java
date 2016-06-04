@@ -35,6 +35,7 @@ import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.testfx.api.FxAssert.verifyThat;
 
 /**
@@ -182,6 +183,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
 
         // view Rendering Testing
         assertSnapshotsEqual(getClass().getResource("../mergeResult.png").getPath(), s.getScene().getRoot(), 5);
+        assertEquals(FileManager.getFileManagerInterface().getComparing(), true);
     }
 
     @After

@@ -7,12 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import mockInterface.FileDialogInterface;
 import model.FileManager;
 import model.FileManagerInterface;
 
+import model.Line;
 import model.LineInterface;
 import org.junit.After;
 import org.junit.Before;
@@ -24,9 +26,10 @@ import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 import utils.TestUtils;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
@@ -65,13 +68,6 @@ public class EditorSceneControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void saveTest() {
-        //EditorSceneController ctrr = new EditorSceneController();
-        //ctrr.useSaveActionMethod();
-        //ctrr.testHelper(editor, btnFileSave, btnFileOpen, btnEdit);
-    }
-
-    @Test
     public void EditorSceneInitialButtonEnableTest(){
         Node[] buttons = { find("#btnFileOpen"), find("#btnFileSave"), find("#btnEdit") };
 
@@ -79,6 +75,36 @@ public class EditorSceneControllerTest extends ApplicationTest {
             verifyThat(node, NodeMatchers.isEnabled());
         }
     }
+    @Test
+    public void LoadSuccessTest() {
+        //given :
+        HighlightEditorInterface editor = find("#editor");
+
+        //when :
+        clickOn("#btnFileOpen");
+
+        assertEquals(1, listTargetWindows().size());
+        type(KeyCode.O, KeyCode.U, KeyCode.T, KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
+
+        //then :
+        assertEquals(editor.getText(), FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left));
+    }
+
+    @Test
+    public void SaveSuccessWithNoFileTest() {
+
+        //when :
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#editor"); WaitForAsyncUtils.waitForFxEvents();
+
+        type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T);
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#btnFileSave"); WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(2, listTargetWindows().size());
+
+    }
+
 
     @Test
     public void EditorSceneButtonLoadClickTest(){
@@ -165,8 +191,8 @@ public class EditorSceneControllerTest extends ApplicationTest {
 
     @After
     public void tearDown() throws TimeoutException {
-        FxToolkit.cleanupStages();
         FxToolkit.hideStage();
+        FxToolkit.cleanupStages();
 
         FileManager.getFileManagerInterface().resetModel(FileManagerInterface.SideOfEditor.Left);
         FileManager.getFileManagerInterface().resetModel(FileManagerInterface.SideOfEditor.Right);

@@ -95,13 +95,18 @@ public class EditorSceneControllerTest extends ApplicationTest {
 
         // OS 종속적인 Dialog 는 testFX로 테스팅이 불가능하다. 따라서 mock을 생성함.
         FileDialogInterface fileDialogMock = createMock(FileDialogInterface.class);
-        expect(fileDialogMock.getPath()).andReturn( getClass().getResource("../test1-1.txt").getPath() );
+        expect(fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Left))
+                .andReturn( getClass().getResource("../test1-1.txt").getPath() );
         replay(fileDialogMock);
 
         WaitForAsyncUtils.waitForAsyncFx(5000, ()->{
 
             try {
-                FileManager.getFileManagerInterface().loadFile(fileDialogMock.getPath(), FileManagerInterface.SideOfEditor.Left);
+                FileManager.getFileManagerInterface().loadFile(
+                        fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Left),
+                        FileManagerInterface.SideOfEditor.Left
+                );
+
                 String[] textContents = { "a", "b", "c", "d", "e", "c", "", "e", "d", "d", "e", "d", "c", "", "d", "d", "d", "d", "d" };
                 ObservableList<LineInterface> items = highlightListView.getItems();
 

@@ -1,31 +1,46 @@
 package controller;
 
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import mockInterface.FileDialogInterface;
 import model.FileManager;
 import model.FileManagerInterface;
+import model.LineInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
+import org.testfx.service.support.CaptureSupport;
+import org.testfx.service.support.PixelMatcherResult;
+import org.testfx.service.support.impl.CaptureSupportImpl;
+import org.testfx.service.support.impl.PixelMatcherBase;
+import org.testfx.service.support.impl.PixelMatcherRgb;
 import org.testfx.util.WaitForAsyncUtils;
+import utils.FxImageComparison;
 import utils.TestUtils;
 
+import javax.swing.text.Highlighter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeoutException;
 
+import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.testfx.api.FxAssert.verifyThat;
 
 /**
  * Created by SH on 2016-06-03.
  */
-public class ControlPaneSceneControllerTest extends ApplicationTest {
+public class ControlPaneSceneControllerTest extends ApplicationTest implements FxImageComparison {
 
     private Stage s;
 
@@ -94,17 +109,33 @@ public class ControlPaneSceneControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void ControlPaneSceneButtonCompareTest() {
+    public void ControlPaneSceneButtonCompareClickTest() throws IOException {
 
         Node btnCompare = find("#btnCompare");
 
         String leftFile = getClass().getResource("../test1-1.txt").getPath();
         String rightFile = getClass().getResource("../test1-2.txt").getPath();
 
+        // OS 종속적인 친구들.
+        FileDialogInterface fileDialogMock = createMock(FileDialogInterface.class);
+        expect(fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Left)).andReturn(leftFile);
+        expect(fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Right)).andReturn(rightFile);
+        replay(fileDialogMock);
+
         WaitForAsyncUtils.waitForAsyncFx(5000, ()->{
             try {
-                FileManager.getFileManagerInterface().loadFile(leftFile, FileManagerInterface.SideOfEditor.Left);
-                FileManager.getFileManagerInterface().loadFile(rightFile, FileManagerInterface.SideOfEditor.Right);
+
+                FileManager.getFileManagerInterface().loadFile(
+                        fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Left),
+                        FileManagerInterface.SideOfEditor.Left
+                );
+
+                FileManager.getFileManagerInterface().loadFile(
+                        fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Right),
+                        FileManagerInterface.SideOfEditor.Right
+                );
+
+                verify(fileDialogMock);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -115,7 +146,42 @@ public class ControlPaneSceneControllerTest extends ApplicationTest {
 
         clickOn(btnCompare);
 
-        // assert 필요
+        Node leftSplit = s.getScene().lookup("#leftSplit");
+        Node rightSplit = s.getScene().lookup("#rightSplit");
+
+        HighlightEditorInterface leftEditor = (HighlightEditorInterface) leftSplit.lookup("#editor");
+        HighlightEditorInterface rightEditor = (HighlightEditorInterface) rightSplit.lookup("#editor");
+
+        verifyThat(leftEditor.getHighlightListView(), (ListView<LineInterface> listView) -> {
+            int i = 0;
+            LineInterface item = listView.getItems().get(i);
+
+            switch (i){
+                case 0:
+                case 19: return item.getHighlight() == LineInterface.LineHighlight.whitespace;
+                case 1:
+                case 20: return item.getHighlight() == LineInterface.LineHighlight.isDifferent;
+            }
+
+            return item.getHighlight() == LineInterface.LineHighlight.unHighlighted;
+        });
+
+        verifyThat(rightEditor.getHighlightListView(), (ListView<LineInterface> listView) -> {
+            int i = 0;
+            LineInterface item = listView.getItems().get(i);
+
+            switch (i){
+                case 0:
+                case 19: return item.getHighlight() == LineInterface.LineHighlight.isDifferent;
+                case 1:
+                case 20: return item.getHighlight() == LineInterface.LineHighlight.whitespace;
+            }
+
+            return item.getHighlight() == LineInterface.LineHighlight.unHighlighted;
+        });
+
+        // view Rendering Testing
+        assertSnapshotsEqual(getClass().getResource("../mergeResult.png").getPath(), s.getScene().getRoot(), 5);
     }
 
     @After

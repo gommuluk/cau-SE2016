@@ -6,6 +6,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
@@ -22,15 +23,20 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.api.FxToolkitContext;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.matcher.base.GeometryMatchers;
+import org.testfx.service.support.CaptureSupport;
 import org.testfx.service.support.WaitUntilSupport;
 import org.testfx.util.WaitForAsyncUtils;
+import utils.FxImageComparison;
 import utils.TestUtils;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.testfx.api.FxAssert.verifyThat;
 
@@ -39,7 +45,7 @@ import static org.testfx.api.FxAssert.verifyThat;
  * Created by SH on 2016-06-03.
  */
 
-public class UndecoratedRootSceneControllerTest extends ApplicationTest {
+public class UndecoratedRootSceneControllerTest extends ApplicationTest implements FxImageComparison {
 
     private Stage s;
 
@@ -127,7 +133,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
         clickOn(btnMinimize);
         assertTrue(s.isIconified());
 
-        Platform.runLater(()->s.setIconified(false));
+        WaitForAsyncUtils.waitForAsyncFx(5000, ()->s.setIconified(false));
     }
 
     @Test
@@ -182,18 +188,20 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
 
         Screen screen = screensForRectangle.get(0);
         Rectangle2D visualBounds = screen.getVisualBounds();
-
-        assertEquals(visualBounds.getWidth(), s.getScene().getWidth(), 0);
-        assertEquals(visualBounds.getHeight(), s.getHeight(), 0);
+        Dimension2D programBounds = new Dimension2D(s.getWidth(), s.getHeight());
+        verifyThat(programBounds, GeometryMatchers.hasDimension(visualBounds.getWidth(), visualBounds.getHeight()));
 
         clickOn(btnMaximize);
         WaitForAsyncUtils.waitForFxEvents();
-
-        assertEquals(savedBounds.getWidth(), s.getWidth(), 0);
-        assertEquals(savedBounds.getHeight(), s.getHeight(), 0);
+        verifyThat( new Dimension2D(savedBounds.getWidth(), savedBounds.getHeight()),
+                GeometryMatchers.hasDimension(s.getWidth(), s.getHeight()) );
 
     }
 
+    @Test
+    public void undecoratedRootSceneRenderingTest() throws IOException {
+        assertSnapshotsEqual(getClass().getResource("../undecoratedRootScene.png").getPath(), s.getScene().getRoot(), 10);
+    }
 
     private Point2D _getSceneCoord(int x, int y){
 

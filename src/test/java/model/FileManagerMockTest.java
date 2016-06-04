@@ -5,18 +5,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by ano on 2016. 5. 18..
  */
 
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class FileManagerTest {
+public class FileManagerMockTest {
     private static FileManager fileManager;
     private static FileModelInterface leftFileModelMock;
     private static FileModelInterface rightFileModelMock;

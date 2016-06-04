@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 /**
  * Created by ano on 2016. 5. 13..
  */
@@ -423,5 +424,10 @@ public class FileManager implements FileManagerInterface {
         if (sideOfEditor == FileManagerInterface.SideOfEditor.Left) {
             this.fileModelL = new FileModel();
         } else this.fileModelR = new FileModel();
+    }
+
+    public void setDependency(FileModelInterface fl, FileModelInterface fr){
+        fileModelL = fl;
+        fileModelR = fr;
     }
 }

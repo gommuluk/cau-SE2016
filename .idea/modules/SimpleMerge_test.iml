@@ -14,6 +14,7 @@
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Gradle: org.testfx:testfx-junit:4.0.4-alpha" level="project" />
     <orderEntry type="library" name="Gradle: org.testfx:testfx-core:4.0.4-alpha" level="project" />
+    <orderEntry type="library" name="Gradle: org.easymock:easymock:3.4" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="SimpleMerge_main" />
 </module>

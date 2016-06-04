@@ -44,7 +44,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void ControlPaneSceneInitalMenuItemClickTest(){
+    public void ControlPaneSceneInitialMenuItemClickTest(){
         Node[] menuItems = { find("#menuFile"), find("#menuEdit"), find("#menuHelps") };
 
         // 처음에는 모든 메뉴아이템이 활성화 상태이다.

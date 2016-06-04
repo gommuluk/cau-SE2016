@@ -24,7 +24,8 @@ public class Main extends Application {
         // Stage Setting
         this.primaryStage.setTitle("Simple Merge - 소공 2팀");
         this.primaryStage.initStyle(StageStyle.TRANSPARENT);
-        this.primaryStage.getIcons().add(new Image("../res/icon.png"));
+        System.out.println(Main.class.getResource("../res/icon.png"));
+//        this.primaryStage.getIcons().add(new Image("../res/icon.png"));
 
         // initialize
         _initUndecoratedRootScene();

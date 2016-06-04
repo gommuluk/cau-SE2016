@@ -50,6 +50,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
     @Before
     public void setUp() {
         s.setX(50); s.setY(50);
+        WaitForAsyncUtils.waitForFxEvents(10);
     }
 
     @After

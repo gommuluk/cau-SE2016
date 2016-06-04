@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.testfx.api.FxAssert.verifyThat;
 
 /**
@@ -116,6 +117,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest {
         clickOn(btnCompare);
 
         // assert 필요
+        assertEquals(FileManager.getFileManagerInterface().getComparing(), true);
     }
 
     @After

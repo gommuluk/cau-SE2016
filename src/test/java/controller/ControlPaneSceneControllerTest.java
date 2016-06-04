@@ -24,8 +24,18 @@ public class ControlPaneSceneControllerTest extends ApplicationTest {
     private Stage s;
 
     @Override
+    public void init() throws Exception {
+        FxToolkit.registerStage(() -> new Stage());
+    }
+
+    @Override
     public void start(Stage stage) {
         s = TestUtils.startStage(stage);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        FxToolkit.hideStage();
     }
 
     @Before

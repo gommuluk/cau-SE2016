@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class TestUtils {
             scene.setFill(Color.TRANSPARENT);
 
             stage.setScene(scene);
-//            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
 
             stage.show();
             stage.toFront();

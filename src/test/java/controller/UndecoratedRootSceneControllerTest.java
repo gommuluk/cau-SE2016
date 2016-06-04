@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,7 +20,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.testfx.api.FxToolkit;
+import org.testfx.api.FxToolkitContext;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.service.support.WaitUntilSupport;
 import org.testfx.util.WaitForAsyncUtils;
 import utils.TestUtils;
 
@@ -39,24 +42,35 @@ import static org.testfx.api.FxAssert.verifyThat;
 public class UndecoratedRootSceneControllerTest extends ApplicationTest {
 
     private Stage s;
-    private GridPane mainPaneControlPane;
+
+
+    @Override
+    public void init() throws Exception {
+        FxToolkit.registerStage(() -> new Stage());
+    }
 
     @Override
     public void start(Stage stage) {
         s = TestUtils.startStage(stage);
-        mainPaneControlPane = find("#controlPane");
+    }
+
+    @Override
+    public void stop() throws Exception {
+        FxToolkit.hideStage();
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws TimeoutException {
+        FxToolkit.registerPrimaryStage();
         s.setX(50); s.setY(50);
-        WaitForAsyncUtils.waitForFxEvents(10);
     }
 
     @After
     public void tearDown() throws TimeoutException {
-        FxToolkit.hideStage();
+
         FxToolkit.cleanupStages();
+        FxToolkit.hideStage();
+
         release(new KeyCode[] {});
         release(new MouseButton[] {});
     }
@@ -66,6 +80,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
 
         final double EPSILON = 40;
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        final GridPane mainPaneControlPane = find("#controlPane");
         final int screenWidth = (int)screen.getWidth(), screenHeight = (int)screen.getHeight();
         final int originWidth = (int)s.getWidth(), originHeight = (int)s.getHeight();
 
@@ -90,7 +105,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
 
         final double EPSILON = 10; // 오차범위(엡실론)
         int expectedX, expectedY;
-
+        final GridPane mainPaneControlPane = find("#controlPane");
         final Random r = new Random();
 
         expectedX = Math.abs(r.nextInt(1024));
@@ -98,6 +113,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
 
         // Drag & Move this window
         drag(mainPaneControlPane).moveTo(_getSceneCoord(expectedX, expectedY));
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(expectedX, mainPaneControlPane.getScene().getWindow().getX(), EPSILON);
         assertEquals(expectedY, mainPaneControlPane.getScene().getWindow().getY(), EPSILON);
@@ -132,7 +148,6 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
     @Test
     public void undecoratedRootSceneResizeTest(){
         final int MARGIN = 5;
-        final Node mainPane = find("#mainPane");
 
         final double prevWidth = s.getWidth();
 
@@ -182,6 +197,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest {
 
     private Point2D _getSceneCoord(int x, int y){
 
+        final GridPane mainPaneControlPane = find("#controlPane");
         final int RESIZE_MARGIN = 5;
         double halfWidth = mainPaneControlPane.getWidth() / 2;
         final int CONTROL_PANE_HEIGHT = 18;

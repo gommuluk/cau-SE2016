@@ -84,7 +84,8 @@ public class EditorSceneControllerTest extends ApplicationTest{
     public void EditorSceneButtonLoadClickTest(){
 
         Node btnFileOpen = find("#btnFileOpen");
-        ListView<Object> highlightListView = find("#highlightList");
+        HighlightEditorInterface editor = find("#editor");
+        ListView<LineInterface> highlightListView = editor.getHighlightListView();
 
         clickOn(btnFileOpen);
 

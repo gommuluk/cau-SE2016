@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -23,16 +24,6 @@ public class FileManagerMockTest {
 
 
     @Before
-    public void setupTest () throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
-    {
-        fileManager = (FileManager)FileManager.getFileManagerInterface();
-        fileManager.resetModel(FileManagerInterface.SideOfEditor.Left);
-        fileManager.resetModel(FileManagerInterface.SideOfEditor.Right);
-        fileManager.loadFile( getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
-        fileManager.loadFile( getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
-        System.out.println("start");
-    }
-    @Before
     public void setUpTestMock() throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
         fileManager = (FileManager)FileManager.getFileManagerInterface();
         leftFileModelMock = EasyMock.createMock(FileModelInterface.class);
@@ -42,17 +33,68 @@ public class FileManagerMockTest {
     }
     @Test
     public void setCompareTest() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
-        fileManager.setCompare();
-        assertTrue(fileManager.getComparing());
-
         int[][] arr = {{0, 0, 0, 0, 0}, {0, 1, 1, 1, 1}, {0, 1, 2, 2, 2}, {0, 1, 2, 2, 3}, {0, 1, 2, 3, 3}};
-
         //L이 a b c d, R이 a b d c 일떄의 DP 테이블
-        assertArrayEquals(arr, fileManager.getArrayLCS()); //테이블 검사
-
         ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
         ArrayList<Line> testLineArrayListR = new ArrayList<Line>();
+        ArrayList<LineInterface> testLineArrayListMockL = new ArrayList<LineInterface>();
+        ArrayList<LineInterface> testLineArrayListMockR = new ArrayList<LineInterface>();
+        ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
+        ArrayList<LineInterface> testRightLineArrayList = new ArrayList<>();
+        testLeftLineArrayList.add(new Line("a"));
+        testLeftLineArrayList.add(new Line("b"));
+        testLeftLineArrayList.add(new Line("c"));
+        testLeftLineArrayList.add(new Line("d"));
+        testRightLineArrayList.add(new Line("a"));
+        testRightLineArrayList.add(new Line("b"));
+        testRightLineArrayList.add(new Line("d"));
+        testRightLineArrayList.add(new Line("c"));
         ArrayList<Block> testBlockArrayList = new ArrayList<Block>();
+        testLineArrayListL.add(new Line("a",-1,false));
+        testLineArrayListL.add(new Line("b",-1,false));
+        testLineArrayListL.add(new Line("",1,true));
+        testLineArrayListL.add(new Line("c",-1,false));
+        testLineArrayListL.add(new Line("d",0,false));
+        testLineArrayListMockL.add(new Line("a",-1,false));
+        testLineArrayListMockL.add(new Line("b",-1,false));
+        testLineArrayListMockL.add(new Line("",1,true));
+        testLineArrayListMockL.add(new Line("c",-1,false));
+        testLineArrayListMockL.add(new Line("d",0,false));
+        testLineArrayListR.add(new Line("a",-1,false));
+        testLineArrayListR.add(new Line("b",-1,false));
+        testLineArrayListR.add(new Line("d",1,false));
+        testLineArrayListR.add(new Line("c",-1,false));
+        testLineArrayListR.add(new Line("",0,true));
+        testLineArrayListMockR.add(new Line("a",-1,false));
+        testLineArrayListMockR.add(new Line("b",-1,false));
+        testLineArrayListMockR.add(new Line("d",1,false));
+        testLineArrayListMockR.add(new Line("c",-1,false));
+        testLineArrayListMockR.add(new Line("",0,true));
+        //EasyMock.expect(leftFileModelMock.getCompareLineArrayList()).andReturn(testLineArrayListMockL);
+        //EasyMock.expect(rightFileModelMock.getCompareLineArrayList()).andReturn(testLineArrayListMockR);
+        EasyMock.expect(leftFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testLeftLineArrayList.clone());
+        EasyMock.expect(rightFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testRightLineArrayList.clone());
+        EasyMock.expect(leftFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testLeftLineArrayList.clone());
+        EasyMock.expect(rightFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testRightLineArrayList.clone());
+        EasyMock.expect(leftFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testLeftLineArrayList.clone());
+        EasyMock.expect(rightFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testRightLineArrayList.clone());
+        EasyMock.expect(leftFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testLeftLineArrayList.clone());
+        EasyMock.expect(rightFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testRightLineArrayList.clone());
+        rightFileModelMock.setCompareLineArrayList(testLineArrayListMockR);
+        leftFileModelMock.setCompareLineArrayList(testLineArrayListMockL);
+        EasyMock.expect(rightFileModelMock.getCompareLineArrayList()).andReturn((ArrayList<LineInterface>)testLineArrayListMockR);
+        EasyMock.expect(leftFileModelMock.getCompareLineArrayList()).andReturn((ArrayList<LineInterface>)testLineArrayListMockL);
+        EasyMock.expectLastCall();
+        EasyMock.expect(rightFileModelMock.isFileExist()).andReturn(true);
+        EasyMock.expect(leftFileModelMock.isFileExist()).andReturn(true);
+        EasyMock.expect(leftFileModelMock.getEdited()).andReturn(false);
+        EasyMock.expect(rightFileModelMock.getEdited()).andReturn(false);
+        EasyMock.replay(leftFileModelMock);
+        EasyMock.replay(rightFileModelMock);
+        fileManager.setCompare();
+        assertArrayEquals(arr, fileManager.getArrayLCS()); //테이블 검사
+        assertTrue(fileManager.getComparing());
+
 
         testBlockArrayList.add(new Block(4, 5));
         testBlockArrayList.add(new Block(2, 3));
@@ -61,19 +103,13 @@ public class FileManagerMockTest {
             assertEquals(testBlockArrayList.get(i).startLineNum, Line.getBlockArray().get(i).startLineNum);
             assertEquals(testBlockArrayList.get(i).endLineNum, Line.getBlockArray().get(i).endLineNum);//블럭 같게 생겼는지 검사
         }
-        testLineArrayListL.add(new Line("a",-1,false));
-        testLineArrayListL.add(new Line("b",-1,false));
-        testLineArrayListL.add(new Line("",1,true));
-        testLineArrayListL.add(new Line("c",-1,false));
-        testLineArrayListL.add(new Line("d",0,false));
-        testLineArrayListR.add(new Line("a",-1,false));
-        testLineArrayListR.add(new Line("b",-1,false));
-        testLineArrayListR.add(new Line("d",1,false));
-        testLineArrayListR.add(new Line("c",-1,false));
-        testLineArrayListR.add(new Line("",0,true));
+
+        ArrayList<LineInterface> gettedLineArrayListR = fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right);
+        ArrayList<LineInterface> gettedLineArrayListL = fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left);
+
         for (int i = 0; i < testLineArrayListR.size(); i++) {
-            assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
-            assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
+            assertTrue(testLineArrayListR.get(i).equals(gettedLineArrayListR.get(i)));
+            assertTrue(testLineArrayListL.get(i).equals(gettedLineArrayListL.get(i)));
             //텍스트 어레이 같게 생겼는지 검사
         }
 

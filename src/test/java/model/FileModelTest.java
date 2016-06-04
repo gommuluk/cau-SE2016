@@ -1,7 +1,6 @@
 package model;
 
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.StringProperty;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -9,35 +8,70 @@ import java.io.FileReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import model.FileModel;
-import model.FileManager;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by Elliad on 2016-05-08.
  */
 public class FileModelTest {
+    public FileModel testFileModel;
+    public ArrayList<String> testStringArrayList;
+    @Before
+    public void setupTest(){
+        testFileModel = new FileModel();
 
+    }
     @Test
     public void fileReadTest() throws FileNotFoundException, UnsupportedEncodingException{
-        FileModel testFileModel = new FileModel();
-        ArrayList<String> testArraylist = new ArrayList<String>();
-        testArraylist.add("asdf\n");
-        testArraylist.add("asdf");
-        //assertTrue(testFileModel.readFile("A.txt"));
-        //assertEquals(testFileModel.getStringArrayList(),testArraylist);
+        testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
+        ArrayList<String>
+        testStringArrayList = new ArrayList<>();
+        testStringArrayList.add("a");
+        testStringArrayList.add("b");
+        testStringArrayList.add("c");
+        testStringArrayList.add("d");
+        assertEquals(testFileModel.getLineArrayList().size(), testStringArrayList.size());
+        for(int i = 0; i < testStringArrayList.size(); i++){
+            assertTrue(testFileModel.getLineArrayList().get(i).getContent(true).equals(testStringArrayList.get(i)));
+        }
+    }
+    @Test
+    public void updateArrayListTest() {
+        testFileModel.updateArrayList("z\nx\ny\ne");
+        testStringArrayList = new ArrayList<>();
+        testStringArrayList.add("z");
+        testStringArrayList.add("x");
+        testStringArrayList.add("y");
+        testStringArrayList.add("e");
+        for (int i = 0; i < testStringArrayList.size(); i++) {
+            assertTrue(testFileModel.getLineArrayList().get(i).getContent(true).equals(testStringArrayList.get(i)));
+        }
+    }
+    @Test
+    public void isFileExistTest()throws FileNotFoundException, UnsupportedEncodingException{
+        assertFalse(testFileModel.isFileExist());
+        testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
+        assertTrue(testFileModel.isFileExist());
+    }
+    @Test
+    public void editedTest() throws FileNotFoundException, UnsupportedEncodingException{
+        testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
+        assertFalse(testFileModel.getEdited());
+        testFileModel.setEdited(true);
+        assertTrue(testFileModel.getEdited());
+        testFileModel.writeFile();
+        assertFalse(testFileModel.getEdited());
 
 
     }
-
     @Test
     public void fileWriteTest() throws FileNotFoundException, UnsupportedEncodingException{
-
         FileModel testFileModel = new FileModel();
-        //assertTrue(testFileModel.readFile("A.txt"));
-        //assertTrue(testFileModel.writeFile());
+        testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
+        testFileModel.writeFile();
         ArrayList<String> testArraylist = new ArrayList<String>();
-        try(Scanner in = new Scanner(new FileReader("test files/AA.txt")))
+        try(Scanner in = new Scanner(new FileReader(getClass().getResource("../AA.txt").getPath())))
         {
             String tempString = "";
             while(in.hasNext()) {
@@ -48,8 +82,13 @@ public class FileModelTest {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        //assertEquals(testFileModel.getStringArrayList(),testArraylist);
-
+        assertEquals(testFileModel.getLineArrayList().size(), testArraylist.size());
+        for(int i = 0 ; i < testArraylist.size();i++){
+            if(i != testArraylist.size() -1)
+            assertTrue(testFileModel.getLineArrayList().get(i).getContent(false).equals(testArraylist.get(i)));
+            else
+                assertTrue(testFileModel.getLineArrayList().get(i).getContent(true).equals(testArraylist.get(i)));
+        }
     }
 
     @Test

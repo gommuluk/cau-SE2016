@@ -31,6 +31,7 @@ import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.testfx.api.FxAssert.verifyThat;
 
 
@@ -98,20 +99,18 @@ public class EditorSceneControllerTest extends ApplicationTest{
         expect(fileDialogMock.getPath()).andReturn( getClass().getResource("../test1-1.txt").getPath() );
         replay(fileDialogMock);
 
-        Platform.runLater(()->{
+        WaitForAsyncUtils.waitForAsyncFx(5000, ()->{
 
             try {
                 FileManager.getFileManagerInterface().loadFile(fileDialogMock.getPath(), FileManagerInterface.SideOfEditor.Left);
-                
+
                 String[] textContents = { "a", "b", "c", "d", "e", "c", "", "e", "d", "d", "e", "d", "c", "", "d", "d", "d", "d", "d" };
 
-                ObservableList<Object> items = highlightListView.getItems();
+                ObservableList<LineInterface> items = highlightListView.getItems();
 
                 for(int i=0; i<items.size(); i++) {
                     assertEquals(items.get(i).toString(), textContents[i]);
                 }
-
-                verify(fileDialogMock);
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -121,6 +120,8 @@ public class EditorSceneControllerTest extends ApplicationTest{
             }
 
         });
+
+        verify(fileDialogMock);
 
     }
 
@@ -150,35 +151,13 @@ public class EditorSceneControllerTest extends ApplicationTest{
         ListView<LineInterface> highlightListView = editor.getHighlightListView();
         TextArea textArea = editor.getTextArea();
 
-        FileDialogInterface fileDialogMock = createMock(FileDialogInterface.class);
-        expect(fileDialogMock.getPath()).andReturn( getClass().getResource("../test1-1.txt").getPath() );
-        replay(fileDialogMock);
+        clickOn(btnEdit); WaitForAsyncUtils.waitForFxEvents();
 
-        Platform.runLater(()->{
+        clickOn(textArea).write("test!");
+        clickOn(btnEdit);
 
-            try {
-                FileManager.getFileManagerInterface().loadFile(fileDialogMock.getPath(), FileManagerInterface.SideOfEditor.Left);
-
-                clickOn(btnEdit);
-                clickOn(textArea).write("UI_Testing");
-
-                String[] textContents = { "a", "b", "c", "d", "e", "c", "", "e", "d", "d", "e", "d", "c", "", "d", "d", "d", "d", "d" };
-
-                ObservableList<LineInterface> items = highlightListView.getItems();
-
-                for(int i=0; i<items.size(); i++) {
-                    assertEquals(items.get(i).toString(), textContents[i]);
-                }
-
-                verify(fileDialogMock);
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-    });
+        ObservableList<LineInterface> items = highlightListView.getItems();
+        assertEquals(items.get(0).toString(), "test!");
 
     }
 

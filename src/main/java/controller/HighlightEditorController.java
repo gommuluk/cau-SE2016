@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class HighlightEditorController extends AnchorPane implements HighlightEditorInterface {
 
     @FXML private TextArea editor;
-    @FXML private ListView highlightList;
+    @FXML private ListView<LineInterface> highlightList;
 
     private boolean isEditMode = false;
     private BooleanProperty isFocusedProperty = new SimpleBooleanProperty(false);
@@ -38,11 +38,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
             loader.setRoot(this);
             loader.load();
 
-            Platform.runLater(()->{
-                //_syncEditorsScroll();
-                //_syncEditorContentWithHighlightList();
-                _initEditor();
-            });
+            Platform.runLater(this::_initEditor);
 
         } catch(IOException e) {
             e.printStackTrace();
@@ -76,7 +72,6 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void setHighlightLines(ArrayList<LineInterface> lines) {
         highlightList.setItems(FXCollections.observableArrayList(lines));
     }
@@ -110,7 +105,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
-    public ListView getHighlightListView() {
+    public ListView<LineInterface> getHighlightListView() {
         return this.highlightList;
     }
 
@@ -120,26 +115,11 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void update(FileManagerInterface.SideOfEditor side) {
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), side);
     }
 
 
-    private void _syncEditorsScroll(){
-        // ListView와 TextArea의 스크롤을 동기화시킨다.
-        ScrollBar textAreaVScroll = (ScrollBar) editor.lookup(".scroll-bar:vertical");
-        ScrollBar listViewVScroll = (ScrollBar) highlightList.lookup(".scroll-bar:vertical");
-
-        ScrollBar textAreaHScroll = (ScrollBar) editor.lookup(".scroll-bar:horizontal");
-        ScrollBar listViewHScroll = (ScrollBar) highlightList.lookup(".scroll-bar:horizontal");
-
-        textAreaVScroll.valueProperty().bindBidirectional(listViewVScroll.valueProperty());
-        textAreaHScroll.valueProperty().bindBidirectional(listViewHScroll.valueProperty());
-    }
-
-
-    @SuppressWarnings("unchecked")
     private void _initEditor(){
 
         if( highlightList != null ) {

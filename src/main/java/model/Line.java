@@ -103,6 +103,10 @@ public class Line implements LineInterface {
         //    System.out.println(isWhitespace + "|" + other.isWhitespace);
             return false;
         }
+    }
 
+    @Override
+    public String toString() {
+        return this.content;
     }
 }

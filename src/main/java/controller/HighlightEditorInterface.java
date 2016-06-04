@@ -29,7 +29,7 @@ interface HighlightEditorInterface {
     Scene getScene();
 
     TextArea getTextArea();
-    ListView getHighlightListView();
+    ListView<LineInterface> getHighlightListView();
 
     void update(FileManagerInterface.SideOfEditor side);
     ReadOnlyBooleanProperty isFocusedProperty();

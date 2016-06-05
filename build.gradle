@@ -4,9 +4,9 @@ apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'build-announcements'
+apply plugin: 'javafx-gradle-plugin'
 
 mainClassName = "etc.Main"
-
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -23,4 +23,72 @@ dependencies {
     testCompile "org.testfx:testfx-junit:4.0.+"
 }
 
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.4.1'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+
+jfx {
+    verbose = true
+    mainClass = "etc.Main"
+    jfxAppOutputDir = "build/jfx/app"
+    jfxMainAppJarName = "project-jfx.jar"
+    deployDir = "build/deploy"
+
+    // gradle jfxJar
+    css2bin = false
+    preLoader = null
+    updateExistingJar = false
+    allPermissions = false
+    manifestAttributes = null // Map<String, String>
+    addPackagerJar = true
+
+    // gradle jfxNative
+    identifier = null // setting this for windows-bundlers makes it possible to generate upgradeable installers (using same GUID)
+    vendor = "some serious business corp."
+    nativeOutputDir = "build/jfx/native"
+    bundler = "ALL" // set this to some specific, if your don't want all bundlers running, examples "windows.app", "jnlp", ...
+    jvmProperties = null // Map<String, String>
+    jvmArgs = null // List<String>
+    userJvmArgs = null // Map<String, String>
+    launcherArguments = null // List<String>
+    nativeReleaseVersion = "1.0.0"
+    needShortcut = false
+    needMenu = false
+    bundleArguments = [
+            // dont bundle JRE (not recommended, but increases build-size/-speed)
+            runtime: null
+    ]
+    appName = "project" // this is used for files below "src/main/deploy", e.g. "src/main/deploy/windows/project.ico"
+    additionalAppResources = null // path to some additional resources when creating application-bundle
+    secondaryLaunchers = [[appName:"somethingDifferent"], [appName:"somethingDifferent2"]]
+    fileAssociations = null // List<Map<String, Object>>
+    noBlobSigning = false // when using bundler "jnlp", you can choose to NOT use blob signing
+
+    skipNativeLauncherWorkaround124 = false
+    skipNativeLauncherWorkaround167 = false
+    skipJNLPRessourcePathWorkaround182 = false
+    skipSigningJarFilesJNLP185 = false
+    skipSizeRecalculationForJNLP185 = false
+
+    // gradle jfxGenerateKeyStore
+    keyStore = "src/main/deploy/keystore.jks"
+    keyStoreAlias = "myalias"
+    keyStorePassword = "password"
+    keyPassword = null // will default to keyStorePassword
+    keyStoreType = "jks"
+    overwriteKeyStore = false
+
+    certDomain = null // required
+    certOrgUnit = null // defaults to "none"
+    certOrg = null // required
+    certState = null // required
+    certCountry = null // required
+}
 

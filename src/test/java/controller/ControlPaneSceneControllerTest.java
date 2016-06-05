@@ -67,7 +67,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
     }
 
     @Test
-    public void ControlPaneSceneInitialButtonClickTest(){
+    public void controlPaneSceneInitialButtonClickTest(){
         Node[] buttons = { find("#btnMergeLeft"), find("#btnMergeRight"), find("#btnCompare") };
 
         // btnMergeLeft, btnMergeRight는 비활성화 상태이다.
@@ -77,7 +77,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
     }
 
     @Test
-    public void ControlPaneSceneInitialMenuItemClickTest(){
+    public void controlPaneSceneInitialMenuItemClickTest(){
         Node[] menuItems = { find("#menuFile"), find("#menuEdit"), find("#menuHelps") };
 
         // 처음에는 모든 메뉴아이템이 활성화 상태이다.
@@ -89,7 +89,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
     }
 
     @Test
-    public void ControlPaneSceneShortCutKeyClickTest(){
+    public void controlPaneSceneShortCutKeyClickTest(){
 
         final KeyCode SHORTCUT = System.getProperty("os.name").toLowerCase().contains("mac") ? KeyCode.COMMAND : KeyCode.CONTROL;
 
@@ -110,7 +110,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
     }
 
     @Test
-    public void ControlPaneSceneButtonCompareClickTest() throws IOException {
+    public void controlPaneSceneButtonCompareClickTest() throws IOException {
 
         Node btnCompare = find("#btnCompare");
 
@@ -187,24 +187,24 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
     }
 
     @Test
-    public void SingleBlockSelectTest() throws IOException {
-        ControlPaneSceneButtonCompareClickTest();
+    public void singleBlockSelectTest() throws IOException {
+        controlPaneSceneButtonCompareClickTest();
 
         clickOn(".isDifferent");
         assertSnapshotsEqual(getClass().getResource("../singleBlockSelected.png").getPath(), s.getScene().getRoot(), 5);
     }
 
     @Test
-    public void SingleBlockMergeTest() throws IOException {
-        ControlPaneSceneButtonCompareClickTest();
+    public void singleBlockMergeTest() throws IOException {
+        controlPaneSceneButtonCompareClickTest();
 
         clickOn("#btnMergeRight");
         assertSnapshotsEqual(getClass().getResource("../singleBlockMerged.png").getPath(), s.getScene().getRoot(), 1);
     }
 
     @Test
-    public void ManyBlockSelectTest() throws IOException {
-        ControlPaneSceneButtonCompareClickTest();
+    public void manyBlockSelectTest() throws IOException {
+        controlPaneSceneButtonCompareClickTest();
 
         clickOn(".isDifferent");
         clickOn(".isDifferent");
@@ -213,8 +213,8 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
     }
 
     @Test
-    public void ManyBlockMergeTest() throws IOException {
-        ControlPaneSceneButtonCompareClickTest();
+    public void manyBlockMergeTest() throws IOException {
+        controlPaneSceneButtonCompareClickTest();
 
         clickOn(".isDifferent");
         clickOn(".isDifferent");
@@ -222,6 +222,15 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         assertSnapshotsEqual(getClass().getResource("../manyBlockMerged.png").getPath(), s.getScene().getRoot(), 1);
     }
 
+    @Test
+    public void resetTest() throws IOException {
+        clickOn("#menuFile");
+        clickOn("#menuReset");
+        assertSnapshotsEqual(getClass().getResource("../undecoratedRootScene.png").getPath(), s.getScene().getRoot(), 1);
+        assertEquals(FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left), "");
+        assertEquals(FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Right), "");
+        controlPaneSceneInitialButtonClickTest();
+    }
 
     @After
     public void tearDown() throws TimeoutException {

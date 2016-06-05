@@ -101,12 +101,12 @@ public class EditorSceneControllerTest extends ApplicationTest {
         type(KeyCode.S, KeyCode.R,KeyCode.C, KeyCode.ENTER);
         type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T, KeyCode.ENTER);
         type(KeyCode.R, KeyCode.E, KeyCode.S, KeyCode.O, KeyCode.U, KeyCode.R, KeyCode.C, KeyCode.E, KeyCode.S, KeyCode.ENTER);
-        type(KeyCode.S, KeyCode.A, KeyCode.V, KeyCode.E, KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T,
+        type(KeyCode.S, KeyCode.A, KeyCode.V, KeyCode.E, KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T, KeyCode.NUMPAD1,
                 KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
 
         String tempString = "";
         try {
-            Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream("src/test/resources/savetest.txt"))));
+            Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream("src/test/resources/savetest1.txt"))));
 
             while(in.hasNextLine()) {
                 tempString += in.nextLine() + "\n"; //임시 텍스트에 개행을 제외한 한 줄을 불러온다

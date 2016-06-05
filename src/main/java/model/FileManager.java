@@ -457,7 +457,6 @@ public class FileManager implements FileManagerInterface {
                 }
             }
             count--;//줄 수 하나 추가해줌
-
         }
         //백트레킹으로 block하고 line이 잘 완성됬을 예정
         Collections.reverse(cLineArrayListL);//라인들은 반대로 저장됨

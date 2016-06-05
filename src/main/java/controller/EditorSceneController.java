@@ -230,12 +230,5 @@ public class EditorSceneController {
 
     }
 
-    //Method for testing
-    public void useSaveActionMethod() {
-        onTBBtnSaveClicked();
-    }
 
-    public void testHelper(HighlightEditorInterface editor, Button saveBtn, Button openBtn, ToggleButton editBtn) {
-
-    }
 }

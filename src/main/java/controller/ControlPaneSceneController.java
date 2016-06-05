@@ -139,7 +139,8 @@ public class ControlPaneSceneController {
 
     @FXML
     private void onMenuBtnResetClicked() {
-
+        FileManager.getFileManagerInterface().resetModel(FileManagerInterface.SideOfEditor.Left);
+        FileManager.getFileManagerInterface().resetModel(FileManagerInterface.SideOfEditor.Right);
     }
 
     @FXML
@@ -162,24 +163,10 @@ public class ControlPaneSceneController {
         onBtnCompareClicked();
     }
 
-    @FXML
-    private void onMenuBtnHelpClicked() {
-    }
 
     @FXML
     private void onMenuBtnAboutClicked() {
        Caution.CautionFactory(Caution.CautionType.AboutNotice, FileManagerInterface.SideOfEditor.Left);
     }
 
-    public Button getBtnCompare() {
-        return this.btnCompare;
-    }
-
-    public Button getBtnMergeLeft() {
-        return this.btnMergeLeft;
-    }
-
-    public Button getBtnMergeRight() {
-        return this.btnMergeRight;
-    }
 }

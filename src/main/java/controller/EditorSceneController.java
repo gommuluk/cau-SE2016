@@ -90,40 +90,6 @@ public class EditorSceneController {
 
             if(FileManager.getFileManagerInterface().getEdited(side)) {
                 onTBBtnSaveClicked();
-
-
-/*              if(FileManager.getFileManagerInterface().getFilePath(side) == null){
-
-                    if(caution.getWindow(side).get() == caution.getSavebtn()){
-
-                        FileExplorer fileSaveExplorer = new FileSaveExplorer();
-                        File file = fileSaveExplorer.getDialog(btnFileOpen);
-                        if(file == null) return ;
-                        FileManager.getFileManagerInterface().saveFile(editor.getText(), file.getAbsolutePath(), side);
-
-                    }
-                    else{
-                        editor.setText(side, "");
-                    }
-                    FileManager.getFileManagerInterface().setEdited(side, false);
-
-
-                }
-                else if(FileManager.getFileManagerInterface().getFilePath(side) != null){
-
-                    if(caution.getWindow(side).get() == caution.getSavebtn()){
-
-                        FileManager.getFileManagerInterface().saveFile(editor.getText(), side);
-                        FileManager.getFileManagerInterface().setEdited(side, false);
-                    }
-                    else{
-                        //파일이 존재하는데, 저장을 하지 않고 load를 눌렀는데, 거기서도 저장 안 함을 눌렀을 경우.. 어찌되는 거지 ㅠㅠ
-                    }
-
-
-                }
-*/
-
             }
 
             FileExplorer fileLoadExplorer = new FileLoadExplorer();
@@ -135,11 +101,8 @@ public class EditorSceneController {
             editor.setText(side, FileManager.getFileManagerInterface().getString(side));
 
         }
-        catch(UnsupportedEncodingException e) {                                                                        // TODO Exception 별 처리 필요.
-            e.printStackTrace();
-        }
-        catch(FileNotFoundException e) {
-            e.printStackTrace();
+        catch(UnsupportedEncodingException | FileNotFoundException e) {                                                                        // TODO Exception 별 처리 필요.
+            Caution.CautionFactory(Caution.CautionType.LoadFailure, side);
         }
 
     }

@@ -15,7 +15,7 @@ public abstract class Caution {
     private ButtonType buttonTypeSave = new ButtonType("저장");
 
     public enum CautionType {
-        SaveChoice, SaveNotice, MergeNotice, AboutNotice, CompareNotice
+        SaveChoice, SaveNotice, MergeNotice, AboutNotice, CompareNotice, LoadFailure
     }
 
     public static boolean CautionFactory(CautionType cautionType, FileManagerInterface.SideOfEditor side) {
@@ -36,6 +36,8 @@ public abstract class Caution {
             case CompareNotice:
                 caution = new CompareNoticeWindow();
                 break;
+            case LoadFailure:
+                caution : new LoadFailureWindow();
         }
         return caution.get(side);
     }
@@ -123,6 +125,20 @@ class CompareNoticeWindow extends Caution {
         alert.setTitle("Simple Merge - 소공 2팀");
         alert.setHeaderText(null);
         alert.setContentText("Editing 중에는 파일을 비교할 수 없습니다.");
+
+        alert.showAndWait();
+        return true;
+    }
+}
+
+class LoadFailureWindow extends Caution {
+
+    @Override
+    protected boolean get(FileManagerInterface.SideOfEditor side) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Simple Merge - 소공 2팀");
+        alert.setHeaderText(null);
+        alert.setContentText("Load에 실패하였습니다.");
 
         alert.showAndWait();
         return true;

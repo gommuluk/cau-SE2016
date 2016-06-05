@@ -18,6 +18,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
+import utils.FxImageComparison;
 import utils.TestUtils;
 
 import java.io.*;
@@ -34,7 +35,7 @@ import static org.testfx.api.FxAssert.verifyThat;
  * Created by SH on 2016-06-04.
  */
 
-public class EditorSceneControllerTest extends ApplicationTest {
+public class EditorSceneControllerTest extends ApplicationTest  implements FxImageComparison {
 
     private Stage s;
 
@@ -83,6 +84,36 @@ public class EditorSceneControllerTest extends ApplicationTest {
                 KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
         //then :
         assertEquals(editor.getText(), FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left));
+    }
+
+    @Test
+    public void LoadFailureTest() throws InterruptedException, IOException {
+        //given :
+        //when :
+
+        javafx.application.Platform.runLater(()->{
+            Caution.CautionFactory(Caution.CautionType.LoadFailure, FileManagerInterface.SideOfEditor.Left);
+        //then :
+            try {
+                assertSnapshotsEqual(getClass().getResource("../LoadFailure.png").getPath(), s.getScene().getRoot(), 10);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+    }
+
+    @Test
+    public void SaveFailureTest() {
+        //given :
+        //when :
+
+        javafx.application.Platform.runLater(()->{
+            Caution.CautionFactory(Caution.CautionType.SaveNotice, FileManagerInterface.SideOfEditor.Left);
+            //then :
+            assertEquals(0, listTargetWindows().size());
+        });
     }
 
     @Test

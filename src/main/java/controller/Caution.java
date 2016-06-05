@@ -33,11 +33,11 @@ public abstract class Caution {
             case AboutNotice:
                 caution = new AboutNoticeWindow();
                 break;
-            case CompareNotice:
+            case CompareNotice :
                 caution = new CompareNoticeWindow();
                 break;
-            case LoadFailure:
-                caution : new LoadFailureWindow();
+            case LoadFailure :
+                caution = new LoadFailureWindow();
         }
         return caution.get(side);
     }

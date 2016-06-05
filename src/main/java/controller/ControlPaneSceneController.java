@@ -88,15 +88,6 @@ public class ControlPaneSceneController {
         }
     }
 
-    //어떤 블록이 선택되었는지 알아낼 수 있어야 한다.
-
-    /*
-    * isCompare이 true인 상태
-    * merge하면 compare가 꺼진다.
-    * edit랑 merge가 될 경우는 isCompared를 false라고 .. 그 때의 버튼 비활성화 여부 체크해주기
-    * isCompare == true면,,, EditPane에서 블럭 선택 가능-선택된곳은 다른색으로 표시..
-    * Merge버튼 활성화 조건 1)양 EditPane에 FileLoad되어있음
-    * */
     @FXML // merge-to-right 버튼이 클릭되었을 때의 동작
     private void onBtnMergeToRightClicked() {
 

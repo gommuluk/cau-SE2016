@@ -186,6 +186,43 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         assertEquals(FileManager.getFileManagerInterface().getComparing(), true);
     }
 
+    @Test
+    public void SingleBlockSelectTest() throws IOException {
+        ControlPaneSceneButtonCompareClickTest();
+
+        clickOn(".isDifferent");
+        assertSnapshotsEqual(getClass().getResource("../singleBlockSelected.png").getPath(), s.getScene().getRoot(), 5);
+    }
+
+    @Test
+    public void SingleBlockMergeTest() throws IOException {
+        ControlPaneSceneButtonCompareClickTest();
+
+        clickOn("#btnMergeRight");
+        assertSnapshotsEqual(getClass().getResource("../singleBlockMerged.png").getPath(), s.getScene().getRoot(), 1);
+    }
+
+    @Test
+    public void ManyBlockSelectTest() throws IOException {
+        ControlPaneSceneButtonCompareClickTest();
+
+        clickOn(".isDifferent");
+        clickOn(".isDifferent");
+        assertSnapshotsEqual(getClass().getResource("../manyBlockSelected.png").getPath(), s.getScene().getRoot(), 5);
+
+    }
+
+    @Test
+    public void ManyBlockMergeTest() throws IOException {
+        ControlPaneSceneButtonCompareClickTest();
+
+        clickOn(".isDifferent");
+        clickOn(".isDifferent");
+        clickOn("#btnMergeRight");
+        assertSnapshotsEqual(getClass().getResource("../manyBlockMerged.png").getPath(), s.getScene().getRoot(), 1);
+    }
+
+
     @After
     public void tearDown() throws TimeoutException {
         FxToolkit.cleanupStages();

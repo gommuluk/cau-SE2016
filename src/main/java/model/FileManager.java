@@ -211,11 +211,7 @@ public class FileManager implements FileManagerInterface {
 
 
         }
-
-
         //이제 컴페어 어레이를 리스트 어레이로 갱신해주면 됨
-
-
         String ret = "";
         for (LineInterface s : toFileManager.getCompareLineArrayList())
             ret += s.getContent(false);
@@ -236,8 +232,11 @@ public class FileManager implements FileManagerInterface {
 
         return true;
     }
-
-    //FileManager Interface 구현 끝
+    /**
+     * side의 LineArrayList를 String으로 반환합니다
+     * @param side 파일을 불러 올 파일모델의 위치
+     * @return LineArrayList가 String으로 변환
+     */
     @Override
     public String getString(FileManagerInterface.SideOfEditor side) {
         if (side == SideOfEditor.Left)
@@ -245,6 +244,12 @@ public class FileManager implements FileManagerInterface {
         else return fileModelR.toString();
     }
 
+    /**
+     * side의 연결된 파일 경로를 반환합니다
+     * @param side 경로를 불러 올 파일모델의 위치
+     * @return 파일경로 String
+     */
+    @Override
     public String getFilePath(SideOfEditor side) {
         if (side == SideOfEditor.Left) return fileModelL.getFilePath();
         else return fileModelR.getFilePath();
@@ -254,9 +259,94 @@ public class FileManager implements FileManagerInterface {
     public ReadOnlyStringProperty getStatus(SideOfEditor side) {
         return side == SideOfEditor.Left ? fileModelL.getStatus() : fileModelR.getStatus();
     }
+    //FileManager Interface 구현 끝
 
+
+
+    @Override
+    public int[][] getArrayLCS() {
+        return arrayLCS.clone();
+    } //@@for test of jUnit
+
+    @Override
+    public ReadOnlyStringProperty filePathProperty(SideOfEditor side) {
+        return side == SideOfEditor.Left ? fileModelL.filePathProperty() : fileModelR.filePathProperty();
+    }
+
+    @Override
+    public ListProperty<LineInterface> listProperty(SideOfEditor side) {
+        return side == SideOfEditor.Left ? fileModelL.listProperty() : fileModelR.listProperty();
+    }
+
+    @Override
+    public ReadOnlyBooleanProperty isEditedProperty(SideOfEditor side) {
+        return side == SideOfEditor.Left ? fileModelL.isEditedProperty() : fileModelR.isEditedProperty();
+    }
+
+    @Override
+    public ReadOnlyBooleanProperty isCompareProperty() {
+        return this.isCompareProperty;
+    }
+
+    /**
+     * isComparing의 값을 반환합니다.
+     * @return 파일경로 String
+     */
+    @Override
+    public boolean getComparing()
+    {
+        return isComparing;
+    }
+    /**
+     * side의 isEdited정보를 변경한다
+     * @param side
+     */
+    @Override
+    public void setEdited(SideOfEditor side) {
+        if(side == SideOfEditor.Left){
+            fileModelL.setEdited(true);
+        }
+        else{
+            fileModelR.setEdited(true);
+        }
+    }
+    /**
+     * side의 isEdited정보를 가져온다
+     * @param side
+     * @return isEdited정보
+     */
+    @Override
+    public boolean getEdited(SideOfEditor side){
+        if(side == SideOfEditor.Left){
+            return fileModelL.getEdited();
+        }
+        else{
+            return fileModelR.getEdited();
+        }
+    }
+    /**
+     * side의 model을 리셋한다. 컴페어를 취소한다
+     * @param side
+     */
+    @Override
+    public void resetModel(SideOfEditor side) {
+        isComparing = false;
+        isCompareProperty.set(false);
+
+        if (side == FileManagerInterface.SideOfEditor.Left) {
+            this.fileModelL.init();
+        } else this.fileModelR.init();
+    }
     private int max(int a, int b) {
         return a >b ? a : b;
+    }
+
+    /*
+    Dependency Injection method for Mock testing using EasyMock
+     */
+    public void setDependency(FileModelInterface fl, FileModelInterface fr){
+        fileModelL = fl;
+        fileModelR = fr;
     }
 
     private void buildArrayLCS() {//LCS를 위한 행렬을 구성한다
@@ -281,8 +371,6 @@ public class FileManager implements FileManagerInterface {
                 }
             }
         }
-
-
     }
 
     private void backTrackingLCS()//LCS 행렬을 이용해서 DIFF를 한다
@@ -376,72 +464,5 @@ public class FileManager implements FileManagerInterface {
         Collections.reverse(cLineArrayListR);
         fileModelL.setCompareLineArrayList(cLineArrayListL);
         fileModelR.setCompareLineArrayList(cLineArrayListR);
-    }
-
-    @Override
-    public int[][] getArrayLCS() {
-        return arrayLCS.clone();
-    } //@@for test of jUnit
-
-    @Override
-    public ReadOnlyStringProperty filePathProperty(SideOfEditor side) {
-        return side == SideOfEditor.Left ? fileModelL.filePathProperty() : fileModelR.filePathProperty();
-    }
-
-    @Override
-    public ListProperty<LineInterface> listProperty(SideOfEditor side) {
-        return side == SideOfEditor.Left ? fileModelL.listProperty() : fileModelR.listProperty();
-    }
-
-    @Override
-    public ReadOnlyBooleanProperty isEditedProperty(SideOfEditor side) {
-        return side == SideOfEditor.Left ? fileModelL.isEditedProperty() : fileModelR.isEditedProperty();
-    }
-
-    @Override
-    public ReadOnlyBooleanProperty isCompareProperty() {
-        return this.isCompareProperty;
-    }
-
-    @Override
-    public boolean getComparing()
-    {
-        return isComparing;
-    }
-
-    @Override
-    public void setEdited(SideOfEditor side) {
-        if(side == SideOfEditor.Left){
-            fileModelL.setEdited(true);
-        }
-        else{
-            fileModelR.setEdited(true);
-        }
-    }
-    @Override
-    public boolean getEdited(SideOfEditor side){
-        if(side == SideOfEditor.Left){
-            return fileModelL.getEdited();
-        }
-        else{
-            return fileModelR.getEdited();
-        }
-    }
-
-
-    public void resetModel(SideOfEditor sideOfEditor) {
-        isComparing = false;
-        isCompareProperty.set(false);
-
-        if (sideOfEditor == FileManagerInterface.SideOfEditor.Left) {
-            this.fileModelL.init();
-        } else this.fileModelR.init();
-    }
-    /*
-    Dependency Injection method for Mock testing using EasyMock
-     */
-    public void setDependency(FileModelInterface fl, FileModelInterface fr){
-        fileModelL = fl;
-        fileModelR = fr;
     }
 }

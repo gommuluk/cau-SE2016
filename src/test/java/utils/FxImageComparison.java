@@ -6,6 +6,7 @@ package utils;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -28,7 +29,11 @@ public interface FxImageComparison {
      */
     default void assertSnapshotsEqual(final String referenceSnapshot, final Node nodeUnderTest,
                                       final double tolerance) throws IOException {
-        WritableImage writableImage = new WritableImage((int) nodeUnderTest.getScene().getWidth(), (int) nodeUnderTest.getScene().getHeight());
+        WritableImage writableImage = new WritableImage(
+                (int) nodeUnderTest.getLayoutBounds().getWidth(),
+                (int) nodeUnderTest.getLayoutBounds().getHeight()
+        );
+
         BufferedImage buffer1 = null;
         BufferedImage buffer2 = null;
 
@@ -38,7 +43,9 @@ public interface FxImageComparison {
         try {
             buffer1 = ImageIO.read(new File(referenceSnapshot));
             buffer2 = SwingFXUtils.fromFXImage(writableImage, null);
+
             assertEquals("The two snapshots differ", 0d, computeSnapshotSimilarity(buffer2, buffer1), tolerance);
+
         } finally {
             if (buffer1 != null) {
                 buffer1.flush();
@@ -72,6 +79,7 @@ public interface FxImageComparison {
         // Colours are usually expressed in terms of a combination of red, green and blue values.
         for (int row = 0, width=image1.getWidth(); row < width; row++) {
             for (int column = 0, height = image1.getHeight(); column < height; column++) {
+
                 image1PixelColor = image1.getRGB(row, column);
                 red = (image1PixelColor & 0x00ff0000) >> 16;
                 green = (image1PixelColor & 0x0000ff00) >> 8;

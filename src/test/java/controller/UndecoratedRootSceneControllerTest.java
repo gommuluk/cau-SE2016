@@ -29,8 +29,7 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
 
 
@@ -85,14 +84,14 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
         // maximize & minimize
         doubleClickOn(mainPaneControlPane);
-        WaitForAsyncUtils.waitForFxEvents(5);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(screenWidth, s.getWidth(), EPSILON);
         assertEquals(screenHeight, s.getHeight(), EPSILON);
 
         // minimize
         doubleClickOn(mainPaneControlPane);
-        WaitForAsyncUtils.waitForFxEvents(5);
+        WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(originWidth, s.getWidth(), EPSILON);
         assertEquals(originHeight, s.getHeight(), EPSILON);
@@ -161,7 +160,9 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
         s.setOnCloseRequest(event -> isSuccess.setValue(true));
         clickOn(btnClose);
-        WaitForAsyncUtils.waitForAsyncFx(3000, ()-> assertTrue(isSuccess.getValue()));
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertTrue(isSuccess.getValue());
     }
 
     @Test
@@ -191,7 +192,9 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
     @Test
     public void undecoratedRootSceneRenderingTest() throws IOException {
-        assertSnapshotsEqual(getClass().getResource("../undecoratedRootScene.png").getPath(), s.getScene().getRoot(), 10);
+        Node tPane = find("#tabPane");
+        assertNotNull("tabPane is null", tPane);
+        assertSnapshotsEqual(getClass().getResource("../undecoratedRootScene.png").getPath(), tPane, 5);
     }
 
     private Point2D _getSceneCoord(int x, int y){

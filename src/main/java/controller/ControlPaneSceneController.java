@@ -1,9 +1,13 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.FileManager;
@@ -11,8 +15,10 @@ import model.FileManagerInterface;
 import model.LeftEditorFileCanNotCompareException;
 import model.RightEditorFileCanNotCompareException;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Created by SH on 2016-05-18.

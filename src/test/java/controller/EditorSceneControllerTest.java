@@ -24,11 +24,13 @@ import utils.TestUtils;
 
 import java.io.*;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.testfx.api.FxAssert.verifyThat;
 
 
@@ -36,7 +38,7 @@ import static org.testfx.api.FxAssert.verifyThat;
  * Created by SH on 2016-06-04.
  */
 
-public class EditorSceneControllerTest extends ApplicationTest  implements FxImageComparison {
+public class EditorSceneControllerTest extends ApplicationTest implements FxImageComparison {
 
     private Stage s;
 
@@ -94,14 +96,9 @@ public class EditorSceneControllerTest extends ApplicationTest  implements FxIma
 
         javafx.application.Platform.runLater(()->{
             Caution.CautionFactory(Caution.CautionType.LoadFailure, FileManagerInterface.SideOfEditor.Left);
-        //then :
-            try {
-                assertSnapshotsEqual(getClass().getResource("../LoadFailure.png").getPath(), s.getScene().getRoot(), 10);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         });
-
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(2, listTargetWindows().size());
 
     }
 
@@ -112,9 +109,9 @@ public class EditorSceneControllerTest extends ApplicationTest  implements FxIma
 
         javafx.application.Platform.runLater(()->{
             Caution.CautionFactory(Caution.CautionType.SaveNotice, FileManagerInterface.SideOfEditor.Left);
-            //then :
-            assertEquals(0, listTargetWindows().size());
         });
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(2, listWindows().size());
     }
 
     @Test
@@ -129,6 +126,7 @@ public class EditorSceneControllerTest extends ApplicationTest  implements FxIma
         clickOn("#btnFileSave"); WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, listTargetWindows().size());
+
         type(KeyCode.SPACE);
         type(KeyCode.S, KeyCode.R,KeyCode.C, KeyCode.ENTER);
         type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T, KeyCode.ENTER);

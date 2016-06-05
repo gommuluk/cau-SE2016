@@ -94,4 +94,8 @@ public class Line implements LineInterface {
             return blockIndex == other.blockIndex && isWhitespace == other.isWhitespace;
     }
 
+    @Override
+    public String toString() {
+        return this.content;
+    }
 }

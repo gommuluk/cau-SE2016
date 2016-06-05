@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.testfx.api.FxAssert.verifyThat;
 
 /**
@@ -88,7 +90,6 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
 
         // 불가능한 창이 하나 떠야되는데 안뜨면 이상한거다.
         assertEquals(2, listWindows().size());
-
         closeCurrentWindow();
 
         push(SHORTCUT, KeyCode.LEFT); // Copy to left
@@ -113,25 +114,25 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         expect(fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Right)).andReturn(rightFile);
         replay(fileDialogMock);
 
-        WaitForAsyncUtils.waitForAsyncFx(5000, ()->{
+        Platform.runLater(()->{
             try {
+                FileManager.getFileManagerInterface().loadFile(
+                        fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Right),
+                        FileManagerInterface.SideOfEditor.Right
+                );
 
                 FileManager.getFileManagerInterface().loadFile(
                         fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Left),
                         FileManagerInterface.SideOfEditor.Left
                 );
 
-                FileManager.getFileManagerInterface().loadFile(
-                        fileDialogMock.getPath(FileManagerInterface.SideOfEditor.Right),
-                        FileManagerInterface.SideOfEditor.Right
-                );
-
-                verify(fileDialogMock);
-
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         });
+
+        WaitForAsyncUtils.waitForFxEvents();
+        verify(fileDialogMock);
 
         clickOn(btnCompare);
 
@@ -170,7 +171,9 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         });
 
         // view Rendering Testing
-        assertSnapshotsEqual(getClass().getResource("../mergeResult.png").getPath(), s.getScene().getRoot(), 5);
+        Node tPane = find("#tabPane");
+        assertNotNull("tabPane is null", tPane);
+        assertSnapshotsEqual(getClass().getResource("../compareResult.png").getPath(), tPane, 1);
         assertEquals(FileManager.getFileManagerInterface().getComparing(), true);
     }
 
@@ -179,7 +182,10 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         controlPaneSceneButtonCompareClickTest();
 
         clickOn(".isDifferent");
-        assertSnapshotsEqual(getClass().getResource("../singleBlockSelected.png").getPath(), s.getScene().getRoot(), 5);
+
+        Node tPane = find("#tabPane");
+        assertNotNull("tabPane is null", tPane);
+        assertSnapshotsEqual(getClass().getResource("../singleSelectedResult.png").getPath(), tPane, 1);
     }
 
     @Test
@@ -187,7 +193,10 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         controlPaneSceneButtonCompareClickTest();
 
         clickOn("#btnMergeRight");
-        assertSnapshotsEqual(getClass().getResource("../singleBlockMerged.png").getPath(), s.getScene().getRoot(), 1);
+
+        Node tPane = find("#tabPane");
+        assertNotNull("tabPane is null", tPane);
+        assertSnapshotsEqual(getClass().getResource("../singleMergeResult.png").getPath(), tPane, 1);
     }
 
     @Test
@@ -196,7 +205,10 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
 
         clickOn(".isDifferent");
         clickOn(".isDifferent");
-        assertSnapshotsEqual(getClass().getResource("../manyBlockSelected.png").getPath(), s.getScene().getRoot(), 5);
+
+        Node tPane = find("#tabPane");
+        assertNotNull("tabPane is null", tPane);
+        assertSnapshotsEqual(getClass().getResource("../multiSelectedResult.png").getPath(), tPane, 1);
 
     }
 
@@ -207,14 +219,21 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         clickOn(".isDifferent");
         clickOn(".isDifferent");
         clickOn("#btnMergeRight");
-        assertSnapshotsEqual(getClass().getResource("../manyBlockMerged.png").getPath(), s.getScene().getRoot(), 1);
+
+        Node tPane = find("#tabPane");
+        assertNotNull("tabPane is null", tPane);
+        assertSnapshotsEqual(getClass().getResource("../multiMergeResult.png").getPath(), tPane, 1);
     }
 
     @Test
     public void resetTest() throws IOException {
         clickOn("#menuFile");
         clickOn("#menuReset");
-        assertSnapshotsEqual(getClass().getResource("../undecoratedRootScene.png").getPath(), s.getScene().getRoot(), 1);
+
+        Node tPane = find("#tabPane");
+        assertNotNull("tabPane is null", tPane);
+
+        assertSnapshotsEqual(getClass().getResource("../undecoratedRootScene.png").getPath(), tPane, 1);
         assertEquals(FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left), "");
         assertEquals(FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Right), "");
         controlPaneSceneInitialButtonClickTest();

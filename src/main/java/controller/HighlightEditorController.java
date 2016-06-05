@@ -4,18 +4,17 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import model.FileManager;
 import model.FileManagerInterface;
 import model.LineInterface;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by SH on 2016-05-19.
@@ -26,7 +25,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     @FXML private ListView<LineInterface> highlightList;
 
     private boolean isEditMode = false;
-    private BooleanProperty isFocusedProperty = new SimpleBooleanProperty(false);
+    private final BooleanProperty isFocusedProperty = new SimpleBooleanProperty(false);
 
     /* 생성자 */
     public HighlightEditorController() {
@@ -71,10 +70,6 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
 
     }
 
-    @Override
-    public void setHighlightLines(ArrayList<LineInterface> lines) {
-        highlightList.setItems(FXCollections.observableArrayList(lines));
-    }
 
     @Override
     public void setEditMode(boolean isEditMode) {
@@ -120,7 +115,7 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @Override
-    public void reset(FileManagerInterface.SideOfEditor side) {
+    public void reset() {
         this.editor.setText("");
     }
 
@@ -175,12 +170,12 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
     }
 
     @FXML
-    private void onMouseEntered(MouseEvent me){
+    private void onMouseEntered(){
         this.isFocusedProperty.set(true);
     }
 
     @FXML
-    private void onMouseExited(MouseEvent me){
+    private void onMouseExited(){
         this.isFocusedProperty.set(false);
     }
 

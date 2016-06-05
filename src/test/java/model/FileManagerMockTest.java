@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
@@ -8,7 +7,6 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -38,14 +36,14 @@ public class FileManagerMockTest {
     public void setandcancleCompareTest() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
         int[][] arr = {{0, 0, 0, 0, 0}, {0, 1, 1, 1, 1}, {0, 1, 2, 2, 2}, {0, 1, 2, 2, 3}, {0, 1, 2, 3, 3}};
         //L이 a b c d, R이 a b d c 일떄의 DP 테이블
-        ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
-        ArrayList<Line> testLineArrayListR = new ArrayList<Line>();
-        ArrayList<LineInterface> testLineArrayListMockL = new ArrayList<LineInterface>();
-        ArrayList<LineInterface> testLineArrayListMockR = new ArrayList<LineInterface>();
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        ArrayList<LineInterface> testLineArrayListMockL = new ArrayList<>();
+        ArrayList<LineInterface> testLineArrayListMockR = new ArrayList<>();
         ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
         ArrayList<LineInterface> testRightLineArrayList = new ArrayList<>();
 
-        ArrayList<Block> testBlockArrayList = new ArrayList<Block>();
+        ArrayList<Block> testBlockArrayList = new ArrayList<>();
         {
             testLeftLineArrayList.add(new Line("a"));
             testLeftLineArrayList.add(new Line("b"));
@@ -113,20 +111,20 @@ public class FileManagerMockTest {
             //텍스트 어레이 같게 생겼는지 검사
         }
         fileManager.cancelCompare();
-        assertTrue(false == fileManager.getComparing());
+        assertTrue(!fileManager.getComparing());
 
     }
 
     @Test
     public void clickLine()  throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
-    {        ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
-        ArrayList<Line> testLineArrayListR = new ArrayList<Line>();
-        ArrayList<LineInterface> testLineArrayListMockL = new ArrayList<LineInterface>();
-        ArrayList<LineInterface> testLineArrayListMockR = new ArrayList<LineInterface>();
+    {        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        ArrayList<LineInterface> testLineArrayListMockL = new ArrayList<>();
+        ArrayList<LineInterface> testLineArrayListMockR = new ArrayList<>();
         ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
         ArrayList<LineInterface> testRightLineArrayList = new ArrayList<>();
 
-        ArrayList<Block> testBlockArrayList = new ArrayList<Block>();
+        ArrayList<Block> testBlockArrayList = new ArrayList<>();
         {
             testLeftLineArrayList.add(new Line("a"));
             testLeftLineArrayList.add(new Line("b"));
@@ -232,14 +230,14 @@ public class FileManagerMockTest {
     @Test
     public void MergeTest()   throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
     {
-        ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
-        ArrayList<Line> testLineArrayListR = new ArrayList<Line>();
-        ArrayList<LineInterface> testLineArrayListMockL = new ArrayList<LineInterface>();
-        ArrayList<LineInterface> testLineArrayListMockR = new ArrayList<LineInterface>();
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        ArrayList<LineInterface> testLineArrayListMockL = new ArrayList<>();
+        ArrayList<LineInterface> testLineArrayListMockR = new ArrayList<>();
         ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
         ArrayList<LineInterface> testRightLineArrayList = new ArrayList<>();
 
-        ArrayList<Block> testBlockArrayList = new ArrayList<Block>();
+        ArrayList<Block> testBlockArrayList = new ArrayList<>();
         {
             testLeftLineArrayList.add(new Line("a"));
             testLeftLineArrayList.add(new Line("b"));

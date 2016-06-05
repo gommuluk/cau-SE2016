@@ -5,7 +5,6 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +15,7 @@ public interface FileModelInterface {
     String toString(); //파일모델의 라인 어레이 리스트를 스트링으로 빼서 반환합니다
     void updateArrayList(String content); //content의 정보로 어레이리스트를 갱신한다
 
-    void readFile() throws FileNotFoundException, UnsupportedEncodingException;
-    void readFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException;
+    void readFile(String filePath) throws FileNotFoundException;
     void writeFile() throws FileNotFoundException, SecurityException;
 
     void writeFile(String filePath) throws FileNotFoundException, SecurityException;

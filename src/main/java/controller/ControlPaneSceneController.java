@@ -129,8 +129,8 @@ public class ControlPaneSceneController {
     private void onMenuBtnResetClicked() {
         FileManager.getFileManagerInterface().resetModel(FileManagerInterface.SideOfEditor.Left);
         FileManager.getFileManagerInterface().resetModel(FileManagerInterface.SideOfEditor.Right);
-        leftEditor.reset(FileManagerInterface.SideOfEditor.Left);
-        rightEditor.reset(FileManagerInterface.SideOfEditor.Right);
+        leftEditor.reset();
+        rightEditor.reset();
     }
 
     @FXML

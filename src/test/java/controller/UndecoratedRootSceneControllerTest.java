@@ -1,7 +1,5 @@
 package controller;
 
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
@@ -9,23 +7,19 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.*;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
-import javafx.stage.*;
-
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.testfx.api.FxToolkit;
-import org.testfx.api.FxToolkitContext;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.GeometryMatchers;
-import org.testfx.service.support.CaptureSupport;
-import org.testfx.service.support.WaitUntilSupport;
 import org.testfx.util.WaitForAsyncUtils;
 import utils.FxImageComparison;
 import utils.TestUtils;
@@ -36,7 +30,6 @@ import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.testfx.api.FxAssert.verifyThat;
 
@@ -52,7 +45,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
     @Override
     public void init() throws Exception {
-        FxToolkit.registerStage(() -> new Stage());
+        FxToolkit.registerStage(Stage::new);
     }
 
     @Override
@@ -168,9 +161,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
         s.setOnCloseRequest(event -> isSuccess.setValue(true));
         clickOn(btnClose);
-        WaitForAsyncUtils.waitForAsyncFx(3000, ()->{
-            assertTrue(isSuccess.getValue());
-        });
+        WaitForAsyncUtils.waitForAsyncFx(3000, ()-> assertTrue(isSuccess.getValue()));
     }
 
     @Test

@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -42,9 +41,9 @@ public class FileManagerTest {
         //L이 a b c d, R이 a b d c 일떄의 DP 테이블
         assertArrayEquals(arr, fileManager.getArrayLCS()); //테이블 검사
 
-        ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
-        ArrayList<Line> testLineArrayListR = new ArrayList<Line>();
-        ArrayList<Block> testBlockArrayList = new ArrayList<Block>();
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        ArrayList<Block> testBlockArrayList = new ArrayList<>();
 
         testBlockArrayList.add(new Block(4, 5));
         testBlockArrayList.add(new Block(2, 3));
@@ -74,7 +73,7 @@ public class FileManagerTest {
     public void cancelCompareTest() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
         fileManager.setCompare();
         fileManager.cancelCompare();
-        assertTrue(false == fileManager.getComparing());
+        assertTrue(!fileManager.getComparing());
 
     }
     @Test
@@ -127,8 +126,8 @@ public class FileManagerTest {
     {
         fileManager.setCompare();
         //[abcd ] [ab dc] 의 경우
-        ArrayList<Line> testLineArrayListL = new ArrayList<Line>();
-        ArrayList<Line> testLineArrayListR = new ArrayList<Line>();
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
         testLineArrayListL.add(new Line("a",-1,false));
         testLineArrayListL.add(new Line("b",-1,false));
         testLineArrayListL.add(new Line("c",-1,false));

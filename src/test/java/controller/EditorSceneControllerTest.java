@@ -1,25 +1,19 @@
 package controller;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import mockInterface.FileDialogInterface;
 import model.FileManager;
 import model.FileManagerInterface;
-
-import model.Line;
 import model.LineInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
@@ -27,14 +21,12 @@ import org.testfx.util.WaitForAsyncUtils;
 import utils.TestUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 import static org.testfx.api.FxAssert.verifyThat;
 
 
@@ -68,13 +60,8 @@ public class EditorSceneControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void EditorSceneInitialButtonEnableTest(){
-        Node[] buttons = { find("#btnFileOpen"), find("#btnFileSave"), find("#btnEdit") };
+    public void EditorSceneInitialButtonEnableTest()
 
-        for(Node node : buttons){
-            verifyThat(node, NodeMatchers.isEnabled());
-        }
-    }
     @Test
     public void LoadSuccessTest() {
         //given :
@@ -84,8 +71,11 @@ public class EditorSceneControllerTest extends ApplicationTest {
         clickOn("#btnFileOpen");
 
         assertEquals(1, listTargetWindows().size());
-        type(KeyCode.O, KeyCode.U, KeyCode.T, KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
-
+        type(KeyCode.S, KeyCode.R,KeyCode.C, KeyCode.ENTER);
+        type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T, KeyCode.ENTER);
+        type(KeyCode.R, KeyCode.E, KeyCode.S, KeyCode.O, KeyCode.U, KeyCode.R, KeyCode.C, KeyCode.E, KeyCode.S, KeyCode.ENTER);
+        type(KeyCode.S, KeyCode.A, KeyCode.V, KeyCode.E, KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T,
+                KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
         //then :
         assertEquals(editor.getText(), FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left));
     }
@@ -102,9 +92,124 @@ public class EditorSceneControllerTest extends ApplicationTest {
         clickOn("#btnFileSave"); WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(2, listTargetWindows().size());
+        type(KeyCode.SPACE);
+        type(KeyCode.S, KeyCode.R,KeyCode.C, KeyCode.ENTER);
+        type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T, KeyCode.ENTER);
+        type(KeyCode.R, KeyCode.E, KeyCode.S, KeyCode.O, KeyCode.U, KeyCode.R, KeyCode.C, KeyCode.E, KeyCode.S, KeyCode.ENTER);
+        type(KeyCode.S, KeyCode.A, KeyCode.V, KeyCode.E, KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T,
+                KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
+
+        String tempString = "";
+        try {
+            Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream("src/test/resources/savetest1.txt"))));
+
+            while(in.hasNextLine()) {
+                tempString += in.nextLine() + "\n"; //임시 텍스트에 개행을 제외한 한 줄을 불러온다
+            }
+            in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left) + "\n", tempString);
+        File file = new File("src/test/resources/savetest1.txt");
+        file.delete();
 
     }
 
+    @Test
+    public void SaveSuccessWithExistFileTest() {
+        //given :
+        HighlightEditorInterface editor = find("#editor");
+
+        //when :
+        clickOn("#btnFileOpen"); WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(1, listTargetWindows().size());
+        type(KeyCode.S, KeyCode.R,KeyCode.C, KeyCode.ENTER);
+        type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T, KeyCode.ENTER);
+        type(KeyCode.R, KeyCode.E, KeyCode.S, KeyCode.O, KeyCode.U, KeyCode.R, KeyCode.C, KeyCode.E, KeyCode.S, KeyCode.ENTER);
+        type(KeyCode.S, KeyCode.A, KeyCode.V, KeyCode.E, KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T,
+                KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
+
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#editor"); WaitForAsyncUtils.waitForFxEvents();
+
+        type(KeyCode.ENTER, KeyCode.S, KeyCode.A, KeyCode.V, KeyCode.E, KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T);
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#btnFileSave"); WaitForAsyncUtils.waitForFxEvents();
+
+        type(KeyCode.SPACE);
+        //then :
+        assertEquals(editor.getText(), FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left));
+
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#editor"); WaitForAsyncUtils.waitForFxEvents();
+
+        type(KeyCode.BACK_SPACE, KeyCode.BACK_SPACE, KeyCode.BACK_SPACE, KeyCode.BACK_SPACE, KeyCode.BACK_SPACE,
+                KeyCode.BACK_SPACE, KeyCode.BACK_SPACE, KeyCode.BACK_SPACE, KeyCode.BACK_SPACE);
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#btnFileSave"); WaitForAsyncUtils.waitForFxEvents();
+
+        type(KeyCode.SPACE);
+
+        assertEquals(editor.getText(), FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left));
+
+    }
+
+    @Test
+    public void DoNotSaveWithNoFileTest() {
+        //when :
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#editor"); WaitForAsyncUtils.waitForFxEvents();
+
+        type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T);
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#btnFileSave"); WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(2, listTargetWindows().size());
+        type(KeyCode.TAB, KeyCode.SPACE);
+        assertEquals(1, listTargetWindows().size());
+    }
+
+    @Test
+    public void DoNotSaveWithExistFileTest() {
+        //given :
+        HighlightEditorInterface editor = find("#editor");
+
+        //when :
+        clickOn("#btnFileOpen"); WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(1, listTargetWindows().size());
+        type(KeyCode.S, KeyCode.R,KeyCode.C, KeyCode.ENTER);
+        type(KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T, KeyCode.ENTER);
+        type(KeyCode.R, KeyCode.E, KeyCode.S, KeyCode.O, KeyCode.U, KeyCode.R, KeyCode.C, KeyCode.E, KeyCode.S, KeyCode.ENTER);
+        type(KeyCode.S, KeyCode.A, KeyCode.V, KeyCode.E, KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T,
+                KeyCode.PERIOD, KeyCode.T, KeyCode.X, KeyCode.T, KeyCode.ENTER);
+
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#editor"); WaitForAsyncUtils.waitForFxEvents();
+
+        type(KeyCode.ENTER, KeyCode.S, KeyCode.A, KeyCode.V, KeyCode.E, KeyCode.T, KeyCode.E, KeyCode.S, KeyCode.T);
+        clickOn("#btnEdit"); WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#btnFileSave"); WaitForAsyncUtils.waitForFxEvents();
+
+        type(KeyCode.TAB, KeyCode.SPACE);
+
+        String tempString = "";
+        try {
+            Scanner in = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream("src/test/resources/savetest.txt"))));
+
+            while(in.hasNextLine()) {
+                tempString += in.nextLine() + "\n"; //임시 텍스트에 개행을 제외한 한 줄을 불러온다
+            }
+            in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assertNotEquals(FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left) + "\n", tempString);
+    }
 
     @Test
     public void EditorSceneButtonLoadClickTest(){
@@ -163,12 +268,20 @@ public class EditorSceneControllerTest extends ApplicationTest {
         // Edit 버튼을 누르면 나머지는 비활성화 되어야 한다.
         verifyThat(buttons[0], NodeMatchers.isDisabled());
         verifyThat(buttons[1], NodeMatchers.isDisabled());
+        verifyThat(buttons[3], NodeMatchers.isDisabled());
 
         // Edit 버튼을 누르면 textArea가 보여야 한다.
         Node textArea = find("#editor");
         verifyThat(textArea, NodeMatchers.isVisible());
 
+        clickOn("#btnFileSave");
+        assertEquals(1, listTargetWindows().size());
+        clickOn("#btnFileOpen");
+        assertEquals(1, listTargetWindows().size());
+
+
         clickOn(buttons[2]);
+
     }
 
     @Test

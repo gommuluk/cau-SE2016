@@ -43,8 +43,6 @@ public class Line implements LineInterface {
                 else lineStatus = LineHighlight.isDifferent;
             }catch(ArrayIndexOutOfBoundsException e)
             {
-                e.printStackTrace();
-                System.out.print("Block index problem");
                 lineStatus = LineHighlight.unHighlighted;
             }
         return lineStatus;
@@ -57,10 +55,10 @@ public class Line implements LineInterface {
     @Override
     public void clickBlock() {
         if(blockIndex >=  0 ) {
-            System.out.println("Model Block Clikc test : " + blockIndex);
+            System.out.println("Model Block Click test : " + blockIndex);
             blockArrayList.get(blockIndex).click();
 
-            System.out.println("Model Blcok selected :" + blockArrayList.get(blockIndex).getSelected());
+            System.out.println("Model Block selected :" + blockArrayList.get(blockIndex).getSelected());
         }
     }
 

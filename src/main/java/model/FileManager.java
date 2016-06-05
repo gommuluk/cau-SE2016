@@ -16,7 +16,7 @@ public class FileManager implements FileManagerInterface {
     private boolean isComparing = false;
     private final BooleanProperty isCompareProperty = new SimpleBooleanProperty(isComparing);
 
-    private static FileManagerInterface instance;
+    private static FileManagerInterface instance;//싱글톤을 위한 객체
     private FileModelInterface fileModelL;
     private FileModelInterface fileModelR;
     private ArrayList<Block> blockArrayList;
@@ -30,7 +30,6 @@ public class FileManager implements FileManagerInterface {
 
     /**
      * FileManager 객체를 반환합니다.
-     *
      * @return FileManager 양 쪽 Editor에 할당된 파일들을 관리하는 매니저
      */
     public static FileManagerInterface getFileManagerInterface() { // 1개의 객체를 유지하기 위한 싱글톤
@@ -38,36 +37,10 @@ public class FileManager implements FileManagerInterface {
         return instance;
     }
 
-    public void setFileModelL(FileModel L) //@@for mock testing by using Easymock
-    {
-        fileModelL = L;
-    }
-
-    public void setFileModelR(FileModel R) //@@for mock testing by using Easymock
-    {
-        fileModelR = R;
-    }
-
     /**
-     * Left Editor에 할당된 File Model을 반환합니다.
-     *
-     * @return FileModel 왼쪽 Editor에 할당된 FileModel
+     * side에 맞는 LineArrayList를 compare상태에 따라서 반환해줍니다.
+     * @return FileManager 양 쪽 Editor에 할당된 파일들을 관리하는 매니저
      */
-    private FileModelInterface getFileModelL() {
-        return fileModelL;
-    }
-
-    /**
-     * Right Editor에 할당된 File Model을 반환합니다.
-     *
-     * @return FileModel 오른쪽 Editor에 할당된 FileModel
-     */
-    private FileModelInterface getFileModelR() {
-        return fileModelR;
-    }
-
-
-    //FileManager Interface 구현 시작
     @Override
     public ArrayList<LineInterface> getLineArrayList(FileManagerInterface.SideOfEditor side) {
         if (side == SideOfEditor.Left) {
@@ -81,12 +54,21 @@ public class FileManager implements FileManagerInterface {
         }
     }
 
+    /**
+     * side에 맞는 FileModel의 LineArrayList를 content의 내용으로 바꿉니다
+     * @param content 갱신할 내용을 가지고 있는 String
+     * @param side 갱신을 할 파일모델의 위치
+     */
     @Override
     public void updateLineArrayList(String content, SideOfEditor side) {
         if (side == SideOfEditor.Left) fileModelL.updateArrayList(content);
         else fileModelR.updateArrayList(content);
     }
-
+    /**
+     * side에 맞는 FileModel의 LineArrayList를 content의 내용으로 바꾸고 연결된 파일 경로에 저장합니다
+     * @param content 갱신할 내용을 가지고 있는 String
+     * @param side 갱신을 할 파일모델의 위치
+     */
     @Override
     public void saveFile(String content, FileManagerInterface.SideOfEditor side) throws FileNotFoundException, SecurityException {
         if (side == SideOfEditor.Left) {
@@ -97,7 +79,12 @@ public class FileManager implements FileManagerInterface {
             fileModelR.writeFile();
         }
     }
-
+    /**
+     * side에 맞는 FileModel의 LineArrayList를 content의 내용으로 바꾸고 filePath 경로에 저장합니다
+     * @param content 갱신할 내용을 가지고 있는 String
+     * @param filepath 저장할 경로
+     * @param side 갱신을 할 파일모델의 위치
+     */
     @Override
     public void saveFile(String content, String filepath, FileManagerInterface.SideOfEditor side) throws FileNotFoundException, SecurityException {
         if (side == SideOfEditor.Left) {
@@ -108,7 +95,11 @@ public class FileManager implements FileManagerInterface {
             fileModelR.writeFile(filepath);
         }
     }
-
+    /**
+     * side에 맞는 FileModel의 LineArrayList를 content의 내용으로 바꾸고 filePath 경로에 저장합니다
+     * @param filepath 불러올 경로
+     * @param side 갱신을 할 파일모델의 위치
+     */
     @Override
     public void loadFile(String filepath, SideOfEditor side) throws FileNotFoundException, UnsupportedEncodingException {
         if (side == SideOfEditor.Left) {
@@ -119,7 +110,9 @@ public class FileManager implements FileManagerInterface {
             fileModelR.getLineArrayList();
         }
     }
-
+    /**
+     * compare를 실행하고 isComparing을 True로 한다
+     */
     @Override
     public void setCompare() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
         if (!(fileModelL.isFileExist() && !fileModelL.getEdited())) throw new LeftEditorFileCanNotCompareException();
@@ -131,12 +124,19 @@ public class FileManager implements FileManagerInterface {
         isCompareProperty.set(true);
     }
 
+    /**
+     * compare를 취소한다.
+     */
     @Override
     public void cancelCompare() {
         isComparing = false;
         isCompareProperty.set(false);
     }
 
+    /**
+     * comparing상태일 경우 lineNum번째 줄에 클릭을 했다는 것을 전달한다.
+     * @param lineNum 클릭이 된 LineNumber
+     */
     @Override
     public void clickLine(int lineNum) {
         if (isComparing) {
@@ -147,6 +147,11 @@ public class FileManager implements FileManagerInterface {
         }
     }
 
+    /**
+     * toSide에게 다른 사이드로부터 Merge를 실행 후. 양 파일 모델의 LineArrayList를 갱신한다. 머지가 불가능 상황이면 실행을 하지 않고 불가능하다고 반환한다.
+     * @param toSide  머지를 당할  side
+     * @return 머지가 실행됬는지 안됬는지를 저장
+     */
     @Override
     public boolean merge(FileManagerInterface.SideOfEditor toSide) {
         if (!isComparing) return false;
@@ -241,8 +246,8 @@ public class FileManager implements FileManagerInterface {
     }
 
     public String getFilePath(SideOfEditor side) {
-        if (side == SideOfEditor.Left) return getFileModelL().getFilePath();
-        else return getFileModelR().getFilePath();
+        if (side == SideOfEditor.Left) return fileModelL.getFilePath();
+        else return fileModelR.getFilePath();
     }
 
     @Override
@@ -432,7 +437,9 @@ public class FileManager implements FileManagerInterface {
             this.fileModelL.init();
         } else this.fileModelR.init();
     }
-
+    /*
+    Dependency Injection method for Mock testing using EasyMock
+     */
     public void setDependency(FileModelInterface fl, FileModelInterface fr){
         fileModelL = fl;
         fileModelR = fr;

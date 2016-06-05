@@ -22,7 +22,7 @@ public class FileModel implements FileModelInterface {
     private final ListProperty<LineInterface> contentListProperty = new SimpleListProperty<>(FXCollections.observableArrayList(lineArrayList));
 
     private ArrayList<LineInterface> compareLineArrayList; //컴페어 결과를 저장하고 있는 어레이리스트
-    private File file; //로드하고있는 파일
+    private File file; //연결되있는 파일
 
     /**
      * 가지고 있는 파일의 내용을  String의 형태로 반환합니다.
@@ -65,14 +65,12 @@ public class FileModel implements FileModelInterface {
             lineArrayList.add(new Line(tempString));//Line Arraylist에 읽어온 값을 추가한다
         }
         in.close();
-        //listProperty.set(FXCollections.observableArrayList(lineArrayList));  리스트프로퍼티가 String인터페이스만 되서 묶어놓음 @승현
         this.contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
         this.statusString.set("File Loaded Successfully");
         this.filePath.set(filePath);
     }
     /**
-     * 저장된 파일 정보를 이용해서 파일을 읽게 한다. 해당 파일이 존재하지 않으면 예외를 반환한
-     *
+     * 저장된 파일 정보를 이용해서 파일을 읽게 합니다. 연결된 파일이 없으면 예외를 발생시킵니다.
      */
     @Override
     public void readFile() throws FileNotFoundException, UnsupportedEncodingException {
@@ -189,7 +187,7 @@ public class FileModel implements FileModelInterface {
     }
 
     /**
-     * 모델의 값을 초기화한다
+     * 모델을 초기화한다
      */
     public void init()
     {
@@ -204,7 +202,7 @@ public class FileModel implements FileModelInterface {
     }
 
     /**
-     * 수정됬을 가능성이 있는지를 받는다
+     * 이 모델의 데이터가 수정됬을 가능성이 있는지를 받는다
      * @param value 수정됬는지 아닌지의 값
      */
     @Override
@@ -212,7 +210,10 @@ public class FileModel implements FileModelInterface {
         isEdited = value;
         this.isEditedProperty.set(value);
     }
-
+    /**
+     * 이 모델의 데이터가 수정됬을 가능성이 있는지를 받는다
+     * @return boolean 수정됬는지 아닌지를 저장
+     */
     @Override
     public boolean getEdited(){
         return isEdited;

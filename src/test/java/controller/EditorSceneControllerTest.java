@@ -60,8 +60,13 @@ public class EditorSceneControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void EditorSceneInitialButtonEnableTest()
+    public void EditorSceneInitialButtonEnableTest(){
+        Node[] buttons = { find("#btnFileOpen"), find("#btnFileSave"), find("#btnEdit") };
 
+        for(Node node : buttons){
+            verifyThat(node, NodeMatchers.isEnabled());
+        }
+    }
     @Test
     public void LoadSuccessTest() {
         //given :

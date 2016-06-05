@@ -15,8 +15,8 @@ import static org.junit.Assert.*;
  * Created by Elliad on 2016-05-08.
  */
 public class FileModelTest {
-    public FileModel testFileModel;
-    public ArrayList<String> testStringArrayList;
+    private FileModel testFileModel;
+    private ArrayList<String> testStringArrayList;
     @Before
     public void setupTest(){
         testFileModel = new FileModel();
@@ -70,7 +70,7 @@ public class FileModelTest {
         FileModel testFileModel = new FileModel();
         testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
         testFileModel.writeFile();
-        ArrayList<String> testArraylist = new ArrayList<String>();
+        ArrayList<String> testArraylist = new ArrayList<>();
         try(Scanner in = new Scanner(new FileReader(getClass().getResource("../AA.txt").getPath())))
         {
             String tempString = "";

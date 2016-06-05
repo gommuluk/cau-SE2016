@@ -90,13 +90,8 @@ public class Line implements LineInterface {
         Line other = (Line) obj;
         if (!content.equals(other.content)) {
             return false;
-        }else if (blockIndex != other.blockIndex) {
-            return false;
-        }
-        else if (isWhitespace == other.isWhitespace) return true;
-        else {
-            return false;
-        }
+        } else
+            return blockIndex == other.blockIndex && isWhitespace == other.isWhitespace;
     }
 
 }

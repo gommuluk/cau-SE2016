@@ -8,8 +8,6 @@ import javafx.scene.control.TextArea;
 import model.FileManagerInterface;
 import model.LineInterface;
 
-import java.util.ArrayList;
-
 /**
  * Created by SH on 2016-05-21.
  */
@@ -19,7 +17,6 @@ interface HighlightEditorInterface {
     void setEditable(boolean value);
 
     void setText(FileManagerInterface.SideOfEditor side, String s);
-    void setHighlightLines(ArrayList<LineInterface> lines);
 
     void setEditMode(boolean isEditMode);
     boolean isEditMode();
@@ -32,7 +29,7 @@ interface HighlightEditorInterface {
     ListView<LineInterface> getHighlightListView();
 
     void update(FileManagerInterface.SideOfEditor side);
-    void reset(FileManagerInterface.SideOfEditor side);
+    void reset();
     ReadOnlyBooleanProperty isFocusedProperty();
 
 }

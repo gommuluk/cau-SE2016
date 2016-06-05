@@ -3,8 +3,6 @@ package controller;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.FileManager;
 import model.FileManagerInterface;
@@ -13,15 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.service.support.WaitUntilSupport;
-import org.testfx.util.WaitForAsyncUtils;
 import utils.TestUtils;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeoutException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by SH on 2016-06-04.
@@ -34,7 +30,7 @@ public class TabPaneSceneControllerTest extends ApplicationTest {
 
     @Override
     public void init() throws Exception {
-        FxToolkit.registerStage(() -> new Stage());
+        FxToolkit.registerStage(Stage::new);
     }
 
     @Override

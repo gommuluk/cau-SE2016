@@ -2,7 +2,6 @@ package model;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class FileModel implements FileModelInterface {
      * @param filePath 파일의 경로
      */
     @Override
-    public void readFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException{ // 파일명 받기 및 읽기.
+    public void readFile(String filePath) throws FileNotFoundException{ // 파일명 받기 및 읽기.
         init();
         Scanner  in;
         file= new File(filePath);
@@ -69,14 +68,7 @@ public class FileModel implements FileModelInterface {
         this.statusString.set("File Loaded Successfully");
         this.filePath.set(filePath);
     }
-    /**
-     * 저장된 파일 정보를 이용해서 파일을 읽게 합니다. 연결된 파일이 없으면 예외를 발생시킵니다.
-     */
-    @Override
-    public void readFile() throws FileNotFoundException, UnsupportedEncodingException {
-        if(file == null) throw new FileNotFoundException();
-        else readFile(file.getPath());
-    }
+
     /**
      * 현재 파일이 로드되있다면 파일을 현재 ArrayList의 내용으로 덮어씌웁니다.
      * FileNotFoundException이 발생할 수 있습니다.

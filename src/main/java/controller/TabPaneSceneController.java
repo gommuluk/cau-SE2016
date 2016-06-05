@@ -2,7 +2,6 @@ package controller;
 
 import etc.MouseRobot;
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.FileManager;
 import model.FileManagerInterface;
-
 
 import java.util.*;
 
@@ -153,9 +151,7 @@ public class TabPaneSceneController {
             tabPane.getSelectionModel().select(tab);
         });
 
-        stage.setOnShown((WindowEvent t) -> {
-            tab.getTabPane().getTabs().remove(tab);
-        });
+        stage.setOnShown((WindowEvent t) -> tab.getTabPane().getTabs().remove(tab));
 
         stage.show();
     }

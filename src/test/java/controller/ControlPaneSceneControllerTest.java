@@ -2,11 +2,8 @@ package controller;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import mockInterface.FileDialogInterface;
 import model.FileManager;
@@ -18,16 +15,10 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
-import org.testfx.service.support.CaptureSupport;
-import org.testfx.service.support.PixelMatcherResult;
-import org.testfx.service.support.impl.CaptureSupportImpl;
-import org.testfx.service.support.impl.PixelMatcherBase;
-import org.testfx.service.support.impl.PixelMatcherRgb;
 import org.testfx.util.WaitForAsyncUtils;
 import utils.FxImageComparison;
 import utils.TestUtils;
 
-import javax.swing.text.Highlighter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -35,7 +26,6 @@ import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.testfx.api.FxAssert.verifyThat;
 
 /**
@@ -47,7 +37,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
 
     @Override
     public void init() throws Exception {
-        FxToolkit.registerStage(() -> new Stage());
+        FxToolkit.registerStage(Stage::new);
     }
 
     @Override
@@ -138,9 +128,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
 
                 verify(fileDialogMock);
 
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         });

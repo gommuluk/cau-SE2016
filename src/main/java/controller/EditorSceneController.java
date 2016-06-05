@@ -3,17 +3,19 @@ package controller;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import model.FileManager;
 import model.FileManagerInterface;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by SH on 2016-05-11.
@@ -27,7 +29,7 @@ public class EditorSceneController {
 
     private Button btnCompare, btnMergeLeft, btnMergeRight;
     private FileManagerInterface.SideOfEditor side = null;
-    private BooleanProperty isFocused = new SimpleBooleanProperty(false);
+    private final BooleanProperty isFocused = new SimpleBooleanProperty(false);
 
     @FXML
     private void initialize(){
@@ -39,7 +41,7 @@ public class EditorSceneController {
             btnFileOpen.getScene().getAccelerators().put(
                     new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN),
                     ()->{ if(isFocused.getValue()){ onTBBtnLoadClicked(); System.out.println("focused"); }
-                            else System.out.println("not foucsed"); }
+                            else System.out.println("not focused"); }
             );
         });
     }
@@ -108,7 +110,7 @@ public class EditorSceneController {
     }
 
     @FXML // 저장 버튼을 클릭했을 때의 동작
-    private void onTBBtnSaveClicked() { //UnsupportedEncoingException 추가
+    private void onTBBtnSaveClicked() { //UnsupportedEncodingException 추가
         if(FileManager.getFileManagerInterface().getEdited(side)) {
             if (Caution.CautionFactory(Caution.CautionType.SaveChoice, side)) {
                 try {

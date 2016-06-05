@@ -41,7 +41,7 @@ public class EditorSceneControllerTest extends ApplicationTest  implements FxIma
 
     @Override
     public void init() throws Exception {
-        FxToolkit.registerStage(() -> new Stage());
+        FxToolkit.registerStage(Stage::new);
     }
 
     @Override
@@ -281,11 +281,9 @@ public class EditorSceneControllerTest extends ApplicationTest  implements FxIma
                     assertEquals(items.get(i).toString(), textContents[i]);
                 }
 
-            } catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException | FileNotFoundException e) {
                 e.printStackTrace();
 
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             }
 
         });

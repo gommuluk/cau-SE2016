@@ -25,8 +25,6 @@ public class Line implements LineInterface {
     }
 
     @Override
-    public int getBlockIndex() { return  blockIndex; }
-    @Override
     public boolean getIsWhiteSpace() { return isWhitespace; }
     @Override
     public LineHighlight getHighlight()
@@ -67,14 +65,7 @@ public class Line implements LineInterface {
         if(isLastLine) return content;
         else return content + "\n";
     }
-    @Deprecated
-    @Override
-    public int[] getBlockRangeofLine() {
-        int[] range = new int[2];
-        range[0] = blockArrayList.get(blockIndex).startLineNum;
-        range[1] = blockArrayList.get(blockIndex).endLineNum;
-        return range;
-    }
+
 
     public static ArrayList<Block> getBlockArray() { return blockArrayList; }//@@only for testing
 

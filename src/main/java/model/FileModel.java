@@ -191,13 +191,16 @@ public class FileModel implements FileModelInterface {
     /**
      * 모델의 값을 초기화한다
      */
-    private void init()
+    public void init()
     {
-        lineArrayList = null;
+        lineArrayList = new ArrayList<>();
         isEdited = false;
         file = null;
-        compareLineArrayList =null;
-        //stringoroperty 초기호
+        compareLineArrayList = new ArrayList<>();
+        this.isEditedProperty.set(false);
+        this.filePath.set("새 파일");
+        this.contentListProperty.set(FXCollections.observableArrayList(lineArrayList));
+        this.statusString.set("Ready(No file is loaded)");
     }
 
     /**

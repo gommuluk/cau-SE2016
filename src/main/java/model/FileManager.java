@@ -429,8 +429,8 @@ public class FileManager implements FileManagerInterface {
         isCompareProperty.set(false);
 
         if (sideOfEditor == FileManagerInterface.SideOfEditor.Left) {
-            this.fileModelL = new FileModel();
-        } else this.fileModelR = new FileModel();
+            this.fileModelL.init();
+        } else this.fileModelR.init();
     }
 
     public void setDependency(FileModelInterface fl, FileModelInterface fr){

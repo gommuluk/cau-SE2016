@@ -28,7 +28,7 @@ public interface FileModelInterface {
     void updateHighlight(); //바인딩으로 인해 만ㄷ르어준 함수
     boolean isFileExist();
     String getFilePath();
-
+    void init();
     void setEdited(boolean value);
     boolean getEdited();
 

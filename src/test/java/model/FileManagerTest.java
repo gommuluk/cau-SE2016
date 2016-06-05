@@ -24,6 +24,7 @@ public class FileManagerTest {
     public void setupTest () throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
     {
         fileManager = (FileManager)FileManager.getFileManagerInterface();
+        fileManager.setDependency(new FileModel(), new FileModel()); //싱글톤 패턴떄문에 이지목 코드가 남아있는 친구
         fileManager.resetModel(FileManagerInterface.SideOfEditor.Left);
         fileManager.resetModel(FileManagerInterface.SideOfEditor.Right);
         fileManager.loadFile( getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d

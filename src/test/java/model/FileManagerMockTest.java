@@ -335,14 +335,6 @@ public class FileManagerMockTest {
             assertTrue(testLineArrayListR.get(i).equals(gettedLineArrayListR.get(i)));
         }
     }
-    @Test
-    public void resetModelTest(){
-        fileManager.resetModel(FileManagerInterface.SideOfEditor.Left);
-        assertNull(fileManager.getFilePath(FileManagerInterface.SideOfEditor.Left));
-        assertTrue(new ArrayList<LineInterface>().equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left)));
-        assertFalse(fileManager.getEdited(FileManagerInterface.SideOfEditor.Left));
-        assertFalse(fileManager.getComparing());
-    }
 
     @After
     public void tearDown(){

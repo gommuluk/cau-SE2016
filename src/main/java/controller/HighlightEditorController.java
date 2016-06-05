@@ -153,14 +153,14 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                 protected void updateItem(LineInterface item, boolean empty) {
                     super.updateItem(item, empty);
 
-                    setStyle(null); setText(null);
+                    setStyle(null); setText(null); getStyleClass().removeAll("isDifferent");
 
                     if( item != null && !empty ) {
                         setText(item.getContent(false));
 
                         switch(item.getHighlight()){
                             case unHighlighted: setStyle("-fx-background-color:transparent;"); break;
-                            case isDifferent: setStyle("-fx-text-fill:#000000; -fx-background-color: #EDE98D;"); break;
+                            case isDifferent: getStyleClass().add("isDifferent"); setStyle("-fx-text-fill:#000000; -fx-background-color: #EDE98D;"); break;
                             case whitespace: setStyle("-fx-background-color: #EEEEEE"); break;
                             case selected: setStyle("-fx-background-color: #44d7ba"); break;
                         }

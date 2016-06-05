@@ -62,7 +62,6 @@
             </Menu>
             <Menu fx:id="menuHelps" mnemonicParsing="false" text="도움말(H)">
                <items>
-                  <MenuItem fx:id="menuHelp" mnemonicParsing="false" onAction="#onMenuBtnHelpClicked" text="Help" />
                   <MenuItem fx:id="menuAbout" mnemonicParsing="false" onAction="#onMenuBtnAboutClicked" text="About" />
                </items>
             </Menu>

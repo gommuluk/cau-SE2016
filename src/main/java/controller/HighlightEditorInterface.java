@@ -32,6 +32,7 @@ interface HighlightEditorInterface {
     ListView<LineInterface> getHighlightListView();
 
     void update(FileManagerInterface.SideOfEditor side);
+    void reset(FileManagerInterface.SideOfEditor side);
     ReadOnlyBooleanProperty isFocusedProperty();
 
 }

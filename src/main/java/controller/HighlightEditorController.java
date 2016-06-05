@@ -119,6 +119,11 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
         FileManager.getFileManagerInterface().updateLineArrayList(editor.getText(), side);
     }
 
+    @Override
+    public void reset(FileManagerInterface.SideOfEditor side) {
+        this.editor.setText("");
+    }
+
 
     private void _initEditor(){
 

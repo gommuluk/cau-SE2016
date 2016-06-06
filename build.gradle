@@ -33,16 +33,15 @@ buildscript {
     }
 }
 
-
 jfx {
     verbose = true
     mainClass = "etc.Main"
-    jfxAppOutputDir = "build/jfx/app"
-    jfxMainAppJarName = "project-jfx.jar"
-    deployDir = "build/deploy"
+    jfxAppOutputDir = "deploy/jar"
+    jfxMainAppJarName = "SimpleMerge.jar"
+    deployDir = "deploy"
 
     // gradle jfxJar
-    css2bin = false
+    css2bin = true
     preLoader = null
     updateExistingJar = false
     allPermissions = false
@@ -51,8 +50,8 @@ jfx {
 
     // gradle jfxNative
     identifier = null // setting this for windows-bundlers makes it possible to generate upgradeable installers (using same GUID)
-    vendor = "some serious business corp."
-    nativeOutputDir = "build/jfx/native"
+    vendor = "SE 2nd Team of CAU"
+    nativeOutputDir = "deploy/native"
     bundler = "ALL" // set this to some specific, if your don't want all bundlers running, examples "windows.app", "jnlp", ...
     jvmProperties = null // Map<String, String>
     jvmArgs = null // List<String>
@@ -65,9 +64,9 @@ jfx {
             // dont bundle JRE (not recommended, but increases build-size/-speed)
             runtime: null
     ]
-    appName = "project" // this is used for files below "src/main/deploy", e.g. "src/main/deploy/windows/project.ico"
+    appName = "SimpleMerge" // this is used for files below "src/main/deploy", e.g. "src/main/deploy/windows/project.ico"
     additionalAppResources = null // path to some additional resources when creating application-bundle
-    secondaryLaunchers = [[appName:"somethingDifferent"], [appName:"somethingDifferent2"]]
+    //secondaryLaunchers = [[appName:"somethingDifferent"], [appName:"somethingDifferent2"]]
     fileAssociations = null // List<Map<String, Object>>
     noBlobSigning = false // when using bundler "jnlp", you can choose to NOT use blob signing
 
@@ -78,7 +77,7 @@ jfx {
     skipSizeRecalculationForJNLP185 = false
 
     // gradle jfxGenerateKeyStore
-    keyStore = "src/main/deploy/keystore.jks"
+    keyStore = "deploy/keystore.jks"
     keyStoreAlias = "myalias"
     keyStorePassword = "password"
     keyPassword = null // will default to keyStorePassword

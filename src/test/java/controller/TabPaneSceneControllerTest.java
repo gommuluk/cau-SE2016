@@ -76,8 +76,12 @@ public class TabPaneSceneControllerTest extends ApplicationTest {
     @Test
     public void TabPaneSceneSplitPaneDragTest(){
         Node divider = find(".split-pane-divider");
+
         drag(divider).moveBy(-1000, 0);
+        assertEquals(300, find("#leftSplit").getLayoutBounds().getWidth(), 10);
+
         drag(divider).moveBy(1000, 0);
+        assertEquals(300, find("#rightSplit").getLayoutBounds().getWidth(), 10);
     }
 
 

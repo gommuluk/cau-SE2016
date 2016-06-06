@@ -1,7 +1,5 @@
 package controller;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Dimension2D;
@@ -41,7 +39,6 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
     private Stage s;
 
-
     @Override
     public void init() throws Exception {
         FxToolkit.registerStage(Stage::new);
@@ -78,19 +75,18 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
         final double EPSILON = 40;
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        final GridPane mainPaneControlPane = find("#controlPane");
         final int screenWidth = (int)screen.getWidth(), screenHeight = (int)screen.getHeight();
         final int originWidth = (int)s.getWidth(), originHeight = (int)s.getHeight();
 
         // maximize & minimize
-        doubleClickOn(mainPaneControlPane);
+        doubleClickOn("#controlPane");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(screenWidth, s.getWidth(), EPSILON);
         assertEquals(screenHeight, s.getHeight(), EPSILON);
 
         // minimize
-        doubleClickOn(mainPaneControlPane);
+        doubleClickOn("#controlPane");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(originWidth, s.getWidth(), EPSILON);
@@ -120,9 +116,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
     @Test
     public void undecoratedRootSceneButtonMinimizeTest() {
 
-        Node btnMinimize = find("#btnMinimize");
-
-        clickOn(btnMinimize);
+        clickOn("#btnMinimize");
         assertTrue(s.isIconified());
 
         WaitForAsyncUtils.waitForAsyncFx(5000, ()->s.setIconified(false));
@@ -155,27 +149,26 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
     @Test
     public void undecoratedRootSceneButtonCloseTest(){
-        Node btnClose = find("#btnClose");
-        BooleanProperty isSuccess = new SimpleBooleanProperty(false);
 
-        s.setOnCloseRequest(event -> isSuccess.setValue(true));
-        clickOn(btnClose);
+        final boolean[] isClosed = { false };
+
+        s.setOnCloseRequest(event -> isClosed[0] = true);
+        clickOn("#btnClose");
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertTrue(isSuccess.getValue());
+        assertTrue(isClosed[0]);
     }
 
     @Test
     public void undecoratedRootSceneButtonMaximizeOrRestoreTest() {
 
         BoundingBox savedBounds = new BoundingBox(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-        Node btnMaximize = find("#btnMaximize");
 
         ObservableList<Screen> screensForRectangle = Screen.getScreensForRectangle(
                 s.getX(), s.getY(), s.getWidth(), s.getHeight()
         );
 
-        clickOn(btnMaximize);
+        clickOn("#btnMaximize");
         WaitForAsyncUtils.waitForFxEvents();
 
         Screen screen = screensForRectangle.get(0);
@@ -183,7 +176,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
         Dimension2D programBounds = new Dimension2D(s.getWidth(), s.getHeight());
         verifyThat(programBounds, GeometryMatchers.hasDimension(visualBounds.getWidth(), visualBounds.getHeight()));
 
-        clickOn(btnMaximize);
+        clickOn("#btnMaximize");
         WaitForAsyncUtils.waitForFxEvents();
         verifyThat( new Dimension2D(savedBounds.getWidth(), savedBounds.getHeight()),
                 GeometryMatchers.hasDimension(s.getWidth(), s.getHeight()) );

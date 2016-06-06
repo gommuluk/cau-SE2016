@@ -9,6 +9,8 @@ import javafx.scene.input.MouseEvent;
 /**
  * Created by SH on 2016-05-09.
  */
+
+@SuppressWarnings("추후 확장용으로 남겨둔 class 입니다.")
 public class MouseRobot {
 
     private static final Robot robot = Application.GetApplication().createRobot();

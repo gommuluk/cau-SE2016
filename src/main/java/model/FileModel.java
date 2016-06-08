@@ -37,11 +37,12 @@ public class FileModel implements FileModelInterface {
         return ret;
     }
     /**
-     * LineArrayList의 내용을 string을 받아서 갱신합니다.
+     * LineArrayList의 내용을 string을 받아서 갱신합니다. null값의 갱신이 오면 공 스트링을 만들어줍니다
      * @param args 갱신할 내용
      */
     @Override
     public void updateArrayList(String args) {
+        if(args == null) args = new String("");
         lineArrayList = new ArrayList<>();
         for(String s : args.split("\n",0xffffffff))
             lineArrayList.add(new Line(s));

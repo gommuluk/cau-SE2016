@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,10 +19,9 @@ public class FileModelTest {
     @Before
     public void setupTest(){
         testFileModel = new FileModel();
-
     }
     @Test
-    public void fileReadTest() throws FileNotFoundException, UnsupportedEncodingException{
+    public void fileReadTest() throws FileNotFoundException{
         testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
         ArrayList<String>
         testStringArrayList = new ArrayList<>();
@@ -36,6 +34,11 @@ public class FileModelTest {
             assertTrue(testFileModel.getLineArrayList().get(i).getContent(true).equals(testStringArrayList.get(i)));
         }
     }
+    @Test(expected = FileNotFoundException.class)
+    public void fileReadTest_FileNotFount() throws FileNotFoundException{
+        testFileModel.readFile("AAsdfdsfsdfdsvevsvxcvcxvxcvcxvcx.txt");
+    }
+
     @Test
     public void updateArrayListTest() {
         testFileModel.updateArrayList("z\nx\ny\ne");
@@ -49,48 +52,60 @@ public class FileModelTest {
         }
     }
     @Test
-    public void isFileExistTest()throws FileNotFoundException, UnsupportedEncodingException{
+    public void updateArrayListTest_emptyString() {
+        testFileModel.updateArrayList("");
+        testStringArrayList = new ArrayList<>();
+        testStringArrayList.add("");
+        for (int i = 0; i < testStringArrayList.size(); i++) {
+            assertTrue(testFileModel.getLineArrayList().get(i).getContent(true).equals(testStringArrayList.get(i)));
+        }
+    }
+    @Test
+    public void updateArrayListTest_null() {
+        testFileModel.updateArrayList(null);
+        testStringArrayList = new ArrayList<>();
+        testStringArrayList.add("");
+        for (int i = 0; i < testStringArrayList.size(); i++) {
+            assertTrue(testFileModel.getLineArrayList().get(i).getContent(true).equals(testStringArrayList.get(i)));
+        }
+    }
+    @Test
+    public void isFileExistTest_Exist()throws FileNotFoundException{
         assertFalse(testFileModel.isFileExist());
         testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
         assertTrue(testFileModel.isFileExist());
     }
     @Test
-    public void editedTest() throws FileNotFoundException, UnsupportedEncodingException{
+    public void editedTest() throws FileNotFoundException{
         testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
         assertFalse(testFileModel.getEdited());
         testFileModel.setEdited(true);
         assertTrue(testFileModel.getEdited());
         testFileModel.writeFile();
         assertFalse(testFileModel.getEdited());
-
-
     }
     @Test
-    public void fileWriteTest() throws FileNotFoundException, UnsupportedEncodingException{
+    public void fileWriteTest_Success() throws FileNotFoundException {
         FileModel testFileModel = new FileModel();
         testFileModel.readFile(getClass().getResource("../AA.txt").getPath());
         testFileModel.writeFile();
         ArrayList<String> testArraylist = new ArrayList<>();
-        try(Scanner in = new Scanner(new FileReader(getClass().getResource("../AA.txt").getPath())))
-        {
-            String tempString = "";
-            while(in.hasNext()) {
-                tempString = in.next(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
-                if(in.hasNext()) tempString +="\n"; //다음 줄이 없을 때는 개행을 추가하지 않는다.
-                testArraylist.add(tempString);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        Scanner in = new Scanner(new FileReader(getClass().getResource("../AA.txt").getPath()));
+        String tempString = "";
+        while (in.hasNext()) {
+            tempString = in.next(); //임시 텍스트에 개행을 제외한 한 줄을 불러온다
+            if (in.hasNext()) tempString += "\n"; //다음 줄이 없을 때는 개행을 추가하지 않는다.
+            testArraylist.add(tempString);
         }
+
         assertEquals(testFileModel.getLineArrayList().size(), testArraylist.size());
-        for(int i = 0 ; i < testArraylist.size();i++){
-            if(i != testArraylist.size() -1)
-            assertTrue(testFileModel.getLineArrayList().get(i).getContent(false).equals(testArraylist.get(i)));
+        for (int i = 0; i < testArraylist.size(); i++) {
+            if (i != testArraylist.size() - 1)
+                assertTrue(testFileModel.getLineArrayList().get(i).getContent(false).equals(testArraylist.get(i)));
             else
                 assertTrue(testFileModel.getLineArrayList().get(i).getContent(true).equals(testArraylist.get(i)));
         }
     }
-
     @Test
     //미구현
     public void getStatusTest()

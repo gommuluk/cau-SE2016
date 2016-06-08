@@ -280,7 +280,7 @@ public class EditorSceneControllerTest extends ApplicationTest implements FxImag
                     assertEquals(items.get(i).toString(), textContents[i]);
                 }
 
-            } catch (UnsupportedEncodingException | FileNotFoundException e) {
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
 
             }

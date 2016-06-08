@@ -6,7 +6,6 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +19,7 @@ public interface FileManagerInterface {
 
     void saveFile(String newContents, String filePath, SideOfEditor side) throws FileNotFoundException, SecurityException; //Side에 파일경로로 저장함.
     void saveFile(String newContents, SideOfEditor side) throws FileNotFoundException, SecurityException; //Side에 기존 파일 경로로 저장함. false를 반환하는 경우는 기존 파일이 없을 경우이다
-    void loadFile(String filePath, SideOfEditor side) throws FileNotFoundException, UnsupportedEncodingException; //filePath에 있는 파일을 side에 로드
+    void loadFile(String filePath, SideOfEditor side) throws FileNotFoundException; //filePath에 있는 파일을 side에 로드
     void setCompare() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException; //비교 실행. 비교할 수 없는 조건이면 false를 반환
 
     void cancelCompare(); //비교 취소

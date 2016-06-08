@@ -22,7 +22,6 @@ import utils.TestUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeoutException;
 
 import static org.easymock.EasyMock.*;
@@ -126,7 +125,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
                         FileManagerInterface.SideOfEditor.Left
                 );
 
-            } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });

@@ -3,7 +3,6 @@ package model;
 import javafx.beans.property.*;
 
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -101,7 +100,7 @@ public class FileManager implements FileManagerInterface {
      * @param side 갱신을 할 파일모델의 위치
      */
     @Override
-    public void loadFile(String filepath, SideOfEditor side) throws FileNotFoundException, UnsupportedEncodingException {
+    public void loadFile(String filepath, SideOfEditor side) throws FileNotFoundException{
         if (side == SideOfEditor.Left) {
             fileModelL.readFile(filepath);
             fileModelL.getLineArrayList();
@@ -215,13 +214,13 @@ public class FileManager implements FileManagerInterface {
         String ret = "";
         for (LineInterface s : toFileManager.getCompareLineArrayList())
             ret += s.getContent(false);
-        ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
+        if(ret.length() >= 1)ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
         System.out.println("from : "  + ret);
         toFileManager.updateArrayList(ret);
         ret = "";
         for (LineInterface s : fromFileManager.getCompareLineArrayList())
             ret += s.getContent(false);
-        ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
+        if(ret.length() >= 1)ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
 
         System.out.println("to : "  + ret);
         fromFileManager.updateArrayList(ret);

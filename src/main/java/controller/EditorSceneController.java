@@ -15,7 +15,6 @@ import model.FileManagerInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * Created by SH on 2016-05-11.
@@ -103,7 +102,7 @@ public class EditorSceneController {
             editor.setText(side, FileManager.getFileManagerInterface().getString(side));
 
         }
-        catch(UnsupportedEncodingException | FileNotFoundException e) {                                                                        // TODO Exception 별 처리 필요.
+        catch(FileNotFoundException e) {
             Caution.CautionFactory(Caution.CautionType.LoadFailure, side);
         }
 

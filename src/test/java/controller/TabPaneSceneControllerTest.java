@@ -14,7 +14,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import utils.TestUtils;
 
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
@@ -59,7 +58,7 @@ public class TabPaneSceneControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void TabPaneSceneBothSideLoadTest() throws FileNotFoundException, UnsupportedEncodingException {
+    public void TabPaneSceneBothSideLoadTest() throws FileNotFoundException{
             String leftFile = getClass().getResource("../test1-1.txt").getPath();
             String rightFile = getClass().getResource("../test1-2.txt").getPath();
 

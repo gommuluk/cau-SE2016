@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -21,9 +20,9 @@ public class FileManagerMockTest {
     private static FileModelInterface leftFileModelMock;
     private static FileModelInterface rightFileModelMock;
 
-
+    //테스트를 위한 준비를 합니다
     @Before
-    public void setUpTestMock() throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
+    public void setUpTestMock() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
 
         fileManager = (FileManager)FileManager.getFileManagerInterface();
         fileManager.cancelCompare();//초기
@@ -32,8 +31,10 @@ public class FileManagerMockTest {
         fileManager.setDependency(leftFileModelMock,rightFileModelMock);
 
     }
+
+    //컴페어가 set되고 cancel되는지를 확인하는 테스트
     @Test
-    public void setandcancleCompareTest() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+    public void setandcancelCompareTest() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
         int[][] arr = {{0, 0, 0, 0, 0}, {0, 1, 1, 1, 1}, {0, 1, 2, 2, 2}, {0, 1, 2, 2, 3}, {0, 1, 2, 3, 3}};
         //L이 a b c d, R이 a b d c 일떄의 DP 테이블
         ArrayList<Line> testLineArrayListL = new ArrayList<>();
@@ -74,8 +75,6 @@ public class FileManagerMockTest {
             testLineArrayListMockR.add(new Line("c", -1, false));
             testLineArrayListMockR.add(new Line("", 0, true));
         }
-        //EasyMock.expect(leftFileModelMock.getCompareLineArrayList()).andReturn(testLineArrayListMockL);
-        //EasyMock.expect(rightFileModelMock.getCompareLineArrayList()).andReturn(testLineArrayListMockR);
         EasyMock.expect(leftFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testLeftLineArrayList.clone()).anyTimes();
         EasyMock.expect(rightFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testRightLineArrayList.clone()).anyTimes();
         rightFileModelMock.setCompareLineArrayList(testLineArrayListMockR);
@@ -115,6 +114,7 @@ public class FileManagerMockTest {
 
     }
 
+    //clickLine함수가 제대로 작동하는지에 대한 테스트
     @Test
     public void clickLine()  throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
     {        ArrayList<Line> testLineArrayListL = new ArrayList<>();
@@ -181,6 +181,7 @@ public class FileManagerMockTest {
         assertTrue(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(4).getHighlight() == Line.LineHighlight.selected);
     }
 
+    //라인이 제대로 갱신되는지를 확인하는 테스트
     @Test
     public void updateLineArrayListTest(){
         ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
@@ -199,6 +200,7 @@ public class FileManagerMockTest {
             assertTrue(testLeftLineArrayList.get(i).equals(actualLeftLineArrayList.get(i)));
         }
     }
+    //Line ArrayList를 받아오는지에 대한 테스트
     @Test
     public void getLineArrayListTest(){
         ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
@@ -226,7 +228,7 @@ public class FileManagerMockTest {
 
        }
     }
-
+    //정상적으로 merge가 되는지에 대한 테스트
     @Test
     public void MergeTest()   throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
     {
@@ -337,6 +339,7 @@ public class FileManagerMockTest {
     @After
     public void tearDown(){
         EasyMock.verify();
+        fileManager.setDependency(new FileModel(), new FileModel()); //싱글톤 패턴떄문에 이지목 코드가 남아있는 친구
     }
 
 

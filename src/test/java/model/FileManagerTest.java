@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -20,19 +19,16 @@ public class FileManagerTest {
 
 
     @Before
-    public void setupTest () throws FileNotFoundException, UnsupportedEncodingException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
-    {
-        fileManager = (FileManager)FileManager.getFileManagerInterface();
-        fileManager.setDependency(new FileModel(), new FileModel()); //싱글톤 패턴떄문에 이지목 코드가 남아있는 친구
+    public void setupTest() throws FileNotFoundException,  LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
+        fileManager = (FileManager) FileManager.getFileManagerInterface();
         fileManager.resetModel(FileManagerInterface.SideOfEditor.Left);
         fileManager.resetModel(FileManagerInterface.SideOfEditor.Right);
-        fileManager.loadFile( getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
-        fileManager.loadFile( getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
-        System.out.println("start");
     }
 
     @Test
-    public void setCompareTest() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+    public void setCompareTest_normal() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
         fileManager.setCompare();
         assertTrue(fileManager.getComparing());
 
@@ -67,25 +63,126 @@ public class FileManagerTest {
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
             //텍스트 어레이 같게 생겼는지 검사
         }
-
     }
     @Test
-    public void cancelCompareTest() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+    public void setCompareTest_LeftisEmpty() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//아무것도없음
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
+        fileManager.setCompare();
+        assertTrue(fileManager.getComparing());
+
+
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        ArrayList<Block> testBlockArrayList = new ArrayList<>();
+
+        testBlockArrayList.add(new Block(0, 4));
+        assertEquals(testBlockArrayList.size(),Line.getBlockArray().size());//블럭 크기 같은지 검사
+        for (int i = 0; i < testBlockArrayList.size(); i++) {
+            assertEquals(testBlockArrayList.get(i).startLineNum, Line.getBlockArray().get(i).startLineNum);
+            assertEquals(testBlockArrayList.get(i).endLineNum, Line.getBlockArray().get(i).endLineNum);//블럭 같게 생겼는지 검사
+        }
+        testLineArrayListL.add(new Line("",0,true));
+        testLineArrayListL.add(new Line("",0,true));
+        testLineArrayListL.add(new Line("",0,true));
+        testLineArrayListL.add(new Line("",0,true));
+        testLineArrayListR.add(new Line("a",0,false));
+        testLineArrayListR.add(new Line("b",0,false));
+        testLineArrayListR.add(new Line("d",0,false));
+        testLineArrayListR.add(new Line("c",0,false));
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
+            assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
+            assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
+            //텍스트 어레이 같게 생겼는지 검사
+        }
+    }
+
+    @Test
+    public void setCompareTest_RightisEmpty() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//아무것도 없음
+        fileManager.setCompare();
+        assertTrue(fileManager.getComparing());
+
+
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        ArrayList<Block> testBlockArrayList = new ArrayList<>();
+
+        testBlockArrayList.add(new Block(0, 4));
+        assertEquals(testBlockArrayList.size(),Line.getBlockArray().size());//블럭 크기 같은지 검사
+        for (int i = 0; i < testBlockArrayList.size(); i++) {
+            assertEquals(testBlockArrayList.get(i).startLineNum, Line.getBlockArray().get(i).startLineNum);
+            assertEquals(testBlockArrayList.get(i).endLineNum, Line.getBlockArray().get(i).endLineNum);//블럭 같게 생겼는지 검사
+        }
+        testLineArrayListL.add(new Line("a",0,false));
+        testLineArrayListL.add(new Line("b",0,false));
+        testLineArrayListL.add(new Line("c",0,false));
+        testLineArrayListL.add(new Line("d",0,false));
+        testLineArrayListR.add(new Line("",0,true));
+        testLineArrayListR.add(new Line("",0,true));
+        testLineArrayListR.add(new Line("",0,true));
+        testLineArrayListR.add(new Line("",0,true));
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
+            assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
+            assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
+            //텍스트 어레이 같게 생겼는지 검사
+        }
+    }
+    @Test
+    public void setCompareTest_BothareEmpty() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//아무것도 없음
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//아무것도 없음
+        fileManager.setCompare();
+        assertTrue(fileManager.getComparing());
+
+
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        ArrayList<Block> testBlockArrayList = new ArrayList<>();
+
+        assertEquals(testBlockArrayList.size(),Line.getBlockArray().size());//블럭 크기 같은지 검사
+        for (int i = 0; i < testBlockArrayList.size(); i++) {
+            assertEquals(testBlockArrayList.get(i).startLineNum, Line.getBlockArray().get(i).startLineNum);
+            assertEquals(testBlockArrayList.get(i).endLineNum, Line.getBlockArray().get(i).endLineNum);//블럭 같게 생겼는지 검사
+        }
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
+            assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
+            assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
+            //텍스트 어레이 같게 생겼는지 검사
+        }
+    }
+    @Test(expected = RightEditorFileCanNotCompareException.class)
+    public void setCompareTest_LeftisNull() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//아무것도 없음
+        fileManager.setCompare();
+      }
+    @Test(expected = LeftEditorFileCanNotCompareException.class)
+    public void setCompareTest_RightisNull() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//아무것도 없음
+        fileManager.setCompare();
+    }
+
+    @Test
+    public void cancelCompareTest() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException{
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
         fileManager.setCompare();
         fileManager.cancelCompare();
         assertTrue(!fileManager.getComparing());
-
     }
     @Test
-    public void clickLine()  throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
+    public void clickLine()  throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
     {
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
         fileManager.setCompare();
         fileManager.clickLine(4);
         assertTrue(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(4).getHighlight() == Line.LineHighlight.selected);
     }
 
     @Test
-    public void updateLineArrayListTest(){
+    public void updateLineArrayListTest_normal(){
         ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
         String testString = "asdf\nrrr";
         fileManager.updateLineArrayList(testString,FileManagerInterface.SideOfEditor.Left);
@@ -99,7 +196,22 @@ public class FileManagerTest {
         }
     }
     @Test
-    public void getLineArrayListTest(){
+    public void updateLineArrayListTest_updatenull(){
+        ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
+        String testString = null;
+        fileManager.updateLineArrayList(testString,FileManagerInterface.SideOfEditor.Left);
+        testLeftLineArrayList.add(new Line(""));
+        ArrayList<LineInterface> actualLeftLineArrayList = fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left);
+        assertEquals(testLeftLineArrayList.size(),actualLeftLineArrayList.size());
+        assertTrue(fileManager.getString(FileManagerInterface.SideOfEditor.Left).equals(""));
+        for(int i = 0; i < testLeftLineArrayList.size(); i++){
+            assertTrue(testLeftLineArrayList.get(i).equals(actualLeftLineArrayList.get(i)));
+        }
+    }
+    @Test
+    public void getLineArrayListTest() throws FileNotFoundException{
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
         ArrayList<LineInterface> testLeftLineArrayList = new ArrayList<>();
         ArrayList<LineInterface> testRightLineArrayList = new ArrayList<>();
         testLeftLineArrayList.add(new Line("a"));
@@ -117,13 +229,18 @@ public class FileManagerTest {
         for(int i = 0; i < testLeftLineArrayList.size(); i++){
             assertTrue(testLeftLineArrayList.get(i).equals(actualLeftLineArrayList.get(i)));
             assertTrue(testRightLineArrayList.get(i).equals(actualRightLineArrayList.get(i)));
-
        }
     }
-
     @Test
-    public void MergeTest()   throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
+    public void getLineArrayListTest_notLoaded() throws FileNotFoundException{
+        assertTrue(new ArrayList<LineInterface>().equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left)));
+    }
+    @Test
+    public void MergeTest_normal() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
     {
+
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
         fileManager.setCompare();
         //[abcd ] [ab dc] 의 경우
         ArrayList<Line> testLineArrayListL = new ArrayList<>();
@@ -148,6 +265,121 @@ public class FileManagerTest {
             System.out.print(i);
             System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
+        }
+    }
+
+    @Test
+    public void MergeTest_notComparing() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
+    {
+
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
+        assertFalse(fileManager.merge(FileManagerInterface.SideOfEditor.Right));
+    }
+    @Test
+    public void MergeTest_NotClicked() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
+    {
+
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
+        fileManager.setCompare();
+        //[abcd ] [ab dc] 의 경우
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        testLineArrayListL.add(new Line("a",-1,false));
+        testLineArrayListL.add(new Line("b",-1,false));
+        testLineArrayListL.add(new Line("c",-1,false));
+        testLineArrayListL.add(new Line("d",-1,false));
+        testLineArrayListR.add(new Line("a",-1,false));
+        testLineArrayListR.add(new Line("b",-1,false));
+        testLineArrayListR.add(new Line("d",-1,false));
+        testLineArrayListR.add(new Line("c",-1,false));
+        fileManager.merge(FileManagerInterface.SideOfEditor.Right);
+        for (int i = 0; i < testLineArrayListL.size(); i++) {
+            System.out.print(i);
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " Left ");
+            assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
+        }
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
+            System.out.print(i);
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
+            assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
+        }
+    }
+    @Test
+    public void MergeTest_fromisEmpty() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
+    {
+
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//empty
+        fileManager.loadFile(getClass().getResource("../BB.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//a,b,d,c
+        fileManager.setCompare();
+        //[abcd ] [ab dc] 의 경우
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        fileManager.clickLine(2);
+        testLineArrayListL.add(new Line("",-1,false));
+        testLineArrayListR.add(new Line("",-1,false));
+        fileManager.merge(FileManagerInterface.SideOfEditor.Right);
+        for (int i = 0; i < testLineArrayListL.size(); i++) {
+            System.out.print(i);
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " Left ");
+            assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
+        }
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
+            System.out.print(i);
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
+            assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
+        }
+    }
+    @Test
+    public void MergeTest_toisEmpty() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
+    {
+
+        fileManager.loadFile(getClass().getResource("../AA.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//empty
+        fileManager.setCompare();
+        //[abcd ] [ab dc] 의 경우
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        fileManager.clickLine(2);
+        testLineArrayListL.add(new Line("a",-1,false));
+        testLineArrayListL.add(new Line("b",-1,false));
+        testLineArrayListL.add(new Line("c",-1,false));
+        testLineArrayListL.add(new Line("d",-1,false));
+        testLineArrayListR.add(new Line("a",-1,false));
+        testLineArrayListR.add(new Line("b",-1,false));
+        testLineArrayListR.add(new Line("c",-1,false));
+        testLineArrayListR.add(new Line("d",-1,false));
+        fileManager.merge(FileManagerInterface.SideOfEditor.Right);
+        for (int i = 0; i < testLineArrayListL.size(); i++) {
+            System.out.print(i);
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " Left ");
+            assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
+        }
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
+            System.out.print(i);
+            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
+            assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
+        }
+    }
+    @Test
+    public void MergeTest_BothareEmpty() throws FileNotFoundException, LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException
+    {
+
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Left);//a,b,c,d
+        fileManager.loadFile(getClass().getResource("../empty_file.txt").getPath(), FileManagerInterface.SideOfEditor.Right);//empty
+        fileManager.setCompare();
+        //[abcd ] [ab dc] 의 경우
+        ArrayList<Line> testLineArrayListL = new ArrayList<>();
+        ArrayList<Line> testLineArrayListR = new ArrayList<>();
+        testLineArrayListL.add(new Line("",-1,false));
+        testLineArrayListR.add(new Line("",-1,false));
+        fileManager.merge(FileManagerInterface.SideOfEditor.Right);
+        for (int i = 0; i < testLineArrayListL.size(); i++) {
+             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
+        }
+        for (int i = 0; i < testLineArrayListR.size(); i++) {
+           assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }
     @Test

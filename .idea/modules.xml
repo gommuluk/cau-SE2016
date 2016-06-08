@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleMerge.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleMerge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleMerge_main.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleMerge_main.iml" group="SimpleMerge" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleMerge_test.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleMerge_test.iml" group="SimpleMerge" />
     </modules>
   </component>
 </project>

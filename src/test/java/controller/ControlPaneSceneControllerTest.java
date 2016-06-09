@@ -141,6 +141,7 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         HighlightEditorInterface leftEditor = (HighlightEditorInterface) leftSplit.lookup("#editor");
         HighlightEditorInterface rightEditor = (HighlightEditorInterface) rightSplit.lookup("#editor");
 
+        WaitForAsyncUtils.waitForFxEvents();
         verifyThat(leftEditor.getHighlightListView(), (ListView<LineInterface> listView) -> {
             int i = 0;
             LineInterface item = listView.getItems().get(i);
@@ -188,17 +189,6 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
     }
 
     @Test
-    public void singleBlockMergeTest() throws IOException {
-        controlPaneSceneButtonCompareClickTest();
-
-        clickOn("#btnMergeRight");
-
-        Node tPane = find("#tabPane");
-        assertNotNull("tabPane is null", tPane);
-        assertSnapshotsEqual(getClass().getResource("../singleMergeResult.png").getPath(), tPane, 1);
-    }
-
-    @Test
     public void manyBlockSelectTest() throws IOException {
         controlPaneSceneButtonCompareClickTest();
 
@@ -236,6 +226,17 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         assertEquals(FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Left), "");
         assertEquals(FileManager.getFileManagerInterface().getString(FileManagerInterface.SideOfEditor.Right), "");
         controlPaneSceneInitialButtonClickTest();
+    }
+
+    @Test
+    public void singleBlockMergeTest() throws IOException {
+        controlPaneSceneButtonCompareClickTest();
+
+        clickOn("#btnMergeRight");
+
+        Node tPane = find("#tabPane");
+        assertNotNull("tabPane is null", tPane);
+        assertSnapshotsEqual(getClass().getResource("../singleMergeResult.png").getPath(), tPane, 1);
     }
 
     @After

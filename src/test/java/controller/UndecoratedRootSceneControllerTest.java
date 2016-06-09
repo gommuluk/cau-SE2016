@@ -145,6 +145,10 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
         drag(s.getX() + s.getWidth() - MARGIN, s.getY() + s.getHeight()/2).moveBy(300, 0);
         assertEquals(prevWidth+300, s.getWidth(), 0);
+
+        drag(s.getX() + s.getWidth() - MARGIN + 300, s.getY() + s.getHeight()/2).moveBy(-600, 0);
+        assertEquals(prevWidth, s.getWidth(), 0);
+
     }
 
     @Test

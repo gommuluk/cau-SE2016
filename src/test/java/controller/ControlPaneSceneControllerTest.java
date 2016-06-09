@@ -125,13 +125,14 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
                         FileManagerInterface.SideOfEditor.Left
                 );
 
+                verify(fileDialogMock);
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
 
         WaitForAsyncUtils.waitForFxEvents();
-        verify(fileDialogMock);
 
         clickOn(btnCompare);
 
@@ -141,10 +142,13 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         HighlightEditorInterface leftEditor = (HighlightEditorInterface) leftSplit.lookup("#editor");
         HighlightEditorInterface rightEditor = (HighlightEditorInterface) rightSplit.lookup("#editor");
 
-        WaitForAsyncUtils.waitForFxEvents();
+        System.out.println(leftEditor.getText());
+
         verifyThat(leftEditor.getHighlightListView(), (ListView<LineInterface> listView) -> {
             int i = 0;
             LineInterface item = listView.getItems().get(i);
+
+            System.out.println(item.getHighlight());
 
             switch (i){
                 case 0:

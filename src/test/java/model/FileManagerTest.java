@@ -258,12 +258,10 @@ public class FileManagerTest {
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
             System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " Left ");
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
             System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }
@@ -297,12 +295,10 @@ public class FileManagerTest {
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
             System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " Left ");
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
             System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }
@@ -322,12 +318,10 @@ public class FileManagerTest {
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
             System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " Left ");
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
             System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }
@@ -353,12 +347,10 @@ public class FileManagerTest {
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
             System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i).getContent(true) + " Left ");
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
             System.out.print(i);
-            System.out.println(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i).getContent(true) + " Right");
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }

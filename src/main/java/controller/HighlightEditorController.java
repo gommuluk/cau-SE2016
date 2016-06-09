@@ -136,7 +136,6 @@ public class HighlightEditorController extends AnchorPane implements HighlightEd
                             case selected:
                             case isDifferent:
                             case whitespace:
-                                System.out.println("selected idx: " + getIndex());
                                 FileManager.getFileManagerInterface().clickLine(getIndex()); break;
                         }
 

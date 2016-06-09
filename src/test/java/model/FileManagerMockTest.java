@@ -245,7 +245,6 @@ public class FileManagerMockTest {
         EasyMock.expect(rightFileModelMock.getLineArrayList()).andReturn((ArrayList<LineInterface>)testRightLineArrayList.clone());
         EasyMock.replay(leftFileModelMock);
         EasyMock.replay(rightFileModelMock);
-        System.out.println(fileManager.getComparing());
         ArrayList<LineInterface> actualLeftLineArrayList = fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left);
         ArrayList<LineInterface> actualRightLineArrayList = fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right);
         assertEquals(testLeftLineArrayList.size(),actualLeftLineArrayList.size());
@@ -353,12 +352,10 @@ public class FileManagerMockTest {
 
         for (int i = 0; i < testLineArrayListL.size(); i++) {
             System.out.print(i);
-            System.out.println(gettedLineArrayListL.get(i).getContent(true) + " Left ");
             assertTrue(testLineArrayListL.get(i).equals(gettedLineArrayListL.get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
             System.out.print(i);
-            System.out.println(gettedLineArrayListR.get(i).getContent(true) + " Right");
             assertTrue(testLineArrayListR.get(i).equals(gettedLineArrayListR.get(i)));
         }
     }

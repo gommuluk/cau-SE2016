@@ -27,7 +27,7 @@
                         <Font name="Tahoma Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label graphicTextGap="410.0" text="COMMIT 204246a by nbkwon, Built on June 09, 2016">
+                  <Label graphicTextGap="410.0" text="COMMIT 0b08aa7 by starl1ght, Built on June 10, 2016">
                      <VBox.margin>
                         <Insets top="3.0" />
                      </VBox.margin>
@@ -51,7 +51,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label graphicTextGap="410.0" text="Developers : 강민승(Elliad), 권준혁(nbkwon), ">
+                  <Label graphicTextGap="410.0" text="Developers : 강민승(starl1ght), 권준혁(nbkwon), ">
                      <font>
                         <Font name="Tahoma" size="14.0" />
                      </font>

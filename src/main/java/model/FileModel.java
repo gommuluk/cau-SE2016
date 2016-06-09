@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Created by Elliad on 2016-05-08.
+ * Created by starl1ght on 2016-05-08.
  */
 public class FileModel implements FileModelInterface {
 

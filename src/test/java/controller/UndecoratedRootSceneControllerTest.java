@@ -37,7 +37,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class UndecoratedRootSceneControllerTest extends ApplicationTest implements FxImageComparison {
 
-    private Stage s;
+    private Stage stage;
 
     @Override
     public void init() throws Exception {
@@ -46,7 +46,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
     @Override
     public void start(Stage stage) {
-        s = TestUtils.startStage(stage);
+        this.stage = TestUtils.startStage(stage);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
     @Before
     public void setUp() throws TimeoutException {
         FxToolkit.registerPrimaryStage();
-        s.setX(50); s.setY(50);
+        stage.setX(50); stage.setY(50);
     }
 
     @After
@@ -76,21 +76,21 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
         final double EPSILON = 40;
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int screenWidth = (int)screen.getWidth(), screenHeight = (int)screen.getHeight();
-        final int originWidth = (int)s.getWidth(), originHeight = (int)s.getHeight();
+        final int originWidth = (int) stage.getWidth(), originHeight = (int) stage.getHeight();
 
         // maximize & minimize
         doubleClickOn("#controlPane");
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertEquals(screenWidth, s.getWidth(), EPSILON);
-        assertEquals(screenHeight, s.getHeight(), EPSILON);
+        assertEquals(screenWidth, stage.getWidth(), EPSILON);
+        assertEquals(screenHeight, stage.getHeight(), EPSILON);
 
         // minimize
         doubleClickOn("#controlPane");
         WaitForAsyncUtils.waitForFxEvents();
 
-        assertEquals(originWidth, s.getWidth(), EPSILON);
-        assertEquals(originHeight, s.getHeight(), EPSILON);
+        assertEquals(originWidth, stage.getWidth(), EPSILON);
+        assertEquals(originHeight, stage.getHeight(), EPSILON);
 
     }
 
@@ -117,9 +117,9 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
     public void undecoratedRootSceneButtonMinimizeTest() {
 
         clickOn("#btnMinimize");
-        assertTrue(s.isIconified());
+        assertTrue(stage.isIconified());
 
-        WaitForAsyncUtils.waitForAsyncFx(5000, ()->s.setIconified(false));
+        WaitForAsyncUtils.waitForAsyncFx(5000, ()-> stage.setIconified(false));
     }
 
     @Test
@@ -127,11 +127,11 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
         final int MARGIN = 5;
         final Node mainPane = find("#mainPane");
 
-        moveTo(s.getX() + s.getWidth() - MARGIN, s.getY() + s.getHeight()/2);
+        moveTo(stage.getX() + stage.getWidth() - MARGIN, stage.getY() + stage.getHeight()/2);
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(Cursor.E_RESIZE, mainPane.getCursor());
 
-        moveTo(s.getX() + s.getWidth()/2, s.getY() + s.getHeight() - MARGIN);
+        moveTo(stage.getX() + stage.getWidth()/2, stage.getY() + stage.getHeight() - MARGIN);
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(Cursor.S_RESIZE, mainPane.getCursor());
 
@@ -141,13 +141,19 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
     public void undecoratedRootSceneResizeTest(){
         final int MARGIN = 5;
 
-        final double prevWidth = s.getWidth();
+        final double prevWidth = stage.getWidth();
 
-        drag(s.getX() + s.getWidth() - MARGIN, s.getY() + s.getHeight()/2).moveBy(300, 0);
-        assertEquals(prevWidth+300, s.getWidth(), 0);
+        drag(stage.getX() + stage.getWidth() - MARGIN, stage.getY() + stage.getHeight()/2).moveBy(300, 0);
+        assertEquals(prevWidth+300, stage.getWidth(), 0);
 
-        drag(s.getX() + s.getWidth() - MARGIN + 300, s.getY() + s.getHeight()/2).moveBy(-600, 0);
-        assertEquals(prevWidth, s.getWidth(), 0);
+        drag(stage.getX() + stage.getWidth() - MARGIN, stage.getY() + stage.getHeight()/2).moveBy(-300, 0);
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(prevWidth, stage.getWidth(), 0);
+
+        // 비정상적인 케이스(최소 넓이 보장)
+        drag(stage.getX() + stage.getWidth() - MARGIN, stage.getY() + stage.getHeight()/2).moveBy(-300, 0);
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(prevWidth, stage.getWidth(), 0);
 
     }
 
@@ -156,7 +162,7 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
         final boolean[] isClosed = { false };
 
-        s.setOnCloseRequest(event -> isClosed[0] = true);
+        stage.setOnCloseRequest(event -> isClosed[0] = true);
         clickOn("#btnClose");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -166,10 +172,10 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
     @Test
     public void undecoratedRootSceneButtonMaximizeOrRestoreTest() {
 
-        BoundingBox savedBounds = new BoundingBox(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+        BoundingBox savedBounds = new BoundingBox(stage.getX(), stage.getY(), stage.getWidth(), stage.getHeight());
 
         ObservableList<Screen> screensForRectangle = Screen.getScreensForRectangle(
-                s.getX(), s.getY(), s.getWidth(), s.getHeight()
+                stage.getX(), stage.getY(), stage.getWidth(), stage.getHeight()
         );
 
         clickOn("#btnMaximize");
@@ -177,13 +183,13 @@ public class UndecoratedRootSceneControllerTest extends ApplicationTest implemen
 
         Screen screen = screensForRectangle.get(0);
         Rectangle2D visualBounds = screen.getVisualBounds();
-        Dimension2D programBounds = new Dimension2D(s.getWidth(), s.getHeight());
+        Dimension2D programBounds = new Dimension2D(stage.getWidth(), stage.getHeight());
         verifyThat(programBounds, GeometryMatchers.hasDimension(visualBounds.getWidth(), visualBounds.getHeight()));
 
         clickOn("#btnMaximize");
         WaitForAsyncUtils.waitForFxEvents();
         verifyThat( new Dimension2D(savedBounds.getWidth(), savedBounds.getHeight()),
-                GeometryMatchers.hasDimension(s.getWidth(), s.getHeight()) );
+                GeometryMatchers.hasDimension(stage.getWidth(), stage.getHeight()) );
 
     }
 

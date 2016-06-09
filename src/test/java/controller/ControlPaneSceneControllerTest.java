@@ -142,13 +142,10 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
         HighlightEditorInterface leftEditor = (HighlightEditorInterface) leftSplit.lookup("#editor");
         HighlightEditorInterface rightEditor = (HighlightEditorInterface) rightSplit.lookup("#editor");
 
-        System.out.println(leftEditor.getText());
-
         verifyThat(leftEditor.getHighlightListView(), (ListView<LineInterface> listView) -> {
             int i = 0;
             LineInterface item = listView.getItems().get(i);
 
-            System.out.println(item.getHighlight());
 
             switch (i){
                 case 0:
@@ -207,16 +204,39 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
 
     @Test
     public void manyBlockMergeTest() throws IOException {
+        //given :
         controlPaneSceneButtonCompareClickTest();
 
+        //when :
         clickOn(".isDifferent");
         clickOn(".isDifferent");
         clickOn("#btnMergeRight");
 
         Node tPane = find("#tabPane");
         assertNotNull("tabPane is null", tPane);
+
+        Node leftSplit = s.getScene().lookup("#leftSplit");
+        Node rightSplit = s.getScene().lookup("#rightSplit");
+
+        HighlightEditorInterface leftEditor = (HighlightEditorInterface) leftSplit.lookup("#editor");
+        HighlightEditorInterface rightEditor = (HighlightEditorInterface) rightSplit.lookup("#editor");
+
+        //then :
+
+            // UI Testing
         assertSnapshotsEqual(getClass().getResource("../multiMergeResult.png").getPath(), tPane, 1);
+
+            // System Testing
+        assertEquals(leftEditor.getHighlightListView().getItems().get(0), rightEditor.getHighlightListView().getItems().get(0));
+        assertEquals(leftEditor.getHighlightListView().getItems().get(1), rightEditor.getHighlightListView().getItems().get(1));
+        assertEquals(leftEditor.getHighlightListView().getItems().get(17), rightEditor.getHighlightListView().getItems().get(17));
+        assertEquals(leftEditor.getHighlightListView().getItems().get(18), rightEditor.getHighlightListView().getItems().get(18));
+
+
+
+
     }
+
 
     @Test
     public void resetTest() throws IOException {
@@ -235,12 +255,27 @@ public class ControlPaneSceneControllerTest extends ApplicationTest implements F
     @Test
     public void singleBlockMergeTest() throws IOException {
         controlPaneSceneButtonCompareClickTest();
-
+        clickOn(".isDifferent");
         clickOn("#btnMergeRight");
 
         Node tPane = find("#tabPane");
         assertNotNull("tabPane is null", tPane);
+
+        Node leftSplit = s.getScene().lookup("#leftSplit");
+        Node rightSplit = s.getScene().lookup("#rightSplit");
+
+        HighlightEditorInterface leftEditor = (HighlightEditorInterface) leftSplit.lookup("#editor");
+        HighlightEditorInterface rightEditor = (HighlightEditorInterface) rightSplit.lookup("#editor");
+
+        //then :
+
+        // UI Testing
         assertSnapshotsEqual(getClass().getResource("../singleMergeResult.png").getPath(), tPane, 1);
+
+        // System Testing
+        assertEquals(leftEditor.getHighlightListView().getItems().get(0), rightEditor.getHighlightListView().getItems().get(0));
+        assertEquals(leftEditor.getHighlightListView().getItems().get(1), rightEditor.getHighlightListView().getItems().get(1));
+
     }
 
     @After

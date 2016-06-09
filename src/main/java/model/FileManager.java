@@ -114,7 +114,13 @@ public class FileManager implements FileManagerInterface {
      */
     @Override
     public void setCompare() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
-        if (!(fileModelL.isFileExist() && !fileModelL.getEdited())) throw new LeftEditorFileCanNotCompareException();
+        if (!(fileModelL.isFileExist() && !fileModelL.getEdited())){
+            if(fileModelL.isFileExist()) System.out.println("뿅");
+            if(fileModelL.getEdited()) System.out.println("코코로");
+
+            System.out.println("왜이러지");
+            throw new LeftEditorFileCanNotCompareException();
+        }
         if (!(fileModelR.isFileExist() && !fileModelR.getEdited())) throw new RightEditorFileCanNotCompareException();
         arrayLCS = new int[fileModelL.getLineArrayList().size() + 1][fileModelR.getLineArrayList().size() + 1];//LCS 배열의 초기화
         buildArrayLCS();// 배열 구성

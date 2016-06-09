@@ -27,7 +27,7 @@
                         <Font name="Tahoma Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label graphicTextGap="410.0" text="COMMIT 0630aa2 by Elliad, Built on June 10, 2016">
+                  <Label graphicTextGap="410.0" text="COMMIT 204246a by nbkwon, Built on June 09, 2016">
                      <VBox.margin>
                         <Insets top="3.0" />
                      </VBox.margin>

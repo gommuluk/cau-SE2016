@@ -115,10 +115,6 @@ public class FileManager implements FileManagerInterface {
     @Override
     public void setCompare() throws LeftEditorFileCanNotCompareException, RightEditorFileCanNotCompareException {
         if (!(fileModelL.isFileExist() && !fileModelL.getEdited())){
-            if(fileModelL.isFileExist()) System.out.println("뿅");
-            if(fileModelL.getEdited()) System.out.println("코코로");
-
-            System.out.println("왜이러지");
             throw new LeftEditorFileCanNotCompareException();
         }
         if (!(fileModelR.isFileExist() && !fileModelR.getEdited())) throw new RightEditorFileCanNotCompareException();
@@ -172,16 +168,11 @@ public class FileManager implements FileManagerInterface {
         ArrayList<LineInterface> toFileManagerCompareLineArrayList = toFileManager.getCompareLineArrayList();
         ArrayList<LineInterface> fromFileManagerCompareLineArrayList = fromFileManager.getCompareLineArrayList();
 
-        System.out.println("Model debug blockArrayList size : " + blockArrayList.size());
-        System.out.println("Model to compareLineArrayList size : " +toFileManager.getCompareLineArrayList().size() + "Model from compareLineArrayList size : " +fromFileManager.getCompareLineArrayList().size() );
-        for (Block b : blockArrayList) {
-            System.out.println("startLineNum : " + b.startLineNum + " endLineNum : " + b.endLineNum);
+       for (Block b : blockArrayList) {
             int count = b.endLineNum - b.startLineNum;//지워야 될 블럭의 갯수
 
-            System.out.println("Model debug count  : " + count);
             int insertNum = b.startLineNum; //이 줄에 넣을거임
             if (b.getSelected()) {//선택된 블럭이면
-                System.out.println("block is clicked;");
                 for (int i = 0; i < count; i++) {
                     toFileManagerCompareLineArrayList.remove(insertNum);//복사대상이 되는 블럭을 지운다
                 }
@@ -221,14 +212,11 @@ public class FileManager implements FileManagerInterface {
         for (LineInterface s : toFileManager.getCompareLineArrayList())
             ret += s.getContent(false);
         if(ret.length() >= 1)ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
-        System.out.println("from : "  + ret);
         toFileManager.updateArrayList(ret);
         ret = "";
         for (LineInterface s : fromFileManager.getCompareLineArrayList())
             ret += s.getContent(false);
         if(ret.length() >= 1)ret = ret.substring(0, ret.length() - 1);//맨 마지막의 개행 제거
-
-        System.out.println("to : "  + ret);
         fromFileManager.updateArrayList(ret);
         cancelCompare();
 
@@ -367,7 +355,7 @@ public class FileManager implements FileManagerInterface {
 
                 if (i == 0 || j == 0) arr[i][j] = 0;
                 else {
-                    //System.out.println(leftArr.get(i - 1).content.compareTo(rightArr.get(j - 1).content));
+
                     if (leftArr.get(i - 1).getContent(true).compareTo(rightArr.get(j - 1).getContent(true)) == 0) {//개행 없이 비교해야되기떄문에 getLine에 true를 넘겨줘서 받아옴
                         arr[i][j] = arr[i - 1][j - 1] + 1;
                     } else {

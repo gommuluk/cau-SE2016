@@ -39,8 +39,8 @@ public class EditorSceneController {
 
             btnFileOpen.getScene().getAccelerators().put(
                     new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN),
-                    ()->{ if(isFocused.getValue()){ onTBBtnLoadClicked(); System.out.println("focused"); }
-                            else System.out.println("not focused"); }
+                    ()->{ if(isFocused.getValue()){ onTBBtnLoadClicked();  }
+                             }
             );
         });
     }

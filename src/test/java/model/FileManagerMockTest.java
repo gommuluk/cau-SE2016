@@ -351,11 +351,9 @@ public class FileManagerMockTest {
         ArrayList<LineInterface> gettedLineArrayListL = fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left);
 
         for (int i = 0; i < testLineArrayListL.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListL.get(i).equals(gettedLineArrayListL.get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListR.get(i).equals(gettedLineArrayListR.get(i)));
         }
     }

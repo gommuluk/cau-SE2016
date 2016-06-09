@@ -257,11 +257,9 @@ public class FileManagerTest {
         fileManager.clickLine(4);
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }
@@ -294,11 +292,9 @@ public class FileManagerTest {
         testLineArrayListR.add(new Line("c",-1,false));
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }
@@ -317,11 +313,9 @@ public class FileManagerTest {
         testLineArrayListR.add(new Line("",-1,false));
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }
@@ -346,11 +340,9 @@ public class FileManagerTest {
         testLineArrayListR.add(new Line("d",-1,false));
         fileManager.merge(FileManagerInterface.SideOfEditor.Right);
         for (int i = 0; i < testLineArrayListL.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListL.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Left).get(i)));
         }
         for (int i = 0; i < testLineArrayListR.size(); i++) {
-            System.out.print(i);
             assertTrue(testLineArrayListR.get(i).equals(fileManager.getLineArrayList(FileManagerInterface.SideOfEditor.Right).get(i)));
         }
     }
